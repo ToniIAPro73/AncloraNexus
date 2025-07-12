@@ -177,14 +177,14 @@ export const IconUser: React.FC<IconProps> = ({ className }) => (
 
 export const IconHeaderLogo: React.FC<{ className?: string }> = ({ className }) => (
     <svg width="220" height="36" viewBox="0 0 220 36" className={className} xmlns="http://www.w3.org/2000/svg">
-        <g fontFamily="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" fontSize="24" fontWeight="bold">
-            <text x="0" y="26" fill="#1e293b">Online</text>
+        <g fontFamily="var(--font-heading)" fontSize="24" fontWeight="bold">
+            <text x="0" y="26" fill="var(--color-neutral-900)">Online</text>
             <g transform="translate(88, 4)">
-                <rect x="-4" y="-4" width="56" height="36" fill="#84cc16" rx="6" />
-                <text x="0" y="22" fill="#1e293b">File</text>
-                <path d="M 4 27 Q 24 33 44 27" stroke="#1e293b" strokeWidth="2" fill="none" strokeLinecap="round" />
+                <rect x="-4" y="-4" width="56" height="36" fill="var(--color-success)" rx="6" />
+                <text x="0" y="22" fill="var(--color-neutral-900)">File</text>
+                <path d="M 4 27 Q 24 33 44 27" stroke="var(--color-neutral-900)" strokeWidth="2" fill="none" strokeLinecap="round" />
             </g>
-            <text x="142" y="26" fill="#1e293b">Converter</text>
+            <text x="142" y="26" fill="var(--color-neutral-900)">Converter</text>
         </g>
     </svg>
 );

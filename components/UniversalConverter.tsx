@@ -135,7 +135,7 @@ export function UniversalConverter() {
             <p className="mt-2 text-slate-500">O arrastre y suelte su archivo aquí</p>
             <div className="mt-6">
                 <FileUploader onFileSelect={handleFileSelect} isLoading={false} acceptedFiles="*">
-                    <button className="px-6 py-3 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition-colors">
+                    <button className="px-6 py-3 button-primary font-semibold rounded-lg shadow-md transition-colors">
                         Elige un archivo
                     </button>
                 </FileUploader>
