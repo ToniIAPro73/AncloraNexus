@@ -36,7 +36,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       if (token) {
         try {
           // 2. Llamada a la API para obtener los datos del usuario usando el token
-          const response = await fetch(`${API_BASE_URL}/auth/me`, { // Asumiendo un endpoint '/auth/me'
+          const response = await fetch(`${API_BASE_URL}/me`, {
             headers: {
               'Authorization': `Bearer ${token}`,
             },
@@ -62,7 +62,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // Función para iniciar sesión
   const login = async (data: LoginData) => {
     // 3. Llamada a la API para el login
-    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+    const response = await fetch(`${API_BASE_URL}/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -81,7 +81,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // Función para registrar un nuevo usuario
   const register = async (data: RegisterData) => {
     // 4. Llamada a la API para el registro
-    const response = await fetch(`${API_BASE_URL}/auth/register`, {
+    const response = await fetch(`${API_BASE_URL}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
