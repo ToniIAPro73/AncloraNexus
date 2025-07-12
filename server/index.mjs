@@ -23,31 +23,41 @@ app.use(express.json());
 const upload = multer({ dest: 'tmp/' });
 
 app.post('/api/register', async (req, res) => {
-  const { email, password, name } = req.body;
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: { data: { name } },
-  });
-  if (error || !data.user) {
-    return res.status(400).json({ error: error?.message });
+  try {
+    const { email, password, name } = req.body;
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { name } },
+    });
+    if (error || !data.user) {
+      return res.status(400).json({ error: error?.message });
+    }
+    res.json({
+      user: { id: data.user.id, email: data.user.email, name: data.user.user_metadata?.name },
+      token: data.session?.access_token,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
-  res.json({
-    user: { id: data.user.id, email: data.user.email, name: data.user.user_metadata?.name },
-    token: data.session?.access_token,
-  });
 });
 
 app.post('/api/login', async (req, res) => {
-  const { email, password } = req.body;
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error || !data.session) {
-    return res.status(400).json({ error: error?.message });
+  try {
+    const { email, password } = req.body;
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error || !data.session) {
+      return res.status(400).json({ error: error?.message });
+    }
+    res.json({
+      user: { id: data.user.id, email: data.user.email, name: data.user.user_metadata?.name },
+      token: data.session.access_token,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
-  res.json({
-    user: { id: data.user.id, email: data.user.email, name: data.user.user_metadata?.name },
-    token: data.session.access_token,
-  });
 });
 
 app.get('/api/me', async (req, res) => {
@@ -62,54 +72,59 @@ app.get('/api/me', async (req, res) => {
 });
 
 app.post('/api/convert', upload.single('file'), async (req, res) => {
-  const auth = req.headers.authorization;
-  if (!auth) return res.status(401).json({ error: 'Missing token' });
-  const token = auth.replace('Bearer ', '');
+  try {
+    const auth = req.headers.authorization;
+    if (!auth) return res.status(401).json({ error: 'Missing token' });
+    const token = auth.replace('Bearer ', '');
 
-  const { data: userData, error: userError } = await supabase.auth.getUser(token);
-  if (userError || !userData.user) {
-    return res.status(401).json({ error: 'Invalid token' });
+    const { data: userData, error: userError } = await supabase.auth.getUser(token);
+    if (userError || !userData.user) {
+      return res.status(401).json({ error: 'Invalid token' });
+    }
+
+    if (!req.file || !req.body.format) {
+      return res.status(400).json({ error: 'file and format are required' });
+    }
+
+    const fileBuffer = fs.readFileSync(req.file.path);
+    const originalPath = `${userData.user.id}/${Date.now()}_${req.file.originalname}`;
+    const { error: uploadError } = await supabase.storage
+      .from(SUPABASE_BUCKET)
+      .upload(originalPath, fileBuffer);
+    if (uploadError) return res.status(500).json({ error: uploadError.message });
+
+    const { data: originalUrlData } = supabase.storage
+      .from(SUPABASE_BUCKET)
+      .getPublicUrl(originalPath);
+
+    const convertedName = path.parse(req.file.originalname).name + '.' + req.body.format;
+    const convertedPath = `${userData.user.id}/${Date.now()}_${convertedName}`;
+    const { error: convError } = await supabase.storage
+      .from(SUPABASE_BUCKET)
+      .upload(convertedPath, fileBuffer);
+    if (convError) return res.status(500).json({ error: convError.message });
+
+    const { data: convertedUrlData } = supabase.storage
+      .from(SUPABASE_BUCKET)
+      .getPublicUrl(convertedPath);
+
+    await supabase.from('conversions').insert({
+      user_id: userData.user.id,
+      source_url: originalUrlData.publicUrl,
+      converted_url: convertedUrlData.publicUrl,
+      target_format: req.body.format,
+    });
+
+    fs.unlinkSync(req.file.path);
+
+    res.json({
+      original: originalUrlData.publicUrl,
+      converted: convertedUrlData.publicUrl,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
-
-  if (!req.file || !req.body.format) {
-    return res.status(400).json({ error: 'file and format are required' });
-  }
-
-  const fileBuffer = fs.readFileSync(req.file.path);
-  const originalPath = `${userData.user.id}/${Date.now()}_${req.file.originalname}`;
-  const { error: uploadError } = await supabase.storage
-    .from(SUPABASE_BUCKET)
-    .upload(originalPath, fileBuffer);
-  if (uploadError) return res.status(500).json({ error: uploadError.message });
-
-  const { data: originalUrlData } = supabase.storage
-    .from(SUPABASE_BUCKET)
-    .getPublicUrl(originalPath);
-
-  const convertedName = path.parse(req.file.originalname).name + '.' + req.body.format;
-  const convertedPath = `${userData.user.id}/${Date.now()}_${convertedName}`;
-  const { error: convError } = await supabase.storage
-    .from(SUPABASE_BUCKET)
-    .upload(convertedPath, fileBuffer);
-  if (convError) return res.status(500).json({ error: convError.message });
-
-  const { data: convertedUrlData } = supabase.storage
-    .from(SUPABASE_BUCKET)
-    .getPublicUrl(convertedPath);
-
-  await supabase.from('conversions').insert({
-    user_id: userData.user.id,
-    source_url: originalUrlData.publicUrl,
-    converted_url: convertedUrlData.publicUrl,
-    target_format: req.body.format,
-  });
-
-  fs.unlinkSync(req.file.path);
-
-  res.json({
-    original: originalUrlData.publicUrl,
-    converted: convertedUrlData.publicUrl,
-  });
 });
 
 app.listen(PORT, () => {
