@@ -13,7 +13,8 @@
     "@supabase/supabase-js": "^2.50.3",
     "cors": "^2.8.5",
     "dotenv": "^17.0.1",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "multer": "^2.0.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.6",
