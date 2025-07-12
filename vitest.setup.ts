@@ -79,3 +79,13 @@ URL.revokeObjectURL = vi.fn();
 
 // Mock scrollIntoView as it's not implemented in JSDOM
 window.HTMLElement.prototype.scrollIntoView = vi.fn();
+
+// Prevent tests from navigating the JSDOM window
+const originalLocation = window.location;
+Object.defineProperty(window, 'location', {
+  configurable: true,
+  value: {
+    ...originalLocation,
+    assign: vi.fn(),
+  },
+});
