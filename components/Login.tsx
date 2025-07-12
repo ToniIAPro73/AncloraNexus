@@ -38,7 +38,7 @@ export const Login: React.FC = () => {
           onChange={handleChange}
           required
         />
-        <button type="submit" className="w-full bg-green-600 text-white py-2 rounded">
+        <button type="submit" className="w-full button-primary py-2 rounded">
           Entrar
         </button>
       </form>
