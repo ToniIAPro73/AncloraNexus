@@ -42,9 +42,9 @@ export const Features: React.FC<FeaturesProps> = ({ onStartConverting }) => {
             />
         </div>
         <div className="text-center mt-12">
-            <button 
+            <button
                 onClick={onStartConverting}
-                className="px-8 py-4 bg-green-500 text-white font-bold text-lg rounded-lg shadow-md hover:bg-green-600 transition-transform hover:scale-105"
+                className="px-8 py-4 button-primary font-bold text-lg rounded-lg shadow-md transition-transform hover:scale-105"
             >
                 Comienza a convertir
             </button>
