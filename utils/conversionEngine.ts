@@ -1,24 +1,27 @@
-import { getFileCategory } from './conversionMaps';
+import { getFileCategory } from "./conversionMaps";
 
 export type ConversionMatrix = Record<string, string[]>;
 
 const intraCategoryMatrix: ConversionMatrix = {
-  mp3: ['wav', 'aac'],
-  wav: ['mp3', 'flac'],
-  flac: ['mp3'],
-  mp4: ['webm', 'mov'],
-  mov: ['mp4'],
-  png: ['jpg', 'webp'],
-  jpg: ['png', 'webp'],
-  docx: ['pdf', 'txt'],
-  pdf: ['docx'],
+  mp3: ["wav", "aac"],
+  wav: ["mp3", "flac"],
+  flac: ["mp3"],
+  mp4: ["webm", "mov"],
+  mov: ["mp4"],
+  png: ["jpg", "webp"],
+  jpg: ["png", "webp"],
+  docx: ["pdf", "txt"],
+  // ebook conversions
+  mobi: ["epub", "azw"],
+  epub: ["pdf", "azw", "mobi", "azw3"],
+  pdf: ["epub", "azw", "mobi", "azw3", "doc", "txt", "rtf", "pdb", "docx"],
 };
 
 const interCategoryMatrix: ConversionMatrix = {
-  jpg: ['pdf'],
-  png: ['pdf'],
-  mp3: ['mp4'],
-  docx: ['jpg'],
+  jpg: ["pdf"],
+  png: ["pdf"],
+  mp3: ["mp4"],
+  docx: ["jpg"],
 };
 
 const combinedMatrix: ConversionMatrix = { ...intraCategoryMatrix };
@@ -50,7 +53,10 @@ function bfs(start: string, goal: string): string[] | null {
   return null;
 }
 
-export function findConversionPath(sourceExt: string, targetExt: string): ConversionResult {
+export function findConversionPath(
+  sourceExt: string,
+  targetExt: string,
+): ConversionResult {
   const path = bfs(sourceExt.toLowerCase(), targetExt.toLowerCase());
   return {
     optimal: path !== null && path.length === 2,
