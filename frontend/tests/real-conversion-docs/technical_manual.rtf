@@ -1,0 +1,10 @@
+{\rtf1\ansi\deff0 {\fonttbl {\f0 Times New Roman;}}
+{\colortbl;\red0\green0\blue0;\red255\green0\blue0;}
+\f0\fs24
+{\b\fs28 Manual Técnico - Sistema de Conversión de Archivos}\par
+\par
+# MANUAL TÉCNICO\\par ## Sistema de Conversión de Archivos v2.1\\par \\par ### Introducción\\par \\par Este manual describe la implementación técnica del sistema de conversión de archivos, incluyendo arquitectura, APIs y procedimientos de mantenimiento.\\par \\par ### Arquitectura del Sistema\\par \\par ```\\par ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐\\par │   Frontend      │    │   API Gateway   │    │   Conversion    │\\par │   (React)       │◄──►│   (Node.js)     │◄──►│   Engine        │\\par └─────────────────┘    └─────────────────┘    └─────────────────┘\\par          │                       │                       │\\par          ▼                       ▼                       ▼\\par ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐\\par │   Auth Service  │    │   File Storage  │    │   Queue System  │\\par │   (Supabase)    │    │   (S3/Local)    │    │   (Redis)       │\\par └─────────────────┘    └─────────────────┘    └─────────────────┘\\par ```\\par \\par ### Componentes Principales\\par \\par #### 1. Motor de Conversión\\par \\par **Ubicación**: `/utils/conv\par
+\par
+{\i Documento generado para testing}\par
+{\i Fecha: 13/7/2025}\par
+}

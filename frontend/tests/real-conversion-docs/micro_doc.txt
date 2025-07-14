@@ -1,0 +1,13 @@
+# INFORME TRIMESTRAL DE VENTAS
+## Tercer Trimestre 2025
+
+### Resumen Ejecutivo
+
+Durante el tercer trimestre de 2025, la empresa ha experimentado un crecimiento significativo en todas las líneas de producto. Las ventas totales alcanzaron los €2.4 millones, representando un incremento del 18% respecto al trimestre anterior.
+
+### Métricas Clave
+
+| Producto | Q2 2025 | Q3 2025 | Crecimiento |
+|----------|---------|---------|-------------|
+| Software | €800K   | €950K   | +18.75%     |
+| Servicios| €

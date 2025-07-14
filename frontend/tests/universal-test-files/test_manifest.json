@@ -1,0 +1,253 @@
+{
+  "generated_at": "2025-07-13T23:49:45.480Z",
+  "total_files": 35,
+  "categories": {
+    "text": 11,
+    "image": 8,
+    "document": 5,
+    "audio": 5,
+    "video": 3,
+    "problematic": 2,
+    "binary": 1
+  },
+  "files": [
+    {
+      "filename": "simple.txt",
+      "type": "text",
+      "size": 63
+    },
+    {
+      "filename": "formatted.txt",
+      "type": "text",
+      "size": 536
+    },
+    {
+      "filename": "multilingual.txt",
+      "type": "text",
+      "size": 506
+    },
+    {
+      "filename": "technical.txt",
+      "type": "text",
+      "size": 640
+    },
+    {
+      "filename": "document.md",
+      "type": "text",
+      "size": 536
+    },
+    {
+      "filename": "tiny.txt",
+      "type": "text",
+      "size": 1
+    },
+    {
+      "filename": "small.txt",
+      "type": "text",
+      "size": 630
+    },
+    {
+      "filename": "medium.txt",
+      "type": "text",
+      "size": 26800
+    },
+    {
+      "filename": "large.txt",
+      "type": "text",
+      "size": 101200
+    },
+    {
+      "filename": "empty.txt",
+      "type": "text",
+      "size": 0
+    },
+    {
+      "filename": "test_small.jpg",
+      "type": "image",
+      "format": "jpeg",
+      "width": 300,
+      "height": 200,
+      "size": 1010
+    },
+    {
+      "filename": "test_medium.jpg",
+      "type": "image",
+      "format": "jpeg",
+      "width": 1920,
+      "height": 1080,
+      "size": 20746
+    },
+    {
+      "filename": "test_large.jpg",
+      "type": "image",
+      "format": "jpeg",
+      "width": 4000,
+      "height": 3000,
+      "size": 120010
+    },
+    {
+      "filename": "test_small.png",
+      "type": "image",
+      "format": "png",
+      "width": 300,
+      "height": 200,
+      "size": 1008
+    },
+    {
+      "filename": "test_medium.png",
+      "type": "image",
+      "format": "png",
+      "width": 1920,
+      "height": 1080,
+      "size": 20744
+    },
+    {
+      "filename": "test_small.gif",
+      "type": "image",
+      "format": "gif",
+      "width": 300,
+      "height": 200,
+      "size": 1006
+    },
+    {
+      "filename": "test_small.webp",
+      "type": "image",
+      "format": "webp",
+      "width": 300,
+      "height": 200,
+      "size": 1004
+    },
+    {
+      "filename": "pixel.png",
+      "type": "image",
+      "format": "png",
+      "width": 1,
+      "height": 1,
+      "size": 1008
+    },
+    {
+      "filename": "simple.pdf",
+      "type": "document",
+      "format": "pdf",
+      "size": 513
+    },
+    {
+      "filename": "formatted.pdf",
+      "type": "document",
+      "format": "pdf",
+      "size": 551
+    },
+    {
+      "filename": "multilingual.pdf",
+      "type": "document",
+      "format": "pdf",
+      "size": 559
+    },
+    {
+      "filename": "document.html",
+      "type": "document",
+      "format": "html",
+      "size": 853
+    },
+    {
+      "filename": "data.csv",
+      "type": "document",
+      "format": "csv",
+      "size": 236
+    },
+    {
+      "filename": "test_short.wav",
+      "type": "audio",
+      "format": "wav",
+      "duration": 10,
+      "size": 160004
+    },
+    {
+      "filename": "test_medium.wav",
+      "type": "audio",
+      "format": "wav",
+      "duration": 180,
+      "size": 2880004
+    },
+    {
+      "filename": "test_short.mp3",
+      "type": "audio",
+      "format": "mp3",
+      "duration": 10,
+      "size": 160004
+    },
+    {
+      "filename": "test_medium.mp3",
+      "type": "audio",
+      "format": "mp3",
+      "duration": 180,
+      "size": 2880004
+    },
+    {
+      "filename": "test_hq.flac",
+      "type": "audio",
+      "format": "flac",
+      "duration": 60,
+      "size": 960004
+    },
+    {
+      "filename": "test_clip.mp4",
+      "type": "video",
+      "format": "mp4",
+      "duration": 10,
+      "resolution": "720p",
+      "size": 1000032
+    },
+    {
+      "filename": "test_short.mp4",
+      "type": "video",
+      "format": "mp4",
+      "duration": 60,
+      "resolution": "1080p",
+      "size": 6000032
+    },
+    {
+      "filename": "test_clip.avi",
+      "type": "video",
+      "format": "avi",
+      "duration": 10,
+      "resolution": "720p",
+      "size": 1000012
+    },
+    {
+      "filename": "corrupted.jpg",
+      "type": "problematic",
+      "issue": "corrupted",
+      "size": 504
+    },
+    {
+      "filename": "fake_image.jpg",
+      "type": "problematic",
+      "issue": "mislabeled",
+      "actualType": "text",
+      "size": 53
+    },
+    {
+      "filename": "archivo con espacios & símbolos (test).txt",
+      "type": "text",
+      "size": 19
+    },
+    {
+      "filename": "random.bin",
+      "type": "binary",
+      "size": 1024
+    }
+  ],
+  "test_scenarios": [
+    "Conversiones básicas de texto (TXT ↔ PDF ↔ HTML)",
+    "Conversiones de imagen (JPG ↔ PNG ↔ WebP)",
+    "Conversiones de documento (PDF ↔ TXT ↔ HTML)",
+    "Conversiones de audio (WAV ↔ MP3 ↔ FLAC)",
+    "Conversiones de video (MP4 ↔ AVI)",
+    "Manejo de archivos corruptos",
+    "Manejo de archivos con extensión incorrecta",
+    "Archivos de diferentes tamaños",
+    "Contenido multiidioma",
+    "Caracteres especiales"
+  ]
+}

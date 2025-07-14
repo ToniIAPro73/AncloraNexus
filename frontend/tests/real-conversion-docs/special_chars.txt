@@ -1,0 +1,25 @@
+# Documento con Caracteres Especiales
+
+## Caracteres Latinos
+áéíóú ñ ç ü ß àèìòù âêîôû ãõ
+
+## Símbolos Matemáticos
+∑ ∏ ∫ ∂ ∞ ± × ÷ ≤ ≥ ≠ ≈ √ ∝
+
+## Símbolos Monetarios
+€ $ £ ¥ ₹ ₽ ₩ ₪ ₫ ₡
+
+## Caracteres Griegos
+α β γ δ ε ζ η θ ι κ λ μ ν ξ ο π ρ σ τ υ φ χ ψ ω
+
+## Emojis y Símbolos
+© ® ™ § ¶ † ‡ • … ‰ ′ ″ ‹ › « » " " ' '
+
+## Texto en Diferentes Idiomas
+English: The quick brown fox jumps over the lazy dog.
+Español: El veloz murciélago hindú comía feliz cardillo y kiwi.
+Français: Portez ce vieux whisky au juge blond qui fume.
+Deutsch: Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich.
+Русский: В чащах юга жил бы цитрус? Да, но фальшивый экземпляр!
+中文: 快速的棕色狐狸跳过懒惰的狗。
+العربية: نص حكيم له سر قاطع وذو شأن عظيم مكتوب على ثوب أخضر ومغلف بجلد أزرق.
