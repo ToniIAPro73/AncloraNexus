@@ -1,0 +1,368 @@
+{
+  "generated_at": "2025-07-13T23:56:44.429Z",
+  "total_documents": 32,
+  "categories": {
+    "text": 10,
+    "document": 22
+  },
+  "formats": {
+    "txt": 10,
+    "md": 7,
+    "html": 7,
+    "pdf": 4,
+    "rtf": 4,
+    "docx": 0
+  },
+  "size_distribution": {
+    "micro": 1,
+    "small": 27,
+    "medium": 2,
+    "large": 2,
+    "huge": 0
+  },
+  "special_features": {
+    "special_characters": 2,
+    "tables": 7,
+    "code": 6,
+    "route_specific": 0
+  },
+  "documents": [
+    {
+      "filename": "business_report.txt",
+      "type": "text",
+      "format": "txt",
+      "size": 1679,
+      "encoding": "utf-8"
+    },
+    {
+      "filename": "business_report.md",
+      "type": "document",
+      "format": "md",
+      "size": 1679,
+      "features": [
+        "markdown_syntax",
+        "tables",
+        "code_blocks"
+      ]
+    },
+    {
+      "filename": "business_report.html",
+      "type": "document",
+      "format": "html",
+      "size": 3237,
+      "features": [
+        "html5",
+        "css",
+        "metadata",
+        "responsive"
+      ]
+    },
+    {
+      "filename": "business_report.pdf",
+      "type": "document",
+      "format": "pdf",
+      "size": 1832,
+      "features": [
+        "pdf_1.4",
+        "metadata",
+        "fonts",
+        "text_content"
+      ]
+    },
+    {
+      "filename": "business_report.rtf",
+      "type": "document",
+      "format": "rtf",
+      "size": 1480,
+      "features": [
+        "rtf_1.0",
+        "fonts",
+        "formatting",
+        "colors"
+      ]
+    },
+    {
+      "filename": "technical_manual.txt",
+      "type": "text",
+      "format": "txt",
+      "size": 5546,
+      "encoding": "utf-8"
+    },
+    {
+      "filename": "technical_manual.md",
+      "type": "document",
+      "format": "md",
+      "size": 5546,
+      "features": [
+        "markdown_syntax",
+        "tables",
+        "code_blocks"
+      ]
+    },
+    {
+      "filename": "technical_manual.html",
+      "type": "document",
+      "format": "html",
+      "size": 7718,
+      "features": [
+        "html5",
+        "css",
+        "metadata",
+        "responsive"
+      ]
+    },
+    {
+      "filename": "technical_manual.pdf",
+      "type": "document",
+      "format": "pdf",
+      "size": 2100,
+      "features": [
+        "pdf_1.4",
+        "metadata",
+        "fonts",
+        "text_content"
+      ]
+    },
+    {
+      "filename": "technical_manual.rtf",
+      "type": "document",
+      "format": "rtf",
+      "size": 1934,
+      "features": [
+        "rtf_1.0",
+        "fonts",
+        "formatting",
+        "colors"
+      ]
+    },
+    {
+      "filename": "academic_paper.txt",
+      "type": "text",
+      "format": "txt",
+      "size": 6650,
+      "encoding": "utf-8"
+    },
+    {
+      "filename": "academic_paper.md",
+      "type": "document",
+      "format": "md",
+      "size": 6650,
+      "features": [
+        "markdown_syntax",
+        "tables",
+        "code_blocks"
+      ]
+    },
+    {
+      "filename": "academic_paper.html",
+      "type": "document",
+      "format": "html",
+      "size": 8810,
+      "features": [
+        "html5",
+        "css",
+        "metadata",
+        "responsive"
+      ]
+    },
+    {
+      "filename": "academic_paper.pdf",
+      "type": "document",
+      "format": "pdf",
+      "size": 1849,
+      "features": [
+        "pdf_1.4",
+        "metadata",
+        "fonts",
+        "text_content"
+      ]
+    },
+    {
+      "filename": "academic_paper.rtf",
+      "type": "document",
+      "format": "rtf",
+      "size": 1375,
+      "features": [
+        "rtf_1.0",
+        "fonts",
+        "formatting",
+        "colors"
+      ]
+    },
+    {
+      "filename": "legal_contract.txt",
+      "type": "text",
+      "format": "txt",
+      "size": 5964,
+      "encoding": "utf-8"
+    },
+    {
+      "filename": "legal_contract.md",
+      "type": "document",
+      "format": "md",
+      "size": 5964,
+      "features": [
+        "markdown_syntax",
+        "tables",
+        "code_blocks"
+      ]
+    },
+    {
+      "filename": "legal_contract.html",
+      "type": "document",
+      "format": "html",
+      "size": 8106,
+      "features": [
+        "html5",
+        "css",
+        "metadata",
+        "responsive"
+      ]
+    },
+    {
+      "filename": "legal_contract.pdf",
+      "type": "document",
+      "format": "pdf",
+      "size": 1918,
+      "features": [
+        "pdf_1.4",
+        "metadata",
+        "fonts",
+        "text_content"
+      ]
+    },
+    {
+      "filename": "legal_contract.rtf",
+      "type": "document",
+      "format": "rtf",
+      "size": 1399,
+      "features": [
+        "rtf_1.0",
+        "fonts",
+        "formatting",
+        "colors"
+      ]
+    },
+    {
+      "filename": "micro_doc.txt",
+      "type": "text",
+      "format": "txt",
+      "size": 510,
+      "encoding": "utf-8"
+    },
+    {
+      "filename": "small_doc.txt",
+      "type": "text",
+      "format": "txt",
+      "size": 3358,
+      "encoding": "utf-8"
+    },
+    {
+      "filename": "medium_doc.txt",
+      "type": "text",
+      "format": "txt",
+      "size": 16790,
+      "encoding": "utf-8"
+    },
+    {
+      "filename": "large_doc.txt",
+      "type": "text",
+      "format": "txt",
+      "size": 83950,
+      "encoding": "utf-8"
+    },
+    {
+      "filename": "huge_doc.txt",
+      "type": "text",
+      "format": "txt",
+      "size": 335800,
+      "encoding": "utf-8"
+    },
+    {
+      "filename": "huge_doc.html",
+      "type": "document",
+      "format": "html",
+      "size": 387092,
+      "features": [
+        "html5",
+        "css",
+        "metadata",
+        "responsive"
+      ]
+    },
+    {
+      "filename": "special_chars.txt",
+      "type": "text",
+      "format": "txt",
+      "size": 1026,
+      "encoding": "utf-8"
+    },
+    {
+      "filename": "special_chars.html",
+      "type": "document",
+      "format": "html",
+      "size": 2394,
+      "features": [
+        "html5",
+        "css",
+        "metadata",
+        "responsive"
+      ]
+    },
+    {
+      "filename": "complex_tables.md",
+      "type": "document",
+      "format": "md",
+      "size": 1516,
+      "features": [
+        "markdown_syntax",
+        "tables",
+        "code_blocks"
+      ]
+    },
+    {
+      "filename": "complex_tables.html",
+      "type": "document",
+      "format": "html",
+      "size": 2991,
+      "features": [
+        "html5",
+        "css",
+        "metadata",
+        "responsive"
+      ]
+    },
+    {
+      "filename": "code_examples.md",
+      "type": "document",
+      "format": "md",
+      "size": 1501,
+      "features": [
+        "markdown_syntax",
+        "tables",
+        "code_blocks"
+      ]
+    },
+    {
+      "filename": "complex_lists.md",
+      "type": "document",
+      "format": "md",
+      "size": 1241,
+      "features": [
+        "markdown_syntax",
+        "tables",
+        "code_blocks"
+      ]
+    }
+  ],
+  "test_scenarios": [
+    "Conversiones directas entre formatos de documento",
+    "Rutas optimizadas multi-paso",
+    "Preservación de caracteres especiales",
+    "Mantenimiento de estructura y formato",
+    "Conversión de tablas complejas",
+    "Procesamiento de código embebido",
+    "Documentos de diferentes tamaños",
+    "Metadatos y propiedades de documento"
+  ]
+}

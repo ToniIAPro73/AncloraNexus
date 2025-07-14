@@ -1,0 +1,3669 @@
+{
+  "direct_conversions": [
+    {
+      "name": "7z_to_tar_direct",
+      "source": "7z",
+      "target": "tar",
+      "expected_steps": 1,
+      "category": "intra_archive",
+      "priority": "high"
+    },
+    {
+      "name": "7z_to_zip_direct",
+      "source": "7z",
+      "target": "zip",
+      "expected_steps": 1,
+      "category": "intra_archive",
+      "priority": "high"
+    },
+    {
+      "name": "aac_to_mp3_direct",
+      "source": "aac",
+      "target": "mp3",
+      "expected_steps": 1,
+      "category": "intra_audio",
+      "priority": "high"
+    },
+    {
+      "name": "aac_to_wav_direct",
+      "source": "aac",
+      "target": "wav",
+      "expected_steps": 1,
+      "category": "intra_audio",
+      "priority": "high"
+    },
+    {
+      "name": "avi_to_mp3_direct",
+      "source": "avi",
+      "target": "mp3",
+      "expected_steps": 1,
+      "category": "inter_video_to_audio",
+      "priority": "high"
+    },
+    {
+      "name": "avi_to_mp4_direct",
+      "source": "avi",
+      "target": "mp4",
+      "expected_steps": 1,
+      "category": "intra_video",
+      "priority": "high"
+    },
+    {
+      "name": "avi_to_wav_direct",
+      "source": "avi",
+      "target": "wav",
+      "expected_steps": 1,
+      "category": "inter_video_to_audio",
+      "priority": "high"
+    },
+    {
+      "name": "avi_to_webm_direct",
+      "source": "avi",
+      "target": "webm",
+      "expected_steps": 1,
+      "category": "intra_video",
+      "priority": "high"
+    },
+    {
+      "name": "azw_to_epub_direct",
+      "source": "azw",
+      "target": "epub",
+      "expected_steps": 1,
+      "category": "intra_ebook",
+      "priority": "high"
+    },
+    {
+      "name": "azw_to_mobi_direct",
+      "source": "azw",
+      "target": "mobi",
+      "expected_steps": 1,
+      "category": "intra_ebook",
+      "priority": "high"
+    },
+    {
+      "name": "azw_to_pdf_direct",
+      "source": "azw",
+      "target": "pdf",
+      "expected_steps": 1,
+      "category": "intra_ebook",
+      "priority": "high"
+    },
+    {
+      "name": "azw3_to_epub_direct",
+      "source": "azw3",
+      "target": "epub",
+      "expected_steps": 1,
+      "category": "intra_ebook",
+      "priority": "high"
+    },
+    {
+      "name": "azw3_to_mobi_direct",
+      "source": "azw3",
+      "target": "mobi",
+      "expected_steps": 1,
+      "category": "intra_ebook",
+      "priority": "high"
+    },
+    {
+      "name": "azw3_to_pdf_direct",
+      "source": "azw3",
+      "target": "pdf",
+      "expected_steps": 1,
+      "category": "intra_ebook",
+      "priority": "high"
+    },
+    {
+      "name": "bmp_to_jpg_direct",
+      "source": "bmp",
+      "target": "jpg",
+      "expected_steps": 1,
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "bmp_to_png_direct",
+      "source": "bmp",
+      "target": "png",
+      "expected_steps": 1,
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "docx_to_html_direct",
+      "source": "docx",
+      "target": "html",
+      "expected_steps": 1,
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "docx_to_jpg_direct",
+      "source": "docx",
+      "target": "jpg",
+      "expected_steps": 1,
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "docx_to_pdf_direct",
+      "source": "docx",
+      "target": "pdf",
+      "expected_steps": 1,
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "docx_to_png_direct",
+      "source": "docx",
+      "target": "png",
+      "expected_steps": 1,
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "docx_to_rtf_direct",
+      "source": "docx",
+      "target": "rtf",
+      "expected_steps": 1,
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "docx_to_txt_direct",
+      "source": "docx",
+      "target": "txt",
+      "expected_steps": 1,
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "epub_to_azw3_direct",
+      "source": "epub",
+      "target": "azw3",
+      "expected_steps": 1,
+      "category": "intra_ebook",
+      "priority": "high"
+    },
+    {
+      "name": "epub_to_mobi_direct",
+      "source": "epub",
+      "target": "mobi",
+      "expected_steps": 1,
+      "category": "intra_ebook",
+      "priority": "high"
+    },
+    {
+      "name": "epub_to_pdf_direct",
+      "source": "epub",
+      "target": "pdf",
+      "expected_steps": 1,
+      "category": "intra_ebook",
+      "priority": "high"
+    },
+    {
+      "name": "flac_to_mp3_direct",
+      "source": "flac",
+      "target": "mp3",
+      "expected_steps": 1,
+      "category": "intra_audio",
+      "priority": "high"
+    },
+    {
+      "name": "gif_to_jpg_direct",
+      "source": "gif",
+      "target": "jpg",
+      "expected_steps": 1,
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "gif_to_pdf_direct",
+      "source": "gif",
+      "target": "pdf",
+      "expected_steps": 1,
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "gif_to_png_direct",
+      "source": "gif",
+      "target": "png",
+      "expected_steps": 1,
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "gif_to_webp_direct",
+      "source": "gif",
+      "target": "webp",
+      "expected_steps": 1,
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "html_to_docx_direct",
+      "source": "html",
+      "target": "docx",
+      "expected_steps": 1,
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "html_to_pdf_direct",
+      "source": "html",
+      "target": "pdf",
+      "expected_steps": 1,
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "html_to_txt_direct",
+      "source": "html",
+      "target": "txt",
+      "expected_steps": 1,
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "jpeg_to_gif_direct",
+      "source": "jpeg",
+      "target": "gif",
+      "expected_steps": 1,
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "jpeg_to_png_direct",
+      "source": "jpeg",
+      "target": "png",
+      "expected_steps": 1,
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "jpeg_to_webp_direct",
+      "source": "jpeg",
+      "target": "webp",
+      "expected_steps": 1,
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "jpg_to_gif_direct",
+      "source": "jpg",
+      "target": "gif",
+      "expected_steps": 1,
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "jpg_to_pdf_direct",
+      "source": "jpg",
+      "target": "pdf",
+      "expected_steps": 1,
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "jpg_to_png_direct",
+      "source": "jpg",
+      "target": "png",
+      "expected_steps": 1,
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "jpg_to_webp_direct",
+      "source": "jpg",
+      "target": "webp",
+      "expected_steps": 1,
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "md_to_html_direct",
+      "source": "md",
+      "target": "html",
+      "expected_steps": 1,
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "md_to_pdf_direct",
+      "source": "md",
+      "target": "pdf",
+      "expected_steps": 1,
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "md_to_txt_direct",
+      "source": "md",
+      "target": "txt",
+      "expected_steps": 1,
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "mobi_to_epub_direct",
+      "source": "mobi",
+      "target": "epub",
+      "expected_steps": 1,
+      "category": "intra_ebook",
+      "priority": "high"
+    },
+    {
+      "name": "mobi_to_pdf_direct",
+      "source": "mobi",
+      "target": "pdf",
+      "expected_steps": 1,
+      "category": "intra_ebook",
+      "priority": "high"
+    },
+    {
+      "name": "mov_to_mp3_direct",
+      "source": "mov",
+      "target": "mp3",
+      "expected_steps": 1,
+      "category": "inter_video_to_audio",
+      "priority": "high"
+    },
+    {
+      "name": "mov_to_mp4_direct",
+      "source": "mov",
+      "target": "mp4",
+      "expected_steps": 1,
+      "category": "intra_video",
+      "priority": "high"
+    },
+    {
+      "name": "mov_to_wav_direct",
+      "source": "mov",
+      "target": "wav",
+      "expected_steps": 1,
+      "category": "inter_video_to_audio",
+      "priority": "high"
+    },
+    {
+      "name": "mov_to_webm_direct",
+      "source": "mov",
+      "target": "webm",
+      "expected_steps": 1,
+      "category": "intra_video",
+      "priority": "high"
+    },
+    {
+      "name": "mp3_to_aac_direct",
+      "source": "mp3",
+      "target": "aac",
+      "expected_steps": 1,
+      "category": "intra_audio",
+      "priority": "high"
+    },
+    {
+      "name": "mp3_to_mp4_direct",
+      "source": "mp3",
+      "target": "mp4",
+      "expected_steps": 1,
+      "category": "inter_audio_to_video",
+      "priority": "high"
+    },
+    {
+      "name": "mp3_to_wav_direct",
+      "source": "mp3",
+      "target": "wav",
+      "expected_steps": 1,
+      "category": "intra_audio",
+      "priority": "high"
+    },
+    {
+      "name": "mp4_to_avi_direct",
+      "source": "mp4",
+      "target": "avi",
+      "expected_steps": 1,
+      "category": "intra_video",
+      "priority": "high"
+    },
+    {
+      "name": "mp4_to_mov_direct",
+      "source": "mp4",
+      "target": "mov",
+      "expected_steps": 1,
+      "category": "intra_video",
+      "priority": "high"
+    },
+    {
+      "name": "mp4_to_mp3_direct",
+      "source": "mp4",
+      "target": "mp3",
+      "expected_steps": 1,
+      "category": "inter_video_to_audio",
+      "priority": "high"
+    },
+    {
+      "name": "mp4_to_wav_direct",
+      "source": "mp4",
+      "target": "wav",
+      "expected_steps": 1,
+      "category": "inter_video_to_audio",
+      "priority": "high"
+    },
+    {
+      "name": "mp4_to_webm_direct",
+      "source": "mp4",
+      "target": "webm",
+      "expected_steps": 1,
+      "category": "intra_video",
+      "priority": "high"
+    },
+    {
+      "name": "otf_to_ttf_direct",
+      "source": "otf",
+      "target": "ttf",
+      "expected_steps": 1,
+      "category": "intra_font",
+      "priority": "high"
+    },
+    {
+      "name": "otf_to_woff_direct",
+      "source": "otf",
+      "target": "woff",
+      "expected_steps": 1,
+      "category": "intra_font",
+      "priority": "high"
+    },
+    {
+      "name": "pdf_to_docx_direct",
+      "source": "pdf",
+      "target": "docx",
+      "expected_steps": 1,
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "pdf_to_html_direct",
+      "source": "pdf",
+      "target": "html",
+      "expected_steps": 1,
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "pdf_to_jpg_direct",
+      "source": "pdf",
+      "target": "jpg",
+      "expected_steps": 1,
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "pdf_to_png_direct",
+      "source": "pdf",
+      "target": "png",
+      "expected_steps": 1,
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "pdf_to_txt_direct",
+      "source": "pdf",
+      "target": "txt",
+      "expected_steps": 1,
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "png_to_gif_direct",
+      "source": "png",
+      "target": "gif",
+      "expected_steps": 1,
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "png_to_jpg_direct",
+      "source": "png",
+      "target": "jpg",
+      "expected_steps": 1,
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "png_to_pdf_direct",
+      "source": "png",
+      "target": "pdf",
+      "expected_steps": 1,
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "png_to_tiff_direct",
+      "source": "png",
+      "target": "tiff",
+      "expected_steps": 1,
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "png_to_webp_direct",
+      "source": "png",
+      "target": "webp",
+      "expected_steps": 1,
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "ppt_to_pdf_direct",
+      "source": "ppt",
+      "target": "pdf",
+      "expected_steps": 1,
+      "category": "inter_presentation_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "ppt_to_pptx_direct",
+      "source": "ppt",
+      "target": "pptx",
+      "expected_steps": 1,
+      "category": "intra_presentation",
+      "priority": "high"
+    },
+    {
+      "name": "pptx_to_pdf_direct",
+      "source": "pptx",
+      "target": "pdf",
+      "expected_steps": 1,
+      "category": "inter_presentation_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "pptx_to_ppt_direct",
+      "source": "pptx",
+      "target": "ppt",
+      "expected_steps": 1,
+      "category": "intra_presentation",
+      "priority": "high"
+    },
+    {
+      "name": "rar_to_7z_direct",
+      "source": "rar",
+      "target": "7z",
+      "expected_steps": 1,
+      "category": "intra_archive",
+      "priority": "high"
+    },
+    {
+      "name": "rar_to_zip_direct",
+      "source": "rar",
+      "target": "zip",
+      "expected_steps": 1,
+      "category": "intra_archive",
+      "priority": "high"
+    },
+    {
+      "name": "rtf_to_docx_direct",
+      "source": "rtf",
+      "target": "docx",
+      "expected_steps": 1,
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "rtf_to_pdf_direct",
+      "source": "rtf",
+      "target": "pdf",
+      "expected_steps": 1,
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "rtf_to_txt_direct",
+      "source": "rtf",
+      "target": "txt",
+      "expected_steps": 1,
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "tar_to_7z_direct",
+      "source": "tar",
+      "target": "7z",
+      "expected_steps": 1,
+      "category": "intra_archive",
+      "priority": "high"
+    },
+    {
+      "name": "tar_to_zip_direct",
+      "source": "tar",
+      "target": "zip",
+      "expected_steps": 1,
+      "category": "intra_archive",
+      "priority": "high"
+    },
+    {
+      "name": "tiff_to_jpg_direct",
+      "source": "tiff",
+      "target": "jpg",
+      "expected_steps": 1,
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "tiff_to_png_direct",
+      "source": "tiff",
+      "target": "png",
+      "expected_steps": 1,
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "ttf_to_otf_direct",
+      "source": "ttf",
+      "target": "otf",
+      "expected_steps": 1,
+      "category": "intra_font",
+      "priority": "high"
+    },
+    {
+      "name": "ttf_to_woff_direct",
+      "source": "ttf",
+      "target": "woff",
+      "expected_steps": 1,
+      "category": "intra_font",
+      "priority": "high"
+    },
+    {
+      "name": "txt_to_docx_direct",
+      "source": "txt",
+      "target": "docx",
+      "expected_steps": 1,
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "txt_to_html_direct",
+      "source": "txt",
+      "target": "html",
+      "expected_steps": 1,
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "txt_to_md_direct",
+      "source": "txt",
+      "target": "md",
+      "expected_steps": 1,
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "txt_to_pdf_direct",
+      "source": "txt",
+      "target": "pdf",
+      "expected_steps": 1,
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "wav_to_flac_direct",
+      "source": "wav",
+      "target": "flac",
+      "expected_steps": 1,
+      "category": "intra_audio",
+      "priority": "high"
+    },
+    {
+      "name": "wav_to_mp3_direct",
+      "source": "wav",
+      "target": "mp3",
+      "expected_steps": 1,
+      "category": "intra_audio",
+      "priority": "high"
+    },
+    {
+      "name": "wav_to_mp4_direct",
+      "source": "wav",
+      "target": "mp4",
+      "expected_steps": 1,
+      "category": "inter_audio_to_video",
+      "priority": "high"
+    },
+    {
+      "name": "webm_to_mov_direct",
+      "source": "webm",
+      "target": "mov",
+      "expected_steps": 1,
+      "category": "intra_video",
+      "priority": "high"
+    },
+    {
+      "name": "webm_to_mp4_direct",
+      "source": "webm",
+      "target": "mp4",
+      "expected_steps": 1,
+      "category": "intra_video",
+      "priority": "high"
+    },
+    {
+      "name": "webp_to_gif_direct",
+      "source": "webp",
+      "target": "gif",
+      "expected_steps": 1,
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "webp_to_jpg_direct",
+      "source": "webp",
+      "target": "jpg",
+      "expected_steps": 1,
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "webp_to_png_direct",
+      "source": "webp",
+      "target": "png",
+      "expected_steps": 1,
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "woff_to_otf_direct",
+      "source": "woff",
+      "target": "otf",
+      "expected_steps": 1,
+      "category": "intra_font",
+      "priority": "high"
+    },
+    {
+      "name": "woff_to_ttf_direct",
+      "source": "woff",
+      "target": "ttf",
+      "expected_steps": 1,
+      "category": "intra_font",
+      "priority": "high"
+    },
+    {
+      "name": "zip_to_7z_direct",
+      "source": "zip",
+      "target": "7z",
+      "expected_steps": 1,
+      "category": "intra_archive",
+      "priority": "high"
+    },
+    {
+      "name": "zip_to_rar_direct",
+      "source": "zip",
+      "target": "rar",
+      "expected_steps": 1,
+      "category": "intra_archive",
+      "priority": "high"
+    },
+    {
+      "name": "zip_to_tar_direct",
+      "source": "zip",
+      "target": "tar",
+      "expected_steps": 1,
+      "category": "intra_archive",
+      "priority": "high"
+    }
+  ],
+  "optimized_routes": [
+    {
+      "name": "7z_to_rar_optimized",
+      "source": "7z",
+      "target": "rar",
+      "expected_steps": 2,
+      "route": [
+        "7z",
+        "zip",
+        "rar"
+      ],
+      "route_description": "Via intermediate: 7z → zip → rar",
+      "category": "intra_archive",
+      "priority": "high"
+    },
+    {
+      "name": "aac_to_avi_optimized",
+      "source": "aac",
+      "target": "avi",
+      "expected_steps": 3,
+      "route": [
+        "aac",
+        "mp3",
+        "mp4",
+        "avi"
+      ],
+      "route_description": "Multi-step: aac → mp3 → mp4 → avi",
+      "category": "inter_audio_to_video",
+      "priority": "high"
+    },
+    {
+      "name": "aac_to_flac_optimized",
+      "source": "aac",
+      "target": "flac",
+      "expected_steps": 2,
+      "route": [
+        "aac",
+        "wav",
+        "flac"
+      ],
+      "route_description": "Via intermediate: aac → wav → flac",
+      "category": "intra_audio",
+      "priority": "high"
+    },
+    {
+      "name": "aac_to_mov_optimized",
+      "source": "aac",
+      "target": "mov",
+      "expected_steps": 3,
+      "route": [
+        "aac",
+        "mp3",
+        "mp4",
+        "mov"
+      ],
+      "route_description": "Multi-step: aac → mp3 → mp4 → mov",
+      "category": "inter_audio_to_video",
+      "priority": "high"
+    },
+    {
+      "name": "aac_to_mp4_optimized",
+      "source": "aac",
+      "target": "mp4",
+      "expected_steps": 2,
+      "route": [
+        "aac",
+        "mp3",
+        "mp4"
+      ],
+      "route_description": "Via intermediate: aac → mp3 → mp4",
+      "category": "inter_audio_to_video",
+      "priority": "high"
+    },
+    {
+      "name": "aac_to_webm_optimized",
+      "source": "aac",
+      "target": "webm",
+      "expected_steps": 3,
+      "route": [
+        "aac",
+        "mp3",
+        "mp4",
+        "webm"
+      ],
+      "route_description": "Multi-step: aac → mp3 → mp4 → webm",
+      "category": "inter_audio_to_video",
+      "priority": "high"
+    },
+    {
+      "name": "avi_to_aac_optimized",
+      "source": "avi",
+      "target": "aac",
+      "expected_steps": 2,
+      "route": [
+        "avi",
+        "mp3",
+        "aac"
+      ],
+      "route_description": "Via intermediate: avi → mp3 → aac",
+      "category": "inter_video_to_audio",
+      "priority": "high"
+    },
+    {
+      "name": "avi_to_flac_optimized",
+      "source": "avi",
+      "target": "flac",
+      "expected_steps": 2,
+      "route": [
+        "avi",
+        "wav",
+        "flac"
+      ],
+      "route_description": "Via intermediate: avi → wav → flac",
+      "category": "inter_video_to_audio",
+      "priority": "high"
+    },
+    {
+      "name": "avi_to_mov_optimized",
+      "source": "avi",
+      "target": "mov",
+      "expected_steps": 2,
+      "route": [
+        "avi",
+        "mp4",
+        "mov"
+      ],
+      "route_description": "Via intermediate: avi → mp4 → mov",
+      "category": "intra_video",
+      "priority": "high"
+    },
+    {
+      "name": "azw_to_azw3_optimized",
+      "source": "azw",
+      "target": "azw3",
+      "expected_steps": 2,
+      "route": [
+        "azw",
+        "epub",
+        "azw3"
+      ],
+      "route_description": "Via intermediate: azw → epub → azw3",
+      "category": "intra_ebook",
+      "priority": "high"
+    },
+    {
+      "name": "azw_to_docx_optimized",
+      "source": "azw",
+      "target": "docx",
+      "expected_steps": 2,
+      "route": [
+        "azw",
+        "pdf",
+        "docx"
+      ],
+      "route_description": "Via intermediate: azw → pdf → docx",
+      "category": "inter_ebook_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "azw_to_gif_optimized",
+      "source": "azw",
+      "target": "gif",
+      "expected_steps": 3,
+      "route": [
+        "azw",
+        "pdf",
+        "jpg",
+        "gif"
+      ],
+      "route_description": "Multi-step: azw → pdf → jpg → gif",
+      "category": "inter_ebook_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "azw_to_html_optimized",
+      "source": "azw",
+      "target": "html",
+      "expected_steps": 2,
+      "route": [
+        "azw",
+        "pdf",
+        "html"
+      ],
+      "route_description": "Via intermediate: azw → pdf → html",
+      "category": "inter_ebook_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "azw_to_jpg_optimized",
+      "source": "azw",
+      "target": "jpg",
+      "expected_steps": 2,
+      "route": [
+        "azw",
+        "pdf",
+        "jpg"
+      ],
+      "route_description": "Via intermediate: azw → pdf → jpg",
+      "category": "inter_ebook_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "azw_to_md_optimized",
+      "source": "azw",
+      "target": "md",
+      "expected_steps": 3,
+      "route": [
+        "azw",
+        "pdf",
+        "txt",
+        "md"
+      ],
+      "route_description": "Multi-step: azw → pdf → txt → md",
+      "category": "inter_ebook_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "azw_to_png_optimized",
+      "source": "azw",
+      "target": "png",
+      "expected_steps": 2,
+      "route": [
+        "azw",
+        "pdf",
+        "png"
+      ],
+      "route_description": "Via intermediate: azw → pdf → png",
+      "category": "inter_ebook_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "azw_to_rtf_optimized",
+      "source": "azw",
+      "target": "rtf",
+      "expected_steps": 3,
+      "route": [
+        "azw",
+        "pdf",
+        "docx",
+        "rtf"
+      ],
+      "route_description": "Multi-step: azw → pdf → docx → rtf",
+      "category": "inter_ebook_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "azw_to_tiff_optimized",
+      "source": "azw",
+      "target": "tiff",
+      "expected_steps": 3,
+      "route": [
+        "azw",
+        "pdf",
+        "png",
+        "tiff"
+      ],
+      "route_description": "Multi-step: azw → pdf → png → tiff",
+      "category": "inter_ebook_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "azw_to_txt_optimized",
+      "source": "azw",
+      "target": "txt",
+      "expected_steps": 2,
+      "route": [
+        "azw",
+        "pdf",
+        "txt"
+      ],
+      "route_description": "Via intermediate: azw → pdf → txt",
+      "category": "inter_ebook_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "azw_to_webp_optimized",
+      "source": "azw",
+      "target": "webp",
+      "expected_steps": 3,
+      "route": [
+        "azw",
+        "pdf",
+        "jpg",
+        "webp"
+      ],
+      "route_description": "Multi-step: azw → pdf → jpg → webp",
+      "category": "inter_ebook_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "azw3_to_docx_optimized",
+      "source": "azw3",
+      "target": "docx",
+      "expected_steps": 2,
+      "route": [
+        "azw3",
+        "pdf",
+        "docx"
+      ],
+      "route_description": "Via intermediate: azw3 → pdf → docx",
+      "category": "inter_ebook_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "azw3_to_gif_optimized",
+      "source": "azw3",
+      "target": "gif",
+      "expected_steps": 3,
+      "route": [
+        "azw3",
+        "pdf",
+        "jpg",
+        "gif"
+      ],
+      "route_description": "Multi-step: azw3 → pdf → jpg → gif",
+      "category": "inter_ebook_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "azw3_to_html_optimized",
+      "source": "azw3",
+      "target": "html",
+      "expected_steps": 2,
+      "route": [
+        "azw3",
+        "pdf",
+        "html"
+      ],
+      "route_description": "Via intermediate: azw3 → pdf → html",
+      "category": "inter_ebook_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "azw3_to_jpg_optimized",
+      "source": "azw3",
+      "target": "jpg",
+      "expected_steps": 2,
+      "route": [
+        "azw3",
+        "pdf",
+        "jpg"
+      ],
+      "route_description": "Via intermediate: azw3 → pdf → jpg",
+      "category": "inter_ebook_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "azw3_to_md_optimized",
+      "source": "azw3",
+      "target": "md",
+      "expected_steps": 3,
+      "route": [
+        "azw3",
+        "pdf",
+        "txt",
+        "md"
+      ],
+      "route_description": "Multi-step: azw3 → pdf → txt → md",
+      "category": "inter_ebook_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "azw3_to_png_optimized",
+      "source": "azw3",
+      "target": "png",
+      "expected_steps": 2,
+      "route": [
+        "azw3",
+        "pdf",
+        "png"
+      ],
+      "route_description": "Via intermediate: azw3 → pdf → png",
+      "category": "inter_ebook_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "azw3_to_rtf_optimized",
+      "source": "azw3",
+      "target": "rtf",
+      "expected_steps": 3,
+      "route": [
+        "azw3",
+        "pdf",
+        "docx",
+        "rtf"
+      ],
+      "route_description": "Multi-step: azw3 → pdf → docx → rtf",
+      "category": "inter_ebook_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "azw3_to_tiff_optimized",
+      "source": "azw3",
+      "target": "tiff",
+      "expected_steps": 3,
+      "route": [
+        "azw3",
+        "pdf",
+        "png",
+        "tiff"
+      ],
+      "route_description": "Multi-step: azw3 → pdf → png → tiff",
+      "category": "inter_ebook_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "azw3_to_txt_optimized",
+      "source": "azw3",
+      "target": "txt",
+      "expected_steps": 2,
+      "route": [
+        "azw3",
+        "pdf",
+        "txt"
+      ],
+      "route_description": "Via intermediate: azw3 → pdf → txt",
+      "category": "inter_ebook_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "azw3_to_webp_optimized",
+      "source": "azw3",
+      "target": "webp",
+      "expected_steps": 3,
+      "route": [
+        "azw3",
+        "pdf",
+        "jpg",
+        "webp"
+      ],
+      "route_description": "Multi-step: azw3 → pdf → jpg → webp",
+      "category": "inter_ebook_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "bmp_to_docx_optimized",
+      "source": "bmp",
+      "target": "docx",
+      "expected_steps": 3,
+      "route": [
+        "bmp",
+        "jpg",
+        "pdf",
+        "docx"
+      ],
+      "route_description": "Multi-step: bmp → jpg → pdf → docx",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "bmp_to_gif_optimized",
+      "source": "bmp",
+      "target": "gif",
+      "expected_steps": 2,
+      "route": [
+        "bmp",
+        "jpg",
+        "gif"
+      ],
+      "route_description": "Via intermediate: bmp → jpg → gif",
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "bmp_to_html_optimized",
+      "source": "bmp",
+      "target": "html",
+      "expected_steps": 3,
+      "route": [
+        "bmp",
+        "jpg",
+        "pdf",
+        "html"
+      ],
+      "route_description": "Multi-step: bmp → jpg → pdf → html",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "bmp_to_md_optimized",
+      "source": "bmp",
+      "target": "md",
+      "expected_steps": 4,
+      "route": [
+        "bmp",
+        "jpg",
+        "pdf",
+        "txt",
+        "md"
+      ],
+      "route_description": "Multi-step: bmp → jpg → pdf → txt → md",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "bmp_to_pdf_optimized",
+      "source": "bmp",
+      "target": "pdf",
+      "expected_steps": 2,
+      "route": [
+        "bmp",
+        "jpg",
+        "pdf"
+      ],
+      "route_description": "Via intermediate: bmp → jpg → pdf",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "bmp_to_rtf_optimized",
+      "source": "bmp",
+      "target": "rtf",
+      "expected_steps": 4,
+      "route": [
+        "bmp",
+        "jpg",
+        "pdf",
+        "docx",
+        "rtf"
+      ],
+      "route_description": "Multi-step: bmp → jpg → pdf → docx → rtf",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "bmp_to_tiff_optimized",
+      "source": "bmp",
+      "target": "tiff",
+      "expected_steps": 2,
+      "route": [
+        "bmp",
+        "png",
+        "tiff"
+      ],
+      "route_description": "Via intermediate: bmp → png → tiff",
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "bmp_to_txt_optimized",
+      "source": "bmp",
+      "target": "txt",
+      "expected_steps": 3,
+      "route": [
+        "bmp",
+        "jpg",
+        "pdf",
+        "txt"
+      ],
+      "route_description": "Multi-step: bmp → jpg → pdf → txt",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "bmp_to_webp_optimized",
+      "source": "bmp",
+      "target": "webp",
+      "expected_steps": 2,
+      "route": [
+        "bmp",
+        "jpg",
+        "webp"
+      ],
+      "route_description": "Via intermediate: bmp → jpg → webp",
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "docx_to_gif_optimized",
+      "source": "docx",
+      "target": "gif",
+      "expected_steps": 2,
+      "route": [
+        "docx",
+        "jpg",
+        "gif"
+      ],
+      "route_description": "Via intermediate: docx → jpg → gif",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "docx_to_md_optimized",
+      "source": "docx",
+      "target": "md",
+      "expected_steps": 2,
+      "route": [
+        "docx",
+        "txt",
+        "md"
+      ],
+      "route_description": "Via intermediate: docx → txt → md",
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "docx_to_tiff_optimized",
+      "source": "docx",
+      "target": "tiff",
+      "expected_steps": 2,
+      "route": [
+        "docx",
+        "png",
+        "tiff"
+      ],
+      "route_description": "Via intermediate: docx → png → tiff",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "docx_to_webp_optimized",
+      "source": "docx",
+      "target": "webp",
+      "expected_steps": 2,
+      "route": [
+        "docx",
+        "jpg",
+        "webp"
+      ],
+      "route_description": "Via intermediate: docx → jpg → webp",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "epub_to_docx_optimized",
+      "source": "epub",
+      "target": "docx",
+      "expected_steps": 2,
+      "route": [
+        "epub",
+        "pdf",
+        "docx"
+      ],
+      "route_description": "Via intermediate: epub → pdf → docx",
+      "category": "inter_ebook_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "epub_to_gif_optimized",
+      "source": "epub",
+      "target": "gif",
+      "expected_steps": 3,
+      "route": [
+        "epub",
+        "pdf",
+        "jpg",
+        "gif"
+      ],
+      "route_description": "Multi-step: epub → pdf → jpg → gif",
+      "category": "inter_ebook_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "epub_to_html_optimized",
+      "source": "epub",
+      "target": "html",
+      "expected_steps": 2,
+      "route": [
+        "epub",
+        "pdf",
+        "html"
+      ],
+      "route_description": "Via intermediate: epub → pdf → html",
+      "category": "inter_ebook_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "epub_to_jpg_optimized",
+      "source": "epub",
+      "target": "jpg",
+      "expected_steps": 2,
+      "route": [
+        "epub",
+        "pdf",
+        "jpg"
+      ],
+      "route_description": "Via intermediate: epub → pdf → jpg",
+      "category": "inter_ebook_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "epub_to_md_optimized",
+      "source": "epub",
+      "target": "md",
+      "expected_steps": 3,
+      "route": [
+        "epub",
+        "pdf",
+        "txt",
+        "md"
+      ],
+      "route_description": "Multi-step: epub → pdf → txt → md",
+      "category": "inter_ebook_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "epub_to_png_optimized",
+      "source": "epub",
+      "target": "png",
+      "expected_steps": 2,
+      "route": [
+        "epub",
+        "pdf",
+        "png"
+      ],
+      "route_description": "Via intermediate: epub → pdf → png",
+      "category": "inter_ebook_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "epub_to_rtf_optimized",
+      "source": "epub",
+      "target": "rtf",
+      "expected_steps": 3,
+      "route": [
+        "epub",
+        "pdf",
+        "docx",
+        "rtf"
+      ],
+      "route_description": "Multi-step: epub → pdf → docx → rtf",
+      "category": "inter_ebook_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "epub_to_tiff_optimized",
+      "source": "epub",
+      "target": "tiff",
+      "expected_steps": 3,
+      "route": [
+        "epub",
+        "pdf",
+        "png",
+        "tiff"
+      ],
+      "route_description": "Multi-step: epub → pdf → png → tiff",
+      "category": "inter_ebook_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "epub_to_txt_optimized",
+      "source": "epub",
+      "target": "txt",
+      "expected_steps": 2,
+      "route": [
+        "epub",
+        "pdf",
+        "txt"
+      ],
+      "route_description": "Via intermediate: epub → pdf → txt",
+      "category": "inter_ebook_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "epub_to_webp_optimized",
+      "source": "epub",
+      "target": "webp",
+      "expected_steps": 3,
+      "route": [
+        "epub",
+        "pdf",
+        "jpg",
+        "webp"
+      ],
+      "route_description": "Multi-step: epub → pdf → jpg → webp",
+      "category": "inter_ebook_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "flac_to_aac_optimized",
+      "source": "flac",
+      "target": "aac",
+      "expected_steps": 2,
+      "route": [
+        "flac",
+        "mp3",
+        "aac"
+      ],
+      "route_description": "Via intermediate: flac → mp3 → aac",
+      "category": "intra_audio",
+      "priority": "high"
+    },
+    {
+      "name": "flac_to_avi_optimized",
+      "source": "flac",
+      "target": "avi",
+      "expected_steps": 3,
+      "route": [
+        "flac",
+        "mp3",
+        "mp4",
+        "avi"
+      ],
+      "route_description": "Multi-step: flac → mp3 → mp4 → avi",
+      "category": "inter_audio_to_video",
+      "priority": "high"
+    },
+    {
+      "name": "flac_to_mov_optimized",
+      "source": "flac",
+      "target": "mov",
+      "expected_steps": 3,
+      "route": [
+        "flac",
+        "mp3",
+        "mp4",
+        "mov"
+      ],
+      "route_description": "Multi-step: flac → mp3 → mp4 → mov",
+      "category": "inter_audio_to_video",
+      "priority": "high"
+    },
+    {
+      "name": "flac_to_mp4_optimized",
+      "source": "flac",
+      "target": "mp4",
+      "expected_steps": 2,
+      "route": [
+        "flac",
+        "mp3",
+        "mp4"
+      ],
+      "route_description": "Via intermediate: flac → mp3 → mp4",
+      "category": "inter_audio_to_video",
+      "priority": "high"
+    },
+    {
+      "name": "flac_to_wav_optimized",
+      "source": "flac",
+      "target": "wav",
+      "expected_steps": 2,
+      "route": [
+        "flac",
+        "mp3",
+        "wav"
+      ],
+      "route_description": "Via intermediate: flac → mp3 → wav",
+      "category": "intra_audio",
+      "priority": "high"
+    },
+    {
+      "name": "flac_to_webm_optimized",
+      "source": "flac",
+      "target": "webm",
+      "expected_steps": 3,
+      "route": [
+        "flac",
+        "mp3",
+        "mp4",
+        "webm"
+      ],
+      "route_description": "Multi-step: flac → mp3 → mp4 → webm",
+      "category": "inter_audio_to_video",
+      "priority": "high"
+    },
+    {
+      "name": "gif_to_docx_optimized",
+      "source": "gif",
+      "target": "docx",
+      "expected_steps": 2,
+      "route": [
+        "gif",
+        "pdf",
+        "docx"
+      ],
+      "route_description": "Via intermediate: gif → pdf → docx",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "gif_to_html_optimized",
+      "source": "gif",
+      "target": "html",
+      "expected_steps": 2,
+      "route": [
+        "gif",
+        "pdf",
+        "html"
+      ],
+      "route_description": "Via intermediate: gif → pdf → html",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "gif_to_md_optimized",
+      "source": "gif",
+      "target": "md",
+      "expected_steps": 3,
+      "route": [
+        "gif",
+        "pdf",
+        "txt",
+        "md"
+      ],
+      "route_description": "Multi-step: gif → pdf → txt → md",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "gif_to_rtf_optimized",
+      "source": "gif",
+      "target": "rtf",
+      "expected_steps": 3,
+      "route": [
+        "gif",
+        "pdf",
+        "docx",
+        "rtf"
+      ],
+      "route_description": "Multi-step: gif → pdf → docx → rtf",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "gif_to_tiff_optimized",
+      "source": "gif",
+      "target": "tiff",
+      "expected_steps": 2,
+      "route": [
+        "gif",
+        "png",
+        "tiff"
+      ],
+      "route_description": "Via intermediate: gif → png → tiff",
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "gif_to_txt_optimized",
+      "source": "gif",
+      "target": "txt",
+      "expected_steps": 2,
+      "route": [
+        "gif",
+        "pdf",
+        "txt"
+      ],
+      "route_description": "Via intermediate: gif → pdf → txt",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "html_to_gif_optimized",
+      "source": "html",
+      "target": "gif",
+      "expected_steps": 3,
+      "route": [
+        "html",
+        "pdf",
+        "jpg",
+        "gif"
+      ],
+      "route_description": "Multi-step: html → pdf → jpg → gif",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "html_to_jpg_optimized",
+      "source": "html",
+      "target": "jpg",
+      "expected_steps": 2,
+      "route": [
+        "html",
+        "pdf",
+        "jpg"
+      ],
+      "route_description": "Via intermediate: html → pdf → jpg",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "html_to_md_optimized",
+      "source": "html",
+      "target": "md",
+      "expected_steps": 2,
+      "route": [
+        "html",
+        "txt",
+        "md"
+      ],
+      "route_description": "Via intermediate: html → txt → md",
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "html_to_png_optimized",
+      "source": "html",
+      "target": "png",
+      "expected_steps": 2,
+      "route": [
+        "html",
+        "pdf",
+        "png"
+      ],
+      "route_description": "Via intermediate: html → pdf → png",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "html_to_rtf_optimized",
+      "source": "html",
+      "target": "rtf",
+      "expected_steps": 2,
+      "route": [
+        "html",
+        "docx",
+        "rtf"
+      ],
+      "route_description": "Via intermediate: html → docx → rtf",
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "html_to_tiff_optimized",
+      "source": "html",
+      "target": "tiff",
+      "expected_steps": 3,
+      "route": [
+        "html",
+        "pdf",
+        "png",
+        "tiff"
+      ],
+      "route_description": "Multi-step: html → pdf → png → tiff",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "html_to_webp_optimized",
+      "source": "html",
+      "target": "webp",
+      "expected_steps": 3,
+      "route": [
+        "html",
+        "pdf",
+        "jpg",
+        "webp"
+      ],
+      "route_description": "Multi-step: html → pdf → jpg → webp",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "jpeg_to_docx_optimized",
+      "source": "jpeg",
+      "target": "docx",
+      "expected_steps": 3,
+      "route": [
+        "jpeg",
+        "png",
+        "pdf",
+        "docx"
+      ],
+      "route_description": "Multi-step: jpeg → png → pdf → docx",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "jpeg_to_html_optimized",
+      "source": "jpeg",
+      "target": "html",
+      "expected_steps": 3,
+      "route": [
+        "jpeg",
+        "png",
+        "pdf",
+        "html"
+      ],
+      "route_description": "Multi-step: jpeg → png → pdf → html",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "jpeg_to_jpg_optimized",
+      "source": "jpeg",
+      "target": "jpg",
+      "expected_steps": 2,
+      "route": [
+        "jpeg",
+        "png",
+        "jpg"
+      ],
+      "route_description": "Via intermediate: jpeg → png → jpg",
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "jpeg_to_md_optimized",
+      "source": "jpeg",
+      "target": "md",
+      "expected_steps": 4,
+      "route": [
+        "jpeg",
+        "png",
+        "pdf",
+        "txt",
+        "md"
+      ],
+      "route_description": "Multi-step: jpeg → png → pdf → txt → md",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "jpeg_to_pdf_optimized",
+      "source": "jpeg",
+      "target": "pdf",
+      "expected_steps": 2,
+      "route": [
+        "jpeg",
+        "png",
+        "pdf"
+      ],
+      "route_description": "Via intermediate: jpeg → png → pdf",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "jpeg_to_rtf_optimized",
+      "source": "jpeg",
+      "target": "rtf",
+      "expected_steps": 4,
+      "route": [
+        "jpeg",
+        "png",
+        "pdf",
+        "docx",
+        "rtf"
+      ],
+      "route_description": "Multi-step: jpeg → png → pdf → docx → rtf",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "jpeg_to_tiff_optimized",
+      "source": "jpeg",
+      "target": "tiff",
+      "expected_steps": 2,
+      "route": [
+        "jpeg",
+        "png",
+        "tiff"
+      ],
+      "route_description": "Via intermediate: jpeg → png → tiff",
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "jpeg_to_txt_optimized",
+      "source": "jpeg",
+      "target": "txt",
+      "expected_steps": 3,
+      "route": [
+        "jpeg",
+        "png",
+        "pdf",
+        "txt"
+      ],
+      "route_description": "Multi-step: jpeg → png → pdf → txt",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "jpg_to_docx_optimized",
+      "source": "jpg",
+      "target": "docx",
+      "expected_steps": 2,
+      "route": [
+        "jpg",
+        "pdf",
+        "docx"
+      ],
+      "route_description": "Via intermediate: jpg → pdf → docx",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "jpg_to_html_optimized",
+      "source": "jpg",
+      "target": "html",
+      "expected_steps": 2,
+      "route": [
+        "jpg",
+        "pdf",
+        "html"
+      ],
+      "route_description": "Via intermediate: jpg → pdf → html",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "jpg_to_md_optimized",
+      "source": "jpg",
+      "target": "md",
+      "expected_steps": 3,
+      "route": [
+        "jpg",
+        "pdf",
+        "txt",
+        "md"
+      ],
+      "route_description": "Multi-step: jpg → pdf → txt → md",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "jpg_to_rtf_optimized",
+      "source": "jpg",
+      "target": "rtf",
+      "expected_steps": 3,
+      "route": [
+        "jpg",
+        "pdf",
+        "docx",
+        "rtf"
+      ],
+      "route_description": "Multi-step: jpg → pdf → docx → rtf",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "jpg_to_tiff_optimized",
+      "source": "jpg",
+      "target": "tiff",
+      "expected_steps": 2,
+      "route": [
+        "jpg",
+        "png",
+        "tiff"
+      ],
+      "route_description": "Via intermediate: jpg → png → tiff",
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "jpg_to_txt_optimized",
+      "source": "jpg",
+      "target": "txt",
+      "expected_steps": 2,
+      "route": [
+        "jpg",
+        "pdf",
+        "txt"
+      ],
+      "route_description": "Via intermediate: jpg → pdf → txt",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "md_to_docx_optimized",
+      "source": "md",
+      "target": "docx",
+      "expected_steps": 2,
+      "route": [
+        "md",
+        "pdf",
+        "docx"
+      ],
+      "route_description": "Via intermediate: md → pdf → docx",
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "md_to_gif_optimized",
+      "source": "md",
+      "target": "gif",
+      "expected_steps": 3,
+      "route": [
+        "md",
+        "pdf",
+        "jpg",
+        "gif"
+      ],
+      "route_description": "Multi-step: md → pdf → jpg → gif",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "md_to_jpg_optimized",
+      "source": "md",
+      "target": "jpg",
+      "expected_steps": 2,
+      "route": [
+        "md",
+        "pdf",
+        "jpg"
+      ],
+      "route_description": "Via intermediate: md → pdf → jpg",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "md_to_png_optimized",
+      "source": "md",
+      "target": "png",
+      "expected_steps": 2,
+      "route": [
+        "md",
+        "pdf",
+        "png"
+      ],
+      "route_description": "Via intermediate: md → pdf → png",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "md_to_rtf_optimized",
+      "source": "md",
+      "target": "rtf",
+      "expected_steps": 3,
+      "route": [
+        "md",
+        "pdf",
+        "docx",
+        "rtf"
+      ],
+      "route_description": "Multi-step: md → pdf → docx → rtf",
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "md_to_tiff_optimized",
+      "source": "md",
+      "target": "tiff",
+      "expected_steps": 3,
+      "route": [
+        "md",
+        "pdf",
+        "png",
+        "tiff"
+      ],
+      "route_description": "Multi-step: md → pdf → png → tiff",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "md_to_webp_optimized",
+      "source": "md",
+      "target": "webp",
+      "expected_steps": 3,
+      "route": [
+        "md",
+        "pdf",
+        "jpg",
+        "webp"
+      ],
+      "route_description": "Multi-step: md → pdf → jpg → webp",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "mobi_to_azw3_optimized",
+      "source": "mobi",
+      "target": "azw3",
+      "expected_steps": 2,
+      "route": [
+        "mobi",
+        "epub",
+        "azw3"
+      ],
+      "route_description": "Via intermediate: mobi → epub → azw3",
+      "category": "intra_ebook",
+      "priority": "high"
+    },
+    {
+      "name": "mobi_to_docx_optimized",
+      "source": "mobi",
+      "target": "docx",
+      "expected_steps": 2,
+      "route": [
+        "mobi",
+        "pdf",
+        "docx"
+      ],
+      "route_description": "Via intermediate: mobi → pdf → docx",
+      "category": "inter_ebook_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "mobi_to_gif_optimized",
+      "source": "mobi",
+      "target": "gif",
+      "expected_steps": 3,
+      "route": [
+        "mobi",
+        "pdf",
+        "jpg",
+        "gif"
+      ],
+      "route_description": "Multi-step: mobi → pdf → jpg → gif",
+      "category": "inter_ebook_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "mobi_to_html_optimized",
+      "source": "mobi",
+      "target": "html",
+      "expected_steps": 2,
+      "route": [
+        "mobi",
+        "pdf",
+        "html"
+      ],
+      "route_description": "Via intermediate: mobi → pdf → html",
+      "category": "inter_ebook_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "mobi_to_jpg_optimized",
+      "source": "mobi",
+      "target": "jpg",
+      "expected_steps": 2,
+      "route": [
+        "mobi",
+        "pdf",
+        "jpg"
+      ],
+      "route_description": "Via intermediate: mobi → pdf → jpg",
+      "category": "inter_ebook_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "mobi_to_md_optimized",
+      "source": "mobi",
+      "target": "md",
+      "expected_steps": 3,
+      "route": [
+        "mobi",
+        "pdf",
+        "txt",
+        "md"
+      ],
+      "route_description": "Multi-step: mobi → pdf → txt → md",
+      "category": "inter_ebook_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "mobi_to_png_optimized",
+      "source": "mobi",
+      "target": "png",
+      "expected_steps": 2,
+      "route": [
+        "mobi",
+        "pdf",
+        "png"
+      ],
+      "route_description": "Via intermediate: mobi → pdf → png",
+      "category": "inter_ebook_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "mobi_to_rtf_optimized",
+      "source": "mobi",
+      "target": "rtf",
+      "expected_steps": 3,
+      "route": [
+        "mobi",
+        "pdf",
+        "docx",
+        "rtf"
+      ],
+      "route_description": "Multi-step: mobi → pdf → docx → rtf",
+      "category": "inter_ebook_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "mobi_to_tiff_optimized",
+      "source": "mobi",
+      "target": "tiff",
+      "expected_steps": 3,
+      "route": [
+        "mobi",
+        "pdf",
+        "png",
+        "tiff"
+      ],
+      "route_description": "Multi-step: mobi → pdf → png → tiff",
+      "category": "inter_ebook_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "mobi_to_txt_optimized",
+      "source": "mobi",
+      "target": "txt",
+      "expected_steps": 2,
+      "route": [
+        "mobi",
+        "pdf",
+        "txt"
+      ],
+      "route_description": "Via intermediate: mobi → pdf → txt",
+      "category": "inter_ebook_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "mobi_to_webp_optimized",
+      "source": "mobi",
+      "target": "webp",
+      "expected_steps": 3,
+      "route": [
+        "mobi",
+        "pdf",
+        "jpg",
+        "webp"
+      ],
+      "route_description": "Multi-step: mobi → pdf → jpg → webp",
+      "category": "inter_ebook_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "mov_to_aac_optimized",
+      "source": "mov",
+      "target": "aac",
+      "expected_steps": 2,
+      "route": [
+        "mov",
+        "mp3",
+        "aac"
+      ],
+      "route_description": "Via intermediate: mov → mp3 → aac",
+      "category": "inter_video_to_audio",
+      "priority": "high"
+    },
+    {
+      "name": "mov_to_avi_optimized",
+      "source": "mov",
+      "target": "avi",
+      "expected_steps": 2,
+      "route": [
+        "mov",
+        "mp4",
+        "avi"
+      ],
+      "route_description": "Via intermediate: mov → mp4 → avi",
+      "category": "intra_video",
+      "priority": "high"
+    },
+    {
+      "name": "mov_to_flac_optimized",
+      "source": "mov",
+      "target": "flac",
+      "expected_steps": 2,
+      "route": [
+        "mov",
+        "wav",
+        "flac"
+      ],
+      "route_description": "Via intermediate: mov → wav → flac",
+      "category": "inter_video_to_audio",
+      "priority": "high"
+    },
+    {
+      "name": "mp3_to_avi_optimized",
+      "source": "mp3",
+      "target": "avi",
+      "expected_steps": 2,
+      "route": [
+        "mp3",
+        "mp4",
+        "avi"
+      ],
+      "route_description": "Via intermediate: mp3 → mp4 → avi",
+      "category": "inter_audio_to_video",
+      "priority": "high"
+    },
+    {
+      "name": "mp3_to_flac_optimized",
+      "source": "mp3",
+      "target": "flac",
+      "expected_steps": 2,
+      "route": [
+        "mp3",
+        "wav",
+        "flac"
+      ],
+      "route_description": "Via intermediate: mp3 → wav → flac",
+      "category": "intra_audio",
+      "priority": "high"
+    },
+    {
+      "name": "mp3_to_mov_optimized",
+      "source": "mp3",
+      "target": "mov",
+      "expected_steps": 2,
+      "route": [
+        "mp3",
+        "mp4",
+        "mov"
+      ],
+      "route_description": "Via intermediate: mp3 → mp4 → mov",
+      "category": "inter_audio_to_video",
+      "priority": "high"
+    },
+    {
+      "name": "mp3_to_webm_optimized",
+      "source": "mp3",
+      "target": "webm",
+      "expected_steps": 2,
+      "route": [
+        "mp3",
+        "mp4",
+        "webm"
+      ],
+      "route_description": "Via intermediate: mp3 → mp4 → webm",
+      "category": "inter_audio_to_video",
+      "priority": "high"
+    },
+    {
+      "name": "mp4_to_aac_optimized",
+      "source": "mp4",
+      "target": "aac",
+      "expected_steps": 2,
+      "route": [
+        "mp4",
+        "mp3",
+        "aac"
+      ],
+      "route_description": "Via intermediate: mp4 → mp3 → aac",
+      "category": "inter_video_to_audio",
+      "priority": "high"
+    },
+    {
+      "name": "mp4_to_flac_optimized",
+      "source": "mp4",
+      "target": "flac",
+      "expected_steps": 2,
+      "route": [
+        "mp4",
+        "wav",
+        "flac"
+      ],
+      "route_description": "Via intermediate: mp4 → wav → flac",
+      "category": "inter_video_to_audio",
+      "priority": "high"
+    },
+    {
+      "name": "pdf_to_gif_optimized",
+      "source": "pdf",
+      "target": "gif",
+      "expected_steps": 2,
+      "route": [
+        "pdf",
+        "jpg",
+        "gif"
+      ],
+      "route_description": "Via intermediate: pdf → jpg → gif",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "pdf_to_md_optimized",
+      "source": "pdf",
+      "target": "md",
+      "expected_steps": 2,
+      "route": [
+        "pdf",
+        "txt",
+        "md"
+      ],
+      "route_description": "Via intermediate: pdf → txt → md",
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "pdf_to_rtf_optimized",
+      "source": "pdf",
+      "target": "rtf",
+      "expected_steps": 2,
+      "route": [
+        "pdf",
+        "docx",
+        "rtf"
+      ],
+      "route_description": "Via intermediate: pdf → docx → rtf",
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "pdf_to_tiff_optimized",
+      "source": "pdf",
+      "target": "tiff",
+      "expected_steps": 2,
+      "route": [
+        "pdf",
+        "png",
+        "tiff"
+      ],
+      "route_description": "Via intermediate: pdf → png → tiff",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "pdf_to_webp_optimized",
+      "source": "pdf",
+      "target": "webp",
+      "expected_steps": 2,
+      "route": [
+        "pdf",
+        "jpg",
+        "webp"
+      ],
+      "route_description": "Via intermediate: pdf → jpg → webp",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "png_to_docx_optimized",
+      "source": "png",
+      "target": "docx",
+      "expected_steps": 2,
+      "route": [
+        "png",
+        "pdf",
+        "docx"
+      ],
+      "route_description": "Via intermediate: png → pdf → docx",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "png_to_html_optimized",
+      "source": "png",
+      "target": "html",
+      "expected_steps": 2,
+      "route": [
+        "png",
+        "pdf",
+        "html"
+      ],
+      "route_description": "Via intermediate: png → pdf → html",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "png_to_md_optimized",
+      "source": "png",
+      "target": "md",
+      "expected_steps": 3,
+      "route": [
+        "png",
+        "pdf",
+        "txt",
+        "md"
+      ],
+      "route_description": "Multi-step: png → pdf → txt → md",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "png_to_rtf_optimized",
+      "source": "png",
+      "target": "rtf",
+      "expected_steps": 3,
+      "route": [
+        "png",
+        "pdf",
+        "docx",
+        "rtf"
+      ],
+      "route_description": "Multi-step: png → pdf → docx → rtf",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "png_to_txt_optimized",
+      "source": "png",
+      "target": "txt",
+      "expected_steps": 2,
+      "route": [
+        "png",
+        "pdf",
+        "txt"
+      ],
+      "route_description": "Via intermediate: png → pdf → txt",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "ppt_to_docx_optimized",
+      "source": "ppt",
+      "target": "docx",
+      "expected_steps": 2,
+      "route": [
+        "ppt",
+        "pdf",
+        "docx"
+      ],
+      "route_description": "Via intermediate: ppt → pdf → docx",
+      "category": "inter_presentation_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "ppt_to_gif_optimized",
+      "source": "ppt",
+      "target": "gif",
+      "expected_steps": 3,
+      "route": [
+        "ppt",
+        "pdf",
+        "jpg",
+        "gif"
+      ],
+      "route_description": "Multi-step: ppt → pdf → jpg → gif",
+      "category": "inter_presentation_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "ppt_to_html_optimized",
+      "source": "ppt",
+      "target": "html",
+      "expected_steps": 2,
+      "route": [
+        "ppt",
+        "pdf",
+        "html"
+      ],
+      "route_description": "Via intermediate: ppt → pdf → html",
+      "category": "inter_presentation_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "ppt_to_jpg_optimized",
+      "source": "ppt",
+      "target": "jpg",
+      "expected_steps": 2,
+      "route": [
+        "ppt",
+        "pdf",
+        "jpg"
+      ],
+      "route_description": "Via intermediate: ppt → pdf → jpg",
+      "category": "inter_presentation_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "ppt_to_md_optimized",
+      "source": "ppt",
+      "target": "md",
+      "expected_steps": 3,
+      "route": [
+        "ppt",
+        "pdf",
+        "txt",
+        "md"
+      ],
+      "route_description": "Multi-step: ppt → pdf → txt → md",
+      "category": "inter_presentation_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "ppt_to_png_optimized",
+      "source": "ppt",
+      "target": "png",
+      "expected_steps": 2,
+      "route": [
+        "ppt",
+        "pdf",
+        "png"
+      ],
+      "route_description": "Via intermediate: ppt → pdf → png",
+      "category": "inter_presentation_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "ppt_to_rtf_optimized",
+      "source": "ppt",
+      "target": "rtf",
+      "expected_steps": 3,
+      "route": [
+        "ppt",
+        "pdf",
+        "docx",
+        "rtf"
+      ],
+      "route_description": "Multi-step: ppt → pdf → docx → rtf",
+      "category": "inter_presentation_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "ppt_to_tiff_optimized",
+      "source": "ppt",
+      "target": "tiff",
+      "expected_steps": 3,
+      "route": [
+        "ppt",
+        "pdf",
+        "png",
+        "tiff"
+      ],
+      "route_description": "Multi-step: ppt → pdf → png → tiff",
+      "category": "inter_presentation_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "ppt_to_txt_optimized",
+      "source": "ppt",
+      "target": "txt",
+      "expected_steps": 2,
+      "route": [
+        "ppt",
+        "pdf",
+        "txt"
+      ],
+      "route_description": "Via intermediate: ppt → pdf → txt",
+      "category": "inter_presentation_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "ppt_to_webp_optimized",
+      "source": "ppt",
+      "target": "webp",
+      "expected_steps": 3,
+      "route": [
+        "ppt",
+        "pdf",
+        "jpg",
+        "webp"
+      ],
+      "route_description": "Multi-step: ppt → pdf → jpg → webp",
+      "category": "inter_presentation_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "pptx_to_docx_optimized",
+      "source": "pptx",
+      "target": "docx",
+      "expected_steps": 2,
+      "route": [
+        "pptx",
+        "pdf",
+        "docx"
+      ],
+      "route_description": "Via intermediate: pptx → pdf → docx",
+      "category": "inter_presentation_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "pptx_to_gif_optimized",
+      "source": "pptx",
+      "target": "gif",
+      "expected_steps": 3,
+      "route": [
+        "pptx",
+        "pdf",
+        "jpg",
+        "gif"
+      ],
+      "route_description": "Multi-step: pptx → pdf → jpg → gif",
+      "category": "inter_presentation_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "pptx_to_html_optimized",
+      "source": "pptx",
+      "target": "html",
+      "expected_steps": 2,
+      "route": [
+        "pptx",
+        "pdf",
+        "html"
+      ],
+      "route_description": "Via intermediate: pptx → pdf → html",
+      "category": "inter_presentation_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "pptx_to_jpg_optimized",
+      "source": "pptx",
+      "target": "jpg",
+      "expected_steps": 2,
+      "route": [
+        "pptx",
+        "pdf",
+        "jpg"
+      ],
+      "route_description": "Via intermediate: pptx → pdf → jpg",
+      "category": "inter_presentation_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "pptx_to_md_optimized",
+      "source": "pptx",
+      "target": "md",
+      "expected_steps": 3,
+      "route": [
+        "pptx",
+        "pdf",
+        "txt",
+        "md"
+      ],
+      "route_description": "Multi-step: pptx → pdf → txt → md",
+      "category": "inter_presentation_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "pptx_to_png_optimized",
+      "source": "pptx",
+      "target": "png",
+      "expected_steps": 2,
+      "route": [
+        "pptx",
+        "pdf",
+        "png"
+      ],
+      "route_description": "Via intermediate: pptx → pdf → png",
+      "category": "inter_presentation_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "pptx_to_rtf_optimized",
+      "source": "pptx",
+      "target": "rtf",
+      "expected_steps": 3,
+      "route": [
+        "pptx",
+        "pdf",
+        "docx",
+        "rtf"
+      ],
+      "route_description": "Multi-step: pptx → pdf → docx → rtf",
+      "category": "inter_presentation_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "pptx_to_tiff_optimized",
+      "source": "pptx",
+      "target": "tiff",
+      "expected_steps": 3,
+      "route": [
+        "pptx",
+        "pdf",
+        "png",
+        "tiff"
+      ],
+      "route_description": "Multi-step: pptx → pdf → png → tiff",
+      "category": "inter_presentation_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "pptx_to_txt_optimized",
+      "source": "pptx",
+      "target": "txt",
+      "expected_steps": 2,
+      "route": [
+        "pptx",
+        "pdf",
+        "txt"
+      ],
+      "route_description": "Via intermediate: pptx → pdf → txt",
+      "category": "inter_presentation_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "pptx_to_webp_optimized",
+      "source": "pptx",
+      "target": "webp",
+      "expected_steps": 3,
+      "route": [
+        "pptx",
+        "pdf",
+        "jpg",
+        "webp"
+      ],
+      "route_description": "Multi-step: pptx → pdf → jpg → webp",
+      "category": "inter_presentation_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "rar_to_tar_optimized",
+      "source": "rar",
+      "target": "tar",
+      "expected_steps": 2,
+      "route": [
+        "rar",
+        "zip",
+        "tar"
+      ],
+      "route_description": "Via intermediate: rar → zip → tar",
+      "category": "intra_archive",
+      "priority": "high"
+    },
+    {
+      "name": "rtf_to_gif_optimized",
+      "source": "rtf",
+      "target": "gif",
+      "expected_steps": 3,
+      "route": [
+        "rtf",
+        "pdf",
+        "jpg",
+        "gif"
+      ],
+      "route_description": "Multi-step: rtf → pdf → jpg → gif",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "rtf_to_html_optimized",
+      "source": "rtf",
+      "target": "html",
+      "expected_steps": 2,
+      "route": [
+        "rtf",
+        "pdf",
+        "html"
+      ],
+      "route_description": "Via intermediate: rtf → pdf → html",
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "rtf_to_jpg_optimized",
+      "source": "rtf",
+      "target": "jpg",
+      "expected_steps": 2,
+      "route": [
+        "rtf",
+        "pdf",
+        "jpg"
+      ],
+      "route_description": "Via intermediate: rtf → pdf → jpg",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "rtf_to_md_optimized",
+      "source": "rtf",
+      "target": "md",
+      "expected_steps": 2,
+      "route": [
+        "rtf",
+        "txt",
+        "md"
+      ],
+      "route_description": "Via intermediate: rtf → txt → md",
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "rtf_to_png_optimized",
+      "source": "rtf",
+      "target": "png",
+      "expected_steps": 2,
+      "route": [
+        "rtf",
+        "pdf",
+        "png"
+      ],
+      "route_description": "Via intermediate: rtf → pdf → png",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "rtf_to_tiff_optimized",
+      "source": "rtf",
+      "target": "tiff",
+      "expected_steps": 3,
+      "route": [
+        "rtf",
+        "pdf",
+        "png",
+        "tiff"
+      ],
+      "route_description": "Multi-step: rtf → pdf → png → tiff",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "rtf_to_webp_optimized",
+      "source": "rtf",
+      "target": "webp",
+      "expected_steps": 3,
+      "route": [
+        "rtf",
+        "pdf",
+        "jpg",
+        "webp"
+      ],
+      "route_description": "Multi-step: rtf → pdf → jpg → webp",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "tar_to_rar_optimized",
+      "source": "tar",
+      "target": "rar",
+      "expected_steps": 2,
+      "route": [
+        "tar",
+        "zip",
+        "rar"
+      ],
+      "route_description": "Via intermediate: tar → zip → rar",
+      "category": "intra_archive",
+      "priority": "high"
+    },
+    {
+      "name": "tiff_to_docx_optimized",
+      "source": "tiff",
+      "target": "docx",
+      "expected_steps": 3,
+      "route": [
+        "tiff",
+        "jpg",
+        "pdf",
+        "docx"
+      ],
+      "route_description": "Multi-step: tiff → jpg → pdf → docx",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "tiff_to_gif_optimized",
+      "source": "tiff",
+      "target": "gif",
+      "expected_steps": 2,
+      "route": [
+        "tiff",
+        "jpg",
+        "gif"
+      ],
+      "route_description": "Via intermediate: tiff → jpg → gif",
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "tiff_to_html_optimized",
+      "source": "tiff",
+      "target": "html",
+      "expected_steps": 3,
+      "route": [
+        "tiff",
+        "jpg",
+        "pdf",
+        "html"
+      ],
+      "route_description": "Multi-step: tiff → jpg → pdf → html",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "tiff_to_md_optimized",
+      "source": "tiff",
+      "target": "md",
+      "expected_steps": 4,
+      "route": [
+        "tiff",
+        "jpg",
+        "pdf",
+        "txt",
+        "md"
+      ],
+      "route_description": "Multi-step: tiff → jpg → pdf → txt → md",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "tiff_to_pdf_optimized",
+      "source": "tiff",
+      "target": "pdf",
+      "expected_steps": 2,
+      "route": [
+        "tiff",
+        "jpg",
+        "pdf"
+      ],
+      "route_description": "Via intermediate: tiff → jpg → pdf",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "tiff_to_rtf_optimized",
+      "source": "tiff",
+      "target": "rtf",
+      "expected_steps": 4,
+      "route": [
+        "tiff",
+        "jpg",
+        "pdf",
+        "docx",
+        "rtf"
+      ],
+      "route_description": "Multi-step: tiff → jpg → pdf → docx → rtf",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "tiff_to_txt_optimized",
+      "source": "tiff",
+      "target": "txt",
+      "expected_steps": 3,
+      "route": [
+        "tiff",
+        "jpg",
+        "pdf",
+        "txt"
+      ],
+      "route_description": "Multi-step: tiff → jpg → pdf → txt",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "tiff_to_webp_optimized",
+      "source": "tiff",
+      "target": "webp",
+      "expected_steps": 2,
+      "route": [
+        "tiff",
+        "jpg",
+        "webp"
+      ],
+      "route_description": "Via intermediate: tiff → jpg → webp",
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "txt_to_gif_optimized",
+      "source": "txt",
+      "target": "gif",
+      "expected_steps": 3,
+      "route": [
+        "txt",
+        "pdf",
+        "jpg",
+        "gif"
+      ],
+      "route_description": "Multi-step: txt → pdf → jpg → gif",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "txt_to_jpg_optimized",
+      "source": "txt",
+      "target": "jpg",
+      "expected_steps": 2,
+      "route": [
+        "txt",
+        "pdf",
+        "jpg"
+      ],
+      "route_description": "Via intermediate: txt → pdf → jpg",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "txt_to_png_optimized",
+      "source": "txt",
+      "target": "png",
+      "expected_steps": 2,
+      "route": [
+        "txt",
+        "pdf",
+        "png"
+      ],
+      "route_description": "Via intermediate: txt → pdf → png",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "txt_to_rtf_optimized",
+      "source": "txt",
+      "target": "rtf",
+      "expected_steps": 2,
+      "route": [
+        "txt",
+        "docx",
+        "rtf"
+      ],
+      "route_description": "Via intermediate: txt → docx → rtf",
+      "category": "intra_document",
+      "priority": "high"
+    },
+    {
+      "name": "txt_to_tiff_optimized",
+      "source": "txt",
+      "target": "tiff",
+      "expected_steps": 3,
+      "route": [
+        "txt",
+        "pdf",
+        "png",
+        "tiff"
+      ],
+      "route_description": "Multi-step: txt → pdf → png → tiff",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "txt_to_webp_optimized",
+      "source": "txt",
+      "target": "webp",
+      "expected_steps": 3,
+      "route": [
+        "txt",
+        "pdf",
+        "jpg",
+        "webp"
+      ],
+      "route_description": "Multi-step: txt → pdf → jpg → webp",
+      "category": "inter_document_to_image",
+      "priority": "high"
+    },
+    {
+      "name": "wav_to_aac_optimized",
+      "source": "wav",
+      "target": "aac",
+      "expected_steps": 2,
+      "route": [
+        "wav",
+        "mp3",
+        "aac"
+      ],
+      "route_description": "Via intermediate: wav → mp3 → aac",
+      "category": "intra_audio",
+      "priority": "high"
+    },
+    {
+      "name": "wav_to_avi_optimized",
+      "source": "wav",
+      "target": "avi",
+      "expected_steps": 2,
+      "route": [
+        "wav",
+        "mp4",
+        "avi"
+      ],
+      "route_description": "Via intermediate: wav → mp4 → avi",
+      "category": "inter_audio_to_video",
+      "priority": "high"
+    },
+    {
+      "name": "wav_to_mov_optimized",
+      "source": "wav",
+      "target": "mov",
+      "expected_steps": 2,
+      "route": [
+        "wav",
+        "mp4",
+        "mov"
+      ],
+      "route_description": "Via intermediate: wav → mp4 → mov",
+      "category": "inter_audio_to_video",
+      "priority": "high"
+    },
+    {
+      "name": "wav_to_webm_optimized",
+      "source": "wav",
+      "target": "webm",
+      "expected_steps": 2,
+      "route": [
+        "wav",
+        "mp4",
+        "webm"
+      ],
+      "route_description": "Via intermediate: wav → mp4 → webm",
+      "category": "inter_audio_to_video",
+      "priority": "high"
+    },
+    {
+      "name": "webm_to_aac_optimized",
+      "source": "webm",
+      "target": "aac",
+      "expected_steps": 3,
+      "route": [
+        "webm",
+        "mp4",
+        "mp3",
+        "aac"
+      ],
+      "route_description": "Multi-step: webm → mp4 → mp3 → aac",
+      "category": "inter_video_to_audio",
+      "priority": "high"
+    },
+    {
+      "name": "webm_to_avi_optimized",
+      "source": "webm",
+      "target": "avi",
+      "expected_steps": 2,
+      "route": [
+        "webm",
+        "mp4",
+        "avi"
+      ],
+      "route_description": "Via intermediate: webm → mp4 → avi",
+      "category": "intra_video",
+      "priority": "high"
+    },
+    {
+      "name": "webm_to_flac_optimized",
+      "source": "webm",
+      "target": "flac",
+      "expected_steps": 3,
+      "route": [
+        "webm",
+        "mp4",
+        "wav",
+        "flac"
+      ],
+      "route_description": "Multi-step: webm → mp4 → wav → flac",
+      "category": "inter_video_to_audio",
+      "priority": "high"
+    },
+    {
+      "name": "webm_to_mp3_optimized",
+      "source": "webm",
+      "target": "mp3",
+      "expected_steps": 2,
+      "route": [
+        "webm",
+        "mp4",
+        "mp3"
+      ],
+      "route_description": "Via intermediate: webm → mp4 → mp3",
+      "category": "inter_video_to_audio",
+      "priority": "high"
+    },
+    {
+      "name": "webm_to_wav_optimized",
+      "source": "webm",
+      "target": "wav",
+      "expected_steps": 2,
+      "route": [
+        "webm",
+        "mp4",
+        "wav"
+      ],
+      "route_description": "Via intermediate: webm → mp4 → wav",
+      "category": "inter_video_to_audio",
+      "priority": "high"
+    },
+    {
+      "name": "webp_to_docx_optimized",
+      "source": "webp",
+      "target": "docx",
+      "expected_steps": 3,
+      "route": [
+        "webp",
+        "jpg",
+        "pdf",
+        "docx"
+      ],
+      "route_description": "Multi-step: webp → jpg → pdf → docx",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "webp_to_html_optimized",
+      "source": "webp",
+      "target": "html",
+      "expected_steps": 3,
+      "route": [
+        "webp",
+        "jpg",
+        "pdf",
+        "html"
+      ],
+      "route_description": "Multi-step: webp → jpg → pdf → html",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "webp_to_md_optimized",
+      "source": "webp",
+      "target": "md",
+      "expected_steps": 4,
+      "route": [
+        "webp",
+        "jpg",
+        "pdf",
+        "txt",
+        "md"
+      ],
+      "route_description": "Multi-step: webp → jpg → pdf → txt → md",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "webp_to_pdf_optimized",
+      "source": "webp",
+      "target": "pdf",
+      "expected_steps": 2,
+      "route": [
+        "webp",
+        "jpg",
+        "pdf"
+      ],
+      "route_description": "Via intermediate: webp → jpg → pdf",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "webp_to_rtf_optimized",
+      "source": "webp",
+      "target": "rtf",
+      "expected_steps": 4,
+      "route": [
+        "webp",
+        "jpg",
+        "pdf",
+        "docx",
+        "rtf"
+      ],
+      "route_description": "Multi-step: webp → jpg → pdf → docx → rtf",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    },
+    {
+      "name": "webp_to_tiff_optimized",
+      "source": "webp",
+      "target": "tiff",
+      "expected_steps": 2,
+      "route": [
+        "webp",
+        "png",
+        "tiff"
+      ],
+      "route_description": "Via intermediate: webp → png → tiff",
+      "category": "intra_image",
+      "priority": "high"
+    },
+    {
+      "name": "webp_to_txt_optimized",
+      "source": "webp",
+      "target": "txt",
+      "expected_steps": 3,
+      "route": [
+        "webp",
+        "jpg",
+        "pdf",
+        "txt"
+      ],
+      "route_description": "Multi-step: webp → jpg → pdf → txt",
+      "category": "inter_image_to_document",
+      "priority": "high"
+    }
+  ],
+  "edge_cases": [
+    {
+      "name": "txt_to_mp4_impossible",
+      "source": "txt",
+      "target": "mp4",
+      "expected_result": "impossible",
+      "actual_result": "impossible",
+      "priority": "medium"
+    },
+    {
+      "name": "jpg_to_mp3_impossible",
+      "source": "jpg",
+      "target": "mp3",
+      "expected_result": "impossible",
+      "actual_result": "impossible",
+      "priority": "medium"
+    },
+    {
+      "name": "pdf_to_wav_impossible",
+      "source": "pdf",
+      "target": "wav",
+      "expected_result": "impossible",
+      "actual_result": "impossible",
+      "priority": "medium"
+    },
+    {
+      "name": "zip_to_jpg_impossible",
+      "source": "zip",
+      "target": "jpg",
+      "expected_result": "impossible",
+      "actual_result": "impossible",
+      "priority": "medium"
+    }
+  ],
+  "performance_tests": [
+    {
+      "name": "aac_to_avi_performance",
+      "source": "aac",
+      "target": "avi",
+      "steps": 3,
+      "route": [
+        "aac",
+        "mp3",
+        "mp4",
+        "avi"
+      ],
+      "max_time_ms": 15000,
+      "priority": "medium"
+    },
+    {
+      "name": "aac_to_mov_performance",
+      "source": "aac",
+      "target": "mov",
+      "steps": 3,
+      "route": [
+        "aac",
+        "mp3",
+        "mp4",
+        "mov"
+      ],
+      "max_time_ms": 15000,
+      "priority": "medium"
+    },
+    {
+      "name": "aac_to_webm_performance",
+      "source": "aac",
+      "target": "webm",
+      "steps": 3,
+      "route": [
+        "aac",
+        "mp3",
+        "mp4",
+        "webm"
+      ],
+      "max_time_ms": 15000,
+      "priority": "medium"
+    },
+    {
+      "name": "azw_to_gif_performance",
+      "source": "azw",
+      "target": "gif",
+      "steps": 3,
+      "route": [
+        "azw",
+        "pdf",
+        "jpg",
+        "gif"
+      ],
+      "max_time_ms": 15000,
+      "priority": "medium"
+    },
+    {
+      "name": "azw_to_md_performance",
+      "source": "azw",
+      "target": "md",
+      "steps": 3,
+      "route": [
+        "azw",
+        "pdf",
+        "txt",
+        "md"
+      ],
+      "max_time_ms": 15000,
+      "priority": "medium"
+    },
+    {
+      "name": "azw_to_rtf_performance",
+      "source": "azw",
+      "target": "rtf",
+      "steps": 3,
+      "route": [
+        "azw",
+        "pdf",
+        "docx",
+        "rtf"
+      ],
+      "max_time_ms": 15000,
+      "priority": "medium"
+    },
+    {
+      "name": "azw_to_tiff_performance",
+      "source": "azw",
+      "target": "tiff",
+      "steps": 3,
+      "route": [
+        "azw",
+        "pdf",
+        "png",
+        "tiff"
+      ],
+      "max_time_ms": 15000,
+      "priority": "medium"
+    },
+    {
+      "name": "azw_to_webp_performance",
+      "source": "azw",
+      "target": "webp",
+      "steps": 3,
+      "route": [
+        "azw",
+        "pdf",
+        "jpg",
+        "webp"
+      ],
+      "max_time_ms": 15000,
+      "priority": "medium"
+    },
+    {
+      "name": "azw3_to_gif_performance",
+      "source": "azw3",
+      "target": "gif",
+      "steps": 3,
+      "route": [
+        "azw3",
+        "pdf",
+        "jpg",
+        "gif"
+      ],
+      "max_time_ms": 15000,
+      "priority": "medium"
+    },
+    {
+      "name": "azw3_to_md_performance",
+      "source": "azw3",
+      "target": "md",
+      "steps": 3,
+      "route": [
+        "azw3",
+        "pdf",
+        "txt",
+        "md"
+      ],
+      "max_time_ms": 15000,
+      "priority": "medium"
+    }
+  ],
+  "quality_tests": [
+    {
+      "name": "flac_to_mp3_quality",
+      "source": "flac",
+      "target": "mp3",
+      "route": [
+        "flac",
+        "mp3"
+      ],
+      "quality_expectation": "expected",
+      "priority": "high"
+    },
+    {
+      "name": "png_to_jpg_quality",
+      "source": "png",
+      "target": "jpg",
+      "route": [
+        "png",
+        "jpg"
+      ],
+      "quality_expectation": "expected",
+      "priority": "high"
+    },
+    {
+      "name": "pdf_to_txt_quality",
+      "source": "pdf",
+      "target": "txt",
+      "route": [
+        "pdf",
+        "txt"
+      ],
+      "quality_expectation": "expected",
+      "priority": "high"
+    },
+    {
+      "name": "docx_to_pdf_quality",
+      "source": "docx",
+      "target": "pdf",
+      "route": [
+        "docx",
+        "pdf"
+      ],
+      "quality_expectation": "expected",
+      "priority": "high"
+    }
+  ]
+}

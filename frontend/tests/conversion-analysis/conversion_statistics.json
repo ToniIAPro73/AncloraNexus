@@ -1,0 +1,42 @@
+{
+  "total_conversions": 283,
+  "direct_conversions": 101,
+  "indirect_conversions": 182,
+  "by_category": {
+    "intra_archive": 12,
+    "inter_audio_to_video": 16,
+    "intra_audio": 12,
+    "inter_video_to_audio": 16,
+    "intra_video": 12,
+    "intra_ebook": 13,
+    "inter_ebook_to_document": 20,
+    "inter_ebook_to_image": 20,
+    "inter_image_to_document": 42,
+    "intra_image": 30,
+    "inter_document_to_image": 30,
+    "intra_document": 30,
+    "intra_font": 6,
+    "inter_presentation_to_document": 12,
+    "inter_presentation_to_image": 10,
+    "intra_presentation": 2
+  },
+  "by_steps": {
+    "1": 101,
+    "2": 105,
+    "3": 69,
+    "4": 8
+  },
+  "most_connected_formats": {
+    "azw": 14,
+    "azw3": 13,
+    "epub": 13,
+    "mobi": 13,
+    "ppt": 12,
+    "pptx": 12,
+    "bmp": 11,
+    "jpeg": 11,
+    "docx": 10,
+    "gif": 10
+  },
+  "conversion_efficiency": "35.69"
+}

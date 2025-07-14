@@ -1,0 +1,32 @@
+# Documento Técnico
+
+## Código JavaScript:
+```javascript
+function convertFile(input, output) {
+    try {
+        const result = processConversion(input, output);
+        return { success: true, data: result };
+    } catch (error) {
+        return { success: false, error: error.message };
+    }
+}
+```
+
+## Fórmulas matemáticas:
+- E = mc²
+- a² + b² = c²
+- ∑(i=1 to n) i = n(n+1)/2
+
+## Datos estructurados:
+{
+  "conversion": {
+    "input": "document.pdf",
+    "output": "document.docx",
+    "status": "completed"
+  }
+}
+
+## URLs y enlaces:
+- https://example.com/api/convert
+- mailto:test@example.com
+- ftp://files.example.com/uploads/

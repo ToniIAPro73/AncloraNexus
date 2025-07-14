@@ -1,0 +1,54 @@
+# INFORME TRIMESTRAL DE VENTAS
+## Tercer Trimestre 2025
+
+### Resumen Ejecutivo
+
+Durante el tercer trimestre de 2025, la empresa ha experimentado un crecimiento significativo en todas las líneas de producto. Las ventas totales alcanzaron los €2.4 millones, representando un incremento del 18% respecto al trimestre anterior.
+
+### Métricas Clave
+
+| Producto | Q2 2025 | Q3 2025 | Crecimiento |
+|----------|---------|---------|-------------|
+| Software | €800K   | €950K   | +18.75%     |
+| Servicios| €650K   | €780K   | +20.00%     |
+| Hardware | €580K   | €670K   | +15.52%     |
+
+### Análisis por Región
+
+**Europa Occidental**: €1.2M (+22%)
+- España: €450K
+- Francia: €380K  
+- Alemania: €370K
+
+**América**: €800K (+15%)
+- Estados Unidos: €500K
+- Canadá: €180K
+- México: €120K
+
+**Asia-Pacífico**: €400K (+12%)
+- Japón: €200K
+- Australia: €120K
+- Singapur: €80K
+
+### Proyecciones Q4 2025
+
+Basándose en las tendencias actuales y la estacionalidad histórica, proyectamos:
+
+- Ventas totales: €2.8M (+16.7%)
+- Margen bruto: 68%
+- EBITDA: €1.1M
+
+### Recomendaciones Estratégicas
+
+1. **Expansión de mercado**: Incrementar presencia en Asia-Pacífico
+2. **Desarrollo de producto**: Lanzar nueva línea de servicios cloud
+3. **Optimización operativa**: Automatizar procesos de ventas
+4. **Inversión en marketing**: Aumentar presupuesto digital en 25%
+
+### Conclusiones
+
+El Q3 2025 ha sido exitoso, superando las expectativas iniciales. La estrategia de diversificación de productos y expansión geográfica está dando resultados positivos.
+
+---
+*Documento confidencial - Solo para uso interno*
+*Fecha de generación: 13/7/2025*
