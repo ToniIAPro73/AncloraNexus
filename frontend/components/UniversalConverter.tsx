@@ -8,7 +8,7 @@ export const UniversalConverter: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [aiSuggestion, setAiSuggestion] = useState<string>('');
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { credits, consumeCredits, calculateCost } = useCreditSystem();
+  const { balance, consumeCredits, calculateConversionCost } = useCreditSystem();
 
   const popularConversions = [
     { from: 'PDF', to: 'JPG', icon: '📄→🖼️', cost: 2 },
@@ -22,20 +22,21 @@ export const UniversalConverter: React.FC = () => {
     setSelectedFile(file);
     setCurrentStep(2);
     
-    // Simular análisis de IA mejorado - CORREGIDO
+    // Simular análisis de IA mejorado
     const simulateAIAnalysis = () => {
       setTimeout(() => {
         try {
-          const suggestions: { [key: string]: string } = {
+          const suggestions = {
             'pdf': 'Para este PDF, recomiendo convertir a JPG con calidad alta para mejor visualización web',
             'jpg': 'Esta imagen se vería mejor como PNG para mantener la calidad sin pérdida',
             'mp4': 'Este video es perfecto para convertir a GIF para uso en redes sociales',
-            'doc': 'Convierte a PDF para mejor compatibilidad y distribución'
+            'doc': 'Convierte a PDF para mejor compatibilidad y distribución',
+            'txt': 'Archivo detectado. Selecciona el formato de destino para obtener la mejor calidad.'
           };
           
           // Obtener extensión del archivo seleccionado
           const fileExtension = file.name.split('.').pop()?.toLowerCase();
-          const suggestion = suggestions[fileExtension || ''] || 'Archivo detectado. Selecciona el formato de destino para obtener la mejor calidad.';
+          const suggestion = suggestions[fileExtension as keyof typeof suggestions] || 'Archivo detectado. Selecciona el formato de destino para obtener la mejor calidad.';
           
           setAiSuggestion(suggestion);
           setCurrentStep(3);
@@ -55,10 +56,9 @@ export const UniversalConverter: React.FC = () => {
             setAiSuggestion('');
           }, 5000);
         }
-      }, 1500);
+      }, 1500); // Reducir tiempo de espera
     };
     
-    // Ejecutar el análisis
     simulateAIAnalysis();
   };
 
@@ -77,11 +77,21 @@ export const UniversalConverter: React.FC = () => {
     }
   };
 
+  const calculateCost = (file: File, format: string): number => {
+    if (!file || !format) return 0;
+    
+    // Usar la función del contexto para calcular el costo
+    const fileExtension = file.name.split('.').pop()?.toLowerCase() || '';
+    const conversionType = `${fileExtension}-${format.toLowerCase()}`;
+    
+    return calculateConversionCost(conversionType, file.size, 'standard');
+  };
+
   const handleConvert = async () => {
     if (!selectedFile || !targetFormat) return;
     
     const cost = calculateCost(selectedFile, targetFormat);
-    if (credits < cost) {
+    if (balance.current < cost) {
       alert('Créditos insuficientes');
       return;
     }
@@ -89,42 +99,44 @@ export const UniversalConverter: React.FC = () => {
     setIsConverting(true);
     setCurrentStep(4);
     
-    // Simular conversión con descarga real
-    setTimeout(() => {
-      try {
-        // Simular archivo convertido
-        const convertedFileName = `${selectedFile.name.split('.')[0]}_converted.${targetFormat}`;
-        const simulatedContent = `Archivo convertido: ${convertedFileName}\nArchivo original: ${selectedFile.name}\nFormato destino: ${targetFormat}\nTamaño original: ${(selectedFile.size / 1024 / 1024).toFixed(2)} MB\nFecha de conversión: ${new Date().toLocaleString()}`;
+    // Simular conversión con progreso realista
+    try {
+      // Simular proceso de conversión
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      // Consumir créditos y crear transacción
+      const success = consumeCredits(cost, `${selectedFile.name} → ${targetFormat}`);
+      
+      if (success) {
+        // Simular descarga del archivo convertido
+        const convertedFileName = selectedFile.name.replace(/\.[^/.]+$/, `.${targetFormat}`);
+        const simulatedContent = `Archivo convertido: ${convertedFileName}\nConversión de ${selectedFile.name} a formato ${targetFormat.toUpperCase()}\nTamaño original: ${(selectedFile.size / 1024 / 1024).toFixed(2)} MB\nFecha de conversión: ${new Date().toLocaleString()}`;
         
-        // Crear blob y URL de descarga
         const blob = new Blob([simulatedContent], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
         
-        // Crear enlace de descarga
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = convertedFileName;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        
-        // Limpiar URL
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = convertedFileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
         URL.revokeObjectURL(url);
         
-        // Consumir créditos y resetear
-        consumeCredits(cost, `${selectedFile.name} → ${targetFormat}`);
+        // Resetear el formulario
         setIsConverting(false);
         setCurrentStep(1);
         setSelectedFile(null);
         setTargetFormat('');
         setAiSuggestion('');
-        
-      } catch (error) {
-        console.error('Error en conversión:', error);
-        setIsConverting(false);
-        alert('Error durante la conversión. Intenta de nuevo.');
+      } else {
+        throw new Error('Error al procesar el pago de créditos');
       }
-    }, 3000);
+    } catch (error) {
+      console.error('Error en conversión:', error);
+      setIsConverting(false);
+      alert('Error durante la conversión. Inténtalo de nuevo.');
+    }
   };
 
   return (
@@ -271,7 +283,9 @@ export const UniversalConverter: React.FC = () => {
                 ) : (
                   <>
                     <div className="text-2xl mb-2">🎉</div>
-                    <p className="text-green-400 text-sm">¡Descarga iniciada!</p>
+                    <button className="bg-cyan-500 text-white px-3 py-1 rounded text-sm hover:bg-cyan-600 transition-colors">
+                      Descargar
+                    </button>
                   </>
                 )}
               </div>
