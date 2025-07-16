@@ -18,10 +18,6 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const app = express();
-
-// Use helmet middleware to emit security headers
-app.use(helmet());
-
 app.use(cors());
 app.use(express.json());
 const upload = multer({ dest: 'tmp/' });
@@ -90,11 +86,15 @@ app.post('/api/convert', upload.single('file'), async (req, res) => {
       return res.status(400).json({ error: 'file and format are required' });
     }
 
-    const filePath = req.file.path;
-    if (filePath.includes('..')) {
+    const uploadDir = path.resolve('tmp');
+    const fileName = path.basename(req.file.filename); // only use the filename, not the path
+    const resolvedPath = path.join(uploadDir, fileName);
+
+    // Ensure the resolved path is within the upload directory
+    if (!resolvedPath.startsWith(uploadDir + path.sep)) {
       return res.status(400).json({ error: 'Invalid file path' });
     }
-    const fileBuffer = fs.readFileSync(filePath);
+    const fileBuffer = fs.readFileSync(resolvedPath);
     const originalPath = `${userData.user.id}/${Date.now()}_${req.file.originalname}`;
     const { error: uploadError } = await supabase.storage
       .from(SUPABASE_BUCKET)
