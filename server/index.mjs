@@ -5,6 +5,7 @@ import { createClient } from '@supabase/supabase-js';
 import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
+import helmet from 'helmet';
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const app = express();
+app.use(helmet());
 app.use(cors());
 app.use(express.json());
 const upload = multer({ dest: 'tmp/' });
