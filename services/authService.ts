@@ -3,7 +3,8 @@ export interface AuthResponse {
   token: string;
 }
 
-const API_BASE = '/api';
+// URL base configurable mediante variables de entorno de Vite
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
 
 async function request<T>(url: string, options: RequestInit) {
   const res = await fetch(url, options);
