@@ -100,6 +100,14 @@ app.post('/api/convert', upload.single('file'), async (req, res) => {
     ) {
       return res.status(400).json({ error: 'Invalid file path' });
     }
+    // Only read the file if it is inside the intended directory
+    if (
+      !fs.existsSync(uploadedFilePath) ||
+      !uploadedFilePath.startsWith(uploadDir + path.sep) ||
+      path.relative(uploadDir, uploadedFilePath).includes('..')
+    ) {
+      return res.status(400).json({ error: 'File not found or invalid path' });
+    }
     const fileBuffer = fs.readFileSync(uploadedFilePath);
     // Sanitize the original file name to prevent path traversal or unsafe characters
     const safeOriginalName = path.basename(req.file.originalname).replace(/[^a-zA-Z0-9._-]/g, '_');
