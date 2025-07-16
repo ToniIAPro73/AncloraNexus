@@ -89,7 +89,18 @@ app.post('/api/convert', upload.single('file'), async (req, res) => {
       return res.status(400).json({ error: 'file and format are required' });
     }
 
-    const fileBuffer = fs.readFileSync(req.file.path);
+    // Validate that the file path is within the 'tmp/' directory to prevent file inclusion attacks
+    const uploadDir = path.resolve('tmp');
+    const uploadedFilePath = path.resolve(req.file.path);
+    const relative = path.relative(uploadDir, uploadedFilePath);
+    if (
+      relative.startsWith('..') ||
+      path.isAbsolute(relative) ||
+      !uploadedFilePath.startsWith(uploadDir + path.sep)
+    ) {
+      return res.status(400).json({ error: 'Invalid file path' });
+    }
+    const fileBuffer = fs.readFileSync(uploadedFilePath);
     // Sanitize the original file name to prevent path traversal or unsafe characters
     const safeOriginalName = path.basename(req.file.originalname).replace(/[^a-zA-Z0-9._-]/g, '_');
     const originalPath = `${userData.user.id}/${Date.now()}_${safeOriginalName}`;
