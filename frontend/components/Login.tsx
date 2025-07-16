@@ -18,6 +18,7 @@ export const Login: React.FC<LoginProps> = ({
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const authService = AuthService.getInstance();
@@ -69,6 +70,29 @@ export const Login: React.FC<LoginProps> = ({
     }));
     // Limpiar error cuando el usuario empiece a escribir
     if (error) setError('');
+    if (message) setMessage('');
+  };
+
+  const handleForgotPassword = async () => {
+    if (!formData.email) {
+      setError('Ingresa tu email para continuar');
+      return;
+    }
+    setIsLoading(true);
+    setError('');
+    setMessage('');
+    try {
+      const result = await authService.forgotPassword(formData.email);
+      if (result.success) {
+        setMessage('Si el email existe, recibirás instrucciones para restablecer tu contraseña.');
+      } else {
+        setError(result.error || 'Error al solicitar restablecimiento');
+      }
+    } catch {
+      setError('Error inesperado. Intenta de nuevo.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -96,6 +120,12 @@ export const Login: React.FC<LoginProps> = ({
           <div className="login-error">
             <span className="error-icon">⚠️</span>
             {error}
+          </div>
+        )}
+        {message && (
+          <div className="login-message">
+            <span className="info-icon">✔️</span>
+            {message}
           </div>
         )}
 
@@ -186,8 +216,8 @@ export const Login: React.FC<LoginProps> = ({
 
         {/* Footer Links */}
         <div className="login-footer">
-          <button 
-            onClick={() => {/* TODO: Implementar forgot password */}}
+          <button
+            onClick={handleForgotPassword}
             className="link-button"
           >
             ¿Olvidaste tu contraseña?
@@ -287,6 +317,23 @@ export const Login: React.FC<LoginProps> = ({
           align-items: center;
           gap: var(--space-1);
           font-size: 14px;
+        }
+
+        .login-message {
+          background: #ecfdf5;
+          border: 1px solid #d1fae5;
+          color: #059669;
+          padding: var(--space-2);
+          border-radius: 8px;
+          margin-bottom: var(--space-3);
+          display: flex;
+          align-items: center;
+          gap: var(--space-1);
+          font-size: 14px;
+        }
+
+        .info-icon {
+          flex-shrink: 0;
         }
 
         .error-icon {
