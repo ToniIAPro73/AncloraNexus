@@ -7,7 +7,7 @@ import { User, LoginData, RegisterData } from '../types/auth';
 
 // 1. Obtenemos la URL base desde las variables de entorno de Vite.
 //    Si no está definida, usará '/api' como valor por defecto.
-const API_BASE_URL = import.meta.env.VITE_API_BASE || '/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
 // --- Definición del Contexto y Tipos ---
 
