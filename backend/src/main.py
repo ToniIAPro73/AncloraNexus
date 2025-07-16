@@ -3,10 +3,10 @@ import sys
 # DON'T CHANGE THIS !!!
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from flask import Flask, send_from_directory, jsonify
-from flask_jwt_extended import JWTManager
-from flask_cors import CORS
-from flask_migrate import Migrate
+from flask import Flask, send_from_directory, jsonify # type: ignore
+from flask_jwt_extended import JWTManager # type: ignore
+from flask_cors import CORS # type: ignore
+from flask_migrate import Migrate # type: ignore
 
 # Importar configuración
 from src.config import config
