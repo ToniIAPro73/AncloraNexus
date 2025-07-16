@@ -605,6 +605,26 @@ export class AuthService {
   }
 
   /**
+   * Solicitar restablecimiento de contraseña vía backend
+   */
+  async forgotPassword(email: string): Promise<{ success: boolean; error?: string }> {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/auth/forgot-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        return { success: false, error: data.error || 'Error solicitando recuperación' };
+      }
+      return { success: true };
+    } catch {
+      return { success: false, error: 'Error inesperado enviando email de recuperación' };
+    }
+  }
+
+  /**
    * Actualizar contraseña
    */
   async updatePassword(newPassword: string): Promise<{ success: boolean; error?: string }> {
