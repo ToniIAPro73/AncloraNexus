@@ -5,6 +5,7 @@ import { createClient } from '@supabase/supabase-js';
 import multer from 'multer';
 import fs from 'fs';
 import path from 'path';
+import helmet from 'helmet';
 
 dotenv.config();
 
@@ -16,8 +17,11 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
 }
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
 const app = express();
+
+// Use helmet middleware to emit security headers
+app.use(helmet());
+
 app.use(cors());
 app.use(express.json());
 const upload = multer({ dest: 'tmp/' });
@@ -86,7 +90,11 @@ app.post('/api/convert', upload.single('file'), async (req, res) => {
       return res.status(400).json({ error: 'file and format are required' });
     }
 
-    const fileBuffer = fs.readFileSync(req.file.path);
+    const filePath = req.file.path;
+    if (filePath.includes('..')) {
+      return res.status(400).json({ error: 'Invalid file path' });
+    }
+    const fileBuffer = fs.readFileSync(filePath);
     const originalPath = `${userData.user.id}/${Date.now()}_${req.file.originalname}`;
     const { error: uploadError } = await supabase.storage
       .from(SUPABASE_BUCKET)
