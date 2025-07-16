@@ -1,5 +1,15 @@
 // auth/AuthContext.tsx
 
+// Extiende ImportMeta para soportar import.meta.env en TypeScript
+interface ImportMetaEnv {
+  readonly VITE_API_BASE_URL?: string;
+  // agrega otras variables si es necesario
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}
+
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User, LoginData, RegisterData } from '../types/auth';
 
