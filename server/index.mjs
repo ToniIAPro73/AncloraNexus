@@ -86,6 +86,9 @@ app.post('/api/convert', upload.single('file'), async (req, res) => {
       return res.status(400).json({ error: 'file and format are required' });
     }
 
+    if (req.file.path.includes('..')) {
+      return res.status(400).json({ error: 'Invalid file path' });
+    }
     const fileBuffer = fs.readFileSync(req.file.path);
     const originalPath = `${userData.user.id}/${Date.now()}_${req.file.originalname}`;
     const { error: uploadError } = await supabase.storage
