@@ -4,16 +4,18 @@
   "description": "Paquete de integración para los nuevos conversores de Anclora",
   "main": "index.js",
   "scripts": {
-  "dev": "next dev",
-  "build": "next build",
-  "start": "next start",
-  "lint": "next lint"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "docx": "^8.5.0",
-    "jszip": "^3.10.1"
+    "jszip": "^3.10.1",
+    "next": "^15.4.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
-  "devDependencies": {},
   "keywords": [
     "anclora",
     "converter",
@@ -27,4 +29,3 @@
   "author": "Anclora Team",
   "license": "MIT"
 }
-
