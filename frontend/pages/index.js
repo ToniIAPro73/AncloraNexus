@@ -1,4 +1,4 @@
-import UniversalConverter from '../UniversalConverter";
+import UniversalConverter from '../UniversalConverter'
 export default function HomePage() {
   return (
     <main>
