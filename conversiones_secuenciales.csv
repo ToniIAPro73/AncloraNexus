@@ -1,0 +1,11 @@
+Tipo_Conversión,Convertio_Soporte,CloudConvert_Soporte,Zamzar_Soporte,Ejemplos_Uso
+Conversión Simple (Directa),Sí - Directo entre 300+ formatos,Sí - Directo entre 200+ formatos,Sí - Directo entre 1200+ formatos,"PDF → Word, JPG → PNG, MP4 → AVI"
+Conversión Secuencial (2 pasos),Sí - Vía procesamiento en nube,Sí - Jobs con tareas encadenadas,Sí - Conversión por pasos,"RAW → TIFF → PDF, Word → HTML → EPUB"
+Conversión Compuesta (3+ pasos),Sí - Workflows automatizados con IA,Sí - Workflows multi-tarea vía API,Limitado - Vía API personalizada,Escáner → OCR → Word → PDF → Firma
+Conversión Batch (Lote),Sí - Hasta 25 archivos simultáneos,Sí - Procesamiento batch escalable,Sí - Hasta 100 archivos batch,"Múltiples JPG → PDF, Videos → MP4"
+Conversión OCR + Formato,Sí - OCR avanzado con IA,Sí - OCR con LibreOffice,Sí - OCR básico,Imagen escaneada → Texto → Word
+Conversión Multimedia + Compresión,Sí - Optimización automática,Sí - Compresión y optimización,Sí - Compresión estándar,Video → Compresión → Streaming
+Conversión Archivo + Extracción,Sí - Extracción de archivos comprimidos,Sí - Importación desde archivos,Sí - Extracción de archivos,ZIP → Extracción → Conversión individual
+Conversión Web + Optimización,Sí - Optimización para web,Sí - Optimización para web,Sí - Optimización básica,Imágenes → WebP → CDN optimizado
+Conversión RAW + Procesamiento,Sí - Procesamiento RAW con IA,Sí - Procesamiento RAW,Sí - Procesamiento RAW básico,RAW → Ajustes → JPG/PNG
+Conversión Email + Anexos,Sí - Conversión MSG/EML + anexos,Sí - Conversión email completa,Sí - Conversión email,MSG → Texto + Anexos convertidos

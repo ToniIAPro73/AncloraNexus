@@ -1,0 +1,9 @@
+Este es un archivo de texto simple para pruebas de conversión.
+Contiene texto básico en español con acentos: áéíóú
+Y algunos caracteres especiales: ñ, ¿, ¡
+
+Línea con números: 123456789
+Línea con símbolos: @#$%^&*()
+
+Final del archivo de prueba.
+

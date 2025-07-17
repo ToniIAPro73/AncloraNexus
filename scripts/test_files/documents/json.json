@@ -1,0 +1,73 @@
+{
+  "proyecto": "Anclora Converter",
+  "version": "1.0.0",
+  "descripcion": "Sistema de conversión de archivos con IA",
+  "autor": {
+    "nombre": "Equipo Anclora",
+    "email": "info@anclora.com",
+    "website": "https://anclora.com"
+  },
+  "configuracion": {
+    "formatos_soportados": [
+      "txt", "pdf", "docx", "jpg", "png", "gif", "mp4", "mp3", "csv", "json", "xml", "html"
+    ],
+    "creditos_por_conversion": {
+      "basico": 1,
+      "estandar": 3,
+      "avanzado": 5,
+      "premium": 10
+    },
+    "limites": {
+      "tamaño_maximo_mb": 100,
+      "conversiones_simultaneas": 5,
+      "tiempo_limite_segundos": 300
+    }
+  },
+  "usuarios_prueba": [
+    {
+      "id": 1,
+      "nombre": "Ana García",
+      "email": "ana.garcia@email.com",
+      "plan": "Pro",
+      "creditos": 50,
+      "conversiones_realizadas": 12,
+      "fecha_registro": "2025-01-15T10:30:00Z"
+    },
+    {
+      "id": 2,
+      "nombre": "Carlos López",
+      "email": "carlos.lopez@email.com",
+      "plan": "Básico",
+      "creditos": 25,
+      "conversiones_realizadas": 8,
+      "fecha_registro": "2025-02-20T14:45:00Z"
+    },
+    {
+      "id": 3,
+      "nombre": "María Rodríguez",
+      "email": "maria.rodriguez@email.com",
+      "plan": "Premium",
+      "creditos": 100,
+      "conversiones_realizadas": 25,
+      "fecha_registro": "2025-03-10T09:15:00Z"
+    }
+  ],
+  "estadisticas": {
+    "total_conversiones": 1247,
+    "formatos_mas_populares": {
+      "origen": ["pdf", "jpg", "docx"],
+      "destino": ["png", "pdf", "txt"]
+    },
+    "tiempo_promedio_conversion": "2.3 segundos",
+    "tasa_exito": "98.5%"
+  },
+  "metadatos": {
+    "fecha_creacion": "2025-07-15T19:50:00Z",
+    "proposito": "Archivo de prueba para conversión JSON",
+    "caracteres_especiales": "áéíóú ñ ¿¡ @#$%",
+    "unicode": "🚀 💎 📊 🎯",
+    "numeros": [1, 2, 3, 4, 5, 10, 100, 1000],
+    "booleanos": [true, false, null]
+  }
+}
+

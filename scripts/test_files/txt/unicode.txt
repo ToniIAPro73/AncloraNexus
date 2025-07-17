@@ -1,0 +1,23 @@
+Archivo de prueba con caracteres Unicode complejos:
+
+Emojis: 🚀 🎯 💎 📊 🔧 ⚡ 🌟 🎨 📱 💻
+Símbolos matemáticos: ∑ ∆ π ∞ ≤ ≥ ≠ ± √ ∫
+Caracteres griegos: α β γ δ ε ζ η θ ι κ λ μ ν ξ ο π ρ σ τ υ φ χ ψ ω
+Caracteres cirílicos: А Б В Г Д Е Ё Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ъ Ы Ь Э Ю Я
+Caracteres chinos: 你好世界 测试文件 转换系统
+Caracteres japoneses: こんにちは テストファイル 変換システム
+Caracteres árabes: مرحبا بالعالم ملف اختبار نظام التحويل
+
+Texto con formato especial:
+- Línea con tabulaciones	separadas	por	tabs
+- Línea con espacios múltiples     separados     por     espacios
+- Línea\ncon\nsaltos\nde\nlínea\nembebidos
+
+Caracteres de control y especiales:
+"Comillas dobles" y 'comillas simples'
+Paréntesis (redondos) [cuadrados] {llaves}
+Guiones - y rayas —
+Puntos suspensivos...
+
+Final del archivo Unicode.
+

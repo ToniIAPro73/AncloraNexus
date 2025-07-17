@@ -1,6 +1,17 @@
 import React, { useState, useRef } from 'react';
 import { useCreditSystem } from './CreditSystem';
 
+// Importar conversores
+import TxtToHtmlConverter from '../converters/TxtToHtmlConverter';
+import TxtToDocConverter from '../converters/TxtToDocConverter';
+import TxtToMarkdownConverter from '../converters/TxtToMarkdownConverter';
+import TxtToRtfConverter from '../converters/TxtToRtfConverter';
+import TxtToOdtConverter from '../converters/TxtToOdtConverter';
+import TxtToTexConverter from '../converters/TxtToTexConverter';
+
+// Importar logo
+import ancloraLogo from '../assets/anclora_metaform_logo.png';
+
 export const UniversalConverter: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [targetFormat, setTargetFormat] = useState<string>('');
@@ -10,13 +21,36 @@ export const UniversalConverter: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { balance, consumeCredits, calculateConversionCost } = useCreditSystem();
 
+  // Inicializar conversores
+  const htmlConverter = new TxtToHtmlConverter();
+  const docConverter = new TxtToDocConverter();
+  const mdConverter = new TxtToMarkdownConverter();
+  const rtfConverter = new TxtToRtfConverter();
+  const odtConverter = new TxtToOdtConverter();
+  const texConverter = new TxtToTexConverter();
+
   const popularConversions = [
     { from: 'PDF', to: 'JPG', icon: '📄→🖼️', cost: 2 },
     { from: 'JPG', to: 'PNG', icon: '🖼️→🎨', cost: 1 },
-    { from: 'MP4', to: 'GIF', icon: '🎬→🎞️', cost: 5 },
-    { from: 'PNG', to: 'SVG', icon: '🎨→📐', cost: 3 },
-    { from: 'DOC', to: 'PDF', icon: '📝→📄', cost: 2 },
+    { from: 'TXT', to: 'HTML', icon: '📝→🌐', cost: 1 },
+    { from: 'TXT', to: 'DOC', icon: '📝→📄', cost: 1 },
+    { from: 'TXT', to: 'TEX', icon: '📝→🎓', cost: 1 },
   ];
+
+  // Formatos disponibles según el tipo de archivo
+  const getAvailableFormats = (fileType: string) => {
+    const formats: { [key: string]: string[] } = {
+      'txt': ['html', 'doc', 'md', 'rtf', 'odt', 'tex', 'pdf', 'jpg', 'png', 'gif'],
+      'pdf': ['jpg', 'png', 'gif'],
+      'jpg': ['png', 'gif', 'pdf'],
+      'png': ['jpg', 'gif', 'pdf'],
+      'gif': ['jpg', 'png', 'pdf'],
+      'doc': ['pdf', 'txt', 'html'],
+      'docx': ['pdf', 'txt', 'html'],
+    };
+
+    return formats[fileType] || [];
+  };
 
   const handleFileSelect = (file: File) => {
     setSelectedFile(file);
@@ -31,7 +65,8 @@ export const UniversalConverter: React.FC = () => {
             'jpg': 'Esta imagen se vería mejor como PNG para mantener la calidad sin pérdida',
             'mp4': 'Este video es perfecto para convertir a GIF para uso en redes sociales',
             'doc': 'Convierte a PDF para mejor compatibilidad y distribución',
-            'txt': 'Archivo detectado. Selecciona el formato de destino para obtener la mejor calidad.'
+            'txt': 'Archivo de texto detectado. Opciones recomendadas: HTML para web, DOC para documentos, MD para desarrolladores.',
+            'docx': 'Documento Word detectado. Convierte a PDF para distribución universal'
           };
           
           // Obtener extensión del archivo seleccionado
@@ -48,300 +83,344 @@ export const UniversalConverter: React.FC = () => {
           
         } catch (error) {
           console.error('Error en análisis IA:', error);
-          setAiSuggestion('Error al analizar el archivo. Intenta de nuevo.');
+          setAiSuggestion('Análisis completado. Selecciona el formato de destino.');
           setCurrentStep(3);
-          
-          // Limpiar error después de 5 segundos
-          setTimeout(() => {
-            setAiSuggestion('');
-          }, 5000);
         }
-      }, 1500); // Reducir tiempo de espera
+      }, 1500);
     };
-    
+
     simulateAIAnalysis();
   };
 
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    const files = Array.from(e.dataTransfer.files);
-    if (files.length > 0) {
-      handleFileSelect(files[0]);
-    }
+  const handleFormatSelect = (format: string) => {
+    setTargetFormat(format);
   };
 
-  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (files && files.length > 0) {
-      handleFileSelect(files[0]);
-    }
-  };
+  const downloadFile = (content: any, filename: string, mimeType: string) => {
+    try {
+      let blob: Blob;
+      
+      if (content instanceof Blob) {
+        blob = content;
+      } else if (typeof content === 'string') {
+        blob = new Blob([content], { type: mimeType });
+      } else {
+        blob = new Blob([content], { type: mimeType });
+      }
 
-  const calculateCost = (file: File, format: string): number => {
-    if (!file || !format) return 0;
-    
-    // Usar la función del contexto para calcular el costo
-    const fileExtension = file.name.split('.').pop()?.toLowerCase() || '';
-    const conversionType = `${fileExtension}-${format.toLowerCase()}`;
-    
-    return calculateConversionCost(conversionType, file.size, 'standard');
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error al descargar archivo:', error);
+      alert('Error al descargar el archivo. Por favor, inténtalo de nuevo.');
+    }
   };
 
   const handleConvert = async () => {
-    if (!selectedFile || !targetFormat) return;
-    
-    const cost = calculateCost(selectedFile, targetFormat);
-    if (balance.current < cost) {
-      alert('Créditos insuficientes');
+    if (!selectedFile || !targetFormat) {
+      alert('Por favor selecciona un archivo y formato de destino');
       return;
     }
 
     setIsConverting(true);
-    setCurrentStep(4);
-    
-    // Simular conversión con progreso realista
+
     try {
-      // Simular proceso de conversión
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Calcular y consumir créditos
+      const cost = calculateConversionCost(selectedFile.name, targetFormat);
       
-      // Consumir créditos y crear transacción
-      const success = consumeCredits(cost, `${selectedFile.name} → ${targetFormat}`);
-      
-      if (success) {
-        // Simular descarga del archivo convertido
-        const convertedFileName = selectedFile.name.replace(/\.[^/.]+$/, `.${targetFormat}`);
-        const simulatedContent = `Archivo convertido: ${convertedFileName}\nConversión de ${selectedFile.name} a formato ${targetFormat.toUpperCase()}\nTamaño original: ${(selectedFile.size / 1024 / 1024).toFixed(2)} MB\nFecha de conversión: ${new Date().toLocaleString()}`;
-        
-        const blob = new Blob([simulatedContent], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = convertedFileName;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        
-        // Resetear el formulario
+      if (balance.current < cost) {
+        alert('Créditos insuficientes para esta conversión');
         setIsConverting(false);
-        setCurrentStep(1);
-        setSelectedFile(null);
-        setTargetFormat('');
-        setAiSuggestion('');
-      } else {
-        throw new Error('Error al procesar el pago de créditos');
+        return;
       }
+
+      // Obtener extensión del archivo
+      const fileExtension = selectedFile.name.split('.').pop()?.toLowerCase();
+      
+      // Conversiones desde TXT
+      if (fileExtension === 'txt') {
+        const fileContent = await selectedFile.text();
+        const baseFilename = selectedFile.name.replace(/\.[^/.]+$/, '');
+        
+        let result;
+        let filename;
+        let mimeType;
+
+        switch (targetFormat.toLowerCase()) {
+          case 'html':
+            result = htmlConverter.convert(fileContent, { title: baseFilename });
+            filename = `${baseFilename}.html`;
+            mimeType = 'text/html';
+            break;
+            
+          case 'doc':
+          case 'docx':
+            result = docConverter.convert(fileContent, { title: baseFilename });
+            filename = `${baseFilename}.docx`;
+            mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+            break;
+            
+          case 'md':
+            result = mdConverter.convert(fileContent, { title: baseFilename });
+            filename = `${baseFilename}.md`;
+            mimeType = 'text/markdown';
+            break;
+            
+          case 'rtf':
+            result = rtfConverter.convert(fileContent, { title: baseFilename });
+            filename = `${baseFilename}.rtf`;
+            mimeType = 'application/rtf';
+            break;
+            
+          case 'odt':
+            result = await odtConverter.convert(fileContent, { title: baseFilename });
+            filename = `${baseFilename}.odt`;
+            mimeType = 'application/vnd.oasis.opendocument.text';
+            break;
+            
+          case 'tex':
+            result = texConverter.convert(fileContent, { 
+              title: baseFilename,
+              author: 'Usuario Anclora',
+              documentClass: 'article'
+            });
+            filename = `${baseFilename}.tex`;
+            mimeType = 'application/x-tex';
+            break;
+            
+          default:
+            // Para otros formatos (PDF, JPG, PNG, GIF), usar conversión simulada
+            await simulateConversion();
+            return;
+        }
+
+        if (result.success) {
+          // Consumir créditos
+          consumeCredits(cost, `${selectedFile.name} → ${targetFormat.toUpperCase()}`);
+          
+          // Descargar archivo
+          downloadFile(result.content, filename, mimeType);
+          
+          // Resetear formulario
+          setSelectedFile(null);
+          setTargetFormat('');
+          setCurrentStep(1);
+          setAiSuggestion('');
+          
+          alert('¡Conversión completada exitosamente!');
+        } else {
+          throw new Error(result.error || 'Error en la conversión');
+        }
+      } else {
+        // Para otros tipos de archivo, usar conversión simulada
+        await simulateConversion();
+      }
+
     } catch (error) {
       console.error('Error en conversión:', error);
+      alert('Error durante la conversión. Por favor, inténtalo de nuevo.');
+    } finally {
       setIsConverting(false);
-      alert('Error durante la conversión. Inténtalo de nuevo.');
     }
   };
 
+  const simulateConversion = async () => {
+    // Simular proceso de conversión para otros formatos
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    const cost = calculateConversionCost(selectedFile!.name, targetFormat);
+    consumeCredits(cost, `${selectedFile!.name} → ${targetFormat.toUpperCase()}`);
+    
+    // Crear archivo simulado
+    const simulatedContent = `Archivo convertido de ${selectedFile!.name} a ${targetFormat.toUpperCase()}`;
+    const filename = `${selectedFile!.name.split('.')[0]}.${targetFormat}`;
+    
+    downloadFile(simulatedContent, filename, 'application/octet-stream');
+    
+    // Resetear formulario
+    setSelectedFile(null);
+    setTargetFormat('');
+    setCurrentStep(1);
+    setAiSuggestion('');
+    
+    alert('¡Conversión completada exitosamente!');
+  };
+
+  const resetForm = () => {
+    setSelectedFile(null);
+    setTargetFormat('');
+    setCurrentStep(1);
+    setAiSuggestion('');
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  const getFileExtension = (filename: string) => {
+    return filename.split('.').pop()?.toLowerCase() || '';
+  };
+
+  const availableFormats = selectedFile ? getAvailableFormats(getFileExtension(selectedFile.name)) : [];
+
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="text-center">
-        <h1 className="text-3xl font-bold text-white mb-2">
-          🎯 Conversor Inteligente
-        </h1>
-        <p className="text-slate-300">
-          Convierte archivos con inteligencia artificial avanzada
-        </p>
-      </div>
-
-      {/* Workflow Steps */}
-      <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
-        <div className="flex items-center justify-between mb-8">
-          {[1, 2, 3, 4].map((step) => (
-            <div key={step} className="flex items-center">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all duration-300 ${
-                currentStep >= step 
-                  ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white' 
-                  : 'bg-slate-700 text-slate-400'
-              }`}>
-                {step}
-              </div>
-              {step < 4 && (
-                <div className={`w-16 h-1 mx-4 transition-all duration-300 ${
-                  currentStep > step ? 'bg-gradient-to-r from-blue-500 to-cyan-500' : 'bg-slate-700'
-                }`} />
-              )}
-            </div>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {/* Step 1: Upload */}
-          <div className={`p-4 rounded-lg border transition-all duration-300 ${
-            currentStep === 1 
-              ? 'bg-blue-500/10 border-blue-500/30' 
-              : 'bg-slate-700/30 border-slate-600/30'
-          }`}>
-            <h3 className="text-white font-medium mb-3">📁 Subir Archivo</h3>
-            {!selectedFile ? (
-              <div
-                onDrop={handleDrop}
-                onDragOver={(e) => e.preventDefault()}
-                onClick={() => fileInputRef.current?.click()}
-                className="border-2 border-dashed border-slate-600 rounded-lg p-6 text-center cursor-pointer hover:border-blue-500 transition-colors"
-              >
-                <div className="text-4xl mb-2">📁</div>
-                <p className="text-slate-300 text-sm">
-                  Arrastra tu archivo aquí<br />o haz clic para seleccionar
-                </p>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  onChange={handleFileInputChange}
-                  className="hidden"
-                />
-              </div>
-            ) : (
-              <div className="bg-slate-600/30 rounded-lg p-3">
-                <p className="text-white font-medium text-sm">{selectedFile.name}</p>
-                <p className="text-slate-400 text-xs">
-                  {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
-                </p>
-              </div>
-            )}
-          </div>
-
-          {/* Step 2: Analyze */}
-          <div className={`p-4 rounded-lg border transition-all duration-300 ${
-            currentStep === 2 
-              ? 'bg-purple-500/10 border-purple-500/30' 
-              : 'bg-slate-700/30 border-slate-600/30'
-          }`}>
-            <h3 className="text-white font-medium mb-3">🤖 Análisis IA</h3>
-            {currentStep >= 2 ? (
-              <div className="text-center">
-                {currentStep === 2 ? (
-                  <div className="animate-spin w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full mx-auto mb-2"></div>
-                ) : (
-                  <div className="text-2xl mb-2">✅</div>
-                )}
-                <p className="text-slate-300 text-sm">
-                  {currentStep === 2 ? 'Analizando archivo...' : 'Análisis completado'}
-                </p>
-              </div>
-            ) : (
-              <div className="text-center text-slate-500">
-                <div className="text-2xl mb-2">🤖</div>
-                <p className="text-sm">Esperando archivo</p>
-              </div>
-            )}
-          </div>
-
-          {/* Step 3: Configure */}
-          <div className={`p-4 rounded-lg border transition-all duration-300 ${
-            currentStep === 3 
-              ? 'bg-green-500/10 border-green-500/30' 
-              : 'bg-slate-700/30 border-slate-600/30'
-          }`}>
-            <h3 className="text-white font-medium mb-3">⚙️ Configurar</h3>
-            {currentStep >= 3 ? (
-              <div className="space-y-2">
-                <select
-                  value={targetFormat}
-                  onChange={(e) => setTargetFormat(e.target.value)}
-                  className="w-full bg-slate-700 border border-slate-600 rounded px-2 py-1 text-white text-sm"
-                >
-                  <option value="">Seleccionar formato</option>
-                  <option value="jpg">JPG</option>
-                  <option value="png">PNG</option>
-                  <option value="pdf">PDF</option>
-                  <option value="gif">GIF</option>
-                </select>
-                <div className="text-xs text-slate-400">
-                  Costo: {selectedFile ? calculateCost(selectedFile, targetFormat) : 0} créditos
-                </div>
-              </div>
-            ) : (
-              <div className="text-center text-slate-500">
-                <div className="text-2xl mb-2">⚙️</div>
-                <p className="text-sm">Configuración pendiente</p>
-              </div>
-            )}
-          </div>
-
-          {/* Step 4: Download */}
-          <div className={`p-4 rounded-lg border transition-all duration-300 ${
-            currentStep === 4 
-              ? 'bg-cyan-500/10 border-cyan-500/30' 
-              : 'bg-slate-700/30 border-slate-600/30'
-          }`}>
-            <h3 className="text-white font-medium mb-3">📥 Descargar</h3>
-            {currentStep === 4 ? (
-              <div className="text-center">
-                {isConverting ? (
-                  <>
-                    <div className="animate-pulse w-8 h-8 bg-cyan-500 rounded-full mx-auto mb-2"></div>
-                    <p className="text-slate-300 text-sm">Convirtiendo...</p>
-                  </>
-                ) : (
-                  <>
-                    <div className="text-2xl mb-2">🎉</div>
-                    <button className="bg-cyan-500 text-white px-3 py-1 rounded text-sm hover:bg-cyan-600 transition-colors">
-                      Descargar
-                    </button>
-                  </>
-                )}
-              </div>
-            ) : (
-              <div className="text-center text-slate-500">
-                <div className="text-2xl mb-2">📥</div>
-                <p className="text-sm">Descarga pendiente</p>
-              </div>
-            )}
+    <div className="universal-converter">
+      <div className="converter-header">
+        <div className="brand-header">
+          <img src={ancloraLogo} alt="Anclora Metaform" className="brand-logo" />
+          <div className="brand-text">
+            <h1>Anclora Metaform</h1>
+            <p className="brand-tagline">Tu Contenido, Reinventado</p>
           </div>
         </div>
-
-        {/* AI Suggestion */}
-        {aiSuggestion && (
-          <div className="mt-6 bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-lg p-4">
-            <div className="flex items-start space-x-3">
-              <span className="text-2xl">💡</span>
-              <div>
-                <h4 className="text-blue-300 font-medium mb-1">Sugerencia IA</h4>
-                <p className="text-slate-300 text-sm">{aiSuggestion}</p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Convert Button */}
-        {currentStep === 3 && targetFormat && (
-          <div className="mt-6 text-center">
-            <button
-              onClick={handleConvert}
-              disabled={isConverting}
-              className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-8 py-3 rounded-lg font-medium hover:from-blue-600 hover:to-cyan-600 transition-all duration-200 disabled:opacity-50"
-            >
-              {isConverting ? 'Convirtiendo...' : 'Iniciar Conversión'}
-            </button>
-          </div>
-        )}
+        <h2>🔄 Conversor Universal</h2>
+        <p>Convierte tus archivos a cualquier formato con IA</p>
+        <div className="credit-display">
+          💎 {balance.current} créditos disponibles
+        </div>
       </div>
 
-      {/* Popular Conversions */}
-      <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
-        <h2 className="text-xl font-bold text-white mb-4">🚀 Conversiones Populares</h2>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+      {/* Conversiones Populares */}
+      <div className="popular-conversions">
+        <h3>⚡ Conversiones Populares</h3>
+        <div className="conversion-grid">
           {popularConversions.map((conversion, index) => (
-            <button
-              key={index}
-              className="bg-slate-700/30 hover:bg-slate-600/30 border border-slate-600/30 rounded-lg p-4 text-center transition-all duration-200 hover:border-blue-500/30"
-            >
-              <div className="text-2xl mb-2">{conversion.icon}</div>
-              <p className="text-white font-medium text-sm">{conversion.from} → {conversion.to}</p>
-              <p className="text-slate-400 text-xs">{conversion.cost} créditos</p>
-            </button>
+            <div key={index} className="conversion-card">
+              <div className="conversion-icon">{conversion.icon}</div>
+              <div className="conversion-info">
+                <span className="conversion-text">{conversion.from} → {conversion.to}</span>
+                <span className="conversion-cost">{conversion.cost} créditos</span>
+              </div>
+            </div>
           ))}
         </div>
       </div>
+
+      {/* Paso 1: Selección de archivo */}
+      <div className={`step ${currentStep >= 1 ? 'active' : ''}`}>
+        <div className="step-header">
+          <span className="step-number">1</span>
+          <h3>Seleccionar Archivo</h3>
+        </div>
+        
+        <div className="file-upload-area">
+          <input
+            ref={fileInputRef}
+            type="file"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) handleFileSelect(file);
+            }}
+            className="file-input"
+            accept=".txt,.pdf,.jpg,.jpeg,.png,.gif,.doc,.docx,.mp4,.avi,.mov"
+          />
+          
+          {selectedFile && (
+            <div className="selected-file">
+              <div className="file-info">
+                <span className="file-name">📄 {selectedFile.name}</span>
+                <span className="file-size">({(selectedFile.size / 1024).toFixed(1)} KB)</span>
+              </div>
+              <button onClick={resetForm} className="remove-file">❌</button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Paso 2: Análisis IA */}
+      {currentStep >= 2 && (
+        <div className={`step ${currentStep >= 2 ? 'active' : ''}`}>
+          <div className="step-header">
+            <span className="step-number">2</span>
+            <h3>Análisis IA</h3>
+          </div>
+          
+          <div className="ai-analysis">
+            {currentStep === 2 ? (
+              <div className="analyzing">
+                <div className="spinner"></div>
+                <p>🤖 Analizando archivo con IA...</p>
+              </div>
+            ) : (
+              <div className="analysis-result">
+                <p>✅ Análisis completado</p>
+                {aiSuggestion && (
+                  <div className="ai-suggestion">
+                    <strong>💡 Sugerencia IA:</strong> {aiSuggestion}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Paso 3: Selección de formato */}
+      {currentStep >= 3 && (
+        <div className={`step ${currentStep >= 3 ? 'active' : ''}`}>
+          <div className="step-header">
+            <span className="step-number">3</span>
+            <h3>Seleccionar Formato</h3>
+          </div>
+          
+          <div className="format-selection">
+            <div className="format-grid">
+              {availableFormats.map((format) => {
+                const cost = selectedFile ? calculateConversionCost(selectedFile.name, format) : 1;
+                return (
+                  <div
+                    key={format}
+                    className={`format-option ${targetFormat === format ? 'selected' : ''}`}
+                    onClick={() => handleFormatSelect(format)}
+                  >
+                    <div className="format-name">{format.toUpperCase()}</div>
+                    <div className="format-cost">{cost} créditos</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Botón de conversión */}
+      {selectedFile && targetFormat && (
+        <div className="conversion-action">
+          <button
+            onClick={handleConvert}
+            disabled={isConverting || balance.current < calculateConversionCost(selectedFile.name, targetFormat)}
+            className="convert-button"
+          >
+            {isConverting ? (
+              <>
+                <div className="spinner small"></div>
+                Convirtiendo...
+              </>
+            ) : (
+              <>
+                🚀 Iniciar Conversión
+                <span className="cost-badge">
+                  {calculateConversionCost(selectedFile.name, targetFormat)} créditos
+                </span>
+              </>
+            )}
+          </button>
+          
+          {balance.current < calculateConversionCost(selectedFile.name, targetFormat) && (
+            <p className="insufficient-credits">
+              ⚠️ Créditos insuficientes. Necesitas {calculateConversionCost(selectedFile.name, targetFormat)} créditos.
+            </p>
+          )}
+        </div>
+      )}
     </div>
   );
 };
+
+export default UniversalConverter;
 

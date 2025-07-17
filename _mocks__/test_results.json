@@ -1,0 +1,146 @@
+{
+  "test_session": {
+    "start_time": "2025-07-15T15:57:00Z",
+    "test_files_created": 17,
+    "conversion_tests": []
+  },
+  "test_files": [
+    {
+      "name": "simple.txt",
+      "path": "/home/ubuntu/test_files/txt/simple.txt",
+      "size": "262 bytes",
+      "type": "text",
+      "category": "basic",
+      "description": "Archivo de texto simple con caracteres básicos en español"
+    },
+    {
+      "name": "unicode.txt", 
+      "path": "/home/ubuntu/test_files/txt/unicode.txt",
+      "size": "993 bytes",
+      "type": "text",
+      "category": "complex",
+      "description": "Archivo con caracteres Unicode complejos, emojis, y múltiples idiomas"
+    },
+    {
+      "name": "large.txt",
+      "path": "/home/ubuntu/test_files/txt/large.txt", 
+      "size": "3.6K",
+      "type": "text",
+      "category": "size_test",
+      "description": "Archivo de texto con contenido repetido para probar archivos medianos"
+    },
+    {
+      "name": "special_chars.txt",
+      "path": "/home/ubuntu/test_files/txt/special_chars.txt",
+      "size": "1.2K", 
+      "type": "text",
+      "category": "problematic",
+      "description": "Archivo con caracteres especiales problemáticos y de control"
+    },
+    {
+      "name": "empty.txt",
+      "path": "/home/ubuntu/test_files/empty/empty.txt",
+      "size": "2 bytes",
+      "type": "text", 
+      "category": "edge_case",
+      "description": "Archivo completamente vacío"
+    },
+    {
+      "name": "markdown.md",
+      "path": "/home/ubuntu/test_files/documents/markdown.md",
+      "size": "1.4K",
+      "type": "document",
+      "category": "structured",
+      "description": "Documento Markdown con formato, tablas, código y enlaces"
+    },
+    {
+      "name": "csv.csv",
+      "path": "/home/ubuntu/test_files/documents/csv.csv", 
+      "size": "697 bytes",
+      "type": "data",
+      "category": "structured",
+      "description": "Archivo CSV con datos tabulares en español"
+    },
+    {
+      "name": "json.json",
+      "path": "/home/ubuntu/test_files/documents/json.json",
+      "size": "1.9K",
+      "type": "data", 
+      "category": "structured",
+      "description": "Archivo JSON bien formado con datos complejos"
+    },
+    {
+      "name": "xml.xml",
+      "path": "/home/ubuntu/test_files/documents/xml.xml",
+      "size": "3.4K",
+      "type": "data",
+      "category": "structured", 
+      "description": "Archivo XML bien formado con estructura jerárquica"
+    },
+    {
+      "name": "html.html",
+      "path": "/home/ubuntu/test_files/documents/html.html",
+      "size": "5.0K",
+      "type": "web",
+      "category": "complex",
+      "description": "Documento HTML completo con CSS, JavaScript y contenido rico"
+    },
+    {
+      "name": "simple_logo.png",
+      "path": "/home/ubuntu/test_files/images/simple_logo.png",
+      "size": "1.2M",
+      "type": "image",
+      "category": "basic",
+      "description": "Logo simple generado con IA, diseño geométrico"
+    },
+    {
+      "name": "complex_diagram.png", 
+      "path": "/home/ubuntu/test_files/images/complex_diagram.png",
+      "size": "2.1M",
+      "type": "image",
+      "category": "complex",
+      "description": "Diagrama técnico complejo con texto y elementos detallados"
+    },
+    {
+      "name": "photo_realistic.png",
+      "path": "/home/ubuntu/test_files/images/photo_realistic.png", 
+      "size": "2.0M",
+      "type": "image",
+      "category": "realistic",
+      "description": "Imagen fotorrealista de oficina con alta calidad"
+    },
+    {
+      "name": "binary_data.txt",
+      "path": "/home/ubuntu/test_files/corrupted/binary_data.txt",
+      "size": "51 bytes",
+      "type": "text",
+      "category": "corrupted",
+      "description": "Archivo con datos binarios y caracteres de control"
+    },
+    {
+      "name": "malformed.json",
+      "path": "/home/ubuntu/test_files/corrupted/malformed.json", 
+      "size": "440 bytes",
+      "type": "data",
+      "category": "corrupted",
+      "description": "Archivo JSON malformado con errores de sintaxis"
+    },
+    {
+      "name": "malformed.xml",
+      "path": "/home/ubuntu/test_files/corrupted/malformed.xml",
+      "size": "909 bytes", 
+      "type": "data",
+      "category": "corrupted",
+      "description": "Archivo XML malformado con etiquetas sin cerrar"
+    },
+    {
+      "name": "large_file.txt",
+      "path": "/home/ubuntu/test_files/large/large_file.txt",
+      "size": "11M",
+      "type": "text",
+      "category": "size_limit",
+      "description": "Archivo de 10MB+ para probar límites de tamaño"
+    }
+  ]
+}
+

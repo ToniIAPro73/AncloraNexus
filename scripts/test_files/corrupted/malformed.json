@@ -1,0 +1,25 @@
+{
+  "nombre": "Archivo JSON malformado",
+  "version": "1.0.0",
+  "datos": [
+    {
+      "id": 1,
+      "valor": "correcto"
+    },
+    {
+      "id": 2,
+      "valor": "incorrecto",
+      // Comentario no válido en JSON
+    }
+    {
+      "id": 3,
+      "valor": "sin coma anterior"
+    }
+  ],
+  "configuracion": {
+    "activo": true,
+    "limite": 100,
+    "descripcion": "Texto sin cerrar comillas
+  }
+  // Falta cerrar la llave principal
+

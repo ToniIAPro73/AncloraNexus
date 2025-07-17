@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anclora Converter - Nuevos Conversores</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success {
+            background: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .file-input {
+            margin: 10px 0;
+        }
+        .result {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔄 Anclora Converter</h1>
+            <h2>Nuevos Conversores: TXT → HTML y TXT → DOC</h2>
+            <p>Prueba los nuevos conversores implementados</p>
+        </div>
+
+        <!-- Test HTML Converter -->
+        <div class="test-section">
+            <h3>📝 → 🌐 Conversor TXT a HTML</h3>
+            <textarea id="htmlInput" placeholder="Escribe o pega tu texto aquí para convertir a HTML...">Título Principal
+Este es un ejemplo de texto que será convertido a HTML.
+
+Subtítulo:
+- Elemento de lista 1
+- Elemento de lista 2
+
+Párrafo final con texto normal.</textarea>
+            <br>
+            <button onclick="testHtmlConverter()">Convertir a HTML</button>
+            <button onclick="downloadHtml()">Descargar HTML</button>
+            <div id="htmlResult" class="result" style="display:none;"></div>
+        </div>
+
+        <!-- Test DOC Converter -->
+        <div class="test-section">
+            <h3>📝 → 📄 Conversor TXT a DOC</h3>
+            <textarea id="docInput" placeholder="Escribe o pega tu texto aquí para convertir a DOC...">DOCUMENTO DE PRUEBA
+
+Este es un documento de ejemplo que será convertido a formato Microsoft Word.
+
+Características:
+    - Detección automática de títulos
+    - Preservación de formato
+    - Indentación correcta
+    - Estilos profesionales
+
+Conclusión:
+El conversor funciona correctamente y genera documentos Word válidos.</textarea>
+            <br>
+            <button onclick="testDocConverter()">Convertir a DOC</button>
+            <button onclick="downloadDoc()">Descargar DOC</button>
+            <div id="docResult" class="result" style="display:none;"></div>
+        </div>
+
+        <!-- File Upload Test -->
+        <div class="test-section">
+            <h3>📁 Prueba con Archivo</h3>
+            <input type="file" id="fileInput" accept=".txt" class="file-input">
+            <br>
+            <button onclick="convertFileToHtml()">Archivo → HTML</button>
+            <button onclick="convertFileToDoc()">Archivo → DOC</button>
+            <div id="fileResult" class="result" style="display:none;"></div>
+        </div>
+
+        <!-- Status -->
+        <div id="status" class="test-section">
+            <h3>📊 Estado de los Conversores</h3>
+            <p id="statusText">Cargando conversores...</p>
+        </div>
+    </div>
+
+    <!-- Cargar conversores -->
+    <script src="converters/TxtToHtmlConverter.js"></script>
+    <script>
+        // Variables globales para los resultados
+        let lastHtmlResult = null;
+        let lastDocResult = null;
+
+        // Verificar que los conversores se cargaron
+        function checkConverters() {
+            const statusEl = document.getElementById('statusText');
+            let status = [];
+
+            if (typeof TxtToHtmlConverter !== 'undefined') {
+                status.push('✅ Conversor HTML cargado');
+            } else {
+                status.push('❌ Conversor HTML no disponible');
+            }
+
+            // Para DOC necesitamos simular ya que requiere Node.js
+            status.push('⚠️ Conversor DOC (simulado para navegador)');
+
+            statusEl.innerHTML = status.join('<br>');
+        }
+
+        // Test HTML Converter
+        function testHtmlConverter() {
+            const input = document.getElementById('htmlInput').value;
+            const resultEl = document.getElementById('htmlResult');
+
+            if (!input.trim()) {
+                resultEl.innerHTML = '<span style="color: red;">Por favor ingresa texto para convertir</span>';
+                resultEl.style.display = 'block';
+                return;
+            }
+
+            try {
+                const converter = new TxtToHtmlConverter();
+                const result = converter.convert(input, {
+                    title: 'Documento de Prueba',
+                    preserveWhitespace: true
+                });
+
+                if (result.success) {
+                    lastHtmlResult = result.content;
+                    resultEl.innerHTML = `
+                        <div style="color: green;">✅ Conversión exitosa</div>
+                        <div>Tamaño: ${result.size} bytes</div>
+                        <div>Tipo: ${result.mimeType}</div>
+                        <details>
+                            <summary>Ver HTML generado</summary>
+                            <pre style="background: #f8f9fa; padding: 10px; overflow-x: auto; font-size: 12px;">${result.content.substring(0, 500)}...</pre>
+                        </details>
+                    `;
+                    resultEl.className = 'result success';
+                } else {
+                    resultEl.innerHTML = `<span style="color: red;">❌ Error: ${result.error}</span>`;
+                    resultEl.className = 'result error';
+                }
+            } catch (error) {
+                resultEl.innerHTML = `<span style="color: red;">❌ Error: ${error.message}</span>`;
+                resultEl.className = 'result error';
+            }
+
+            resultEl.style.display = 'block';
+        }
+
+        // Test DOC Converter (simulado)
+        function testDocConverter() {
+            const input = document.getElementById('docInput').value;
+            const resultEl = document.getElementById('docResult');
+
+            if (!input.trim()) {
+                resultEl.innerHTML = '<span style="color: red;">Por favor ingresa texto para convertir</span>';
+                resultEl.style.display = 'block';
+                return;
+            }
+
+            // Simular conversión DOC
+            try {
+                // Crear un blob simulado para DOC
+                const docContent = `Documento simulado:\n\n${input}`;
+                lastDocResult = new Blob([docContent], { 
+                    type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' 
+                });
+
+                resultEl.innerHTML = `
+                    <div style="color: green;">✅ Conversión DOC simulada exitosa</div>
+                    <div>Tamaño: ${lastDocResult.size} bytes</div>
+                    <div>Tipo: application/vnd.openxmlformats-officedocument.wordprocessingml.document</div>
+                    <div><em>Nota: En el navegador se simula la conversión. En el sistema real usa la librería docx.</em></div>
+                `;
+                resultEl.className = 'result success';
+            } catch (error) {
+                resultEl.innerHTML = `<span style="color: red;">❌ Error: ${error.message}</span>`;
+                resultEl.className = 'result error';
+            }
+
+            resultEl.style.display = 'block';
+        }
+
+        // Descargar HTML
+        function downloadHtml() {
+            if (!lastHtmlResult) {
+                alert('Primero convierte el texto a HTML');
+                return;
+            }
+
+            const blob = new Blob([lastHtmlResult], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'documento_convertido.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Descargar DOC
+        function downloadDoc() {
+            if (!lastDocResult) {
+                alert('Primero convierte el texto a DOC');
+                return;
+            }
+
+            const url = URL.createObjectURL(lastDocResult);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'documento_convertido.docx';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Convertir archivo a HTML
+        function convertFileToHtml() {
+            const fileInput = document.getElementById('fileInput');
+            const resultEl = document.getElementById('fileResult');
+
+            if (!fileInput.files || fileInput.files.length === 0) {
+                resultEl.innerHTML = '<span style="color: red;">Por favor selecciona un archivo</span>';
+                resultEl.style.display = 'block';
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                try {
+                    const converter = new TxtToHtmlConverter();
+                    const result = converter.convert(e.target.result, {
+                        title: file.name.replace(/\.[^/.]+$/, ''),
+                        preserveWhitespace: true
+                    });
+
+                    if (result.success) {
+                        lastHtmlResult = result.content;
+                        resultEl.innerHTML = `
+                            <div style="color: green;">✅ Archivo convertido a HTML exitosamente</div>
+                            <div>Archivo: ${file.name}</div>
+                            <div>Tamaño original: ${file.size} bytes</div>
+                            <div>Tamaño HTML: ${result.size} bytes</div>
+                            <button onclick="downloadHtml()">Descargar HTML</button>
+                        `;
+                        resultEl.className = 'result success';
+                    } else {
+                        resultEl.innerHTML = `<span style="color: red;">❌ Error: ${result.error}</span>`;
+                        resultEl.className = 'result error';
+                    }
+                } catch (error) {
+                    resultEl.innerHTML = `<span style="color: red;">❌ Error: ${error.message}</span>`;
+                    resultEl.className = 'result error';
+                }
+
+                resultEl.style.display = 'block';
+            };
+
+            reader.readAsText(file);
+        }
+
+        // Convertir archivo a DOC
+        function convertFileToDoc() {
+            const fileInput = document.getElementById('fileInput');
+            const resultEl = document.getElementById('fileResult');
+
+            if (!fileInput.files || fileInput.files.length === 0) {
+                resultEl.innerHTML = '<span style="color: red;">Por favor selecciona un archivo</span>';
+                resultEl.style.display = 'block';
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                try {
+                    // Simular conversión DOC
+                    const docContent = `Documento convertido de: ${file.name}\n\n${e.target.result}`;
+                    lastDocResult = new Blob([docContent], { 
+                        type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' 
+                    });
+
+                    resultEl.innerHTML = `
+                        <div style="color: green;">✅ Archivo convertido a DOC exitosamente (simulado)</div>
+                        <div>Archivo: ${file.name}</div>
+                        <div>Tamaño original: ${file.size} bytes</div>
+                        <div>Tamaño DOC: ${lastDocResult.size} bytes</div>
+                        <button onclick="downloadDoc()">Descargar DOC</button>
+                        <div><em>Nota: En producción usará la librería docx real.</em></div>
+                    `;
+                    resultEl.className = 'result success';
+                } catch (error) {
+                    resultEl.innerHTML = `<span style="color: red;">❌ Error: ${error.message}</span>`;
+                    resultEl.className = 'result error';
+                }
+
+                resultEl.style.display = 'block';
+            };
+
+            reader.readAsText(file);
+        }
+
+        // Inicializar
+        window.onload = function() {
+            checkConverters();
+        };
+    </script>
+</body>
+</html>
+

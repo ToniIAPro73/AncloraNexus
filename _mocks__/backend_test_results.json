@@ -1,0 +1,86 @@
+{
+  "total_tests": 11,
+  "passed_tests": 5,
+  "failed_tests": 6,
+  "success_rate": 45.45454545454545,
+  "duration": 0.032802581787109375,
+  "results": [
+    {
+      "test_name": "Health Check",
+      "success": true,
+      "details": "API funcionando correctamente",
+      "timestamp": "2025-07-14T00:39:47.918924",
+      "response_data": null
+    },
+    {
+      "test_name": "Conversion Formats",
+      "success": true,
+      "details": "144 conversiones soportadas",
+      "timestamp": "2025-07-14T00:39:47.921253",
+      "response_data": null
+    },
+    {
+      "test_name": "Price Estimation",
+      "success": true,
+      "details": "Precio estimado: \u20ac0.07",
+      "timestamp": "2025-07-14T00:39:47.923699",
+      "response_data": null
+    },
+    {
+      "test_name": "Pricing Tiers",
+      "success": true,
+      "details": "Niveles de precios obtenidos correctamente",
+      "timestamp": "2025-07-14T00:39:47.925770",
+      "response_data": null
+    },
+    {
+      "test_name": "Leaderboard",
+      "success": false,
+      "details": "Status code: 500",
+      "timestamp": "2025-07-14T00:39:47.930034",
+      "response_data": "{\"error\":\"The current Flask app is not registered with this 'SQLAlchemy' instance. Did you forget to call 'init_app', or did you create multiple 'SQLAlchemy' instances?\"}\n"
+    },
+    {
+      "test_name": "Achievements",
+      "success": false,
+      "details": "Status code: 500",
+      "timestamp": "2025-07-14T00:39:47.932198",
+      "response_data": "{\"error\":\"Error interno del servidor\"}\n"
+    },
+    {
+      "test_name": "Public Challenges",
+      "success": false,
+      "details": "Status code: 500",
+      "timestamp": "2025-07-14T00:39:47.934375",
+      "response_data": "{\"error\":\"One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[UserAchievement(user_achievements)]'. Original exception was: When initializing mapper Mapper[UserAchievement(user_achievements)], expression 'User' failed to locate a name ('User'). If this is a class name, consider adding this relationship() to the <class 'src.models.reward_system.UserAchievement'> class after both dependent classes have been defined.\"}\n"
+    },
+    {
+      "test_name": "User Registration",
+      "success": false,
+      "details": "Status code: 500",
+      "timestamp": "2025-07-14T00:39:47.937432",
+      "response_data": "{\"error\":\"Error interno del servidor\"}\n"
+    },
+    {
+      "test_name": "Error Handling - Invalid Endpoint",
+      "success": false,
+      "details": "Expected 404, got 200",
+      "timestamp": "2025-07-14T00:39:47.944245",
+      "response_data": null
+    },
+    {
+      "test_name": "Error Handling - Invalid JSON",
+      "success": false,
+      "details": "Expected 400, got 500",
+      "timestamp": "2025-07-14T00:39:47.946174",
+      "response_data": null
+    },
+    {
+      "test_name": "Error Handling - Missing Auth Token",
+      "success": true,
+      "details": "Status 401 como esperado",
+      "timestamp": "2025-07-14T00:39:47.947828",
+      "response_data": null
+    }
+  ]
+}

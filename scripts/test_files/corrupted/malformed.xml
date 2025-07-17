@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<documento>
+    <titulo>Archivo XML malformado</titulo>
+    <contenido>
+        <seccion id="1">
+            <nombre>Sección correcta</nombre>
+            <descripcion>Esta sección está bien formada</descripcion>
+        </seccion>
+        
+        <seccion id="2">
+            <nombre>Sección con problemas</nombre>
+            <descripcion>Esta sección tiene etiquetas sin cerrar
+            <problema>Etiqueta no cerrada
+        </seccion>
+        
+        <seccion id="3"
+            <nombre>Falta cerrar atributo</nombre>
+            <descripcion>Problemas con atributos</descripcion>
+        </seccion>
+        
+        <seccion id="4">
+            <nombre>Caracteres especiales problemáticos</nombre>
+            <descripcion>Contiene & sin escapar y < > sin cerrar</descripcion>
+        </seccion>
+    </contenido>
+<!-- Comentario sin cerrar
+</documento>
+
