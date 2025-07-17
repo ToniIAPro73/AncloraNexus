@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { useCreditSystem } from './CreditSystem';
+import { apiService, getConversionCost, formatFileSize } from './services/api';
+import { useAuth } from './auth/AuthContext';
 
 export const UniversalConverter: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -7,54 +8,59 @@ export const UniversalConverter: React.FC = () => {
   const [isConverting, setIsConverting] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [aiSuggestion, setAiSuggestion] = useState<string>('');
+  const [analysis, setAnalysis] = useState<any>(null);
+  const [error, setError] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { credits, consumeCredits, calculateCost } = useCreditSystem();
+  const { user, refreshUser } = useAuth();
 
   const popularConversions = [
-    { from: 'PDF', to: 'JPG', icon: '📄→🖼️', cost: 2 },
-    { from: 'JPG', to: 'PNG', icon: '🖼️→🎨', cost: 1 },
-    { from: 'MP4', to: 'GIF', icon: '🎬→🎞️', cost: 5 },
-    { from: 'PNG', to: 'SVG', icon: '🎨→📐', cost: 3 },
-    { from: 'DOC', to: 'PDF', icon: '📝→📄', cost: 2 },
+    { from: 'TXT', to: 'HTML', icon: '📝→🌐', cost: 1 },
+    { from: 'TXT', to: 'PDF', icon: '📝→📄', cost: 1 },
+    { from: 'TXT', to: 'MD', icon: '📝→📋', cost: 1 },
+    { from: 'TXT', to: 'RTF', icon: '📝→📄', cost: 1 },
+    { from: 'TXT', to: 'DOC', icon: '📝→📄', cost: 2 },
   ];
 
-  const handleFileSelect = (file: File) => {
+  const handleFileSelect = async (file: File) => {
     setSelectedFile(file);
     setCurrentStep(2);
+    setError('');
+    setAnalysis(null);
     
-    // Simular análisis de IA mejorado
-const simulateAIAnalysis = () => {
-  setTimeout(() => {
+    // Analizar archivo con IA real
     try {
-      const suggestions = {
-        'pdf': 'Para este PDF, recomiendo convertir a JPG con calidad alta para mejor visualización web',
-        'jpg': 'Esta imagen se vería mejor como PNG para mantener la calidad sin pérdida',
-        'mp4': 'Este video es perfecto para convertir a GIF para uso en redes sociales',
-        'doc': 'Convierte a PDF para mejor compatibilidad y distribución'
-      };
+      const formData = new FormData();
+      formData.append('file', file);
       
-      // Obtener extensión del archivo seleccionado
-      const fileExtension = selectedFile?.name.split('.').pop()?.toLowerCase();
-      const suggestion = suggestions[fileExtension] || 'Archivo detectado. Selecciona el formato de destino para obtener la mejor calidad.';
+      const response = await fetch('http://localhost:8000/api/conversion/analyze-file', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Error analizando archivo');
+      }
+
+      const data = await response.json();
+      setAnalysis(data.analysis);
       
-      setAiSuggestion(suggestion);
+      // Generar sugerencia basada en el análisis
+      const suggestions = data.analysis.recommendations;
+      if (suggestions && suggestions.length > 0) {
+        setAiSuggestion(suggestions[0]);
+      }
       
-      // Limpiar sugerencia después de 8 segundos
-      setTimeout(() => {
-        setAiSuggestion('');
-      }, 8000);
+      setCurrentStep(3);
       
-    } catch (error) {
-      console.error('Error en análisis IA:', error);
+    } catch (error: any) {
+      console.error('Error en análisis:', error);
+      setError(error.message || 'Error al analizar el archivo');
       setAiSuggestion('Error al analizar el archivo. Intenta de nuevo.');
-      
-      // Limpiar error después de 5 segundos
-      setTimeout(() => {
-        setAiSuggestion('');
-      }, 5000);
     }
-  }, 1500); // Reducir tiempo de espera
-   };
   };
 
   const handleDrop = (e: React.DragEvent) => {
@@ -73,26 +79,61 @@ const simulateAIAnalysis = () => {
   };
 
   const handleConvert = async () => {
-    if (!selectedFile || !targetFormat) return;
+    if (!selectedFile || !targetFormat || !user) return;
     
-    const cost = calculateCost(selectedFile, targetFormat);
-    if (credits < cost) {
-      alert('Créditos insuficientes');
+    const cost = getConversionCost(
+      selectedFile.name.split('.').pop()?.toLowerCase() || '',
+      targetFormat
+    );
+    
+    if (user.credits < cost) {
+      setError('Créditos insuficientes para esta conversión');
       return;
     }
 
     setIsConverting(true);
     setCurrentStep(4);
+    setError('');
     
-    // Simular conversión
-    setTimeout(() => {
-      consumeCredits(cost, `${selectedFile.name} → ${targetFormat}`);
+    try {
+      const response = await apiService.convertFile({
+        file: selectedFile,
+        target_format: targetFormat,
+      });
+
+      if (response.download_url) {
+        // Descargar archivo automáticamente
+        const downloadResponse = await apiService.downloadConversion(response.id);
+        const url = window.URL.createObjectURL(downloadResponse);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = response.output_filename || `converted.${targetFormat}`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      }
+
+      // Actualizar información del usuario
+      await refreshUser();
+      
+      // Resetear formulario
       setIsConverting(false);
       setCurrentStep(1);
       setSelectedFile(null);
       setTargetFormat('');
       setAiSuggestion('');
-    }, 3000);
+      setAnalysis(null);
+      
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+      
+    } catch (error: any) {
+      console.error('Error en conversión:', error);
+      setError(error.message || 'Error durante la conversión');
+      setIsConverting(false);
+    }
   };
 
   return (
@@ -105,7 +146,20 @@ const simulateAIAnalysis = () => {
         <p className="text-slate-300">
           Convierte archivos con inteligencia artificial avanzada
         </p>
+        {user && (
+          <div className="mt-4 bg-slate-800/30 backdrop-blur-sm rounded-lg border border-slate-700/50 p-3">
+            <span className="text-slate-400">Créditos disponibles: </span>
+            <span className="text-green-400 font-bold text-lg">{user.credits}</span>
+          </div>
+        )}
       </div>
+
+      {/* Error message */}
+      {error && (
+        <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4">
+          <p className="text-red-400">{error}</p>
+        </div>
+      )}
 
       {/* Workflow Steps */}
       <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
@@ -205,14 +259,20 @@ const simulateAIAnalysis = () => {
                   className="w-full bg-slate-700 border border-slate-600 rounded px-2 py-1 text-white text-sm"
                 >
                   <option value="">Seleccionar formato</option>
-                  <option value="jpg">JPG</option>
-                  <option value="png">PNG</option>
-                  <option value="pdf">PDF</option>
-                  <option value="gif">GIF</option>
+                  {analysis?.supported_formats?.map((format: string) => (
+                    <option key={format} value={format}>
+                      {format.toUpperCase()}
+                    </option>
+                  ))}
                 </select>
-                <div className="text-xs text-slate-400">
-                  Costo: {selectedFile ? calculateCost(selectedFile, targetFormat) : 0} créditos
-                </div>
+                {selectedFile && targetFormat && (
+                  <div className="text-xs text-slate-400">
+                    Costo: {getConversionCost(
+                      selectedFile.name.split('.').pop()?.toLowerCase() || '',
+                      targetFormat
+                    )} créditos
+                  </div>
+                )}
               </div>
             ) : (
               <div className="text-center text-slate-500">
