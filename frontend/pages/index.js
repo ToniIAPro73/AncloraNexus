@@ -1,3 +1,8 @@
-export default function Home() {
-  return <h1>Anclora Metaform - Frontend</h1>;
+import UniversalConverter from '../UniversalConverter";
+export default function HomePage() {
+  return (
+    <main>
+      <UniversalConverter />
+    </main>
+  );
 }
