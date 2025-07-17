@@ -1,0 +1,9 @@
+Este es un documento de prueba para el conversor Anclora.
+
+Contenido:
+- Línea 1: Texto de ejemplo
+- Línea 2: Más contenido de prueba
+- Línea 3: Funcionalidad de conversión
+
+Este archivo será usado para probar la funcionalidad de conversión de archivos en el navegador.
+

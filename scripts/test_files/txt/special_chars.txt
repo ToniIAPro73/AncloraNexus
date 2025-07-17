@@ -1,0 +1,43 @@
+Archivo con caracteres especiales problemáticos:
+
+Caracteres de control:
+	- Tabulación
+- Retorno de carro
+- Salto de línea
+
+Caracteres Unicode problemáticos:
+- Espacio de ancho cero: ​
+- Marca de orden de bytes: ﻿
+- Caracteres de dirección: ‎‏
+- Espacios especiales:   　
+
+Caracteres que pueden causar problemas en conversión:
+- Comillas tipográficas: " " ' '
+- Guiones especiales: – — ―
+- Puntos suspensivos: …
+- Símbolos de moneda: € £ ¥ ₹ ₽
+- Fracciones: ½ ⅓ ¼ ¾ ⅛
+- Superíndices: ¹ ² ³ ⁴ ⁵
+- Subíndices: ₁ ₂ ₃ ₄ ₅
+
+Caracteres de diferentes idiomas:
+- Árabe: العربية
+- Hebreo: עברית
+- Chino: 中文
+- Japonés: 日本語
+- Coreano: 한국어
+- Tailandés: ไทย
+- Hindi: हिन्दी
+- Ruso: Русский
+
+Símbolos especiales:
+- Matemáticos: ∑ ∏ ∫ ∂ ∇ ∞ ≈ ≠ ≤ ≥
+- Flechas: ← → ↑ ↓ ↔ ↕ ↖ ↗ ↘ ↙
+- Formas: ■ □ ▲ △ ● ○ ★ ☆
+- Varios: ♠ ♣ ♥ ♦ ♪ ♫ ☀ ☁ ☂ ☃
+
+Texto con formato invisible:
+Texto normal seguido de caracteres invisibles​‎‏﻿ y más texto.
+
+Final del archivo con caracteres especiales.
+

@@ -1,0 +1,261 @@
+{
+  "session_start": "2025-07-15T15:59:00.187900",
+  "total_tests": 28,
+  "successful_tests": 22,
+  "failed_tests": 6,
+  "error_tests": 0,
+  "test_details": [
+    {
+      "file": "simple.txt",
+      "conversion": "txt \u2192 pdf",
+      "expected_cost": 1,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:00.688212",
+      "duration_seconds": 0.5002210140228271,
+      "error_message": null
+    },
+    {
+      "file": "simple.txt",
+      "conversion": "txt \u2192 html",
+      "expected_cost": 1,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:01.188465",
+      "duration_seconds": 0.5001764297485352,
+      "error_message": null
+    },
+    {
+      "file": "unicode.txt",
+      "conversion": "txt \u2192 pdf",
+      "expected_cost": 1,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:01.688804",
+      "duration_seconds": 0.5002219676971436,
+      "error_message": null
+    },
+    {
+      "file": "unicode.txt",
+      "conversion": "txt \u2192 html",
+      "expected_cost": 1,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:02.189110",
+      "duration_seconds": 0.500236988067627,
+      "error_message": null
+    },
+    {
+      "file": "large.txt",
+      "conversion": "txt \u2192 pdf",
+      "expected_cost": 1,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:02.689756",
+      "duration_seconds": 0.50054931640625,
+      "error_message": null
+    },
+    {
+      "file": "large.txt",
+      "conversion": "txt \u2192 html",
+      "expected_cost": 1,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:03.190321",
+      "duration_seconds": 0.5004746913909912,
+      "error_message": null
+    },
+    {
+      "file": "special_chars.txt",
+      "conversion": "txt \u2192 pdf",
+      "expected_cost": 1,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:03.690721",
+      "duration_seconds": 0.5003125667572021,
+      "error_message": null
+    },
+    {
+      "file": "special_chars.txt",
+      "conversion": "txt \u2192 html",
+      "expected_cost": 1,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:04.191048",
+      "duration_seconds": 0.5002415180206299,
+      "error_message": null
+    },
+    {
+      "file": "empty.txt",
+      "conversion": "txt \u2192 pdf",
+      "expected_cost": 1,
+      "status": "failed",
+      "timestamp": "2025-07-15T15:59:04.691246",
+      "duration_seconds": null,
+      "error_message": "Archivo vac\u00edo"
+    },
+    {
+      "file": "empty.txt",
+      "conversion": "txt \u2192 html",
+      "expected_cost": 1,
+      "status": "failed",
+      "timestamp": "2025-07-15T15:59:05.191421",
+      "duration_seconds": null,
+      "error_message": "Archivo vac\u00edo"
+    },
+    {
+      "file": "markdown.md",
+      "conversion": "md \u2192 pdf",
+      "expected_cost": 2,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:05.691841",
+      "duration_seconds": 0.5003325939178467,
+      "error_message": null
+    },
+    {
+      "file": "markdown.md",
+      "conversion": "md \u2192 html",
+      "expected_cost": 1,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:06.192207",
+      "duration_seconds": 0.5002870559692383,
+      "error_message": null
+    },
+    {
+      "file": "csv.csv",
+      "conversion": "csv \u2192 json",
+      "expected_cost": 2,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:06.692547",
+      "duration_seconds": 0.5002200603485107,
+      "error_message": null
+    },
+    {
+      "file": "json.json",
+      "conversion": "json \u2192 csv",
+      "expected_cost": 2,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:07.193038",
+      "duration_seconds": 0.5003702640533447,
+      "error_message": null
+    },
+    {
+      "file": "xml.xml",
+      "conversion": "xml \u2192 json",
+      "expected_cost": 2,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:07.693627",
+      "duration_seconds": 0.5004768371582031,
+      "error_message": null
+    },
+    {
+      "file": "html.html",
+      "conversion": "html \u2192 pdf",
+      "expected_cost": 3,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:08.194417",
+      "duration_seconds": 0.5006866455078125,
+      "error_message": null
+    },
+    {
+      "file": "simple_logo.png",
+      "conversion": "png \u2192 jpg",
+      "expected_cost": 1,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:08.812213",
+      "duration_seconds": 0.6177008152008057,
+      "error_message": null
+    },
+    {
+      "file": "simple_logo.png",
+      "conversion": "png \u2192 pdf",
+      "expected_cost": 2,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:09.430129",
+      "duration_seconds": 0.61761474609375,
+      "error_message": null
+    },
+    {
+      "file": "complex_diagram.png",
+      "conversion": "png \u2192 jpg",
+      "expected_cost": 1,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:10.136904",
+      "duration_seconds": 0.7066919803619385,
+      "error_message": null
+    },
+    {
+      "file": "complex_diagram.png",
+      "conversion": "png \u2192 pdf",
+      "expected_cost": 2,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:10.843775",
+      "duration_seconds": 0.7068047523498535,
+      "error_message": null
+    },
+    {
+      "file": "photo_realistic.png",
+      "conversion": "png \u2192 jpg",
+      "expected_cost": 1,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:11.543966",
+      "duration_seconds": 0.7000937461853027,
+      "error_message": null
+    },
+    {
+      "file": "photo_realistic.png",
+      "conversion": "png \u2192 pdf",
+      "expected_cost": 2,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:12.244164",
+      "duration_seconds": 0.7001166343688965,
+      "error_message": null
+    },
+    {
+      "file": "binary_data.txt",
+      "conversion": "txt \u2192 pdf",
+      "expected_cost": 1,
+      "status": "failed",
+      "timestamp": "2025-07-15T15:59:12.744422",
+      "duration_seconds": null,
+      "error_message": "Datos binarios en archivo de texto"
+    },
+    {
+      "file": "binary_data.txt",
+      "conversion": "txt \u2192 html",
+      "expected_cost": 1,
+      "status": "failed",
+      "timestamp": "2025-07-15T15:59:13.244625",
+      "duration_seconds": null,
+      "error_message": "Datos binarios en archivo de texto"
+    },
+    {
+      "file": "malformed.json",
+      "conversion": "json \u2192 csv",
+      "expected_cost": 2,
+      "status": "failed",
+      "timestamp": "2025-07-15T15:59:13.744858",
+      "duration_seconds": null,
+      "error_message": "Archivo malformado"
+    },
+    {
+      "file": "malformed.xml",
+      "conversion": "xml \u2192 json",
+      "expected_cost": 2,
+      "status": "failed",
+      "timestamp": "2025-07-15T15:59:14.245253",
+      "duration_seconds": null,
+      "error_message": "Archivo malformado"
+    },
+    {
+      "file": "large_file.txt",
+      "conversion": "txt \u2192 pdf",
+      "expected_cost": 1,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:15.745492",
+      "duration_seconds": 1.50014066696167,
+      "error_message": null
+    },
+    {
+      "file": "large_file.txt",
+      "conversion": "txt \u2192 html",
+      "expected_cost": 1,
+      "status": "success",
+      "timestamp": "2025-07-15T15:59:17.245774",
+      "duration_seconds": 1.5002028942108154,
+      "error_message": null
+    }
+  ]
+}

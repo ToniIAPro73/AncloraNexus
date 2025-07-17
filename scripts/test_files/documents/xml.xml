@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proyecto>
+    <informacion>
+        <nombre>Anclora Converter</nombre>
+        <version>1.0.0</version>
+        <descripcion>Sistema de conversión de archivos con IA</descripcion>
+        <fecha_creacion>2025-07-15</fecha_creacion>
+    </informacion>
+    
+    <configuracion>
+        <formatos_soportados>
+            <formato tipo="texto">txt</formato>
+            <formato tipo="documento">pdf</formato>
+            <formato tipo="documento">docx</formato>
+            <formato tipo="imagen">jpg</formato>
+            <formato tipo="imagen">png</formato>
+            <formato tipo="imagen">gif</formato>
+            <formato tipo="video">mp4</formato>
+            <formato tipo="audio">mp3</formato>
+            <formato tipo="datos">csv</formato>
+            <formato tipo="datos">json</formato>
+            <formato tipo="datos">xml</formato>
+            <formato tipo="web">html</formato>
+        </formatos_soportados>
+        
+        <creditos>
+            <conversion tipo="basico">1</conversion>
+            <conversion tipo="estandar">3</conversion>
+            <conversion tipo="avanzado">5</conversion>
+            <conversion tipo="premium">10</conversion>
+        </creditos>
+        
+        <limites>
+            <tamaño_maximo unidad="MB">100</tamaño_maximo>
+            <conversiones_simultaneas>5</conversiones_simultaneas>
+            <tiempo_limite unidad="segundos">300</tiempo_limite>
+        </limites>
+    </configuracion>
+    
+    <usuarios>
+        <usuario id="1">
+            <nombre>Ana García</nombre>
+            <email>ana.garcia@email.com</email>
+            <plan>Pro</plan>
+            <creditos>50</creditos>
+            <conversiones_realizadas>12</conversiones_realizadas>
+            <fecha_registro>2025-01-15T10:30:00Z</fecha_registro>
+        </usuario>
+        
+        <usuario id="2">
+            <nombre>Carlos López</nombre>
+            <email>carlos.lopez@email.com</email>
+            <plan>Básico</plan>
+            <creditos>25</creditos>
+            <conversiones_realizadas>8</conversiones_realizadas>
+            <fecha_registro>2025-02-20T14:45:00Z</fecha_registro>
+        </usuario>
+        
+        <usuario id="3">
+            <nombre>María Rodríguez</nombre>
+            <email>maria.rodriguez@email.com</email>
+            <plan>Premium</plan>
+            <creditos>100</creditos>
+            <conversiones_realizadas>25</conversiones_realizadas>
+            <fecha_registro>2025-03-10T09:15:00Z</fecha_registro>
+        </usuario>
+    </usuarios>
+    
+    <estadisticas>
+        <total_conversiones>1247</total_conversiones>
+        <formatos_populares>
+            <origen>
+                <formato>pdf</formato>
+                <formato>jpg</formato>
+                <formato>docx</formato>
+            </origen>
+            <destino>
+                <formato>png</formato>
+                <formato>pdf</formato>
+                <formato>txt</formato>
+            </destino>
+        </formatos_populares>
+        <tiempo_promedio_conversion>2.3 segundos</tiempo_promedio_conversion>
+        <tasa_exito>98.5%</tasa_exito>
+    </estadisticas>
+    
+    <metadatos>
+        <proposito>Archivo de prueba para conversión XML</proposito>
+        <caracteres_especiales>áéíóú ñ ¿¡ @#$%</caracteres_especiales>
+        <unicode>🚀 💎 📊 🎯</unicode>
+        <comentario><!-- Este es un comentario XML --></comentario>
+    </metadatos>
+</proyecto>
+

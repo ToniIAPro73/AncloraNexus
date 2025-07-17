@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anclora Metaform - Tu Contenido, Reinventado</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .upload-area {
+            border: 2px dashed #cbd5e0;
+            transition: all 0.3s ease;
+        }
+        .upload-area.dragover {
+            border-color: #667eea;
+            background-color: #f7fafc;
+        }
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <img src="assets/anclora_metaform_logo.png" alt="Anclora Metaform" class="h-12 w-12">
+                    <div>
+                        <h1 class="text-2xl font-bold">Anclora Metaform</h1>
+                        <p class="text-blue-100">Tu Contenido, Reinventado</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div id="user-info" class="hidden">
+                        <div class="flex items-center space-x-3">
+                            <div class="text-right">
+                                <p class="font-semibold" id="user-name"></p>
+                                <p class="text-sm text-blue-100">
+                                    <i class="fas fa-coins"></i> 
+                                    <span id="user-credits">0</span> créditos
+                                </p>
+                            </div>
+                            <button id="logout-btn" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg transition-colors">
+                                <i class="fas fa-sign-out-alt"></i> Salir
+                            </button>
+                        </div>
+                    </div>
+                    <div id="auth-buttons" class="space-x-2">
+                        <button id="login-btn" class="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                        </button>
+                        <button id="register-btn" class="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-lg transition-colors">
+                            <i class="fas fa-user-plus"></i> Registrarse
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Login/Register Forms -->
+        <div id="auth-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+                <div id="login-form" class="hidden">
+                    <h2 class="text-2xl font-bold mb-6 text-center">Iniciar Sesión</h2>
+                    <form id="login-form-element">
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                            <input type="email" id="login-email" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Contraseña</label>
+                            <input type="password" id="login-password" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            Iniciar Sesión
+                        </button>
+                    </form>
+                    <p class="text-center mt-4">
+                        ¿No tienes cuenta? 
+                        <button id="show-register" class="text-blue-600 hover:underline">Regístrate aquí</button>
+                    </p>
+                </div>
+
+                <div id="register-form" class="hidden">
+                    <h2 class="text-2xl font-bold mb-6 text-center">Registrarse</h2>
+                    <form id="register-form-element">
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Nombre Completo</label>
+                            <input type="text" id="register-name" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                            <input type="email" id="register-email" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Contraseña</label>
+                            <input type="password" id="register-password" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                            <p class="text-xs text-gray-500 mt-1">Mínimo 8 caracteres, incluye mayúscula, minúscula y número</p>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            Registrarse
+                        </button>
+                    </form>
+                    <p class="text-center mt-4">
+                        ¿Ya tienes cuenta? 
+                        <button id="show-login" class="text-blue-600 hover:underline">Inicia sesión aquí</button>
+                    </p>
+                </div>
+
+                <button id="close-modal" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Conversion Interface -->
+        <div id="conversion-interface" class="hidden">
+            <!-- File Upload Area -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <h2 class="text-2xl font-bold mb-6 text-center">Convertir Archivo</h2>
+                
+                <div id="upload-area" class="upload-area rounded-lg p-12 text-center mb-6">
+                    <i class="fas fa-cloud-upload-alt text-6xl text-gray-400 mb-4"></i>
+                    <p class="text-xl text-gray-600 mb-2">Arrastra tu archivo aquí o haz clic para seleccionar</p>
+                    <p class="text-sm text-gray-500">Formatos soportados: TXT, PDF, DOC, DOCX, JPG, PNG</p>
+                    <input type="file" id="file-input" class="hidden" accept=".txt,.pdf,.doc,.docx,.jpg,.jpeg,.png">
+                </div>
+
+                <div id="file-info" class="hidden bg-blue-50 rounded-lg p-4 mb-6">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-file text-blue-600 text-2xl"></i>
+                            <div>
+                                <p class="font-semibold" id="file-name"></p>
+                                <p class="text-sm text-gray-600" id="file-size"></p>
+                            </div>
+                        </div>
+                        <button id="remove-file" class="text-red-500 hover:text-red-700">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="format-selection" class="hidden mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Formato de destino:</label>
+                    <select id="target-format" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+                        <option value="">Selecciona un formato</option>
+                    </select>
+                    <div id="conversion-cost" class="mt-2 text-sm text-gray-600"></div>
+                </div>
+
+                <div id="ai-suggestion" class="hidden bg-green-50 border-l-4 border-green-400 p-4 mb-6">
+                    <div class="flex">
+                        <i class="fas fa-lightbulb text-green-400 mr-3 mt-1"></i>
+                        <div>
+                            <p class="font-semibold text-green-800">Sugerencia de IA:</p>
+                            <p class="text-green-700" id="ai-suggestion-text"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="convert-btn" class="hidden w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold">
+                    <i class="fas fa-magic mr-2"></i>
+                    Convertir Archivo
+                </button>
+
+                <div id="conversion-progress" class="hidden mt-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm text-gray-600">Convirtiendo...</span>
+                        <span class="text-sm text-gray-600" id="progress-percentage">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div id="progress-bar" class="progress-bar bg-blue-600 h-2 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div id="conversion-result" class="hidden mt-6 p-4 rounded-lg">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <i class="fas fa-check-circle text-green-500 text-2xl"></i>
+                            <div>
+                                <p class="font-semibold text-green-800">¡Conversión completada!</p>
+                                <p class="text-sm text-gray-600" id="result-filename"></p>
+                            </div>
+                        </div>
+                        <button id="download-btn" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                            <i class="fas fa-download mr-2"></i>
+                            Descargar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Stats -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-600">Créditos Disponibles</p>
+                            <p class="text-2xl font-bold text-blue-600" id="credits-display">0</p>
+                        </div>
+                        <i class="fas fa-coins text-3xl text-blue-600"></i>
+                    </div>
+                    <button id="buy-credits-btn" class="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        Comprar Créditos
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-600">Conversiones Hoy</p>
+                            <p class="text-2xl font-bold text-green-600" id="conversions-today">0</p>
+                        </div>
+                        <i class="fas fa-exchange-alt text-3xl text-green-600"></i>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-600">Plan Actual</p>
+                            <p class="text-2xl font-bold text-purple-600" id="current-plan">FREE</p>
+                        </div>
+                        <i class="fas fa-crown text-3xl text-purple-600"></i>
+                    </div>
+                    <button id="upgrade-plan-btn" class="mt-4 w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                        Actualizar Plan
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Welcome Message for Non-Authenticated Users -->
+        <div id="welcome-message" class="text-center py-16">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6">Convierte tus archivos con inteligencia artificial</h2>
+                <p class="text-xl text-gray-600 mb-8">Transforma cualquier formato de archivo de manera rápida, precisa y profesional</p>
+                
+                <div class="grid md:grid-cols-3 gap-8 mb-12">
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <i class="fas fa-magic text-4xl text-blue-600 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">IA Integrada</h3>
+                        <p class="text-gray-600">Análisis inteligente y recomendaciones optimizadas para cada conversión</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <i class="fas fa-shield-alt text-4xl text-green-600 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Seguro y Privado</h3>
+                        <p class="text-gray-600">Tus archivos se eliminan automáticamente después del procesamiento</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-6 card-hover">
+                        <i class="fas fa-bolt text-4xl text-yellow-600 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Rápido y Eficiente</h3>
+                        <p class="text-gray-600">Conversiones en segundos con calidad profesional garantizada</p>
+                    </div>
+                </div>
+
+                <button id="get-started-btn" class="bg-blue-600 text-white px-8 py-4 rounded-lg text-xl hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-rocket mr-2"></i>
+                    Comenzar Ahora
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-16">
+        <div class="container mx-auto px-4 text-center">
+            <div class="flex items-center justify-center space-x-4 mb-4">
+                <img src="assets/anclora_metaform_logo.png" alt="Anclora Metaform" class="h-8 w-8">
+                <span class="text-xl font-bold">Anclora Metaform</span>
+            </div>
+            <p class="text-gray-400">Tu Contenido, Reinventado</p>
+            <p class="text-sm text-gray-500 mt-4">&copy; 2024 Anclora Metaform. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // API Configuration
+        const API_BASE = 'http://localhost:8000/api';
+        
+        // Global state
+        let currentUser = null;
+        let authToken = null;
+        let selectedFile = null;
+        let supportedFormats = {};
+
+        // DOM Elements
+        const authModal = document.getElementById('auth-modal');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const conversionInterface = document.getElementById('conversion-interface');
+        const welcomeMessage = document.getElementById('welcome-message');
+        const userInfo = document.getElementById('user-info');
+        const authButtons = document.getElementById('auth-buttons');
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
+            setupEventListeners();
+            loadSupportedFormats();
+        });
+
+        // Check if user is authenticated
+        function checkAuthStatus() {
+            const token = localStorage.getItem('authToken');
+            if (token) {
+                authToken = token;
+                verifyToken();
+            } else {
+                showWelcomeMessage();
+            }
+        }
+
+        // Verify token validity
+        async function verifyToken() {
+            try {
+                const response = await fetch(`${API_BASE}/auth/verify-token`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    currentUser = data.user;
+                    showConversionInterface();
+                } else {
+                    localStorage.removeItem('authToken');
+                    showWelcomeMessage();
+                }
+            } catch (error) {
+                console.error('Error verifying token:', error);
+                localStorage.removeItem('authToken');
+                showWelcomeMessage();
+            }
+        }
+
+        // Show welcome message
+        function showWelcomeMessage() {
+            welcomeMessage.classList.remove('hidden');
+            conversionInterface.classList.add('hidden');
+            userInfo.classList.add('hidden');
+            authButtons.classList.remove('hidden');
+        }
+
+        // Show conversion interface
+        function showConversionInterface() {
+            welcomeMessage.classList.add('hidden');
+            conversionInterface.classList.remove('hidden');
+            userInfo.classList.remove('hidden');
+            authButtons.classList.add('hidden');
+            
+            updateUserInfo();
+        }
+
+        // Update user info display
+        function updateUserInfo() {
+            if (currentUser) {
+                document.getElementById('user-name').textContent = currentUser.full_name;
+                document.getElementById('user-credits').textContent = currentUser.credits;
+                document.getElementById('credits-display').textContent = currentUser.credits;
+                document.getElementById('current-plan').textContent = currentUser.plan;
+                document.getElementById('conversions-today').textContent = currentUser.credits_used_today;
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Auth buttons
+            document.getElementById('login-btn').addEventListener('click', () => showAuthModal('login'));
+            document.getElementById('register-btn').addEventListener('click', () => showAuthModal('register'));
+            document.getElementById('get-started-btn').addEventListener('click', () => showAuthModal('register'));
+            document.getElementById('logout-btn').addEventListener('click', logout);
+
+            // Modal controls
+            document.getElementById('close-modal').addEventListener('click', hideAuthModal);
+            document.getElementById('show-register').addEventListener('click', () => showAuthModal('register'));
+            document.getElementById('show-login').addEventListener('click', () => showAuthModal('login'));
+
+            // Forms
+            document.getElementById('login-form-element').addEventListener('submit', handleLogin);
+            document.getElementById('register-form-element').addEventListener('submit', handleRegister);
+
+            // File upload
+            const uploadArea = document.getElementById('upload-area');
+            const fileInput = document.getElementById('file-input');
+            
+            uploadArea.addEventListener('click', () => fileInput.click());
+            uploadArea.addEventListener('dragover', handleDragOver);
+            uploadArea.addEventListener('dragleave', handleDragLeave);
+            uploadArea.addEventListener('drop', handleDrop);
+            fileInput.addEventListener('change', handleFileSelect);
+
+            // Conversion
+            document.getElementById('target-format').addEventListener('change', updateConversionCost);
+            document.getElementById('convert-btn').addEventListener('click', convertFile);
+            document.getElementById('remove-file').addEventListener('click', removeFile);
+
+            // Credits and plans
+            document.getElementById('buy-credits-btn').addEventListener('click', buyCredits);
+            document.getElementById('upgrade-plan-btn').addEventListener('click', upgradePlan);
+        }
+
+        // Show auth modal
+        function showAuthModal(type) {
+            authModal.classList.remove('hidden');
+            if (type === 'login') {
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+            } else {
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+            }
+        }
+
+        // Hide auth modal
+        function hideAuthModal() {
+            authModal.classList.add('hidden');
+            loginForm.classList.add('hidden');
+            registerForm.classList.add('hidden');
+        }
+
+        // Handle login
+        async function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    authToken = data.access_token;
+                    currentUser = data.user;
+                    localStorage.setItem('authToken', authToken);
+                    hideAuthModal();
+                    showConversionInterface();
+                    showNotification('¡Bienvenido de vuelta!', 'success');
+                } else {
+                    showNotification(data.error || 'Error al iniciar sesión', 'error');
+                }
+            } catch (error) {
+                showNotification('Error de conexión', 'error');
+            }
+        }
+
+        // Handle register
+        async function handleRegister(e) {
+            e.preventDefault();
+            const full_name = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/auth/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ full_name, email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    authToken = data.access_token;
+                    currentUser = data.user;
+                    localStorage.setItem('authToken', authToken);
+                    hideAuthModal();
+                    showConversionInterface();
+                    showNotification('¡Cuenta creada exitosamente! Tienes 10 créditos gratuitos.', 'success');
+                } else {
+                    showNotification(data.error || 'Error al registrarse', 'error');
+                }
+            } catch (error) {
+                showNotification('Error de conexión', 'error');
+            }
+        }
+
+        // Logout
+        function logout() {
+            localStorage.removeItem('authToken');
+            authToken = null;
+            currentUser = null;
+            showWelcomeMessage();
+            showNotification('Sesión cerrada', 'info');
+        }
+
+        // Load supported formats
+        async function loadSupportedFormats() {
+            try {
+                const response = await fetch(`${API_BASE}/conversion/supported-formats`);
+                const data = await response.json();
+                supportedFormats = data.supported_conversions;
+            } catch (error) {
+                console.error('Error loading supported formats:', error);
+            }
+        }
+
+        // File handling
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('dragover');
+        }
+
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove('dragover');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        }
+
+        function handleFileSelect(e) {
+            const files = e.target.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        }
+
+        function handleFile(file) {
+            selectedFile = file;
+            
+            // Show file info
+            document.getElementById('file-name').textContent = file.name;
+            document.getElementById('file-size').textContent = formatFileSize(file.size);
+            document.getElementById('file-info').classList.remove('hidden');
+            
+            // Update format options
+            updateFormatOptions(file);
+            
+            // Analyze file (if authenticated)
+            if (authToken) {
+                analyzeFile(file);
+            }
+        }
+
+        function removeFile() {
+            selectedFile = null;
+            document.getElementById('file-info').classList.add('hidden');
+            document.getElementById('format-selection').classList.add('hidden');
+            document.getElementById('ai-suggestion').classList.add('hidden');
+            document.getElementById('convert-btn').classList.add('hidden');
+            document.getElementById('file-input').value = '';
+        }
+
+        function updateFormatOptions(file) {
+            const extension = file.name.split('.').pop().toLowerCase();
+            const formats = supportedFormats[extension] || {};
+            
+            const select = document.getElementById('target-format');
+            select.innerHTML = '<option value="">Selecciona un formato</option>';
+            
+            Object.keys(formats).forEach(format => {
+                const option = document.createElement('option');
+                option.value = format;
+                option.textContent = format.toUpperCase();
+                select.appendChild(option);
+            });
+            
+            document.getElementById('format-selection').classList.remove('hidden');
+        }
+
+        function updateConversionCost() {
+            const targetFormat = document.getElementById('target-format').value;
+            if (selectedFile && targetFormat) {
+                const extension = selectedFile.name.split('.').pop().toLowerCase();
+                const cost = supportedFormats[extension]?.[targetFormat] || 2;
+                
+                document.getElementById('conversion-cost').textContent = `Costo: ${cost} créditos`;
+                document.getElementById('convert-btn').classList.remove('hidden');
+                
+                // Check if user has enough credits
+                if (currentUser && currentUser.credits < cost) {
+                    document.getElementById('conversion-cost').innerHTML += ' <span class="text-red-500">(Créditos insuficientes)</span>';
+                    document.getElementById('convert-btn').disabled = true;
+                    document.getElementById('convert-btn').classList.add('opacity-50');
+                } else {
+                    document.getElementById('convert-btn').disabled = false;
+                    document.getElementById('convert-btn').classList.remove('opacity-50');
+                }
+            }
+        }
+
+        // Analyze file with AI
+        async function analyzeFile(file) {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch(`${API_BASE}/conversion/analyze-file`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.analysis.recommendations.length > 0) {
+                    document.getElementById('ai-suggestion-text').textContent = data.analysis.recommendations[0];
+                    document.getElementById('ai-suggestion').classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Error analyzing file:', error);
+            }
+        }
+
+        // Convert file
+        async function convertFile() {
+            if (!selectedFile || !authToken) return;
+
+            const targetFormat = document.getElementById('target-format').value;
+            if (!targetFormat) {
+                showNotification('Selecciona un formato de destino', 'error');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+            formData.append('target_format', targetFormat);
+
+            // Show progress
+            document.getElementById('conversion-progress').classList.remove('hidden');
+            document.getElementById('convert-btn').disabled = true;
+
+            // Simulate progress
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 30;
+                if (progress > 90) progress = 90;
+                updateProgress(progress);
+            }, 500);
+
+            try {
+                const response = await fetch(`${API_BASE}/conversion/convert`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: formData
+                });
+
+                const data = await response.json();
+                clearInterval(progressInterval);
+
+                if (response.ok) {
+                    updateProgress(100);
+                    setTimeout(() => {
+                        document.getElementById('conversion-progress').classList.add('hidden');
+                        showConversionResult(data);
+                        updateUserCredits(data.user_credits_remaining);
+                    }, 500);
+                } else {
+                    document.getElementById('conversion-progress').classList.add('hidden');
+                    showNotification(data.error || 'Error en la conversión', 'error');
+                }
+            } catch (error) {
+                clearInterval(progressInterval);
+                document.getElementById('conversion-progress').classList.add('hidden');
+                showNotification('Error de conexión', 'error');
+            } finally {
+                document.getElementById('convert-btn').disabled = false;
+            }
+        }
+
+        function updateProgress(percentage) {
+            document.getElementById('progress-bar').style.width = `${percentage}%`;
+            document.getElementById('progress-percentage').textContent = `${Math.round(percentage)}%`;
+        }
+
+        function showConversionResult(data) {
+            document.getElementById('result-filename').textContent = data.conversion.output_filename;
+            document.getElementById('conversion-result').classList.remove('hidden');
+            
+            // Setup download
+            document.getElementById('download-btn').onclick = () => {
+                downloadFile(data.conversion.id);
+            };
+        }
+
+        async function downloadFile(conversionId) {
+            try {
+                const response = await fetch(`${API_BASE}/conversion/download/${conversionId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = document.getElementById('result-filename').textContent;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                } else {
+                    showNotification('Error al descargar el archivo', 'error');
+                }
+            } catch (error) {
+                showNotification('Error de conexión', 'error');
+            }
+        }
+
+        function updateUserCredits(newBalance) {
+            if (currentUser) {
+                currentUser.credits = newBalance;
+                updateUserInfo();
+            }
+        }
+
+        // Buy credits (simulated)
+        async function buyCredits() {
+            if (!authToken) return;
+
+            const amount = prompt('¿Cuántos créditos quieres comprar?\nPaquetes disponibles: 50, 100, 250, 500, 1000');
+            if (!amount) return;
+
+            try {
+                const response = await fetch(`${API_BASE}/credits/purchase`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({ amount: parseInt(amount) })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    currentUser.credits = data.new_balance;
+                    updateUserInfo();
+                    showNotification(`¡${amount} créditos añadidos exitosamente!`, 'success');
+                } else {
+                    showNotification(data.error || 'Error al comprar créditos', 'error');
+                }
+            } catch (error) {
+                showNotification('Error de conexión', 'error');
+            }
+        }
+
+        // Upgrade plan (simulated)
+        async function upgradePlan() {
+            if (!authToken) return;
+
+            const plans = ['FREE', 'BASIC', 'PRO', 'ENTERPRISE'];
+            const newPlan = prompt(`Plan actual: ${currentUser.plan}\n\nSelecciona nuevo plan:\n- BASIC (€9.99/mes)\n- PRO (€29.99/mes)\n- ENTERPRISE (€99.99/mes)`);
+            
+            if (!newPlan || !plans.includes(newPlan.toUpperCase())) return;
+
+            try {
+                const response = await fetch(`${API_BASE}/credits/upgrade-plan`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({ plan: newPlan.toUpperCase() })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    currentUser.plan = data.new_plan;
+                    currentUser.credits = data.new_balance;
+                    updateUserInfo();
+                    showNotification(`¡Plan actualizado a ${data.new_plan}!`, 'success');
+                } else {
+                    showNotification(data.error || 'Error al actualizar plan', 'error');
+                }
+            } catch (error) {
+                showNotification('Error de conexión', 'error');
+            }
+        }
+
+        // Utility functions
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 ${
+                type === 'success' ? 'bg-green-500' : 
+                type === 'error' ? 'bg-red-500' : 
+                type === 'warning' ? 'bg-yellow-500' : 'bg-blue-500'
+            } text-white`;
+            notification.textContent = message;
+
+            document.body.appendChild(notification);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
+

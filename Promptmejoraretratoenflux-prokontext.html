@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Mejora Retrato en Flux-Pro Kontext</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        .section {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            background-color: #f8f9fa;
+        }
+        .json-content {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #ffc107;
+        }
+        .task-section {
+            background-color: #d4edda;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Prompt Mejora Retrato en Flux-Pro Kontext</h1>
+        
+        <div class="section">
+            <h2>📸 INPUT</h2>
+            <p>Foto real de un hombre sentado frente a la cámara con fondo neutro, expresión serena. La imagen debe conservar la pose, iluminación básica y expresión general.</p>
+        </div>
+
+        <div class="section">
+            <h2>🎭 STYLE</h2>
+            <p>Retrato editorial profesional en blanco y negro. Fondo gris oscuro, enfoque en rostro y manos, estética sobria y realista. Contraste medio-alto, iluminación suave de estudio.</p>
+        </div>
+
+        <div class="section">
+            <h2>🔍 CONTEXT_PROFILE</h2>
+            <div class="json-content">{
+    "scene_analysis": {
+      "type": "Estudio / Interior",
+      "environment": "Fondo neutro oscuro para retrato",
+      "lighting": {
+        "style": "Monocromático (Blanco y Negro)",
+        "type": "Iluminación de estudio controlada (key light y fill light)",
+        "effect": "Claroscuro para añadir profundidad y resaltar rasgos faciales."
+      },
+      "composition": {
+        "shot_type": "Plano medio (Medium Shot)",
+        "camera_angle": "Frontal, a nivel de los ojos (Eye-level shot)",
+        "focus": "Enfoque nítido en el rostro del sujeto, con fondo desenfocado.",
+        "framing": "Sujeto centrado, con brazos en primer plano creando una base compositiva."
+      },
+      "color_palette": {
+        "dominant_colors": ["Escala de grises", "Negro", "Blanco"],
+        "overall_tonality": "Alto contraste."
+      }
+    },
+    "subject_analysis": {
+      "count": 1,
+      "type": "Humano",
+      "identity": {
+        "is_public_figure": false,
+         "profession": "Consultor informático"
+      },
+      "demographics": {
+        "gender_presentation": "Masculina",
+        "age_appearance": "50-55 años"
+      },
+      "appearance": {
+        "hair": {
+          "color": "Moreno canoso",
+          "style": "Corto y natural."
+      },
+      "attire": {
+        "category": "Casual",
+        "upper_body": "Camiseta de manga corta de color oscuro.",
+        "accessories": [
+          {
+            "item": "gafas graduadas",
+            "location": "las lleva puestas"
+          }
+        ]
+      },
+      "posture_and_expression": {
+        "posture": "Sentado, inclinado ligeramente hacia adelante, con las manos entrelazadas sobre una superficie.",
+        "expression": "Directa, segura, seria pero accesible. Mirada fija en la cámara."
+      }
+    },
+    "object_detection": [
+      {
+        "object": "Mesa / Superficie",
+        "location": "En primer plano, bajo los brazos del sujeto.",
+        "details": "Superficie oscura y mate."
+      }
+    ],
+    "inferred_context": {
+      "purpose_narrative": "Retrato profesional diseñado para transmitir confianza, autenticidad y seriedad. Típico de material de prensa o portafolio de una figura pública.",
+      "emotional_tone": ["Seguro", "Directo", "Genuino", "Introspectivo", "Serio"],
+      "potential_use_case": [
+        "Fotografía editorial",
+        "Material de prensa (Press kit)",
+        "Promoción de películas",
+        "Perfiles biográficos oficiales"
+      ],
+      "keywords_seo": [
+        "retrato profesional",
+        "hombre adulto"
+        "retrato en blanco y negro",
+        "headshot profesional",
+        "mirada directa",
+        "fotografía de estudio",
+        "confianza"
+      ]
+    }
+  }
+ }</div>
+        </div>
+
+        <div class="task-section">
+            <h2>🎯 TASK</h2>
+            <p><strong>Mejora visual de la imagen</strong> manteniendo los rasgos faciales originales, ajustando contraste, nitidez, limpieza de fondo, e integrando el estilo y propósito definidos en el perfil contextual. El resultado debe ser realista, profesional, estilizado y apto para uso editorial o biográfico.</p>
+        </div>
+
+        <div class="highlight">
+            <h2>📋 Información del Archivo</h2>
+            <ul>
+                <li><strong>Nombre:</strong> Promptmejoraretratoenflux-prokontext.txt</li>
+                <li><strong>Tamaño:</strong> 3,479 bytes (3.4 KB)</li>
+                <li><strong>Tipo:</strong> Texto Unicode UTF-8</li>
+                <li><strong>Propósito:</strong> Prompt para mejora de retrato fotográfico con IA</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+

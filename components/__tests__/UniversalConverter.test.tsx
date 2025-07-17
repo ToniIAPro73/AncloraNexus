@@ -1,188 +1,261 @@
-import React from 'react';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { vi, describe, it, expect, beforeEach } from 'vitest';
-import '@testing-library/jest-dom/vitest';
+import '@testing-library/jest-dom';
 import { UniversalConverter } from '../UniversalConverter';
 
-vi.useFakeTimers();
+// Mock de servicios
+vi.mock('../services/geminiService', () => ({
+  GeminiService: {
+    getInstance: () => ({
+      convertFile: vi.fn().mockResolvedValue({
+        success: true,
+        data: { downloadUrl: 'http://example.com/converted-file.pdf' }
+      })
+    })
+  }
+}));
 
 describe('UniversalConverter', () => {
-    beforeEach(() => {
-        vi.clearAllMocks();
-        window.alert = vi.fn();
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('renderiza correctamente el componente principal', () => {
+    render(<UniversalConverter />);
+    
+    expect(screen.getByText('Explora tus archivos')).toBeInTheDocument();
+    expect(screen.getByText('O arrastre y suelte su archivo aquí')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /elige un archivo/i })).toBeInTheDocument();
+  });
+
+  it('muestra las categorías de archivos correctamente', () => {
+    render(<UniversalConverter />);
+    
+    // Verificar que las categorías principales están presentes
+    expect(screen.getByText('Audio')).toBeInTheDocument();
+    expect(screen.getByText('Video')).toBeInTheDocument();
+    expect(screen.getByText('Imagen')).toBeInTheDocument();
+    expect(screen.getByText('Documento')).toBeInTheDocument();
+    expect(screen.getByText('Ebook')).toBeInTheDocument();
+  });
+
+  it('cambia las conversiones populares al seleccionar una categoría', async () => {
+    render(<UniversalConverter />);
+    
+    // Hacer clic en la categoría Audio
+    const audioButton = screen.getByText('Audio');
+    fireEvent.click(audioButton);
+    
+    // Verificar que aparecen conversiones de audio
+    await waitFor(() => {
+      expect(screen.getByText('MP3 a WAV')).toBeInTheDocument();
+      expect(screen.getByText('WAV a MP3')).toBeInTheDocument();
     });
+  });
 
-    it('renders the initial idle state correctly', () => {
-        render(<UniversalConverter />);
-        expect(screen.getByText('Explora tus archivos')).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: /Elige un archivo/i })).toBeInTheDocument();
+  it('cambia a conversiones de video al seleccionar la categoría', async () => {
+    render(<UniversalConverter />);
+    
+    // Hacer clic en la categoría Video
+    const videoButton = screen.getByText('Video');
+    fireEvent.click(videoButton);
+    
+    // Verificar que aparecen conversiones de video
+    await waitFor(() => {
+      expect(screen.getByText('MP4 a WEBM')).toBeInTheDocument();
+      expect(screen.getByText('MOV a MP4')).toBeInTheDocument();
     });
+  });
 
-    it('transitions to uploaded state and shows correct info for an image file', async () => {
-        render(<UniversalConverter />);
-        
-        const mockFile = new File(['image content'], 'photo.jpg', { type: 'image/jpeg' });
-        // The file input is hidden, we need to find it differently
-        const uploaderContainer = screen.getByText('Elige un archivo').closest('div');
-        const fileInput = uploaderContainer?.querySelector('input[type="file"]');
-        
-        expect(fileInput).not.toBeNull();
-
-        fireEvent.change(fileInput!, { target: { files: [mockFile] } });
-        
-        await waitFor(() => {
-            expect(screen.getByText('photo.jpg')).toBeInTheDocument();
-            expect(screen.getByText('Selecciona tu formato')).toBeInTheDocument();
-            expect(screen.getByRole('button', {name: /Convertir ahora/i})).toBeInTheDocument();
-            // Check for image icon
-            expect(screen.getByText('photo.jpg').previousElementSibling?.querySelector('svg')).toBeInTheDocument();
-        });
+  it('maneja la carga de archivos mediante drag and drop', async () => {
+    render(<UniversalConverter />);
+    
+    const dropZone = screen.getByText('O arrastre y suelte su archivo aquí').closest('div');
+    
+    // Simular drag and drop
+    const file = new File(['test content'], 'test.mp3', { type: 'audio/mpeg' });
+    const dragEvent = new Event('drop', { bubbles: true });
+    Object.defineProperty(dragEvent, 'dataTransfer', {
+      value: {
+        files: [file]
+      }
     });
     
-    it('shows an alert for unsupported file types', async () => {
-        render(<UniversalConverter />);
-        const mockFile = new File(['content'], 'file.unsupported', { type: 'application/octet-stream' });
-        const uploaderContainer = screen.getByText('Elige un archivo').closest('div');
-        const fileInput = uploaderContainer?.querySelector('input[type="file"]');
-        
-        fireEvent.change(fileInput!, { target: { files: [mockFile] } });
-        
-        await waitFor(() => {
-            expect(window.alert).toHaveBeenCalledWith("This file type is not supported for conversion or has no available target formats.");
-        });
+    fireEvent(dropZone!, dragEvent);
+    
+    // Verificar que el archivo se procesa
+    await waitFor(() => {
+      expect(screen.getByText('test.mp3')).toBeInTheDocument();
     });
+  });
 
-    it('enables convert button only after selecting a format', async () => {
-        render(<UniversalConverter />);
-        const mockFile = new File(['image'], 'image.png', { type: 'image/png' });
-        const uploaderContainer = screen.getByText('Elige un archivo').closest('div');
-        const fileInput = uploaderContainer?.querySelector('input[type="file"]');
-
-        fireEvent.change(fileInput!, { target: { files: [mockFile] } });
-
-        const convertButton = await screen.findByRole('button', { name: /Convertir ahora/i });
-        expect(convertButton).toBeDisabled();
-        
-        const formatSelectorButton = screen.getByText('Selecciona tu formato');
-        fireEvent.click(formatSelectorButton);
-
-        const jpgOption = await screen.findByRole('button', { name: 'JPG' });
-        fireEvent.click(jpgOption);
-
-        expect(convertButton).not.toBeDisabled();
+  it('maneja la selección de archivos mediante el botón', async () => {
+    render(<UniversalConverter />);
+    
+    const fileInput = screen.getByRole('button', { name: /elige un archivo/i });
+    const file = new File(['test content'], 'test.pdf', { type: 'application/pdf' });
+    
+    // Simular selección de archivo
+    fireEvent.change(fileInput, { target: { files: [file] } });
+    
+    await waitFor(() => {
+      expect(screen.getByText('test.pdf')).toBeInTheDocument();
     });
+  });
 
-    it('shows loading and success states on conversion', async () => {
-        render(<UniversalConverter />);
-        const mockFile = new File(['image'], 'image.png', { type: 'image/png' });
-        const uploaderContainer = screen.getByText('Elige un archivo').closest('div');
-        const fileInput = uploaderContainer?.querySelector('input[type="file"]');
-
-        fireEvent.change(fileInput!, { target: { files: [mockFile] } });
-        
-        const formatSelectorButton = await screen.findByText('Selecciona tu formato');
-        fireEvent.click(formatSelectorButton);
-        fireEvent.click(await screen.findByRole('button', { name: 'JPG' }));
-
-        const convertButton = await screen.findByRole('button', { name: /Convertir ahora/i });
-        fireEvent.click(convertButton);
-        
-        expect(screen.getByText('Convirtiendo tu archivo...')).toBeInTheDocument();
-
-        vi.runAllTimers();
-
-        await waitFor(() => {
-            expect(screen.getByText('Conversion Complete!')).toBeInTheDocument();
-            expect(screen.getByText('image.png')).toBeInTheDocument();
-            expect(screen.getByText('JPG')).toBeInTheDocument();
-            expect(screen.getByText('image.jpg')).toBeInTheDocument();
-        });
-    });
-
-    it('resets the view when "Convert Another" is clicked from success state', async () => {
-        render(<UniversalConverter />);
-        const mockFile = new File(['image'], 'image.png', { type: 'image/png' });
-        const uploaderContainer = screen.getByText('Elige un archivo').closest('div');
-        const fileInput = uploaderContainer?.querySelector('input[type="file"]');
-        fireEvent.change(fileInput!, { target: { files: [mockFile] } });
-        
-        const formatSelectorButton = await screen.findByText('Selecciona tu formato');
-        fireEvent.click(formatSelectorButton);
-        fireEvent.click(await screen.findByRole('button', { name: 'JPG' }));
-
-        fireEvent.click(await screen.findByRole('button', { name: /Convertir ahora/i }));
-        vi.runAllTimers();
-        
-        const convertAnotherButton = await screen.findByRole('button', { name: 'Convert Another' });
-        fireEvent.click(convertAnotherButton);
-        
-        await waitFor(() => {
-            expect(screen.getByText('Explora tus archivos')).toBeInTheDocument();
-        });
-    });
-
-    it('resets the view when "Cancelar" is clicked from uploaded state', async () => {
-        render(<UniversalConverter />);
-        const mockFile = new File(['audio'], 'song.mp3', { type: 'audio/mpeg' });
-        const uploaderContainer = screen.getByText('Elige un archivo').closest('div');
-        const fileInput = uploaderContainer?.querySelector('input[type="file"]');
-        fireEvent.change(fileInput!, { target: { files: [mockFile] } });
-
-        const cancelButton = await screen.findByRole('button', { name: /Cancelar/i });
-        fireEvent.click(cancelButton);
-
-        await waitFor(() => {
-            expect(screen.getByText('Explora tus archivos')).toBeInTheDocument();
-        });
+  it('muestra el selector de formato después de cargar un archivo', async () => {
+    render(<UniversalConverter />);
+    
+    const dropZone = screen.getByText('O arrastre y suelte su archivo aquí').closest('div');
+    const file = new File(['test content'], 'test.mp3', { type: 'audio/mpeg' });
+    
+    // Simular carga de archivo
+    const dragEvent = new Event('drop', { bubbles: true });
+    Object.defineProperty(dragEvent, 'dataTransfer', {
+      value: { files: [file] }
     });
     
-    it('shows PDF as a target for image files', async () => {
-        render(<UniversalConverter />);
-        const mockFile = new File(['image'], 'image.png', { type: 'image/png' });
-        const uploaderContainer = screen.getByText('Elige un archivo').closest('div');
-        const fileInput = uploaderContainer?.querySelector('input[type="file"]');
-        fireEvent.change(fileInput!, { target: { files: [mockFile] } });
-        
-        const formatSelectorButton = await screen.findByText('Selecciona tu formato');
-        fireEvent.click(formatSelectorButton);
-        
-        expect(await screen.findByRole('button', { name: 'PDF' })).toBeInTheDocument();
+    fireEvent(dropZone!, dragEvent);
+    
+    // Verificar que aparece el selector de formato
+    await waitFor(() => {
+      expect(screen.getByText('Seleccionar formato de salida')).toBeInTheDocument();
     });
+  });
 
-    it('shows font formats as targets for SVG files', async () => {
-        render(<UniversalConverter />);
-        const mockFile = new File(['svg content'], 'icon.svg', { type: 'image/svg+xml' });
-        const uploaderContainer = screen.getByText('Elige un archivo').closest('div');
-        const fileInput = uploaderContainer?.querySelector('input[type="file"]');
-        fireEvent.change(fileInput!, { target: { files: [mockFile] } });
-        
-        const formatSelectorButton = await screen.findByText('Selecciona tu formato');
-        fireEvent.click(formatSelectorButton);
-        
-        expect(await screen.findByRole('button', { name: 'EOT' })).toBeInTheDocument();
-        expect(await screen.findByRole('button', { name: 'OTF' })).toBeInTheDocument();
+  it('inicia la conversión cuando se selecciona un formato', async () => {
+    render(<UniversalConverter />);
+    
+    // Cargar archivo
+    const dropZone = screen.getByText('O arrastre y suelte su archivo aquí').closest('div');
+    const file = new File(['test content'], 'test.mp3', { type: 'audio/mpeg' });
+    
+    const dragEvent = new Event('drop', { bubbles: true });
+    Object.defineProperty(dragEvent, 'dataTransfer', {
+      value: { files: [file] }
     });
-
-    it('handles ebook conversion flow correctly', async () => {
-        render(<UniversalConverter />);
-        const mockFile = new File(['ebook content'], 'book.azw', { type: 'application/octet-stream' });
-        const uploaderContainer = screen.getByText('Elige un archivo').closest('div');
-        const fileInput = uploaderContainer?.querySelector('input[type="file"]');
-        fireEvent.change(fileInput!, { target: { files: [mockFile] } });
-        
-        const formatSelectorButton = await screen.findByText('Selecciona tu formato');
-        fireEvent.click(formatSelectorButton);
-        
-        expect(await screen.findByRole('button', { name: 'EPUB' })).toBeInTheDocument();
-        fireEvent.click(screen.getByRole('button', { name: 'EPUB' }));
-
-        fireEvent.click(screen.getByRole('button', { name: /Convertir ahora/i }));
-
-        vi.runAllTimers();
-
-        await waitFor(() => {
-            expect(screen.getByText('Conversion Complete!')).toBeInTheDocument();
-            expect(screen.getByText('book.epub')).toBeInTheDocument();
-        });
+    
+    fireEvent(dropZone!, dragEvent);
+    
+    // Seleccionar formato de salida
+    await waitFor(() => {
+      const formatButton = screen.getByText('WAV');
+      fireEvent.click(formatButton);
     });
+    
+    // Verificar que inicia la conversión
+    await waitFor(() => {
+      expect(screen.getByText('Convirtiendo...')).toBeInTheDocument();
+    });
+  });
+
+  it('muestra el progreso de conversión', async () => {
+    render(<UniversalConverter />);
+    
+    // Simular proceso de conversión
+    const dropZone = screen.getByText('O arrastre y suelte su archivo aquí').closest('div');
+    const file = new File(['test content'], 'test.mp3', { type: 'audio/mpeg' });
+    
+    const dragEvent = new Event('drop', { bubbles: true });
+    Object.defineProperty(dragEvent, 'dataTransfer', {
+      value: { files: [file] }
+    });
+    
+    fireEvent(dropZone!, dragEvent);
+    
+    await waitFor(() => {
+      const formatButton = screen.getByText('WAV');
+      fireEvent.click(formatButton);
+    });
+    
+    // Verificar elementos de progreso
+    await waitFor(() => {
+      expect(screen.getByRole('progressbar')).toBeInTheDocument();
+    });
+  });
+
+  it('muestra el botón de descarga al completar la conversión', async () => {
+    render(<UniversalConverter />);
+    
+    // Simular conversión completa
+    const dropZone = screen.getByText('O arrastre y suelte su archivo aquí').closest('div');
+    const file = new File(['test content'], 'test.mp3', { type: 'audio/mpeg' });
+    
+    const dragEvent = new Event('drop', { bubbles: true });
+    Object.defineProperty(dragEvent, 'dataTransfer', {
+      value: { files: [file] }
+    });
+    
+    fireEvent(dropZone!, dragEvent);
+    
+    await waitFor(() => {
+      const formatButton = screen.getByText('WAV');
+      fireEvent.click(formatButton);
+    });
+    
+    // Esperar a que complete la conversión
+    await waitFor(() => {
+      expect(screen.getByText('Descargar archivo convertido')).toBeInTheDocument();
+    }, { timeout: 5000 });
+  });
+
+  it('maneja errores de conversión correctamente', async () => {
+    // Mock de error en el servicio
+    vi.mocked(require('../services/geminiService').GeminiService.getInstance().convertFile)
+      .mockRejectedValueOnce(new Error('Error de conversión'));
+    
+    render(<UniversalConverter />);
+    
+    const dropZone = screen.getByText('O arrastre y suelte su archivo aquí').closest('div');
+    const file = new File(['test content'], 'test.mp3', { type: 'audio/mpeg' });
+    
+    const dragEvent = new Event('drop', { bubbles: true });
+    Object.defineProperty(dragEvent, 'dataTransfer', {
+      value: { files: [file] }
+    });
+    
+    fireEvent(dropZone!, dragEvent);
+    
+    await waitFor(() => {
+      const formatButton = screen.getByText('WAV');
+      fireEvent.click(formatButton);
+    });
+    
+    // Verificar que se muestra el error
+    await waitFor(() => {
+      expect(screen.getByText(/error/i)).toBeInTheDocument();
+    });
+  });
+
+  it('permite reiniciar el proceso después de una conversión', async () => {
+    render(<UniversalConverter />);
+    
+    // Completar una conversión
+    const dropZone = screen.getByText('O arrastre y suelte su archivo aquí').closest('div');
+    const file = new File(['test content'], 'test.mp3', { type: 'audio/mpeg' });
+    
+    const dragEvent = new Event('drop', { bubbles: true });
+    Object.defineProperty(dragEvent, 'dataTransfer', {
+      value: { files: [file] }
+    });
+    
+    fireEvent(dropZone!, dragEvent);
+    
+    await waitFor(() => {
+      const formatButton = screen.getByText('WAV');
+      fireEvent.click(formatButton);
+    });
+    
+    await waitFor(() => {
+      expect(screen.getByText('Descargar archivo convertido')).toBeInTheDocument();
+    });
+    
+    // Hacer clic en "Convertir otro archivo"
+    const resetButton = screen.getByText('Convertir otro archivo');
+    fireEvent.click(resetButton);
+    
+    // Verificar que vuelve al estado inicial
+    expect(screen.getByText('Explora tus archivos')).toBeInTheDocument();
+  });
 });
+
