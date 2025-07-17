@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { apiService, getConversionCost, formatFileSize } from './services/api';
+import { apiService, getConversionCost, formatFileSize } from '../services/api';
 import { useAuth } from './auth/AuthContext';
 
 export const UniversalConverter: React.FC = () => {
