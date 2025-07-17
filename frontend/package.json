@@ -4,8 +4,10 @@
   "description": "Paquete de integración para los nuevos conversores de Anclora",
   "main": "index.js",
   "scripts": {
-    "install-deps": "npm install docx jszip",
-    "test-converters": "node test-all-converters.js"
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start",
+  "lint": "next lint"
   },
   "dependencies": {
     "docx": "^8.5.0",

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useCreditSystem } from './CreditSystem';
 
 export const UniversalConverter: React.FC = () => {
@@ -7,8 +7,23 @@ export const UniversalConverter: React.FC = () => {
   const [isConverting, setIsConverting] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [aiSuggestion, setAiSuggestion] = useState<string>('');
+  const [backendStatus, setBackendStatus] = useState<string>('Conectando...');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { balance, consumeCredits, calculateConversionCost } = useCreditSystem();
+
+  // <-- PEGA TODO ESTE BLOQUE AQUÍ
+useEffect(() => {
+    fetch('http://localhost:8000/api/health')
+      .then(response => {
+        if (!response.ok) throw new Error('Respuesta del backend no fue exitosa');
+        return response.json();
+      })
+      .then(data => setBackendStatus(`✅ Conectado (Estado: ${data.status})`))
+      .catch(error => {
+        console.error('Error al conectar con el backend:', error);
+        setBackendStatus('❌ Error de conexión. ¿El servidor del backend está en marcha?');
+      });
+}, []); // El array vacío [] asegura que esto solo se ejecute una vez
 
   const popularConversions = [
     { from: 'PDF', to: 'JPG', icon: '📄→🖼️', cost: 2 },
@@ -119,6 +134,14 @@ export const UniversalConverter: React.FC = () => {
         <p className="text-slate-300">
           Convierte archivos con inteligencia artificial avanzada
         </p>
+      {/* --- INTEGRACIÓN SUGERIDA --- */}
+      {/* Indicador de estado del backend */}
+      <div className="mt-4 text-sm font-medium">
+        {/* Aquí la variable backendStatus viene del 'useState' que ya creamos */}
+        <p className="text-slate-400">{backendStatus}</p>
+      </div>
+
+
       </div>
 
       {/* Workflow Steps */}
