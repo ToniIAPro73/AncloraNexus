@@ -1,5 +1,9 @@
 /* Estilos de Branding - Anclora Metaform */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .brand-header {
   display: flex;
   align-items: center;
