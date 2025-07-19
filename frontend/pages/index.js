@@ -1,12 +1,11 @@
-// Archivo: anclora-frontend-nuevo/pages/index.tsx (Versión Definitiva)
-
-// Usamos llaves {} para importar un componente exportado por nombre
+// archivo: pages/index.tsx (Versión Final)
+import { Layout } from '../components/Layout';
 import { UniversalConverter } from '../components/UniversalConverter';
 
 export default function HomePage() {
   return (
-    <main>
+    <Layout>
       <UniversalConverter />
-    </main>
+    </Layout>
   );
 }
