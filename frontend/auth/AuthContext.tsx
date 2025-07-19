@@ -96,8 +96,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const refreshUser = async () => {
     try {
       const response = await apiService.getProfile();
-      setUser(response);
-          } catch (error) {
+      setUser(response.user);
+    } catch (error) {
       console.error('Error refrescando usuario:', error);
       // Si hay error, probablemente el token expiró
       logout();
