@@ -1,5 +1,5 @@
-// Archivo: frontend/pages/_app.tsx
-import '../styles/brand-styles.css'; // Usando tu archivo de estilos correcto
+// archivo: pages/_app.tsx
+import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { AuthProvider } from '../auth/AuthContext';
 
@@ -10,5 +10,4 @@ function MyApp({ Component, pageProps }: AppProps) {
     </AuthProvider>
   );
 }
-
 export default MyApp;

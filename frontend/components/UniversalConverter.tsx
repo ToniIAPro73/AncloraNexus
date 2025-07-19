@@ -137,7 +137,7 @@ export const UniversalConverter: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="bg-slate-900 text-white min-h-screen p-4 sm:p-8 font-sans w-full max-w-5xl mx-auto space-y-8">
       {/* Header */}
       <div className="text-center">
         <h1 className="text-3xl font-bold text-white mb-2">
