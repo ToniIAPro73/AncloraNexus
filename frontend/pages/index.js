@@ -1,8 +1,11 @@
-import UniversalConverter from '../components/UniversalConverter';
+// Archivo: anclora-frontend-nuevo/pages/index.tsx (Versión Definitiva)
+
+// Usamos llaves {} para importar un componente exportado por nombre
+import { UniversalConverter } from '../components/UniversalConverter';
 
 export default function HomePage() {
   return (
-    <main className="flex justify-center items-start p-4 sm:p-8">
+    <main>
       <UniversalConverter />
     </main>
   );
