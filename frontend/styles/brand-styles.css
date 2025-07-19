@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: #0f172a; /* Color de fondo base del workspace */
+}
+
 .brand-header {
   display: flex;
   align-items: center;
