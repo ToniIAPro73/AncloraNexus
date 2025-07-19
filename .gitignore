@@ -68,9 +68,9 @@ temp_*
 *.old
 
 # Package managers
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
+# package-lock.json  <-- Opcionalmente, puedes comentarla con '#'
+# yarn.lock
+# pnpm-lock.yaml
 
 # TypeScript
 *.tsbuildinfo
