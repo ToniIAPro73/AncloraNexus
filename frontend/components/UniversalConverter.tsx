@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+  import React, { useState, useRef, useCallback } from 'react';
   import { apiService, getConversionCost, formatFileSize } from '../services/api';
   import { useAuth } from '../auth/AuthContext';
 
@@ -137,22 +137,24 @@ export const UniversalConverter: React.FC = () => {
   };
 
   return (
-    <div className="bg-slate-900 text-white min-h-screen p-4 sm:p-8 font-sans w-full max-w-5xl mx-auto space-y-8">
-      {/* Header */}
+    <div className="w-full max-w-5xl mx-auto space-y-8">
+      <header className="text-center">
+        <h1 className="text-3xl sm:text-4xl font-bold text-white">Conversor Inteligente</h1>
+        <p className="text-slate-400 mt-2">Convierte archivos con inteligencia artificial avanzada</p>
+      </header>
+
+      <main className="bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 p-6 shadow-xl">
+        {/* Aquí va tu JSX del stepper y las 4 columnas, ya lo tienes bien */}
+        {/* ... */}
+      </main>
+
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-white mb-2">
-          🎯 Conversor Inteligente
-        </h1>
-        <p className="text-slate-300">
-          Convierte archivos con inteligencia artificial avanzada
-        </p>
-        {user && (
-          <div className="mt-4 bg-slate-800/30 backdrop-blur-sm rounded-lg border border-slate-700/50 p-3">
-            <span className="text-slate-400">Créditos disponibles: </span>
-            <span className="text-green-400 font-bold text-lg">{user.credits}</span>
-          </div>
-        )}
+        {/* Aquí va tu JSX de conversiones populares */}
+        {/* ... */}
       </div>
+    </div>
+  );
+};
 
       {/* Error message */}
       {error && (
