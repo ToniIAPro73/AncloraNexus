@@ -1,8 +1,8 @@
 {
-  "name": "anclora-converter-integration",
+  "name": "anclora-frontend",
   "version": "1.0.0",
-  "description": "Paquete de integración para los nuevos conversores de Anclora",
-  "main": "index.js",
+  "description": "Anclora Metaform Frontend - Tu Contenido, Reinventado",
+  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,31 +10,22 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "docx": "^8.5.0",
-    "jszip": "^3.10.1",
-    "next": "^15.4.1",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "next": "^14.0.0",
+    "pdf-lib": "^1.17.1",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "sharp": "^0.32.6",
+    "turndown": "^7.1.2",
+    "typescript": "^5.0.0"
   },
-  "keywords": [
-    "anclora",
-    "converter",
-    "txt",
-    "html",
-    "doc",
-    "markdown",
-    "rtf",
-    "odt"
-  ],
-  "author": "Anclora Team",
-  "license": "MIT",
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.11",
-    "@types/node": "^24.0.14",
-    "@types/react": "^19.1.8",
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.11",
-    "typescript": "^5.8.3"
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^14.0.0",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5"
   }
 }
