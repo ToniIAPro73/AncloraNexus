@@ -1,4 +1,3 @@
-// archivo: pages/_app.tsx
 import '../styles/brand-styles.css';
 import type { AppProps } from 'next/app';
 import { AuthProvider } from '../auth/AuthContext';
@@ -10,4 +9,5 @@ function MyApp({ Component, pageProps }: AppProps) {
     </AuthProvider>
   );
 }
+
 export default MyApp;
