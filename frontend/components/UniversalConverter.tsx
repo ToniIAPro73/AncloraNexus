@@ -360,7 +360,7 @@ export const UniversalConverter: React.FC = () => {
         </div> /* Cierre del div de Conversiones Populares */
       </div> /* Cierre del div "space-y-6" */
     </div> /* Cierre del div principal */
-    ); /* Cierre del return *7
+    ); /* Cierre del return */
 }; /* Cierre del componente 'UniversalConverter' */
 
 
