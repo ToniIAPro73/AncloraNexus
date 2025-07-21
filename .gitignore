@@ -1,86 +1,34 @@
-# Dependencies
+# Entornos Virtuales de Python
+venv/
+
+# Archivos compilados y caché de Python
+__pycache__/
+*.pyc
+
+# Dependencias de Node.js
 node_modules/
+
+# Archivos de build de Next.js
+.next/
+out/
+
+# Logs y reportes
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
 
-# Next.js
-.next/
-out/
-build/
-dist/
-
-# Environment variables
+# Variables de entorno
 .env
 .env.local
 .env.development.local
-.env.test.local
 .env.production.local
 
-# Testing
-coverage/
-.nyc_output/
-test-results/
-playwright-report/
-
-# Logs
-logs/
-*.log
-
-# Runtime data
-pids/
-*.pid
-*.seed
-*.pid.lock
-
-# Temporary files
-tmp/
-temp/
-.tmp/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# OS
+# Archivos del sistema operativo
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
 
-# Anclora Metaform specific
-uploads/
-converted/
-cache/
-*.converted.*
-temp_*
-
-# Backup files
-*.bak
-*.backup
-*.old
-
-# Package managers
-# package-lock.json
-yarn.lock
-pnpm-lock.yaml
-
-# TypeScript
-*.tsbuildinfo
-
-# ESLint
-.eslintcache
-
-# Prettier
-.prettierignore
-
-# Husky
-.husky/_/
-
+# Archivos de IDEs
+.vscode/
+.idea/

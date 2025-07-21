@@ -1,7 +1,9 @@
+import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { EbookConverter } from '../EbookConverter';
+import { CreditProvider } from '../CreditSystem';
 
 // Mock de servicios
 vi.mock('../services/ebookConversionService', () => ({
@@ -50,7 +52,7 @@ describe('EbookConverter', () => {
   });
 
   it('renderiza correctamente el componente de e-books', () => {
-    render(<EbookConverter />);
+    render(<CreditProvider><EbookConverter /></CreditProvider>);
     
     expect(screen.getByText('Arrastra tu e-book aquí o haz clic para seleccionar')).toBeInTheDocument();
     expect(screen.getByText('Formatos soportados:')).toBeInTheDocument();
@@ -58,13 +60,13 @@ describe('EbookConverter', () => {
   });
 
   it('muestra los formatos soportados correctamente', () => {
-    render(<EbookConverter />);
+    render(<CreditProvider><EbookConverter /></CreditProvider>);
     
     expect(screen.getByText(/PDF, EPUB, MOBI, AZW, AZW3, DOC, DOCX, HTML, RTF, TXT/)).toBeInTheDocument();
   });
 
   it('maneja la carga de archivos de e-book', async () => {
-    render(<EbookConverter />);
+    render(<CreditProvider><EbookConverter /></CreditProvider>);
     
     const dropZone = screen.getByText('Arrastra tu e-book aquí o haz clic para seleccionar').closest('div');
     const file = new File(['test content'], 'test.epub', { type: 'application/epub+zip' });
@@ -84,7 +86,7 @@ describe('EbookConverter', () => {
   });
 
   it('muestra el estado de validación durante la carga', async () => {
-    render(<EbookConverter />);
+    render(<CreditProvider><EbookConverter /></CreditProvider>);
     
     const dropZone = screen.getByText('Arrastra tu e-book aquí o haz clic para seleccionar').closest('div');
     const file = new File(['test content'], 'test.epub', { type: 'application/epub+zip' });
@@ -101,7 +103,7 @@ describe('EbookConverter', () => {
   });
 
   it('muestra los metadatos después de la validación exitosa', async () => {
-    render(<EbookConverter />);
+    render(<CreditProvider><EbookConverter /></CreditProvider>);
     
     const dropZone = screen.getByText('Arrastra tu e-book aquí o haz clic para seleccionar').closest('div');
     const file = new File(['test content'], 'test.epub', { type: 'application/epub+zip' });
@@ -121,7 +123,7 @@ describe('EbookConverter', () => {
   });
 
   it('muestra el selector de formato después de cargar un archivo válido', async () => {
-    render(<EbookConverter />);
+    render(<CreditProvider><EbookConverter /></CreditProvider>);
     
     const dropZone = screen.getByText('Arrastra tu e-book aquí o haz clic para seleccionar').closest('div');
     const file = new File(['test content'], 'test.epub', { type: 'application/epub+zip' });
@@ -140,7 +142,7 @@ describe('EbookConverter', () => {
   });
 
   it('permite seleccionar diferentes formatos de salida', async () => {
-    render(<EbookConverter />);
+    render(<CreditProvider><EbookConverter /></CreditProvider>);
     
     // Cargar archivo
     const dropZone = screen.getByText('Arrastra tu e-book aquí o haz clic para seleccionar').closest('div');
@@ -162,7 +164,7 @@ describe('EbookConverter', () => {
   });
 
   it('inicia la conversión al seleccionar un formato', async () => {
-    render(<EbookConverter />);
+    render(<CreditProvider><EbookConverter /></CreditProvider>);
     
     // Cargar archivo
     const dropZone = screen.getByText('Arrastra tu e-book aquí o haz clic para seleccionar').closest('div');
@@ -188,7 +190,7 @@ describe('EbookConverter', () => {
   });
 
   it('muestra el progreso de conversión con barra de progreso', async () => {
-    render(<EbookConverter />);
+    render(<CreditProvider><EbookConverter /></CreditProvider>);
     
     // Simular proceso completo
     const dropZone = screen.getByText('Arrastra tu e-book aquí o haz clic para seleccionar').closest('div');
@@ -220,7 +222,7 @@ describe('EbookConverter', () => {
         error: 'Formato de archivo no soportado'
       });
     
-    render(<EbookConverter />);
+    render(<CreditProvider><EbookConverter /></CreditProvider>);
     
     const dropZone = screen.getByText('Arrastra tu e-book aquí o haz clic para seleccionar').closest('div');
     const file = new File(['invalid content'], 'test.txt', { type: 'text/plain' });
@@ -246,7 +248,7 @@ describe('EbookConverter', () => {
         error: 'Error de validación'
       });
     
-    render(<EbookConverter />);
+    render(<CreditProvider><EbookConverter /></CreditProvider>);
     
     const dropZone = screen.getByText('Arrastra tu e-book aquí o haz clic para seleccionar').closest('div');
     const file = new File(['test content'], 'test.epub', { type: 'application/epub+zip' });
@@ -271,7 +273,7 @@ describe('EbookConverter', () => {
   });
 
   it('muestra el historial de conversiones', async () => {
-    render(<EbookConverter />);
+    render(<CreditProvider><EbookConverter /></CreditProvider>);
     
     // Completar una conversión
     const dropZone = screen.getByText('Arrastra tu e-book aquí o haz clic para seleccionar').closest('div');
@@ -297,7 +299,7 @@ describe('EbookConverter', () => {
   });
 
   it('valida tipos de archivo soportados', async () => {
-    render(<EbookConverter />);
+    render(<CreditProvider><EbookConverter /></CreditProvider>);
     
     const dropZone = screen.getByText('Arrastra tu e-book aquí o haz clic para seleccionar').closest('div');
     

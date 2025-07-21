@@ -1,0 +1,7 @@
+# Archivos de build y dependencias (ya cubiertos por el .gitignore principal, pero es bueno ser explícito)
+node_modules
+.next
+out
+
+# Variables de entorno locales del frontend
+.env.local
