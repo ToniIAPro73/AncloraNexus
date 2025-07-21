@@ -3,6 +3,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { UniversalConverter } from '../UniversalConverter';
+import { CreditProvider } from '../CreditSystem';
 
 // Mock de servicios
 vi.mock('../services/geminiService', () => ({
@@ -22,7 +23,7 @@ describe('UniversalConverter', () => {
   });
 
   it('renderiza correctamente el componente principal', () => {
-    render(<UniversalConverter />);
+    render(<CreditProvider><UniversalConverter /></CreditProvider>);
     
     expect(screen.getByText('Explora tus archivos')).toBeInTheDocument();
     expect(screen.getByText('O arrastre y suelte su archivo aquí')).toBeInTheDocument();
@@ -30,7 +31,7 @@ describe('UniversalConverter', () => {
   });
 
   it('muestra las categorías de archivos correctamente', () => {
-    render(<UniversalConverter />);
+    render(<CreditProvider><UniversalConverter /></CreditProvider>);
     
     // Verificar que las categorías principales están presentes
     expect(screen.getByText('Audio')).toBeInTheDocument();
@@ -41,7 +42,7 @@ describe('UniversalConverter', () => {
   });
 
   it('cambia las conversiones populares al seleccionar una categoría', async () => {
-    render(<UniversalConverter />);
+    render(<CreditProvider><UniversalConverter /></CreditProvider>);
     
     // Hacer clic en la categoría Audio
     const audioButton = screen.getByText('Audio');
@@ -55,7 +56,7 @@ describe('UniversalConverter', () => {
   });
 
   it('cambia a conversiones de video al seleccionar la categoría', async () => {
-    render(<UniversalConverter />);
+    render(<CreditProvider><UniversalConverter /></CreditProvider>);
     
     // Hacer clic en la categoría Video
     const videoButton = screen.getByText('Video');
@@ -69,7 +70,7 @@ describe('UniversalConverter', () => {
   });
 
   it('maneja la carga de archivos mediante drag and drop', async () => {
-    render(<UniversalConverter />);
+    render(<CreditProvider><UniversalConverter /></CreditProvider>);
     
     const dropZone = screen.getByText('O arrastre y suelte su archivo aquí').closest('div');
     
@@ -91,7 +92,7 @@ describe('UniversalConverter', () => {
   });
 
   it('maneja la selección de archivos mediante el botón', async () => {
-    render(<UniversalConverter />);
+    render(<CreditProvider><UniversalConverter /></CreditProvider>);
     
     const fileInput = screen.getByRole('button', { name: /elige un archivo/i });
     const file = new File(['test content'], 'test.pdf', { type: 'application/pdf' });
@@ -105,7 +106,7 @@ describe('UniversalConverter', () => {
   });
 
   it('muestra el selector de formato después de cargar un archivo', async () => {
-    render(<UniversalConverter />);
+    render(<CreditProvider><UniversalConverter /></CreditProvider>);
     
     const dropZone = screen.getByText('O arrastre y suelte su archivo aquí').closest('div');
     const file = new File(['test content'], 'test.mp3', { type: 'audio/mpeg' });
@@ -125,7 +126,7 @@ describe('UniversalConverter', () => {
   });
 
   it('inicia la conversión cuando se selecciona un formato', async () => {
-    render(<UniversalConverter />);
+    render(<CreditProvider><UniversalConverter /></CreditProvider>);
     
     // Cargar archivo
     const dropZone = screen.getByText('O arrastre y suelte su archivo aquí').closest('div');
@@ -151,7 +152,7 @@ describe('UniversalConverter', () => {
   });
 
   it('muestra el progreso de conversión', async () => {
-    render(<UniversalConverter />);
+    render(<CreditProvider><UniversalConverter /></CreditProvider>);
     
     // Simular proceso de conversión
     const dropZone = screen.getByText('O arrastre y suelte su archivo aquí').closest('div');
@@ -176,7 +177,7 @@ describe('UniversalConverter', () => {
   });
 
   it('muestra el botón de descarga al completar la conversión', async () => {
-    render(<UniversalConverter />);
+    render(<CreditProvider><UniversalConverter /></CreditProvider>);
     
     // Simular conversión completa
     const dropZone = screen.getByText('O arrastre y suelte su archivo aquí').closest('div');
@@ -205,7 +206,7 @@ describe('UniversalConverter', () => {
     vi.mocked(require('../services/geminiService').GeminiService.getInstance().convertFile)
       .mockRejectedValueOnce(new Error('Error de conversión'));
     
-    render(<UniversalConverter />);
+    render(<CreditProvider><UniversalConverter /></CreditProvider>);
     
     const dropZone = screen.getByText('O arrastre y suelte su archivo aquí').closest('div');
     const file = new File(['test content'], 'test.mp3', { type: 'audio/mpeg' });
@@ -229,7 +230,7 @@ describe('UniversalConverter', () => {
   });
 
   it('permite reiniciar el proceso después de una conversión', async () => {
-    render(<UniversalConverter />);
+    render(<CreditProvider><UniversalConverter /></CreditProvider>);
     
     // Completar una conversión
     const dropZone = screen.getByText('O arrastre y suelte su archivo aquí').closest('div');

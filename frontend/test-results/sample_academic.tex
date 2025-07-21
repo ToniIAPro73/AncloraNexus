@@ -1,0 +1,102 @@
+\documentclass[12pt,a4paper]{article}
+
+% Paquetes esenciales
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{setspace}
+
+% Configuración de página
+\geometry{margin=2.5cm}
+\onehalfspacing
+
+% Metadatos del documento
+\title{Análisis Comparativo de Algoritmos de ML}
+\author{Dr. Investigador}
+\date{\today}
+
+% Configuración de hyperref
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    citecolor=red
+}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+
+Este estudio presenta un análisis exhaustivo de diferentes algoritmos de aprendizaje automático aplicados a problemas de clasificación.
+
+
+INTRODUCCIÓN
+
+El machine learning ha revolucionado múltiples campos de la ciencia y la tecnología.
+
+
+\section{Objetivos del Estudio}
+
+\begin{enumerate}
+\item Comparar la eficiencia de algoritmos supervisados
+\item Evaluar la precisión en diferentes datasets
+\item Analizar la complejidad computacional
+\end{enumerate}
+
+
+METODOLOGÍA
+
+\section{Se utilizaron los siguientes algoritmos}
+
+\begin{itemize}
+\item Support Vector Machines (SVM)
+\item Random Forest
+\item Neural Networks
+\item Naive Bayes
+\end{itemize}
+
+
+Métricas de Evaluación
+
+\begin{quote}
+precision = TP / (TP + FP)
+recall = TP / (TP + FN)
+f1\_score = 2 \textit{ (precision } recall) / (precision + recall)
+\end{quote}
+
+
+\section{RESULTADOS}
+
+Los experimentos mostraron que \textbf{Random Forest} obtuvo el mejor rendimiento promedio.
+
+
+Análisis Estadístico
+
+La \textit{significancia estadística} fue evaluada usando pruebas t-student.
+
+
+\section{CONCLUSIONES}
+
+Los resultados sugieren que la elección del algoritmo depende del contexto específico.
+
+
+\section{REFERENCIAS}
+
+\cite{Mitchell1997} Machine Learning
+
+\cite{Bishop2006} Pattern Recognition and Machine Learning
+
+
+\end{document}
