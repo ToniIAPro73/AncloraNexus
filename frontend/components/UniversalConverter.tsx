@@ -357,7 +357,6 @@ export const UniversalConverter: React.FC = () => {
               <p className="text-slate-400 text-xs">{conversion.cost} créditos</p>
             </button>
           ))}
-        // ...el resto de tu código...
         </div> // Cierre del div de Conversiones Populares
       </div> // Cierre del div "space-y-6"
     ); // Cierre del return
