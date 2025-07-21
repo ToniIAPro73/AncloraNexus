@@ -358,10 +358,10 @@ export const UniversalConverter: React.FC = () => {
               {/* ...contenido del botón... */}
             </button>
           ))}
-        </div> {/* Cierre del div de Conversiones Populares */}
-      </div> {/* Cierre del div "space-y-6" */}
-    </div> {/* Cierre del div principal */}
-    ); {/* Cierre del return */}
-}; {/* Cierre del componente 'UniversalConverter' */}
+        </div> 
+      </div> 
+    </div>
+    ); 
+}; 
 
 
