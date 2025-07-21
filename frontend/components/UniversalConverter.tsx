@@ -355,12 +355,13 @@ export const UniversalConverter: React.FC = () => {
               <div className="text-2xl mb-2">{conversion.icon}</div>
               <p className="text-white font-medium text-sm">{conversion.from} → {conversion.to}</p>
               <p className="text-slate-400 text-xs">{conversion.cost} créditos</p>
+              {/* ...contenido del botón... */}
             </button>
           ))}
-        </div> /* Cierre del div de Conversiones Populares */
-      </div> /* Cierre del div "space-y-6" */
-    </div> /* Cierre del div principal */
-    ); /* Cierre del return */
-}; /* Cierre del componente 'UniversalConverter' */
+        </div> {/* Cierre del div de Conversiones Populares */}
+      </div> {/* Cierre del div "space-y-6" */}
+    </div> {/* Cierre del div principal */}
+    ); {/* Cierre del return */}
+}; {/* Cierre del componente 'UniversalConverter' */}
 
 
