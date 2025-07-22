@@ -14,7 +14,7 @@ export interface User {
 
 export interface LoginData {
   email: string;
-  password?: string; // Hacemos la contraseña opcional si usas login social en el futuro
+  password?: string;
 }
 
 export interface RegisterData {
@@ -55,7 +55,6 @@ export const apiService = {
   // Función de Login simulada
   login: async (data: LoginData): Promise<{ user: User; token: string }> => {
     console.log('Simulando llamada a API de login para:', data.email);
-    // En un caso real, aquí iría un fetch() al backend
     const fakeToken = 'fake_jwt_token_12345';
     setAuthToken(fakeToken);
     
@@ -102,7 +101,6 @@ export const apiService = {
     const token = getAuthToken();
     if (token) {
         console.log('Token encontrado, verificando...');
-        // Simulamos una llamada al backend que devuelve el perfil del usuario
         return { valid: true, user: await apiService.getProfile() };
     }
     return { valid: false, user: null };
@@ -122,8 +120,33 @@ export const apiService = {
   },
   
   clearToken,
+
+  // --- AÑADIDO: Funciones de conversión que faltaban ---
+  convertFile: async (payload: { file: File; target_format: string; }): Promise<any> => {
+    console.log('Simulando la subida y conversión del archivo:', payload.file.name);
+    // Simulamos una respuesta exitosa del backend
+    return Promise.resolve({
+      success: true,
+      id: 'conversion_123',
+      download_url: '/api/download/conversion_123',
+      output_filename: `convertido.${payload.target_format}`
+    });
+  },
+
+  downloadConversion: async (conversionId: string): Promise<Blob> => {
+    console.log('Simulando la descarga para la conversión:', conversionId);
+    // Simulamos la descarga de un archivo creando un "Blob" de texto vacío
+    const fakeBlob = new Blob(["Este es el contenido del archivo convertido de prueba."], { type: "text/plain" });
+    return Promise.resolve(fakeBlob);
+  }
 };
 
 // El resto de funciones de ayuda se mantienen igual
 export const getConversionCost = (fromFormat: string, toFormat: string): number => { return 2; };
-export const formatFileSize = (bytes: number): string => { /* ... */ return `${bytes} Bytes`; };
+export const formatFileSize = (bytes: number): string => { 
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+};
