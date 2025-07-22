@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { IconEbook, IconUpload, IconDownload, IconRefresh, IconSparkles, IconCheck, IconX } from './Icons';
-import { EbookConversionService } from '../services/ebookConversionService';
-import { EbookValidationService } from '../services/ebookValidationService';
+import { IconEbook, IconUpload, IconDownload, IconRefresh, IconSparkles, IconCheck, IconX } from '../../components/Icons';
+import { EbookConversionService } from '../../services/ebookConversionService';
+import { EbookValidationService } from '../../services/ebookValidationService';
 import { EbookFile, EbookConversionJob, EbookValidationResult } from '../types/ebook';
 
 interface EbookConverterProps {

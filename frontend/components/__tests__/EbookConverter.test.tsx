@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { EbookConverter } from '../EbookConverter';
-import { CreditProvider } from '../CreditSystem';
+import { CreditProvider } from '../../../components/CreditSystem';
 
 // Mock de servicios
 vi.mock('../services/ebookConversionService', () => ({
