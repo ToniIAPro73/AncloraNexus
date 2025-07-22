@@ -1,6 +1,45 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import { apiService, getConversionCost, formatFileSize } from '../services/api';
 import { useAuth } from '../auth/AuthContext';
+
+// Error Boundary Component
+class ErrorBoundary extends React.Component<
+  { children: React.ReactNode; fallback?: React.ComponentType<any> },
+  { hasError: boolean; error?: Error }
+> {
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('Error boundary caught an error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      const FallbackComponent = this.props.fallback || (() => (
+        <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4">
+          <p className="text-red-400">Algo salió mal. Por favor, recarga la página.</p>
+        </div>
+      ));
+      return <FallbackComponent />;
+    }
+
+    return this.props.children;
+  }
+}
+
+interface ConversionOption {
+  from: string;
+  to: string;
+  icon: string;
+  cost: number;
+}
 
 export const UniversalConverter: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -10,29 +49,54 @@ export const UniversalConverter: React.FC = () => {
   const [aiSuggestion, setAiSuggestion] = useState<string>('');
   const [analysis, setAnalysis] = useState<any>(null);
   const [error, setError] = useState('');
+  const [backendStatus, setBackendStatus] = useState<'online' | 'offline' | 'checking'>('checking');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { user, refreshUser } = useAuth();
 
-  const popularConversions = [
+  // Memoized popular conversions
+  const popularConversions: ConversionOption[] = useMemo(() => [
     { from: 'TXT', to: 'HTML', icon: '📝→🌐', cost: 1 },
     { from: 'TXT', to: 'PDF', icon: '📝→📄', cost: 1 },
     { from: 'TXT', to: 'MD', icon: '📝→📋', cost: 1 },
     { from: 'TXT', to: 'RTF', icon: '📝→📄', cost: 1 },
     { from: 'TXT', to: 'DOC', icon: '📝→📄', cost: 2 },
-  ];
+  ], []);
 
-  const handleFileSelect = async (file: unknown) => { // 1. Aceptamos un tipo 'unknown'
-    if (!(file instanceof File)) {
-    setError('Se ha proporcionado un objeto no válido. Por favor, selecciona un archivo.');
-    return;
-   }
-   
+  // Backend Health Check - FUNCIONALIDAD RESTAURADA
+  useEffect(() => {
+    const checkBackendStatus = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/health', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
+          },
+        });
+        
+        if (response.ok) {
+          setBackendStatus('online');
+        } else {
+          setBackendStatus('offline');
+        }
+      } catch (error) {
+        console.error('Backend health check failed:', error);
+        setBackendStatus('offline');
+      }
+    };
+
+    checkBackendStatus();
+  }, []);
+
+  // Optimized file selection handler - FUNCIONALIDAD REAL RESTAURADA
+  const handleFileSelect = useCallback(async (file: File) => {
+    if (!file) return;
+
     setSelectedFile(file);
     setCurrentStep(2);
     setError('');
     setAnalysis(null);
     
-    // Analizar archivo con IA real
+    // Analizar archivo con IA REAL - NO SIMULACIÓN
     try {
       const formData = new FormData();
       formData.append('file', file);
@@ -66,32 +130,39 @@ export const UniversalConverter: React.FC = () => {
       setError(error.message || 'Error al analizar el archivo');
       setAiSuggestion('Error al analizar el archivo. Intenta de nuevo.');
     }
-  };
+  }, []);
 
-  const handleDrop = (e: React.DragEvent) => {
+  // Optimized drag and drop handler
+  const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     const files = Array.from(e.dataTransfer.files);
     if (files.length > 0) {
       handleFileSelect(files[0]);
     }
-  };
+  }, [handleFileSelect]);
 
-  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Optimized file input change handler
+  const handleFileInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files && files.length > 0) {
       handleFileSelect(files[0]);
     }
-  };
+  }, [handleFileSelect]);
 
-  const handleConvert = async () => {
-    if (!selectedFile || !targetFormat || !user) return;
-    
-    const cost = getConversionCost(
+  // Conversion cost calculation
+  const conversionCost = useMemo(() => {
+    if (!selectedFile || !targetFormat) return 0;
+    return getConversionCost(
       selectedFile.name.split('.').pop()?.toLowerCase() || '',
       targetFormat
     );
+  }, [selectedFile, targetFormat]);
+
+  // Optimized convert handler
+  const handleConvert = useCallback(async () => {
+    if (!selectedFile || !targetFormat || !user) return;
     
-    if (user.credits < cost) {
+    if (user.credits < conversionCost) {
       setError('Créditos insuficientes para esta conversión');
       return;
     }
@@ -139,26 +210,116 @@ export const UniversalConverter: React.FC = () => {
       setError(error.message || 'Error durante la conversión');
       setIsConverting(false);
     }
-  };
+  }, [selectedFile, targetFormat, user, conversionCost, refreshUser]);
+
+  // Render step content
+  const renderStepContent = useMemo(() => {
+    switch (currentStep) {
+      case 1:
+        return (
+          <div
+            onDrop={handleDrop}
+            onDragOver={(e) => e.preventDefault()}
+            onClick={() => fileInputRef.current?.click()}
+            className="border-2 border-dashed border-slate-600 rounded-lg p-6 text-center cursor-pointer hover:border-blue-500 transition-colors"
+          >
+            <div className="text-4xl mb-2">📁</div>
+            <p className="text-slate-300 text-sm">
+              Arrastra tu archivo aquí<br />o haz clic para seleccionar
+            </p>
+            <input
+              ref={fileInputRef}
+              type="file"
+              onChange={handleFileInputChange}
+              className="hidden"
+            />
+          </div>
+        );
+      case 2:
+        return (
+          <div className="text-center">
+            <div className="animate-spin w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full mx-auto mb-2"></div>
+            <p className="text-slate-300 text-sm">Analizando archivo...</p>
+          </div>
+        );
+      case 3:
+        return (
+          <div className="space-y-4">
+            <select
+              value={targetFormat}
+              onChange={(e) => setTargetFormat(e.target.value)}
+              className="w-full bg-slate-700 border border-slate-600 rounded px-3 py-2 text-white"
+            >
+              <option value="">Seleccionar formato</option>
+              {analysis?.supported_formats?.map((format: string) => (
+                <option key={format} value={format}>
+                  {format.toUpperCase()}
+                </option>
+              ))}
+            </select>
+            {conversionCost > 0 && (
+              <div className="text-xs text-slate-400">
+                Costo: {conversionCost} créditos
+              </div>
+            )}
+            {targetFormat && (
+              <button
+                onClick={handleConvert}
+                disabled={isConverting}
+                className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white py-2 rounded font-medium hover:from-blue-600 hover:to-cyan-600 transition-all disabled:opacity-50"
+              >
+                {isConverting ? 'Convirtiendo...' : 'Iniciar Conversión'}
+              </button>
+            )}
+          </div>
+        );
+      case 4:
+        return (
+          <div className="text-center">
+            {isConverting ? (
+              <>
+                <div className="animate-pulse w-8 h-8 bg-cyan-500 rounded-full mx-auto mb-2"></div>
+                <p className="text-slate-300 text-sm">Procesando...</p>
+              </>
+            ) : (
+              <>
+                <div className="text-2xl mb-2">🎉</div>
+                <p className="text-green-400 text-sm">¡Conversión completada!</p>
+              </>
+            )}
+          </div>
+        );
+      default:
+        return null;
+    }
+  }, [currentStep, handleDrop, handleFileInputChange, targetFormat, analysis, conversionCost, isConverting, handleConvert]);
 
   return (
-    <div className="w-full max-w-5xl mx-auto space-y-8">
-      <header className="text-center">
-        <h1 className="text-3xl sm:text-4xl font-bold text-white">Conversor Inteligente</h1>
-        <p className="text-slate-400 mt-2">Convierte archivos con inteligencia artificial avanzada</p>
-      </header>
+    <ErrorBoundary>
+      <div className="w-full max-w-5xl mx-auto space-y-8">
+        <header className="text-center">
+          <h1 className="text-3xl sm:text-4xl font-bold text-white">Conversor Inteligente</h1>
+          <p className="text-slate-400 mt-2">Convierte archivos con inteligencia artificial avanzada</p>
+          {backendStatus === 'offline' && (
+            <div className="mt-2 bg-red-500/10 border border-red-500/30 rounded-lg p-2">
+              <p className="text-red-400 text-sm">⚠️ Backend no disponible</p>
+            </div>
+          )}
+          {backendStatus === 'checking' && (
+            <div className="mt-2 bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-2">
+              <p className="text-yellow-400 text-sm">🔄 Verificando conexión...</p>
+            </div>
+          )}
+        </header>
 
-      <main className="bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 p-6 shadow-xl">
-        
-        {/* Error message */}
         {error && (
-          <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 mb-6">
+          <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4">
             <p className="text-red-400">{error}</p>
           </div>
         )}
 
-        {/* Workflow Steps */}
-        <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
+        <main className="bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 p-6 shadow-xl">
+          {/* Stepper */}
           <div className="flex items-center justify-between mb-8">
             {[1, 2, 3, 4].map((step) => (
               <div key={step} className="flex items-center">
@@ -178,136 +339,33 @@ export const UniversalConverter: React.FC = () => {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {/* Step 1: Upload */}
-            <div className={`p-4 rounded-lg border transition-all duration-300 ${
-              currentStep === 1 
-                ? 'bg-blue-500/10 border-blue-500/30' 
-                : 'bg-slate-700/30 border-slate-600/30'
-            }`}>
-              <h3 className="text-white font-medium mb-3">📁 Subir Archivo</h3>
-              {!selectedFile ? (
-                <div
-                  onDrop={handleDrop}
-                  onDragOver={(e) => e.preventDefault()}
-                  onClick={() => fileInputRef.current?.click()}
-                  className="border-2 border-dashed border-slate-600 rounded-lg p-6 text-center cursor-pointer hover:border-blue-500 transition-colors"
+          {/* File Info */}
+          {selectedFile && (
+            <div className="mb-6 bg-slate-700/30 rounded-lg p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-white font-medium">{selectedFile.name}</p>
+                  <p className="text-slate-400 text-sm">{formatFileSize(selectedFile.size)}</p>
+                </div>
+                <button
+                  onClick={() => {
+                    setSelectedFile(null);
+                    setCurrentStep(1);
+                    setAiSuggestion('');
+                    setAnalysis(null);
+                    setTargetFormat('');
+                  }}
+                  className="text-slate-400 hover:text-white"
                 >
-                  <div className="text-4xl mb-2">📁</div>
-                  <p className="text-slate-300 text-sm">
-                    Arrastra tu archivo aquí<br />o haz clic para seleccionar
-                  </p>
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    onChange={handleFileInputChange}
-                    className="hidden"
-                  />
-                </div>
-              ) : (
-                <div className="bg-slate-600/30 rounded-lg p-3">
-                  <p className="text-white font-medium text-sm">{selectedFile.name}</p>
-                  <p className="text-slate-400 text-xs">
-                    {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
-                  </p>
-                </div>
-              )}
+                  ✕
+                </button>
+              </div>
             </div>
+          )}
 
-            {/* Step 2: Analyze */}
-            <div className={`p-4 rounded-lg border transition-all duration-300 ${
-              currentStep === 2 
-                ? 'bg-purple-500/10 border-purple-500/30' 
-                : 'bg-slate-700/30 border-slate-600/30'
-            }`}>
-              <h3 className="text-white font-medium mb-3">🤖 Análisis IA</h3>
-              {currentStep >= 2 ? (
-                <div className="text-center">
-                  {currentStep === 2 ? (
-                    <div className="animate-spin w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full mx-auto mb-2"></div>
-                  ) : (
-                    <div className="text-2xl mb-2">✅</div>
-                  )}
-                  <p className="text-slate-300 text-sm">
-                    {currentStep === 2 ? 'Analizando archivo...' : 'Análisis completado'}
-                  </p>
-                </div>
-              ) : (
-                <div className="text-center text-slate-500">
-                  <div className="text-2xl mb-2">🤖</div>
-                  <p className="text-sm">Esperando archivo</p>
-                </div>
-              )}
-            </div>
-
-            {/* Step 3: Configure */}
-            <div className={`p-4 rounded-lg border transition-all duration-300 ${
-              currentStep === 3 
-                ? 'bg-green-500/10 border-green-500/30' 
-                : 'bg-slate-700/30 border-slate-600/30'
-            }`}>
-              <h3 className="text-white font-medium mb-3">⚙️ Configurar</h3>
-              {currentStep >= 3 ? (
-                <div className="space-y-2">
-                  <select
-                    value={targetFormat}
-                    onChange={(e) => setTargetFormat(e.target.value)}
-                    className="w-full bg-slate-700 border border-slate-600 rounded px-2 py-1 text-white text-sm"
-                  >
-                    <option value="">Seleccionar formato</option>
-                    {analysis?.supported_formats?.map((format: string) => (
-                      <option key={format} value={format}>
-                        {format.toUpperCase()}
-                      </option>
-                    ))}
-                  </select>
-                  {selectedFile && targetFormat && (
-                    <div className="text-xs text-slate-400">
-                      Costo: {getConversionCost(
-                        selectedFile.name.split('.').pop()?.toLowerCase() || '',
-                        targetFormat
-                      )} créditos
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div className="text-center text-slate-500">
-                  <div className="text-2xl mb-2">⚙️</div>
-                  <p className="text-sm">Configuración pendiente</p>
-                </div>
-              )}
-            </div>
-
-            {/* Step 4: Download */}
-            <div className={`p-4 rounded-lg border transition-all duration-300 ${
-              currentStep === 4 
-                ? 'bg-cyan-500/10 border-cyan-500/30' 
-                : 'bg-slate-700/30 border-slate-600/30'
-            }`}>
-              <h3 className="text-white font-medium mb-3">📥 Descargar</h3>
-              {currentStep === 4 ? (
-                <div className="text-center">
-                  {isConverting ? (
-                    <>
-                      <div className="animate-pulse w-8 h-8 bg-cyan-500 rounded-full mx-auto mb-2"></div>
-                      <p className="text-slate-300 text-sm">Convirtiendo...</p>
-                    </>
-                  ) : (
-                    <>
-                      <div className="text-2xl mb-2">🎉</div>
-                      <button className="bg-cyan-500 text-white px-3 py-1 rounded text-sm hover:bg-cyan-600 transition-colors">
-                        Descargar
-                      </button>
-                    </>
-                  )}
-                </div>
-              ) : (
-                <div className="text-center text-slate-500">
-                  <div className="text-2xl mb-2">📥</div>
-                  <p className="text-sm">Descarga pendiente</p>
-                </div>
-              )}
-            </div>
+          {/* Step Content */}
+          <div className="min-h-[200px] flex items-center justify-center">
+            {renderStepContent}
           </div>
 
           {/* AI Suggestion */}
@@ -322,30 +380,18 @@ export const UniversalConverter: React.FC = () => {
               </div>
             </div>
           )}
+        </main>
 
-          {/* Convert Button */}
-          {currentStep === 3 && targetFormat && (
-            <div className="mt-6 text-center">
-              <button
-                onClick={handleConvert}
-                disabled={isConverting}
-                className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-8 py-3 rounded-lg font-medium hover:from-blue-600 hover:to-cyan-600 transition-all duration-200 disabled:opacity-50"
-              >
-                {isConverting ? 'Convirtiendo...' : 'Iniciar Conversión'}
-              </button>
-            </div>
-          )}
-        </div>
-      </main>
-
-      {/* Popular Conversions */}
-      <div className="text-center">
+        {/* Popular Conversions */}
         <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
           <h2 className="text-xl font-bold text-white mb-4">🚀 Conversiones Populares</h2>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {popularConversions.map((conversion, index) => (
               <button
                 key={index}
+                onClick={() => {
+                  // Lógica para selección rápida si es necesario
+                }}
                 className="bg-slate-700/30 hover:bg-slate-600/30 border border-slate-600/30 rounded-lg p-4 text-center transition-all duration-200 hover:border-blue-500/30"
               >
                 <div className="text-2xl mb-2">{conversion.icon}</div>
@@ -353,9 +399,11 @@ export const UniversalConverter: React.FC = () => {
                 <p className="text-slate-400 text-xs">{conversion.cost} créditos</p>
               </button>
             ))}
-          </div> 
+          </div>
         </div>
       </div>
-    </div>
+    </ErrorBoundary>
   );
 };
+
+export default UniversalConverter;
