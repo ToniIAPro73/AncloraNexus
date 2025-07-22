@@ -1,3 +1,0 @@
-Este es un archivo de prueba para verificar que el conversor funciona correctamente.
-Contiene texto simple para probar la conversión de TXT a otros formatos.
-
