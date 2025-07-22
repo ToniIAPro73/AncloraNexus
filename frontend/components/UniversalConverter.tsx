@@ -21,7 +21,12 @@ export const UniversalConverter: React.FC = () => {
     { from: 'TXT', to: 'DOC', icon: '📝→📄', cost: 2 },
   ];
 
-  const handleFileSelect = async (file: File) => {
+  const handleFileSelect = async (file: unknown) => { // 1. Aceptamos un tipo 'unknown'
+    if (!(file instanceof File)) {
+    setError('Se ha proporcionado un objeto no válido. Por favor, selecciona un archivo.');
+    return;
+   }
+   
     setSelectedFile(file);
     setCurrentStep(2);
     setError('');
