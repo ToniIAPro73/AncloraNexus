@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import '@testing-library/jest-dom/vitest';
-import { PopularConversions } from '../PopularConversions';
+import { PopularConversions } from '../../../components/PopularConversions';
 
 describe('PopularConversions Component', () => {
     it('renders the component with the default category (ebook) active', () => {

@@ -2,8 +2,8 @@ import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { UniversalConverter } from '../UniversalConverter';
-import { CreditProvider } from '../CreditSystem';
+import { UniversalConverter } from '../../../components/UniversalConverter';
+import { CreditProvider } from '../../../components/CreditSystem';
 
 // Mock de servicios
 vi.mock('../services/geminiService', () => ({

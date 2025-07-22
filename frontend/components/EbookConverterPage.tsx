@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { EbookConverter } from './EbookConverter';
 import { EbookFormatSelector } from './EbookFormatSelector';
 import { EbookMetadataViewer } from './EbookMetadataViewer';
-import { IconEbook, IconArrowLeft } from './Icons';
+import { IconEbook, IconArrowLeft } from '../../components/Icons';
 import { EbookFile, EbookMetadata, EbookValidationResult } from '../types/ebook';
 
 interface EbookConverterPageProps {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IconAudio, IconVideo, IconImage, IconFile, IconArchive, IconPresentation, IconArrowRight, IconEbook } from './Icons';
+import { IconAudio, IconVideo, IconImage, IconFile, IconArchive, IconPresentation, IconArrowRight, IconEbook } from '../frontend/components/Icons';
 import { FileCategory } from '../utils/conversionMaps';
 
 type CategoryInfo = {
