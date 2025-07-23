@@ -32,3 +32,6 @@ Thumbs.db
 # Archivos de IDEs
 .vscode/
 .idea/
+
+# Archivos de backup y comprimidos
+*.tar.gz
