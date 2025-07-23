@@ -1,0 +1,19 @@
+{
+  "name": "anclora-metaform",
+  "version": "1.0.0",
+  "description": "Plataforma avanzada de conversión de archivos potenciada por IA",
+  "private": true,
+  "workspaces": [
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "test": "cd tests && npm test",
+    "lint": "cd frontend && npm run lint",
+    "clean": "rm -rf node_modules frontend/node_modules"
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  }
+}
