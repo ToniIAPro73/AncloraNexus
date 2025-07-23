@@ -1,6 +1,9 @@
 @echo off
 ECHO Iniciando servidor Backend de Anclora Metaform...
-ECHO (Se abrira una nueva ventana. Para detener el servidor, cierrala o presiona Ctrl+C)
 
-REM Inicia la app como un módulo desde la raíz del proyecto
-start "Anclora Backend" cmd /k "cd backend && call venv\Scripts\activate.bat && python -m src.main"
+REM %~dp0 se expande a la ruta de la carpeta 'scripts/windows/'
+REM ..\.. sube dos niveles para llegar a la raíz del proyecto
+SET "ROOT_PATH=%~dp0..\..\"
+
+REM Inicia una nueva ventana y ejecuta los comandos desde la raíz
+start "Anclora Backend" cmd /k "cd /d %ROOT_PATH% && call backend\venv\Scripts\activate.bat && python -m backend.src.main"
