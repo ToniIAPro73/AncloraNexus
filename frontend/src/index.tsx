@@ -1,7 +1,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import App from './components/App';
 import { AuthProvider } from './auth/AuthContext';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -24,3 +24,7 @@ root.render(
     </AuthProvider>
   </React.StrictMode>
 );
+
+export default function HomePage() {
+  return <App />; 
+}

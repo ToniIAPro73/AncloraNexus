@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { AuthProvider, ProtectedRoute, UserProfile } from './auth/AuthContext';
-import { CreditProvider } from './components/CreditSystem';
+import { AuthProvider, ProtectedRoute, UserProfile } from '../auth/AuthContext';
+import { CreditProvider } from './CreditSystem';
 import { UniversalConverter } from './UniversalConverter';
-import { ConversionHistory } from './frontend/components/ConversionHistory';
-import { CreditPurchase } from './frontend/components/CreditPurchase';
+import { ConversionHistory } from './ConversionHistory';
+import { CreditPurchase } from './CreditPurchase';
 
 // Componente de navegación
 const Navigation: React.FC<{ activeTab: string; setActiveTab: (tab: string) => void }> = ({ 
