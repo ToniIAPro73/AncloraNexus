@@ -1,7 +1,7 @@
 @echo off
 ECHO Iniciando todos los servicios de Anclora Metaform...
 
-REM Llama a los otros dos scripts usando la ruta del script actual
+REM Llama a los otros scripts usando su ruta completa
 call "%~dp0start_backend.bat"
 call "%~dp0start_frontend.bat"
 
