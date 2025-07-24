@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.apple.com/sf-pro-display.css');
 :root {
   --color-primary: #006EE6;

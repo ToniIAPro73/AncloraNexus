@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"next dev\" \"open-cli http://localhost:3000\"",
-    "build": "next build",
+    "build:css": "tailwindcss -i ./src/index.css -o ./public/index.css",
+    "build": "npm run build:css && next build",
     "start": "next start",
     "lint": "next lint"
   },
