@@ -1,57 +1,33 @@
-// frontend/src/components/App.tsx
+// frontend/src/components/NewApp.tsx
 import React, { useState } from 'react';
 import { AuthProvider, ProtectedRoute, UserProfile } from '../auth/AuthContext';
 import { CreditProvider } from './CreditSystem';
-import { UniversalConverter } from './UniversalConverter';
+import { MainLayout } from './Layout/MainLayout';
+import { NewConversorInteligente } from './NewConversorInteligente';
 import { ConversionHistory } from './ConversionHistory';
 import { CreditPurchase } from './CreditPurchase';
+import './styles/anclora-animations.css';
 
-// Componente de navegación optimizado según la guía de estilos
-const Navigation: React.FC<{ 
-  activeTab: string; 
-  setActiveTab: (tab: string) => void 
-}> = ({ activeTab, setActiveTab }) => {
-  const tabs = [
-    { id: 'converter', label: 'Conversor', icon: '🔄' },
-    { id: 'history', label: 'Historial', icon: '📋' },
-    { id: 'credits', label: 'Créditos', icon: '💳' },
-    { id: 'profile', label: 'Perfil', icon: '👤' },
-  ];
-
-  return (
-    <nav className="bg-slate-800/50 backdrop-blur-sm border-b border-slate-700/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo con tipografía Inter y colores de marca */}
-          <div className="flex items-center">
-            <h1 className="text-2xl font-bold text-white font-inter">
-              🎯 Anclora Metaform
-            </h1>
-            <span className="ml-2 text-gray-400 text-sm">Tu Contenido, Reinventado</span>
-          </div>
-
-          {/* Navegación con colores primarios de la guía */}
-          <div className="flex space-x-4">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  activeTab === tab.id
-                    ? 'bg-primary text-white'
-                    : 'text-gray-300 hover:text-white hover:bg-slate-700/50'
-                }`}
-              >
-                <span className="mr-2">{tab.icon}</span>
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </div>
+// Componente placeholder para las secciones que aún no están implementadas
+const PlaceholderSection: React.FC<{ title: string; icon: string; description: string }> = ({ 
+  title, 
+  icon, 
+  description 
+}) => (
+  <div className="max-w-4xl mx-auto">
+    <div className="bg-slate-800/40 backdrop-blur-sm rounded-xl border border-slate-700/50 p-8 text-center">
+      <div className="text-6xl mb-4">{icon}</div>
+      <h2 className="text-2xl font-bold text-white mb-3">{title}</h2>
+      <p className="text-gray-300 mb-6">{description}</p>
+      <div className="inline-flex items-center text-sm text-primary">
+        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Próximamente disponible
       </div>
-    </nav>
-  );
-};
+    </div>
+  </div>
+);
 
 // Componente principal de la aplicación autenticada
 const AuthenticatedApp: React.FC = () => {
@@ -60,31 +36,85 @@ const AuthenticatedApp: React.FC = () => {
   const renderContent = () => {
     switch (activeTab) {
       case 'converter':
-        return <UniversalConverter />;
+        return <NewConversorInteligente />;
+      
+      case 'formats':
+        return (
+          <PlaceholderSection
+            title="Formatos Compatibles"
+            icon="📁"
+            description="Explora todos los formatos de archivo compatibles con nuestro conversor inteligente. Más de 45 formatos disponibles."
+          />
+        );
+      
       case 'history':
         return <ConversionHistory />;
+      
       case 'credits':
         return <CreditPurchase />;
+      
+      case 'plans':
+        return (
+          <PlaceholderSection
+            title="Planes y Precios"
+            icon="📋"
+            description="Descubre nuestros planes de suscripción diseñados para satisfacer todas tus necesidades de conversión."
+          />
+        );
+      
+      case 'faq':
+        return (
+          <PlaceholderSection
+            title="Preguntas Frecuentes"
+            icon="❓"
+            description="Encuentra respuestas a las preguntas más comunes sobre nuestro servicio de conversión."
+          />
+        );
+      
+      case 'ratings':
+        return (
+          <PlaceholderSection
+            title="Valoraciones"
+            icon="⭐"
+            description="Comparte tu experiencia y lee las valoraciones de otros usuarios de Anclora Metaform."
+          />
+        );
+      
+      case 'config':
+        return (
+          <PlaceholderSection
+            title="Configuración"
+            icon="⚙️"
+            description="Personaliza tu experiencia con Anclora Metaform según tus preferencias."
+          />
+        );
+      
+      case 'stats':
+        return (
+          <PlaceholderSection
+            title="Estadísticas"
+            icon="📈"
+            description="Visualiza estadísticas detalladas sobre tus conversiones y uso del servicio."
+          />
+        );
+      
       case 'profile':
         return <UserProfile />;
+      
       default:
-        return <UniversalConverter />;
+        return <NewConversorInteligente />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-primary-dark to-gray-900">
-      <Navigation activeTab={activeTab} setActiveTab={setActiveTab} />
-      
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {renderContent()}
-      </main>
-    </div>
+    <MainLayout activeTab={activeTab} setActiveTab={setActiveTab}>
+      {renderContent()}
+    </MainLayout>
   );
 };
 
 // Componente principal de la aplicación
-const App: React.FC = () => {
+const NewApp: React.FC = () => {
   return (
     <AuthProvider>
       <CreditProvider>
@@ -96,4 +126,5 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default NewApp;
+
