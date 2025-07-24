@@ -35,7 +35,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   return (
     <div className={`
-      fixed left-0 top-0 h-full bg-slate-900/95 backdrop-blur-sm border-r border-slate-700/50
+      fixed left-0 top-0 h-full bg-gradient-to-br from-primary to-secondary
+      backdrop-blur-sm border-r border-slate-700/50 shadow-lg rounded-lg
       transition-all duration-300 ease-in-out z-40
       ${isCollapsed ? 'w-16' : 'w-72'}
     `}>
@@ -43,7 +44,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <div className="flex items-center justify-between p-4 border-b border-slate-700/50">
         {!isCollapsed && (
           <div className="flex items-center">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-sm">
+            <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center text-white font-bold text-sm">
               A
             </div>
             <div className="ml-3">
