@@ -11,7 +11,8 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed }) => {
 
   return (
     <header className={`
-      fixed top-0 right-0 h-16 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700/50
+      fixed top-0 right-0 h-16 bg-gradient-to-br from-primary to-secondary
+      backdrop-blur-sm border-b border-slate-700/50 shadow-lg rounded-lg
       transition-all duration-300 ease-in-out z-30
       ${sidebarCollapsed ? 'left-16' : 'left-72'}
     `}>
