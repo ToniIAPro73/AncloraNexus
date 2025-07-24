@@ -46,9 +46,9 @@ export const Layout: React.FC<LayoutProps> = ({
   ];
 
   return (
-    <div className="flex h-screen bg-gray-900 text-white font-inter">
+    <div className="flex h-screen bg-neutral-900 text-white font-inter">
       {/* Sidebar */}
-      <aside className="hidden md:flex w-64 flex-shrink-0 bg-gray-800 flex-col">
+      <aside className="hidden md:flex w-64 flex-shrink-0 bg-neutral-800 flex-col">
         <div className="flex items-center p-4">
           <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-xl mr-3">
             A
@@ -70,9 +70,9 @@ export const Layout: React.FC<LayoutProps> = ({
             />
           ))}
         </nav>
-        <div className="p-4 border-t border-gray-700/50">
-          <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Actividad Hoy</h4>
-          <div className="flex justify-between text-xs text-gray-400">
+        <div className="p-4 border-t border-neutral-700/50">
+          <h4 className="text-xs font-bold text-neutral-600 uppercase tracking-wider mb-2">Actividad Hoy</h4>
+          <div className="flex justify-between text-xs text-neutral-600">
             <span>Conversiones</span>
             <span className="font-semibold text-white">47</span>
           </div>
@@ -83,7 +83,7 @@ export const Layout: React.FC<LayoutProps> = ({
       {mobileOpen && (
         <div className="fixed inset-0 z-50 flex md:hidden">
           <div className="absolute inset-0 bg-black/60" onClick={() => setMobileOpen(false)} />
-          <aside className="relative w-64 bg-gray-800 flex flex-col">
+          <aside className="relative w-64 bg-neutral-800 flex flex-col">
             <button className="self-end m-4" onClick={() => setMobileOpen(false)}>✕</button>
             <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-1">
               {tabs.map((tab) => (
@@ -106,12 +106,12 @@ export const Layout: React.FC<LayoutProps> = ({
 
       {/* Main */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        <header className="flex items-center justify-end md:justify-end p-3 bg-gray-800 border-b border-gray-700/50">
+        <header className="flex items-center justify-end md:justify-end p-3 bg-neutral-800 border-b border-neutral-700/50">
           <button className="md:hidden mr-auto" onClick={() => setMobileOpen(true)} aria-label="Abrir menú">
             ☰
           </button>
           <div className="flex items-center space-x-3">
-            <div className="flex items-center text-sm font-semibold bg-gray-700/50 px-3 py-1.5 rounded-lg">
+            <div className="flex items-center text-sm font-semibold bg-neutral-700/50 px-3 py-1.5 rounded-lg">
               <span className="text-primary mr-2">💎</span>
               <span>{user?.credits || 50} créditos</span>
             </div>
@@ -122,7 +122,7 @@ export const Layout: React.FC<LayoutProps> = ({
               >
                 👤
               </button>
-              <span className="absolute -bottom-1 -right-1 w-3 h-3 bg-success rounded-full border-2 border-gray-800" />
+              <span className="absolute -bottom-1 -right-1 w-3 h-3 bg-success rounded-full border-2 border-neutral-700" />
             </div>
           </div>
         </header>

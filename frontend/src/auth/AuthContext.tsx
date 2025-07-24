@@ -138,7 +138,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-primary-dark to-gray-900">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-gray-300 border-t-primary"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-neutral-200 border-t-primary"></div>
       </div>
     );
   }
@@ -198,7 +198,7 @@ export const LoginForm: React.FC = () => {
           <h2 className="text-h2 font-bold text-white mb-2">
             {isLogin ? 'Iniciar Sesión' : 'Crear Cuenta'}
           </h2>
-          <p className="text-gray-300">
+          <p className="text-neutral-200">
             {isLogin ? 'Accede a tu cuenta de Anclora Metaform' : 'Únete a Anclora Metaform'}
           </p>
         </div>
@@ -297,9 +297,9 @@ export const LoginForm: React.FC = () => {
         </form>
 
         {/* Usuario de prueba */}
-        <div className="bg-gray-800/30 backdrop-blur-sm rounded-lg border border-gray-700/50 p-4">
-          <h3 className="text-gray-300 font-medium mb-2">Usuario de Prueba:</h3>
-          <p className="text-gray-400 text-sm">
+        <div className="bg-neutral-800/30 backdrop-blur-sm rounded-lg border border-neutral-700/50 p-4">
+          <h3 className="text-neutral-200 font-medium mb-2">Usuario de Prueba:</h3>
+          <p className="text-neutral-600 text-sm">
             Email: ancoratest@dominio.com<br />
             Contraseña: Ancoratest123
           </p>
@@ -328,26 +328,26 @@ export const UserProfile: React.FC = () => {
       </div>
 
       <div className="space-y-4">
-        <div className="p-4 bg-gray-800/30 rounded-lg">
+        <div className="p-4 bg-neutral-800/30 rounded-lg">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <span className="text-gray-400 block text-sm">Nombre:</span>
+              <span className="text-neutral-600 block text-sm">Nombre:</span>
               <span className="text-white font-medium">{user.full_name}</span>
             </div>
             <div>
-              <span className="text-gray-400 block text-sm">Email:</span>
+              <span className="text-neutral-600 block text-sm">Email:</span>
               <span className="text-white font-medium">{user.email}</span>
             </div>
             <div>
-              <span className="text-gray-400 block text-sm">Plan:</span>
+              <span className="text-neutral-600 block text-sm">Plan:</span>
               <span className="text-primary font-medium">{user.plan_info.name}</span>
             </div>
             <div>
-              <span className="text-gray-400 block text-sm">Créditos:</span>
+              <span className="text-neutral-600 block text-sm">Créditos:</span>
               <span className="text-success font-bold">{user.credits}</span>
             </div>
             <div>
-              <span className="text-gray-400 block text-sm">Conversiones realizadas:</span>
+              <span className="text-neutral-600 block text-sm">Conversiones realizadas:</span>
               <span className="text-white font-medium">{user.total_conversions}</span>
             </div>
           </div>
@@ -355,8 +355,8 @@ export const UserProfile: React.FC = () => {
         
         <div className="mt-6">
           <h3 className="text-h4 text-white mb-4">Actividad Reciente</h3>
-          <div className="bg-gray-800/30 rounded-lg overflow-hidden">
-            <div className="p-4 text-center text-gray-400">
+          <div className="bg-neutral-800/30 rounded-lg overflow-hidden">
+            <div className="p-4 text-center text-neutral-600">
               <p>Historial de actividad disponible próximamente</p>
             </div>
           </div>

@@ -19,7 +19,7 @@ const Navigation: React.FC<{
   ];
 
   return (
-    <nav className="bg-slate-800/50 backdrop-blur-sm border-b border-slate-700/50">
+    <nav className="bg-neutral-800/50 backdrop-blur-sm border-b border-neutral-700/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo con tipografía Inter y colores de marca */}
@@ -27,7 +27,7 @@ const Navigation: React.FC<{
             <h1 className="text-2xl font-bold text-white font-inter">
               🎯 Anclora Metaform
             </h1>
-            <span className="ml-2 text-gray-400 text-sm">Tu Contenido, Reinventado</span>
+            <span className="ml-2 text-neutral-600 text-sm">Tu Contenido, Reinventado</span>
           </div>
 
           {/* Navegación con colores primarios de la guía */}
@@ -39,7 +39,7 @@ const Navigation: React.FC<{
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   activeTab === tab.id
                     ? 'bg-primary text-white'
-                    : 'text-gray-300 hover:text-white hover:bg-slate-700/50'
+                    : 'text-neutral-200 hover:text-white hover:bg-neutral-700/50'
                 }`}
               >
                 <span className="mr-2">{tab.icon}</span>

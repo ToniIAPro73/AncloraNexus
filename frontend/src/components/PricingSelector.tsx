@@ -138,14 +138,14 @@ export const PricingSelector: React.FC = () => {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">
           {/* Currency Selector */}
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-gray-700">Moneda:</span>
-            <div className="flex bg-gray-100 rounded-lg p-1">
+            <span className="text-sm font-medium text-neutral-700">Moneda:</span>
+            <div className="flex bg-neutral-200 rounded-lg p-1">
               <button
                 onClick={() => setCurrency('eur')}
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   currency === 'eur'
                     ? 'bg-blue-600 text-white'
-                    : 'text-gray-600 hover:text-gray-900'
+                    : 'text-neutral-700 hover:text-neutral-900'
                 }`}
               >
                 EUR (€)
@@ -155,7 +155,7 @@ export const PricingSelector: React.FC = () => {
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   currency === 'usd'
                     ? 'bg-blue-600 text-white'
-                    : 'text-gray-600 hover:text-gray-900'
+                    : 'text-neutral-700 hover:text-neutral-900'
                 }`}
               >
                 USD ($)
@@ -165,14 +165,14 @@ export const PricingSelector: React.FC = () => {
 
           {/* Billing Cycle Toggle */}
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-gray-700">Facturación:</span>
-            <div className="flex bg-gray-100 rounded-lg p-1">
+            <span className="text-sm font-medium text-neutral-700">Facturación:</span>
+            <div className="flex bg-neutral-200 rounded-lg p-1">
               <button
                 onClick={() => setBillingCycle('monthly')}
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   billingCycle === 'monthly'
                     ? 'bg-blue-600 text-white'
-                    : 'text-gray-600 hover:text-gray-900'
+                    : 'text-neutral-700 hover:text-neutral-900'
                 }`}
               >
                 Mensual
@@ -182,7 +182,7 @@ export const PricingSelector: React.FC = () => {
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                   billingCycle === 'annual'
                     ? 'bg-blue-600 text-white'
-                    : 'text-gray-600 hover:text-gray-900'
+                    : 'text-neutral-700 hover:text-neutral-900'
                 }`}
               >
                 Anual
@@ -196,13 +196,13 @@ export const PricingSelector: React.FC = () => {
 
         {/* Plans vs Credits Toggle */}
         <div className="flex justify-center mb-8">
-          <div className="flex bg-gray-100 rounded-lg p-1">
+          <div className="flex bg-neutral-200 rounded-lg p-1">
             <button
               onClick={() => setShowCredits(false)}
               className={`px-6 py-2 rounded-md text-sm font-medium transition-colors ${
                 !showCredits
                   ? 'bg-blue-600 text-white'
-                  : 'text-gray-600 hover:text-gray-900'
+                  : 'text-neutral-700 hover:text-neutral-900'
               }`}
             >
               Planes de Suscripción
@@ -212,7 +212,7 @@ export const PricingSelector: React.FC = () => {
               className={`px-6 py-2 rounded-md text-sm font-medium transition-colors ${
                 showCredits
                   ? 'bg-blue-600 text-white'
-                  : 'text-gray-600 hover:text-gray-900'
+                  : 'text-neutral-700 hover:text-neutral-900'
               }`}
             >
               Paquetes de Créditos
@@ -230,7 +230,7 @@ export const PricingSelector: React.FC = () => {
               className={`relative pricing-card card-unified shadow-lg border-2 transition-all hover:shadow-xl ${
                 plan.popular
                   ? 'border-blue-500 ring-2 ring-blue-200'
-                  : 'border-slate-600/30'
+                  : 'border-neutral-700/30'
               }`}
             >
               {plan.popular && (
@@ -243,18 +243,18 @@ export const PricingSelector: React.FC = () => {
 
               <div className="p-6">
                 <div className="text-center mb-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  <h3 className="text-xl font-bold text-neutral-900 mb-2">
                     {plan.name}
                   </h3>
-                  <p className="text-gray-600 text-sm mb-4">
+                  <p className="text-neutral-700 text-sm mb-4">
                     {plan.description}
                   </p>
                   
                   <div className="mb-4">
-                    <div className="text-4xl font-bold text-gray-900">
+                    <div className="text-4xl font-bold text-neutral-900">
                       {formatPrice(getPrice(plan), currency)}
                     </div>
-                    <div className="text-gray-600 text-sm">
+                    <div className="text-neutral-700 text-sm">
                       {plan.id !== 'free' && `por ${billingCycle === 'monthly' ? 'mes' : 'mes (anual)'}`}
                     </div>
                     {billingCycle === 'annual' && plan.id !== 'free' && (
@@ -265,7 +265,7 @@ export const PricingSelector: React.FC = () => {
                   </div>
 
                   <div className="text-center mb-4">
-                    <span className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm font-medium">
+                    <span className="bg-neutral-200 text-neutral-900 px-3 py-1 rounded-full text-sm font-medium">
                       {plan.credits.toLocaleString()} créditos/mes
                     </span>
                   </div>
@@ -285,7 +285,7 @@ export const PricingSelector: React.FC = () => {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-gray-700 text-sm">{feature}</span>
+                      <span className="text-neutral-700 text-sm">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -295,8 +295,8 @@ export const PricingSelector: React.FC = () => {
                     plan.popular
                       ? 'bg-blue-600 text-white hover:bg-blue-700'
                       : plan.enterprise
-                      ? 'bg-gray-900 text-white hover:bg-gray-800'
-                      : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                      ? 'bg-neutral-900 text-white hover:bg-neutral-800'
+                      : 'bg-neutral-200 text-neutral-900 hover:bg-neutral-300'
                   }`}
                 >
                   {plan.id === 'free' ? 'Comenzar Gratis' : 
@@ -324,7 +324,7 @@ export const PricingSelector: React.FC = () => {
                   {formatPrice(currency === 'eur' ? pkg.eur : pkg.usd, currency)}
                 </div>
                 
-                <div className="text-gray-500 text-sm mb-4">
+                <div className="text-neutral-600 text-sm mb-4">
                   {formatPrice((currency === 'eur' ? pkg.eur : pkg.usd) / pkg.credits, currency)}/crédito
                 </div>
 
@@ -345,7 +345,7 @@ export const PricingSelector: React.FC = () => {
 
       {/* Features Comparison */}
       <div className="mt-16 text-center">
-        <h3 className="text-2xl font-bold text-gray-900 mb-4">
+        <h3 className="text-2xl font-bold text-neutral-900 mb-4">
           Características de los Créditos
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -355,8 +355,8 @@ export const PricingSelector: React.FC = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h4 className="font-semibold text-gray-900 mb-2">Sin Expiración</h4>
-            <p className="text-gray-600 text-sm text-center">Los créditos nunca caducan</p>
+            <h4 className="font-semibold text-neutral-900 mb-2">Sin Expiración</h4>
+            <p className="text-neutral-700 text-sm text-center">Los créditos nunca caducan</p>
           </div>
           
           <div className="flex flex-col items-center p-4">
@@ -365,8 +365,8 @@ export const PricingSelector: React.FC = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
               </svg>
             </div>
-            <h4 className="font-semibold text-gray-900 mb-2">Transferibles</h4>
-            <p className="text-gray-600 text-sm text-center">Comparte entre cuentas del mismo dominio</p>
+            <h4 className="font-semibold text-neutral-900 mb-2">Transferibles</h4>
+            <p className="text-neutral-700 text-sm text-center">Comparte entre cuentas del mismo dominio</p>
           </div>
           
           <div className="flex flex-col items-center p-4">
@@ -375,8 +375,8 @@ export const PricingSelector: React.FC = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
               </svg>
             </div>
-            <h4 className="font-semibold text-gray-900 mb-2">Transparentes</h4>
-            <p className="text-gray-600 text-sm text-center">Coste exacto mostrado antes de conversión</p>
+            <h4 className="font-semibold text-neutral-900 mb-2">Transparentes</h4>
+            <p className="text-neutral-700 text-sm text-center">Coste exacto mostrado antes de conversión</p>
           </div>
           
           <div className="flex flex-col items-center p-4">
@@ -385,33 +385,33 @@ export const PricingSelector: React.FC = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
             </div>
-            <h4 className="font-semibold text-gray-900 mb-2">Flexibles</h4>
-            <p className="text-gray-600 text-sm text-center">Usa solo lo que necesitas</p>
+            <h4 className="font-semibold text-neutral-900 mb-2">Flexibles</h4>
+            <p className="text-neutral-700 text-sm text-center">Usa solo lo que necesitas</p>
           </div>
         </div>
       </div>
 
       {/* FAQ Section */}
-      <div className="mt-16 bg-gray-50 rounded-2xl p-8">
-        <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+      <div className="mt-16 bg-neutral-100 rounded-2xl p-8">
+        <h3 className="text-2xl font-bold text-neutral-900 mb-6 text-center">
           Preguntas Frecuentes
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <h4 className="font-semibold text-gray-900 mb-2">¿Puedo cambiar de plan en cualquier momento?</h4>
-            <p className="text-gray-600 text-sm">Sí, puedes actualizar o degradar tu plan en cualquier momento. Los cambios se aplican inmediatamente.</p>
+            <h4 className="font-semibold text-neutral-900 mb-2">¿Puedo cambiar de plan en cualquier momento?</h4>
+            <p className="text-neutral-700 text-sm">Sí, puedes actualizar o degradar tu plan en cualquier momento. Los cambios se aplican inmediatamente.</p>
           </div>
           <div>
-            <h4 className="font-semibold text-gray-900 mb-2">¿Qué sucede si no uso todos mis créditos?</h4>
-            <p className="text-gray-600 text-sm">Los créditos no utilizados se acumulan al mes siguiente. Nunca pierdes créditos pagados.</p>
+            <h4 className="font-semibold text-neutral-900 mb-2">¿Qué sucede si no uso todos mis créditos?</h4>
+            <p className="text-neutral-700 text-sm">Los créditos no utilizados se acumulan al mes siguiente. Nunca pierdes créditos pagados.</p>
           </div>
           <div>
-            <h4 className="font-semibold text-gray-900 mb-2">¿Puedo comprar créditos adicionales?</h4>
-            <p className="text-gray-600 text-sm">Sí, puedes comprar paquetes de créditos adicionales en cualquier momento con descuentos por volumen.</p>
+            <h4 className="font-semibold text-neutral-900 mb-2">¿Puedo comprar créditos adicionales?</h4>
+            <p className="text-neutral-700 text-sm">Sí, puedes comprar paquetes de créditos adicionales en cualquier momento con descuentos por volumen.</p>
           </div>
           <div>
-            <h4 className="font-semibold text-gray-900 mb-2">¿Hay descuentos para facturación anual?</h4>
-            <p className="text-gray-600 text-sm">Sí, obtienes hasta 15% de descuento al pagar anualmente en lugar de mensualmente.</p>
+            <h4 className="font-semibold text-neutral-900 mb-2">¿Hay descuentos para facturación anual?</h4>
+            <p className="text-neutral-700 text-sm">Sí, obtienes hasta 15% de descuento al pagar anualmente en lugar de mensualmente.</p>
           </div>
         </div>
       </div>

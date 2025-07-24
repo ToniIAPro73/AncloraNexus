@@ -6,7 +6,7 @@ import React from 'react';
 export const TextToDocConverter: React.FC = () => (
   <div className="p-4">
     <h2 className="text-xl font-semibold">Text to Document Converter</h2>
-    <p className="text-slate-600">Paste some text and receive a downloadable document.</p>
+    <p className="text-neutral-700">Paste some text and receive a downloadable document.</p>
   </div>
 );
 

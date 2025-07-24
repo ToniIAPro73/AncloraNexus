@@ -168,7 +168,7 @@ export const EbookConverter: React.FC<EbookConverterProps> = ({
       case 'processing':
         return <IconRefresh className="w-5 h-5 text-blue-600 animate-spin" />;
       default:
-        return <IconRefresh className="w-5 h-5 text-gray-400" />;
+        return <IconRefresh className="w-5 h-5 text-neutral-600" />;
     }
   };
 

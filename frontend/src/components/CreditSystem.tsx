@@ -256,27 +256,27 @@ export const CreditBalance: React.FC = () => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+    <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-4">
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-lg font-semibold text-gray-900">Saldo de Créditos</h3>
+        <h3 className="text-lg font-semibold text-neutral-900">Saldo de Créditos</h3>
         <div className="flex items-center space-x-2">
           <span className="text-2xl font-bold text-blue-600">
             {balance.current.toLocaleString()}
           </span>
-          <span className="text-sm text-gray-500">créditos</span>
+          <span className="text-sm text-neutral-600">créditos</span>
         </div>
       </div>
       
       <div className="grid grid-cols-2 gap-4 text-sm">
         <div>
-          <span className="text-gray-600">Valor equivalente:</span>
-          <div className="font-medium text-gray-900">
+          <span className="text-neutral-700">Valor equivalente:</span>
+          <div className="font-medium text-neutral-900">
             {getCreditValue(balance.current)}
           </div>
         </div>
         <div>
-          <span className="text-gray-600">Total consumido:</span>
-          <div className="font-medium text-gray-900">
+          <span className="text-neutral-700">Total consumido:</span>
+          <div className="font-medium text-neutral-900">
             {balance.total_consumed.toLocaleString()}
           </div>
         </div>
@@ -339,20 +339,20 @@ export const ConversionCost: React.FC<ConversionCostProps> = ({
         : 'bg-red-50 border-red-200'
     }`}>
       <div className="flex items-center justify-between mb-2">
-        <h4 className="font-medium text-gray-900">Coste de Conversión</h4>
+        <h4 className="font-medium text-neutral-900">Coste de Conversión</h4>
         <div className="flex items-center space-x-2">
           <span className={`text-lg font-bold ${
             canAfford ? 'text-green-600' : 'text-red-600'
           }`}>
             {cost} créditos
           </span>
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-neutral-600">
             ({getCreditValue(cost)})
           </span>
         </div>
       </div>
       
-      <div className="grid grid-cols-2 gap-4 text-sm text-gray-600">
+      <div className="grid grid-cols-2 gap-4 text-sm text-neutral-700">
         <div>
           <span>Archivo: </span>
           <span className="font-medium">{fileName || 'archivo'}</span>
@@ -394,7 +394,7 @@ export const CreditHistory: React.FC = () => {
       case 'consumption': return 'text-red-400';
       case 'bonus': return 'text-blue-400';
       case 'refund': return 'text-purple-400';
-      default: return 'text-slate-400';
+      default: return 'text-neutral-600';
     }
   };
 
@@ -430,19 +430,19 @@ export const CreditHistory: React.FC = () => {
 
   return (
     <div className="p-8">
-      <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-xl">
+      <div className="bg-neutral-800/50 backdrop-blur-sm border border-neutral-700/50 rounded-xl">
         {/* Header con título centrado y botón de exportar */}
-        <div className="p-6 border-b border-slate-700/30 flex items-center justify-between">
+        <div className="p-6 border-b border-neutral-700/30 flex items-center justify-between">
           <div className="flex-1"></div>
           <h1 className="text-2xl font-bold text-unified-primary text-center">
             Historial de Créditos
           </h1>
           <div className="flex-1 flex justify-end">
             <button 
-              className="p-2 hover:bg-slate-700/50 rounded-lg transition-colors group"
+              className="p-2 hover:bg-neutral-700/50 rounded-lg transition-colors group"
               title="Exportar historial de créditos"
             >
-              <svg className="w-5 h-5 text-slate-400 group-hover:text-unified-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-neutral-600 group-hover:text-unified-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </button>
@@ -450,7 +450,7 @@ export const CreditHistory: React.FC = () => {
         </div>
 
         {/* Estadísticas */}
-        <div className="p-6 border-b border-slate-700/30 bg-gradient-to-r from-blue-500/10 to-purple-500/10">
+        <div className="p-6 border-b border-neutral-700/30 bg-gradient-to-r from-blue-500/10 to-purple-500/10">
           <div className="grid grid-cols-3 gap-4 text-center">
             <div>
               <div className="text-xl font-bold text-green-400">
@@ -484,7 +484,7 @@ export const CreditHistory: React.FC = () => {
             transactions.map((transaction) => (
               <div 
                 key={transaction.id}
-                className="flex items-center justify-between p-4 bg-slate-700/30 hover:bg-slate-600/40 rounded-lg transition-colors border border-slate-700/30"
+                className="flex items-center justify-between p-4 bg-neutral-700/30 hover:bg-neutral-700/40 rounded-lg transition-colors border border-neutral-700/30"
               >
                 {/* Lado izquierdo - Icono y detalles */}
                 <div className="flex items-center space-x-4">

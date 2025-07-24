@@ -32,7 +32,7 @@ export const ConversionRouteDisplay: React.FC<ConversionRouteDisplayProps> = ({
         key={path.path.join('-')}
         className={`
           p-4 rounded-lg border-2 cursor-pointer transition-all duration-200
-          ${isPrimary ? 'border-blue-500 bg-blue-50' : 'border-gray-200 bg-white'}
+          ${isPrimary ? 'border-blue-500 bg-blue-50' : 'border-neutral-200 bg-white'}
           ${isSelected ? 'ring-2 ring-blue-400' : ''}
           hover:border-blue-300 hover:shadow-md
         `}
@@ -59,7 +59,7 @@ export const ConversionRouteDisplay: React.FC<ConversionRouteDisplayProps> = ({
             <div className={`text-lg font-bold ${getQualityColor(path.estimatedQuality)}`}>
               {path.estimatedQuality}%
             </div>
-            <div className="text-xs text-gray-500">calidad</div>
+            <div className="text-xs text-neutral-600">calidad</div>
           </div>
         </div>
 
@@ -72,14 +72,14 @@ export const ConversionRouteDisplay: React.FC<ConversionRouteDisplayProps> = ({
                   px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap
                   ${index === 0 ? 'bg-blue-100 text-blue-800' : 
                     index === path.path.length - 1 ? 'bg-green-100 text-green-800' : 
-                    'bg-gray-100 text-gray-700'}
+                    'bg-neutral-200 text-neutral-700'}
                 `}>
                   {format.toUpperCase()}
                 </div>
               </div>
               {index < path.path.length - 1 && (
                 <div className="flex-shrink-0">
-                  <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </div>
@@ -89,7 +89,7 @@ export const ConversionRouteDisplay: React.FC<ConversionRouteDisplayProps> = ({
         </div>
 
         {/* Información adicional */}
-        <div className="flex items-center justify-between text-sm text-gray-600">
+        <div className="flex items-center justify-between text-sm text-neutral-700">
           <span>⏱️ ~{path.estimatedTime}s</span>
           <span>{path.description}</span>
         </div>
@@ -106,7 +106,7 @@ export const ConversionRouteDisplay: React.FC<ConversionRouteDisplayProps> = ({
 
   return (
     <div className="space-y-4">
-      <div className="text-lg font-semibold text-gray-800 mb-4">
+      <div className="text-lg font-semibold text-neutral-900 mb-4">
         Rutas de Conversión Disponibles
       </div>
 
@@ -116,7 +116,7 @@ export const ConversionRouteDisplay: React.FC<ConversionRouteDisplayProps> = ({
       {/* Rutas alternativas */}
       {alternativePaths.length > 0 && (
         <div className="space-y-3">
-          <div className="text-sm font-medium text-gray-600">
+          <div className="text-sm font-medium text-neutral-700">
             Rutas Alternativas ({alternativePaths.length})
           </div>
           {alternativePaths.map((path) => 
@@ -126,8 +126,8 @@ export const ConversionRouteDisplay: React.FC<ConversionRouteDisplayProps> = ({
       )}
 
       {/* Información adicional */}
-      <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-        <div className="text-sm text-gray-600 space-y-2">
+      <div className="mt-6 p-4 bg-neutral-100 rounded-lg">
+        <div className="text-sm text-neutral-700 space-y-2">
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 bg-green-500 rounded-full"></span>
             <span><strong>Conversión directa:</strong> Máxima calidad y velocidad</span>

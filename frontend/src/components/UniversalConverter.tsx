@@ -16,12 +16,12 @@ const ConversionStep: React.FC<{
           ? 'bg-success text-white' 
           : isActive 
             ? 'bg-primary text-white' 
-            : 'bg-gray-700 text-gray-400'
+            : 'bg-neutral-700 text-neutral-600'
       }`}
     >
       {number}
     </div>
-    <div className={`h-1 w-24 ${isCompleted ? 'bg-success' : 'bg-gray-700'}`}></div>
+    <div className={`h-1 w-24 ${isCompleted ? 'bg-success' : 'bg-neutral-700'}`}></div>
   </div>
 );
 
@@ -33,8 +33,8 @@ const ConversionCard: React.FC<{
   isActive: boolean;
   isCompleted?: boolean;
 }> = ({ icon, title, children, isActive, isCompleted }) => (
-  <div className={`bg-gray-800/80 rounded-lg p-5 transition-all ${
-    isActive ? 'border-2 border-primary shadow-lg' : 'border border-gray-700/50'
+  <div className={`bg-neutral-800/80 rounded-lg p-5 transition-all ${
+    isActive ? 'border-2 border-primary shadow-lg' : 'border border-neutral-700/50'
   }`}>
     <div className="flex items-center mb-3">
       <div className="text-3xl mr-3">{icon}</div>
@@ -58,14 +58,14 @@ const PopularConversion: React.FC<{
   onClick: () => void;
 }> = ({ from, to, icon, cost, onClick }) => (
   <div 
-    className="bg-gray-800/80 rounded-lg p-4 cursor-pointer hover:bg-gray-700/80 transition-all"
+    className="bg-neutral-800/80 rounded-lg p-4 cursor-pointer hover:bg-neutral-700/80 transition-all"
     onClick={onClick}
   >
     <div className="flex items-center justify-between">
       <div className="text-3xl mr-3">{icon}</div>
       <div className="flex-1">
         <h4 className="font-medium">{from} → {to}</h4>
-        <p className="text-xs text-gray-400">{cost} créditos</p>
+        <p className="text-xs text-neutral-600">{cost} créditos</p>
       </div>
     </div>
   </div>
@@ -139,7 +139,7 @@ export const UniversalConverter: React.FC = () => {
           <div className="text-3xl mr-3">🎯</div>
           <h1 className="text-3xl font-bold">Conversor Inteligente</h1>
         </div>
-        <p className="text-gray-300">Convierte archivos con inteligencia artificial avanzada</p>
+        <p className="text-neutral-200">Convierte archivos con inteligencia artificial avanzada</p>
       </div>
 
       {/* Pasos de conversión */}
@@ -164,9 +164,9 @@ export const UniversalConverter: React.FC = () => {
               onDrop={handleDrop}
               onDragOver={(e) => e.preventDefault()}
               onClick={() => fileInputRef.current?.click()}
-              className="border-2 border-dashed border-gray-600 rounded-lg p-4 text-center cursor-pointer hover:border-primary transition-colors"
+              className="border-2 border-dashed border-neutral-700 rounded-lg p-4 text-center cursor-pointer hover:border-primary transition-colors"
             >
-              <p className="text-gray-300 text-sm mb-2">
+              <p className="text-neutral-200 text-sm mb-2">
                 Arrastra tu archivo aquí<br />o haz clic para seleccionar
               </p>
               <input
@@ -178,9 +178,9 @@ export const UniversalConverter: React.FC = () => {
             </div>
           ) : (
             <div className="text-sm">
-              <p className="text-gray-400">Archivo seleccionado:</p>
+              <p className="text-neutral-600">Archivo seleccionado:</p>
               <p className="font-medium truncate">{selectedFile?.name}</p>
-              <p className="text-xs text-gray-500">{selectedFile && formatFileSize(selectedFile.size)}</p>
+              <p className="text-xs text-neutral-600">{selectedFile && formatFileSize(selectedFile.size)}</p>
             </div>
           )}
         </ConversionCard>
@@ -195,17 +195,17 @@ export const UniversalConverter: React.FC = () => {
           {currentStep === 2 ? (
             <div className="text-center py-2">
               <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-2"></div>
-              <p className="text-gray-300 text-sm">Analizando archivo...</p>
+              <p className="text-neutral-200 text-sm">Analizando archivo...</p>
             </div>
           ) : currentStep > 2 ? (
             <div className="text-sm">
-              <p className="text-gray-400">Análisis completado</p>
+              <p className="text-neutral-600">Análisis completado</p>
               <div className="mt-2 bg-success/10 text-success text-xs p-2 rounded">
                 ✓ Archivo analizado correctamente
               </div>
             </div>
           ) : (
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-neutral-600">
               Esperando archivo...
             </div>
           )}
@@ -220,11 +220,11 @@ export const UniversalConverter: React.FC = () => {
         >
           {currentStep >= 3 ? (
             <div>
-              <label className="block text-sm text-gray-400 mb-1">Formato de salida</label>
+              <label className="block text-sm text-neutral-600 mb-1">Formato de salida</label>
               <select
                 value={targetFormat}
                 onChange={(e) => setTargetFormat(e.target.value)}
-                className="w-full bg-gray-700 border border-gray-600 rounded-md p-2 text-white"
+                className="w-full bg-neutral-700 border border-neutral-700 rounded-md p-2 text-white"
                 disabled={currentStep > 3}
               >
                 <option value="">Seleccionar formato</option>
@@ -236,7 +236,7 @@ export const UniversalConverter: React.FC = () => {
               
               {targetFormat && currentStep === 3 && (
                 <div className="mt-3">
-                  <p className="text-xs text-gray-400 mb-2">Costo: 0 créditos</p>
+                  <p className="text-xs text-neutral-600 mb-2">Costo: 0 créditos</p>
                   <button
                     onClick={handleConvert}
                     className="w-full bg-primary hover:bg-primary-dark text-white py-2 rounded-md transition-colors"
@@ -247,7 +247,7 @@ export const UniversalConverter: React.FC = () => {
               )}
             </div>
           ) : (
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-neutral-600">
               Esperando análisis...
             </div>
           )}
@@ -264,7 +264,7 @@ export const UniversalConverter: React.FC = () => {
             isConverting ? (
               <div className="text-center py-2">
                 <div className="animate-pulse w-8 h-8 bg-primary rounded-full mx-auto mb-2"></div>
-                <p className="text-gray-300 text-sm">Procesando...</p>
+                <p className="text-neutral-200 text-sm">Procesando...</p>
               </div>
             ) : (
               <div className="text-center">
@@ -274,13 +274,13 @@ export const UniversalConverter: React.FC = () => {
                 <button className="bg-success hover:bg-success/80 text-white py-2 px-4 rounded-md transition-colors">
                   Descargar Archivo
                 </button>
-                <p className="text-xs text-gray-400 mt-2">
+                <p className="text-xs text-neutral-600 mt-2">
                   Descarga pendiente
                 </p>
               </div>
             )
           ) : (
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-neutral-600">
               Esperando conversión...
             </div>
           )}

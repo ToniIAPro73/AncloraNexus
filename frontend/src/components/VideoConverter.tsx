@@ -6,7 +6,7 @@ import React from 'react';
 export const VideoConverter: React.FC = () => (
   <div className="p-4">
     <h2 className="text-xl font-semibold">Video Converter</h2>
-    <p className="text-slate-600">Convert your video files into different formats here.</p>
+    <p className="text-neutral-700">Convert your video files into different formats here.</p>
   </div>
 );
 

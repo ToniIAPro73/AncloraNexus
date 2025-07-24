@@ -93,29 +93,29 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({ availableFormats
                 aria-haspopup="listbox"
                 aria-expanded={isOpen}
             >
-                <span className={selectedFormat ? 'text-green-700' : 'text-slate-500'}>
+                <span className={selectedFormat ? 'text-green-700' : 'text-neutral-600'}>
                     {selectedFormat || 'Selecciona tu formato'}
                 </span>
-                <IconChevronDown className={`w-6 h-6 text-slate-500 transition-transform duration-200 ${isOpen ? 'transform rotate-180' : ''}`} />
+                <IconChevronDown className={`w-6 h-6 text-neutral-600 transition-transform duration-200 ${isOpen ? 'transform rotate-180' : ''}`} />
             </button>
 
             {isOpen && (
-                <div className="absolute z-10 mt-2 w-[95vw] max-w-md sm:max-w-xl -translate-x-1/2 left-1/2 sm:left-auto sm:translate-x-0 bg-white border border-slate-200 rounded-lg shadow-2xl">
-                    <div className="p-3 border-b border-slate-200">
+                <div className="absolute z-10 mt-2 w-[95vw] max-w-md sm:max-w-xl -translate-x-1/2 left-1/2 sm:left-auto sm:translate-x-0 bg-white border border-neutral-200 rounded-lg shadow-2xl">
+                    <div className="p-3 border-b border-neutral-200">
                         <div className="relative">
-                            <IconSearch className="w-5 h-5 text-slate-400 absolute top-1/2 left-3 transform -translate-y-1/2" />
+                            <IconSearch className="w-5 h-5 text-neutral-600 absolute top-1/2 left-3 transform -translate-y-1/2" />
                             <input
                                 type="text"
                                 placeholder="Search"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-green-400 focus:border-green-400"
+                                className="w-full pl-10 pr-4 py-2 border border-neutral-200 rounded-md focus:ring-2 focus:ring-green-400 focus:border-green-400"
                                 autoFocus
                             />
                         </div>
                     </div>
                     <div className="flex" style={{ height: '350px' }}>
-                        <div className="w-1/3 border-r border-slate-200 p-2 space-y-1 overflow-y-auto">
+                        <div className="w-1/3 border-r border-neutral-200 p-2 space-y-1 overflow-y-auto">
                             {availableCategories.map(catKey => {
                                 const details = categoryDetails[catKey];
                                 if (!details || (catKey !== 'all' && !displayedFormatsByCategory[catKey]?.length)) return null;
@@ -127,7 +127,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({ availableFormats
                                     <button
                                         key={catKey}
                                         onClick={() => setActiveCategory(catKey)}
-                                        className={`w-full flex items-center space-x-3 text-left p-2 rounded-md transition-colors text-sm border-l-2 ${isActive ? 'bg-green-50 text-green-700 font-semibold border-green-500' : 'text-slate-600 hover:bg-slate-50 border-transparent'}`}
+                                        className={`w-full flex items-center space-x-3 text-left p-2 rounded-md transition-colors text-sm border-l-2 ${isActive ? 'bg-green-50 text-green-700 font-semibold border-green-500' : 'text-neutral-700 hover:bg-neutral-100 border-transparent'}`}
                                     >
                                         <Icon className="w-5 h-5 flex-shrink-0" />
                                         <span>{details.name}</span>
@@ -138,7 +138,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({ availableFormats
                         <div className="w-2/3 p-3 overflow-y-auto">
                             {noResults ? (
                                 <div className="flex items-center justify-center h-full">
-                                    <p className="text-slate-500 text-center">No matching formats.</p>
+                                    <p className="text-neutral-600 text-center">No matching formats.</p>
                                 </div>
                             ) : (
                                 <ul className="grid grid-cols-3 gap-2">
@@ -146,7 +146,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({ availableFormats
                                         <li key={format}>
                                             <button
                                                 onClick={() => handleSelect(format)}
-                                                className="w-full text-center px-2 py-3 border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 hover:border-slate-300 rounded-md transition-colors"
+                                                className="w-full text-center px-2 py-3 border border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-100 hover:border-neutral-200 rounded-md transition-colors"
                                                 role="option"
                                                 aria-selected={format === selectedFormat}
                                             >

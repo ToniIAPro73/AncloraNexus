@@ -76,7 +76,7 @@ export const FileUploader: React.FC<PropsWithChildren<FileUploaderProps>> = ({
   // Default drag-and-drop UI if no children are passed
   return (
     <div
-      className={`relative group transition-all duration-300 ${isDragging ? 'border-blue-500 scale-105 bg-blue-50' : 'border-slate-300 bg-slate-50/50 hover:border-blue-400'} border-2 border-dashed rounded-xl p-8 text-center ${isLoading ? 'cursor-wait' : 'cursor-pointer'}`}
+      className={`relative group transition-all duration-300 ${isDragging ? 'border-blue-500 scale-105 bg-blue-50' : 'border-neutral-200 bg-neutral-100/50 hover:border-blue-400'} border-2 border-dashed rounded-xl p-8 text-center ${isLoading ? 'cursor-wait' : 'cursor-pointer'}`}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDragOver={handleDragOver}

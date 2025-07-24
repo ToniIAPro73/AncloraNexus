@@ -37,20 +37,20 @@ export const ConversionSuccess: React.FC<ConversionSuccessProps> = ({ fromFile, 
         <IconCheck className="w-10 h-10 text-green-600" />
       </div>
       <div>
-        <h2 className="text-2xl font-bold text-slate-800">Conversion Complete!</h2>
-        <p className="text-slate-500 mt-1">
-          Your file <span className="font-semibold text-slate-700">{fromFile}</span> has been converted to <span className="font-semibold text-slate-700">{toFormat}</span>.
+        <h2 className="text-2xl font-bold text-neutral-900">Conversion Complete!</h2>
+        <p className="text-neutral-600 mt-1">
+          Your file <span className="font-semibold text-neutral-700">{fromFile}</span> has been converted to <span className="font-semibold text-neutral-700">{toFormat}</span>.
         </p>
       </div>
 
-      <div className="w-full max-w-md bg-slate-50 border rounded-lg p-4">
-        <p className="font-mono text-slate-800 break-all">{getNewFileName()}</p>
+      <div className="w-full max-w-md bg-neutral-100 border rounded-lg p-4">
+        <p className="font-mono text-neutral-900 break-all">{getNewFileName()}</p>
       </div>
       
       <div className="w-full flex flex-col sm:flex-row sm:justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
         <button
             onClick={onReset}
-            className="w-full sm:w-auto order-2 sm:order-1 flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-slate-700 bg-slate-200 hover:bg-slate-300 transition-colors"
+            className="w-full sm:w-auto order-2 sm:order-1 flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-neutral-700 bg-neutral-200 hover:bg-neutral-300 transition-colors"
           >
             <IconRefresh className="w-5 h-5 mr-2" />
             Convert Another

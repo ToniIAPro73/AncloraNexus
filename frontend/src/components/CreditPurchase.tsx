@@ -97,7 +97,7 @@ export const CreditPurchase: React.FC = () => {
         <h1 className="text-3xl font-bold text-white mb-2">
           💳 Gestión de Créditos
         </h1>
-        <p className="text-slate-300">
+        <p className="text-neutral-200">
           Compra créditos o actualiza tu plan de suscripción
         </p>
       </div>
@@ -108,18 +108,18 @@ export const CreditPurchase: React.FC = () => {
           <div className="text-center">
             <h2 className="text-xl font-bold text-white mb-2">Saldo Actual</h2>
             <div className="text-4xl font-bold text-blue-400 mb-2">{user.credits}</div>
-            <p className="text-slate-300">créditos disponibles</p>
+            <p className="text-neutral-200">créditos disponibles</p>
             <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
               <div>
-                <span className="text-slate-400">Plan actual: </span>
+                <span className="text-neutral-600">Plan actual: </span>
                 <span className="text-blue-400 font-medium">{user.plan_info.name}</span>
               </div>
               <div>
-                <span className="text-slate-400">Usados hoy: </span>
+                <span className="text-neutral-600">Usados hoy: </span>
                 <span className="text-white">{user.credits_used_today}</span>
               </div>
               <div>
-                <span className="text-slate-400">Total conversiones: </span>
+                <span className="text-neutral-600">Total conversiones: </span>
                 <span className="text-white">{user.total_conversions}</span>
               </div>
             </div>
@@ -139,7 +139,7 @@ export const CreditPurchase: React.FC = () => {
       )}
 
       {/* Paquetes de créditos */}
-      <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
+      <div className="bg-neutral-800/30 backdrop-blur-sm rounded-xl border border-neutral-700/50 p-6">
         <h2 className="text-2xl font-bold text-white mb-6 text-center">
           🎯 Paquetes de Créditos
         </h2>
@@ -151,7 +151,7 @@ export const CreditPurchase: React.FC = () => {
               className={`relative p-4 rounded-lg border transition-all duration-200 hover:scale-105 ${
                 pkg.popular 
                   ? 'bg-gradient-to-br from-blue-500/20 to-purple-500/20 border-blue-500/50' 
-                  : 'bg-slate-700/30 border-slate-600/30 hover:border-blue-500/30'
+                  : 'bg-neutral-700/30 border-neutral-700/30 hover:border-blue-500/30'
               }`}
             >
               {pkg.popular && (
@@ -166,7 +166,7 @@ export const CreditPurchase: React.FC = () => {
                 <div className="text-2xl font-bold text-white mb-1">
                   {pkg.credits + pkg.bonus}
                 </div>
-                <div className="text-slate-400 text-sm mb-2">créditos</div>
+                <div className="text-neutral-600 text-sm mb-2">créditos</div>
                 
                 {pkg.bonus > 0 && (
                   <div className="text-green-400 text-xs mb-2">
@@ -192,7 +192,7 @@ export const CreditPurchase: React.FC = () => {
       </div>
 
       {/* Planes de suscripción */}
-      <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
+      <div className="bg-neutral-800/30 backdrop-blur-sm rounded-xl border border-neutral-700/50 p-6">
         <h2 className="text-2xl font-bold text-white mb-6 text-center">
           🚀 Planes de Suscripción
         </h2>
@@ -204,7 +204,7 @@ export const CreditPurchase: React.FC = () => {
               className={`relative p-6 rounded-lg border transition-all duration-200 ${
                 plan.popular 
                   ? 'bg-gradient-to-br from-blue-500/20 to-purple-500/20 border-blue-500/50 scale-105' 
-                  : 'bg-slate-700/30 border-slate-600/30'
+                  : 'bg-neutral-700/30 border-neutral-700/30'
               }`}
             >
               {plan.popular && (
@@ -220,18 +220,18 @@ export const CreditPurchase: React.FC = () => {
                 <div className="text-3xl font-bold text-blue-400 mb-1">
                   €{plan.price}
                 </div>
-                <div className="text-slate-400 text-sm">por mes</div>
+                <div className="text-neutral-600 text-sm">por mes</div>
               </div>
               
               <div className="mb-6">
                 <div className="text-center mb-4">
                   <span className="text-lg font-bold text-green-400">{plan.credits}</span>
-                  <span className="text-slate-400 text-sm ml-1">créditos/mes</span>
+                  <span className="text-neutral-600 text-sm ml-1">créditos/mes</span>
                 </div>
                 
                 <ul className="space-y-2">
                   {plan.features.map((feature, index) => (
-                    <li key={index} className="flex items-center text-sm text-slate-300">
+                    <li key={index} className="flex items-center text-sm text-neutral-200">
                       <span className="text-green-400 mr-2">✓</span>
                       {feature}
                     </li>
@@ -244,7 +244,7 @@ export const CreditPurchase: React.FC = () => {
                 disabled={isLoading || user?.plan === plan.id}
                 className={`w-full py-2 px-4 rounded font-medium transition-colors ${
                   user?.plan === plan.id
-                    ? 'bg-gray-500 text-gray-300 cursor-not-allowed'
+                    ? 'bg-neutral-700 text-neutral-200 cursor-not-allowed'
                     : plan.popular
                     ? 'bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white'
                     : 'bg-blue-500 hover:bg-blue-600 text-white'
@@ -263,9 +263,9 @@ export const CreditPurchase: React.FC = () => {
       </div>
 
       {/* Información adicional */}
-      <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
+      <div className="bg-neutral-800/30 backdrop-blur-sm rounded-xl border border-neutral-700/50 p-6">
         <h3 className="text-lg font-bold text-white mb-4">ℹ️ Información sobre Créditos</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-neutral-200">
           <div>
             <h4 className="font-medium text-white mb-2">¿Cómo funcionan los créditos?</h4>
             <ul className="space-y-1">

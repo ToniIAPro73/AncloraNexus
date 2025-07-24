@@ -9,13 +9,13 @@ type FAQItemProps = {
 };
 
 const FAQItem: React.FC<FAQItemProps> = ({ question, answer, isOpen, onClick }) => (
-  <div className="border-b border-slate-200">
+  <div className="border-b border-neutral-200">
     <button onClick={onClick} className="w-full flex justify-between items-center text-left py-5">
-      <h3 className={`text-lg font-medium ${isOpen ? 'text-green-600' : 'text-slate-800'}`}>{question}</h3>
-      {isOpen ? <IconMinus className="w-6 h-6 text-green-600" /> : <IconPlus className="w-6 h-6 text-slate-500" />}
+      <h3 className={`text-lg font-medium ${isOpen ? 'text-green-600' : 'text-neutral-900'}`}>{question}</h3>
+      {isOpen ? <IconMinus className="w-6 h-6 text-green-600" /> : <IconPlus className="w-6 h-6 text-neutral-600" />}
     </button>
     {isOpen && (
-      <div className="pb-5 pr-8 text-slate-600">
+      <div className="pb-5 pr-8 text-neutral-700">
         <p>{answer}</p>
       </div>
     )}
@@ -73,11 +73,11 @@ export const FAQ: React.FC = () => {
 
     return (
         <section className="w-full max-w-4xl mx-auto py-16 sm:py-24">
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-800 tracking-tight text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 tracking-tight text-center mb-12">
                 ¿Puede que tenga algunas preguntas?
             </h2>
             <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/50 ring-1 ring-slate-200/50 p-4 sm:p-8">
-                <div className="border-b border-slate-200">
+                <div className="border-b border-neutral-200">
                     <nav className="-mb-px flex space-x-8" aria-label="Tabs">
                         {tabs.map(tab => (
                             <button
@@ -86,7 +86,7 @@ export const FAQ: React.FC = () => {
                                 className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg ${
                                     activeTab === tab 
                                     ? 'border-green-500 text-green-600' 
-                                    : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
+                                    : 'border-transparent text-neutral-600 hover:text-neutral-700 hover:border-neutral-200'
                                 }`}
                             >
                                 {tab}
@@ -107,11 +107,11 @@ export const FAQ: React.FC = () => {
                 </div>
             </div>
 
-            <div className="mt-12 text-center bg-slate-100/70 rounded-lg p-8">
-                <h3 className="text-2xl font-bold text-slate-800">¿Todavía tienes una pregunta?</h3>
-                <p className="mt-2 text-slate-600">Si no puedes encontrar una respuesta a tu pregunta en nuestras preguntas frecuentes, siempre puedes contactarnos. ¡Estaremos encantados de responderte!</p>
+            <div className="mt-12 text-center bg-neutral-100/70 rounded-lg p-8">
+                <h3 className="text-2xl font-bold text-neutral-900">¿Todavía tienes una pregunta?</h3>
+                <p className="mt-2 text-neutral-700">Si no puedes encontrar una respuesta a tu pregunta en nuestras preguntas frecuentes, siempre puedes contactarnos. ¡Estaremos encantados de responderte!</p>
                 <div className="mt-6">
-                    <button className="px-6 py-3 border border-slate-300 text-slate-800 font-semibold rounded-lg hover:bg-white transition-colors">
+                    <button className="px-6 py-3 border border-neutral-200 text-neutral-900 font-semibold rounded-lg hover:bg-white transition-colors">
                         Contacto
                     </button>
                 </div>

@@ -78,9 +78,9 @@ const popularData: Record<FileCategory, CategoryInfo> = {
 const displayCategories: FileCategory[] = ['ebook', 'audio', 'video', 'image', 'document', 'archive', 'presentation'];
 
 const ConversionButton: React.FC<{from: string, to: string}> = ({ from, to }) => (
-    <button className="w-full flex items-center justify-between p-4 bg-white border border-slate-300 rounded-lg hover:border-blue-500 hover:shadow-md transition-all duration-200 group">
-        <span className="font-semibold text-slate-700">{from} a {to}</span>
-        <IconArrowRight className="w-5 h-5 text-slate-400 group-hover:text-blue-500 transition-colors" />
+    <button className="w-full flex items-center justify-between p-4 bg-white border border-neutral-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all duration-200 group">
+        <span className="font-semibold text-neutral-700">{from} a {to}</span>
+        <IconArrowRight className="w-5 h-5 text-neutral-600 group-hover:text-blue-500 transition-colors" />
     </button>
 );
 
@@ -92,7 +92,7 @@ export const PopularConversions: React.FC = () => {
 
     return (
         <section className="w-full max-w-6xl mx-auto py-16 sm:py-24">
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-800 tracking-tight text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 tracking-tight text-center mb-12">
                 Accede rápidamente a nuestras solicitudes de conversión más populares
             </h2>
             <div className="flex flex-col md:flex-row gap-8 lg:gap-12">
@@ -106,7 +106,7 @@ export const PopularConversions: React.FC = () => {
                                 <li key={catKey}>
                                     <button 
                                         onClick={() => setActiveCategory(catKey as FileCategory)}
-                                        className={`w-full flex items-center space-x-3 p-3 rounded-lg text-left transition-colors text-lg ${isActive ? 'bg-blue-100 text-blue-700 font-semibold' : 'text-slate-600 hover:bg-slate-100'}`}
+                                        className={`w-full flex items-center space-x-3 p-3 rounded-lg text-left transition-colors text-lg ${isActive ? 'bg-blue-100 text-blue-700 font-semibold' : 'text-neutral-700 hover:bg-neutral-100'}`}
                                     >
                                         <Icon className="w-6 h-6 flex-shrink-0" />
                                         <span>{category.name}</span>
