@@ -11,7 +11,9 @@ interface NavItemProps {
 
 const NavItem: React.FC<NavItemProps> = ({ icon, label, isActive, badge, onClick }) => (
   <div onClick={onClick} className={`sidebar-nav-item${isActive ? " active" : ""}`}>
-    <div className="sidebar-nav-icon">{icon}</div>
+    <div className="sidebar-nav-icon">
+      <span className={`icon${isActive ? ' icon-active' : ''}`}>{icon}</span>
+    </div>
     <span>{label}</span>
     {badge && (
       <span className={`sidebar-badge ${badge === "Pro" ? "pro" : "count"}`}>{badge}</span>
@@ -34,15 +36,15 @@ export const Layout: React.FC<LayoutProps> = ({
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const tabs = [
-    { id: "conversor", icon: "📂", label: "Conversor" },
-    { id: "formatos", icon: "📑", label: "Formatos", badge: "45+" },
-    { id: "historial", icon: "🕑", label: "Historial", badge: 12 },
-    { id: "creditos", icon: "💳", label: "Créditos" },
-    { id: "planes", icon: "💡", label: "Planes", badge: "Pro" },
-    { id: "faq", icon: "❔", label: "FAQ" },
-    { id: "valoraciones", icon: "⭐", label: "Valoraciones" },
-    { id: "configuracion", icon: "⚙️", label: "Configuración" },
-    { id: "estadisticas", icon: "📊", label: "Estadísticas" },
+    { id: "conversor", icon: "folder", label: "Conversor" },
+    { id: "formatos", icon: "description", label: "Formatos", badge: "45+" },
+    { id: "historial", icon: "history", label: "Historial", badge: 12 },
+    { id: "creditos", icon: "credit_card", label: "Créditos" },
+    { id: "planes", icon: "lightbulb", label: "Planes", badge: "Pro" },
+    { id: "faq", icon: "help", label: "FAQ" },
+    { id: "valoraciones", icon: "star", label: "Valoraciones" },
+    { id: "configuracion", icon: "settings", label: "Configuración" },
+    { id: "estadisticas", icon: "bar_chart", label: "Estadísticas" },
   ];
 
   return (
@@ -84,7 +86,9 @@ export const Layout: React.FC<LayoutProps> = ({
         <div className="fixed inset-0 z-50 flex md:hidden">
           <div className="absolute inset-0 bg-black/60" onClick={() => setMobileOpen(false)} />
           <aside className="relative w-64 bg-gray-800 flex flex-col">
-            <button className="self-end m-4" onClick={() => setMobileOpen(false)}>✕</button>
+            <button className="self-end m-4" onClick={() => setMobileOpen(false)}>
+              <span className="icon">close</span>
+            </button>
             <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-1">
               {tabs.map((tab) => (
                 <NavItem
@@ -108,11 +112,11 @@ export const Layout: React.FC<LayoutProps> = ({
       <div className="flex-1 flex flex-col overflow-hidden">
         <header className="flex items-center justify-end md:justify-end p-3 bg-gray-800 border-b border-gray-700/50">
           <button className="md:hidden mr-auto" onClick={() => setMobileOpen(true)} aria-label="Abrir menú">
-            ☰
+            <span className="icon">menu</span>
           </button>
           <div className="flex items-center space-x-3">
             <div className="flex items-center text-sm font-semibold bg-gray-700/50 px-3 py-1.5 rounded-lg">
-              <span className="text-primary mr-2">💎</span>
+              <span className="icon icon-active mr-2">diamond</span>
               <span>{user?.credits || 50} créditos</span>
             </div>
             <div className="relative">
@@ -120,7 +124,7 @@ export const Layout: React.FC<LayoutProps> = ({
                 className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center text-white font-bold"
                 aria-label="Menú de usuario"
               >
-                👤
+                <span className="icon">person</span>
               </button>
               <span className="absolute -bottom-1 -right-1 w-3 h-3 bg-success rounded-full border-2 border-gray-800" />
             </div>

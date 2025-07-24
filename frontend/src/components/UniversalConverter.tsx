@@ -27,7 +27,7 @@ const ConversionStep: React.FC<{
 
 // Componente de tarjeta de conversión
 const ConversionCard: React.FC<{
-  icon: React.ReactNode;
+  icon: string;
   title: string;
   children: React.ReactNode;
   isActive: boolean;
@@ -37,7 +37,9 @@ const ConversionCard: React.FC<{
     isActive ? 'border-2 border-primary shadow-lg' : 'border border-gray-700/50'
   }`}>
     <div className="flex items-center mb-3">
-      <div className="text-3xl mr-3">{icon}</div>
+      <div className="text-3xl mr-3">
+        <span className="icon icon-lg">{icon}</span>
+      </div>
       <h3 className="text-xl font-semibold">{title}</h3>
       {isCompleted && (
         <div className="ml-auto bg-success/20 text-success text-xs font-semibold px-2 py-1 rounded-full">
@@ -62,7 +64,9 @@ const PopularConversion: React.FC<{
     onClick={onClick}
   >
     <div className="flex items-center justify-between">
-      <div className="text-3xl mr-3">{icon}</div>
+      <div className="text-3xl mr-3">
+        <span className="icon icon-lg">{icon}</span>
+      </div>
       <div className="flex-1">
         <h4 className="font-medium">{from} → {to}</h4>
         <p className="text-xs text-gray-400">{cost} créditos</p>
@@ -82,11 +86,11 @@ export const UniversalConverter: React.FC = () => {
 
   // Memoized popular conversions
   const popularConversions = useMemo(() => [
-    { from: 'PDF', to: 'JPG', icon: '📄 → 🖼️', cost: 2 },
-    { from: 'JPG', to: 'PNG', icon: '🖼️ → 🎨', cost: 1 },
-    { from: 'MP4', to: 'GIF', icon: '🎬 → 🎞️', cost: 5 },
-    { from: 'PNG', to: 'SVG', icon: '🖼️ → 📐', cost: 3 },
-    { from: 'DOC', to: 'PDF', icon: '📝 → 📄', cost: 2 },
+    { from: 'PDF', to: 'JPG', icon: 'swap_horiz', cost: 2 },
+    { from: 'JPG', to: 'PNG', icon: 'swap_horiz', cost: 1 },
+    { from: 'MP4', to: 'GIF', icon: 'swap_horiz', cost: 5 },
+    { from: 'PNG', to: 'SVG', icon: 'swap_horiz', cost: 3 },
+    { from: 'DOC', to: 'PDF', icon: 'swap_horiz', cost: 2 },
   ], []);
 
   // Optimized file selection handler
@@ -136,7 +140,9 @@ export const UniversalConverter: React.FC = () => {
       {/* Encabezado */}
       <div className="text-center mb-8">
         <div className="flex items-center justify-center mb-2">
-          <div className="text-3xl mr-3">🎯</div>
+          <div className="text-3xl mr-3">
+            <span className="icon icon-lg">target</span>
+          </div>
           <h1 className="text-3xl font-bold">Conversor Inteligente</h1>
         </div>
         <p className="text-gray-300">Convierte archivos con inteligencia artificial avanzada</p>
@@ -153,9 +159,9 @@ export const UniversalConverter: React.FC = () => {
       {/* Tarjetas de conversión */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Paso 1: Subir Archivo */}
-        <ConversionCard 
-          icon="📂" 
-          title="Subir Archivo" 
+        <ConversionCard
+          icon="upload"
+          title="Subir Archivo"
           isActive={currentStep === 1}
           isCompleted={currentStep > 1}
         >
@@ -186,9 +192,9 @@ export const UniversalConverter: React.FC = () => {
         </ConversionCard>
 
         {/* Paso 2: Análisis IA */}
-        <ConversionCard 
-          icon="🤖" 
-          title="Análisis IA" 
+        <ConversionCard
+          icon="smart_toy"
+          title="Análisis IA"
           isActive={currentStep === 2}
           isCompleted={currentStep > 2}
         >
@@ -212,9 +218,9 @@ export const UniversalConverter: React.FC = () => {
         </ConversionCard>
 
         {/* Paso 3: Configurar */}
-        <ConversionCard 
-          icon="⚙️" 
-          title="Configurar" 
+        <ConversionCard
+          icon="settings"
+          title="Configurar"
           isActive={currentStep === 3}
           isCompleted={currentStep > 3}
         >
@@ -254,9 +260,9 @@ export const UniversalConverter: React.FC = () => {
         </ConversionCard>
 
         {/* Paso 4: Descargar */}
-        <ConversionCard 
-          icon="⬇️" 
-          title="Descargar" 
+        <ConversionCard
+          icon="download"
+          title="Descargar"
           isActive={currentStep === 4}
           isCompleted={currentStep > 4}
         >
@@ -269,7 +275,7 @@ export const UniversalConverter: React.FC = () => {
             ) : (
               <div className="text-center">
                 <div className="mb-2">
-                  <span className="text-3xl">🎉</span>
+                  <span className="icon icon-lg">celebration</span>
                 </div>
                 <button className="bg-success hover:bg-success/80 text-white py-2 px-4 rounded-md transition-colors">
                   Descargar Archivo
@@ -290,7 +296,7 @@ export const UniversalConverter: React.FC = () => {
       {/* Conversiones Populares */}
       <div className="mt-12">
         <h2 className="text-2xl font-bold mb-4 flex items-center">
-          <span className="text-2xl mr-2">🚀</span>
+          <span className="icon icon-lg mr-2">rocket_launch</span>
           Conversiones Populares
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">

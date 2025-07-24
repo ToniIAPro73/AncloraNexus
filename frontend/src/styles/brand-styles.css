@@ -1,5 +1,6 @@
 /* frontend/src/styles/variables.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded');
 
 :root {
   /* Colores primarios */
@@ -427,4 +428,19 @@ body {
 
 .animate-pulse {
   animation: pulse 1.5s infinite;
+}
+
+/* Icon helpers */
+.icon {
+  font-family: 'Material Symbols Rounded';
+  font-variation-settings: 'FILL' 0, 'wght' 400;
+  font-size: 24px;
+}
+
+.icon-lg {
+  font-size: 32px;
+}
+
+.icon-active {
+  color: var(--color-primary);
 }
