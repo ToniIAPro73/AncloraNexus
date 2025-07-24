@@ -19,11 +19,11 @@ const ConversionStep: React.FC<ConversionStepProps> = ({
   children
 }) => (
   <div className={`
-    bg-slate-800/40 backdrop-blur-sm rounded-xl border transition-all duration-300
-    ${isActive 
-      ? 'border-primary shadow-lg shadow-primary/20 scale-105' 
-      : isCompleted 
-        ? 'border-green-500/50 shadow-lg shadow-green-500/10'
+    bg-gradient-to-br from-primary/10 to-secondary/10 backdrop-blur-sm rounded-lg border shadow-lg transition-all duration-300
+    ${isActive
+      ? 'border-primary shadow-primary/20 scale-105'
+      : isCompleted
+        ? 'border-green-500/50 shadow-green-500/10'
         : 'border-slate-700/50 hover:border-slate-600/50'
     }
   `}>
