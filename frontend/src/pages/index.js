@@ -1,1 +1,10 @@
-// archivo: pages/index.tsx (Versión Final)\r\nimport { Layout } from "../components/Layout";\r\nimport { ConversorInteligente } from "../components/ConversorInteligente";\r\n\r\nexport default function HomePage() {\r\n  return (\r\n    <Layout>\r\n      <ConversorInteligente />\r\n    </Layout>\r\n  );\r\n}
+import { Layout } from "../components/Layout";
+import { ConversorInteligente } from "../components/ConversorInteligente";
+
+export default function HomePage() {
+  return (
+    <Layout>
+      <ConversorInteligente />
+    </Layout>
+  );
+}
