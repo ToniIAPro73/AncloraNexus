@@ -5,6 +5,8 @@ import App from './components/App';
 import { AuthProvider } from './auth/AuthContext';
 import Login from './components/Login';
 import Register from './components/Register';
+import './index.css'; // Esta línea probablemente ya existe
+import './anclora-animations.css'; // Añade esta línea
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {

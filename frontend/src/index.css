@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.apple.com/sf-pro-display.css');
 :root {
   --color-primary: #006EE6;
@@ -14,3 +18,11 @@
   background: var(--color-primary);
   color: var(--color-neutral-100);
 }
+
+.button-primary:hover {
+  background: var(--color-secondary);
+  color: var(--color-neutral-100);
+}
+
+/* Estilos personalizados de Anclora */
+@import './styles/anclora-animations.css';
