@@ -1,20 +1,29 @@
-// Archivo: frontend/services/api.ts
-
 // --- TIPOS DE DATOS (Interfaces) ---
+// Esta interfaz 'User' está actualizada para coincidir con lo que el backend devuelve
 export interface User {
-  id: string;
+  id: number;
   full_name: string;
   email: string;
   credits: number;
+  plan: string;
   plan_info: {
     name: string;
+    monthly_credits?: number;
+    daily_limit?: number;
+    price?: number;
+    features?: string[];
   };
   total_conversions: number;
+  credits_used_today: number;
+  credits_used_this_month: number;
+  created_at: string | null;
+  last_login: string | null;
+  is_active: boolean;
 }
 
 export interface LoginData {
   email: string;
-  password?: string;
+  password?: string; // Se mantiene opcional por si se implementa login social
 }
 
 export interface RegisterData {
@@ -23,17 +32,18 @@ export interface RegisterData {
   password?: string;
 }
 
-
 // --- LÓGICA DEL SERVICIO DE API ---
 
-// Función para guardar el token de forma segura
+// URL base de la API. En el futuro, esto debería venir de un archivo .env
+const API_BASE_URL = 'http://localhost:8000/api';
+
+// --- Funciones de Ayuda para el Token ---
 const setAuthToken = (token: string) => {
   if (typeof window !== 'undefined') {
     localStorage.setItem('auth_token', token);
   }
 };
 
-// Función para obtener el token
 const getAuthToken = (): string | null => {
   if (typeof window !== 'undefined') {
     return localStorage.getItem('auth_token');
@@ -41,112 +51,123 @@ const getAuthToken = (): string | null => {
   return null;
 };
 
-// Función para limpiar el token
 const clearToken = () => {
   if (typeof window !== 'undefined') {
     localStorage.removeItem('auth_token');
   }
 };
 
-
-// --- OBJETO apiService (ahora con todas las funciones) ---
-
+// --- OBJETO apiService (con todas las funciones reales) ---
 export const apiService = {
-  // Función de Login simulada
+  // --- Funciones de Autenticación ---
   login: async (data: LoginData): Promise<{ user: User; token: string }> => {
-    console.log('Simulando llamada a API de login para:', data.email);
-    const fakeToken = 'fake_jwt_token_12345';
-    setAuthToken(fakeToken);
-    
-    return {
-      token: fakeToken,
-      user: {
-        id: 'user_123',
-        full_name: 'Usuario de Prueba',
-        email: data.email,
-        credits: 100,
-        plan_info: { name: 'Básico' },
-        total_conversions: 15,
-      },
-    };
+    const response = await fetch(`${API_BASE_URL}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    const responseData = await response.json();
+    if (!response.ok) {
+      throw new Error(responseData.error || 'Error en el inicio de sesión');
+    }
+    setAuthToken(responseData.access_token);
+    return { token: responseData.access_token, user: responseData.user };
   },
 
-  // Función de Registro simulada
   register: async (data: RegisterData): Promise<{ user: User; token: string }> => {
-    console.log('Simulando llamada a API de registro para:', data.email);
-    const fakeToken = 'fake_jwt_token_67890';
-    setAuthToken(fakeToken);
-
-    return {
-      token: fakeToken,
-      user: {
-        id: 'user_new_456',
-        full_name: data.full_name,
-        email: data.email,
-        credits: 10,
-        plan_info: { name: 'Gratuito' },
-        total_conversions: 0,
-      },
-    };
+    const response = await fetch(`${API_BASE_URL}/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    });
+    const responseData = await response.json();
+    if (!response.ok) {
+        throw new Error(responseData.error || 'Error en el registro');
+    }
+    setAuthToken(responseData.access_token);
+    return { token: responseData.access_token, user: responseData.user };
   },
 
-  // Función de Logout simulada
   logout: () => {
-    console.log('Simulando logout...');
+    console.log('Cerrando sesión...');
     clearToken();
   },
-  
-  // Función para verificar un token simulada
+
   verifyToken: async (): Promise<{ valid: boolean; user: User | null }> => {
     const token = getAuthToken();
-    if (token) {
-        console.log('Token encontrado, verificando...');
-        return { valid: true, user: await apiService.getProfile() };
+    if (!token) return { valid: false, user: null };
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/verify-token`, {
+        headers: { 'Authorization': `Bearer ${token}` },
+      });
+      if (!response.ok) {
+        clearToken();
+        return { valid: false, user: null };
+      }
+      const data = await response.json();
+      return { valid: data.valid, user: data.user };
+    } catch (error) {
+      clearToken();
+      return { valid: false, user: null };
     }
-    return { valid: false, user: null };
   },
 
-  // Función para obtener perfil de usuario simulada
   getProfile: async (): Promise<User> => {
-      console.log('Obteniendo perfil de usuario desde el backend...');
-      return {
-        id: 'user_123',
-        full_name: 'Usuario de Prueba',
-        email: 'ancoratest@dominio.com',
-        credits: 100,
-        plan_info: { name: 'Básico' },
-        total_conversions: 15,
-      };
+    const token = getAuthToken();
+    if (!token) throw new Error('No hay token de autenticación');
+    
+    const response = await fetch(`${API_BASE_URL}/auth/profile`, {
+        headers: { 'Authorization': `Bearer ${token}` },
+    });
+    if (!response.ok) {
+        if (response.status === 401) clearToken();
+        throw new Error('Error obteniendo el perfil de usuario');
+    }
+    const data = await response.json();
+    return data.user;
   },
-  
+
   clearToken,
 
-  // --- AÑADIDO: Funciones de conversión que faltaban ---
+  // --- Funciones de Conversión ---
   convertFile: async (payload: { file: File; target_format: string; }): Promise<any> => {
-    console.log('Simulando la subida y conversión del archivo:', payload.file.name);
-    // Simulamos una respuesta exitosa del backend
-    return Promise.resolve({
-      success: true,
-      id: 'conversion_123',
-      download_url: '/api/download/conversion_123',
-      output_filename: `convertido.${payload.target_format}`
+    const token = getAuthToken();
+    const formData = new FormData();
+    formData.append('file', payload.file);
+    formData.append('target_format', payload.target_format);
+    
+    const response = await fetch(`${API_BASE_URL}/conversion/convert`, { // Asumiendo que esta es la ruta
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` },
+        body: formData,
     });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Error en la conversión');
+    return data;
   },
 
-  downloadConversion: async (conversionId: string): Promise<Blob> => {
-    console.log('Simulando la descarga para la conversión:', conversionId);
-    // Simulamos la descarga de un archivo creando un "Blob" de texto vacío
-    const fakeBlob = new Blob(["Este es el contenido del archivo convertido de prueba."], { type: "text/plain" });
-    return Promise.resolve(fakeBlob);
-  }
+  downloadConversion: async (conversionId: string | number): Promise<Blob> => {
+    const token = getAuthToken();
+    const response = await fetch(`${API_BASE_URL}/conversion/download/${conversionId}`, {
+        headers: { 'Authorization': `Bearer ${token}` },
+    });
+    if (!response.ok) throw new Error('Error al descargar el archivo');
+    return response.blob();
+  },
 };
 
-// El resto de funciones de ayuda se mantienen igual
-export const getConversionCost = (fromFormat: string, toFormat: string): number => { return 2; };
-export const formatFileSize = (bytes: number): string => { 
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+
+// --- Funciones de Ayuda (Helpers) ---
+export const getConversionCost = (fromFormat: string, toFormat: string): number => {
+  // En el futuro, esto podría hacer una llamada a la API para obtener costes dinámicos
+  return 2; 
+};
+export const formatFileSize = (bytes: number, decimals = 2): string => {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 };
