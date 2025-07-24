@@ -1,123 +1,430 @@
-/* Estilos de Branding - Anclora Metaform */
+/* frontend/src/styles/variables.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-body {
-  background-color: #0f172a; /* Color de fondo base del workspace */
+:root {
+  /* Colores primarios */
+  --color-primary: #006EE6;
+  --color-secondary: #00B8D9;
+  
+  /* Colores secundarios */
+  --color-primary-dark: #0050A7;
+  --color-secondary-dark: #00829B;
+  
+  /* Colores de estado */
+  --color-success: #28A745;
+  --color-warning: #FFC107;
+  --color-danger: #DC3545;
+  
+  /* Colores neutros */
+  --color-white: #FFFFFF;
+  --color-gray-100: #F5F7FA;
+  --color-gray-200: #E4E7EB;
+  --color-gray-400: #8492A6;
+  --color-gray-700: #3E4C59;
+  --color-gray-900: #1F2933;
+  
+  /* Tamaños de fuente - Escritorio */
+  --font-size-h1: 2rem;        /* 32px */
+  --font-size-h2: 1.75rem;     /* 28px */
+  --font-size-h3: 1.5rem;      /* 24px */
+  --font-size-h4: 1.25rem;     /* 20px */
+  --font-size-subtitle: 1.125rem; /* 18px */
+  --font-size-body: 1rem;      /* 16px */
+  --font-size-small: 0.875rem; /* 14px */
+  --font-size-micro: 0.75rem;  /* 12px */
+  
+  /* Pesos de fuente */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Line heights */
+  --line-height-tight: 1.2;
+  --line-height-snug: 1.3;
+  --line-height-normal: 1.4;
+  --line-height-relaxed: 1.5;
+  
+  /* Espaciado */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  
+  /* Fuente principal */
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.brand-header {
-  display: flex;
+/* Media query para móviles */
+@media (max-width: 768px) {
+  :root {
+    --font-size-h1: 1.75rem;    /* 28px */
+    --font-size-h2: 1.5rem;     /* 24px */
+    --font-size-h3: 1.25rem;    /* 20px */
+    --font-size-h4: 1.125rem;   /* 18px */
+    --font-size-subtitle: 1rem; /* 16px */
+  }
+}
+
+/* Componentes base */
+.card {
+  background-color: var(--color-gray-800, rgba(31, 41, 55, 0.5));
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(62, 76, 89, 0.5);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-gray-700, rgba(62, 76, 89, 0.5));
+}
+
+.card-body {
+  padding: var(--space-4);
+}
+
+.card-footer {
+  padding: var(--space-4);
+  border-top: 1px solid var(--color-gray-700, rgba(62, 76, 89, 0.5));
+  background-color: var(--color-gray-800, rgba(31, 41, 55, 0.3));
+}
+
+/* Botones */
+.btn {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.1));
-  border-radius: 16px;
-  border: 1px solid rgba(59, 130, 246, 0.2);
-}
-
-.brand-logo {
-  width: 60px;
-  height: 60px;
-  margin-right: 1rem;
-  filter: drop-shadow(0 4px 8px rgba(59, 130, 246, 0.3));
-}
-
-.brand-text h1 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #1e40af;
-  margin: 0;
-  text-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
-}
-
-.brand-tagline {
-  font-size: 0.9rem;
-  color: #64748b;
-  margin: 0.25rem 0 0 0;
-  font-style: italic;
-  font-weight: 500;
-}
-
-/* Responsive para móviles */
-@media (max-width: 768px) {
-  .brand-header {
-    flex-direction: column;
-    text-align: center;
-    padding: 1rem;
-  }
-  
-  .brand-logo {
-    margin-right: 0;
-    margin-bottom: 0.5rem;
-    width: 50px;
-    height: 50px;
-  }
-  
-  .brand-text h1 {
-    font-size: 1.5rem;
-  }
-  
-  .brand-tagline {
-    font-size: 0.8rem;
-  }
-}
-
-/* Colores de marca Anclora Metaform */
-:root {
-  --anclora-blue-primary: #3b82f6;
-  --anclora-blue-secondary: #2563eb;
-  --anclora-blue-dark: #1e40af;
-  --anclora-blue-light: #dbeafe;
-  --anclora-navy: #1e293b;
-  --anclora-gray: #64748b;
-}
-
-/* Actualizar elementos existentes con colores de marca */
-.converter-header h2 {
-  color: var(--anclora-blue-dark);
-}
-
-.step-number {
-  background: linear-gradient(135deg, var(--anclora-blue-primary), var(--anclora-blue-secondary));
-  color: white;
-}
-
-.conversion-card:hover {
-  border-color: var(--anclora-blue-primary);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+  padding: var(--space-2) var(--space-4);
+  border-radius: 6px;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-normal);
+  transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--anclora-blue-primary), var(--anclora-blue-secondary));
-  border: none;
-  transition: all 0.3s ease;
+  background-color: var(--color-primary);
+  color: var(--color-white);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, var(--anclora-blue-secondary), var(--anclora-blue-dark));
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+  background-color: var(--color-primary-dark);
 }
 
-/* Footer con branding */
-.converter-footer {
-  text-align: center;
-  margin-top: 3rem;
-  padding: 2rem;
-  border-top: 1px solid rgba(59, 130, 246, 0.1);
-  color: var(--anclora-gray);
-  font-size: 0.9rem;
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
 }
 
-.converter-footer::before {
-  content: "Powered by Anclora Metaform - Tu Contenido, Reinventado";
+.btn-secondary:hover {
+  background-color: rgba(0, 110, 230, 0.1);
+}
+
+.btn-danger {
+  background-color: var(--color-danger);
+  color: var(--color-white);
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.btn-success {
+  background-color: var(--color-success);
+  color: var(--color-white);
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.btn:disabled, .btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Inputs */
+.input-group {
+  margin-bottom: var(--space-4);
+}
+
+.input-label {
   display: block;
-  font-weight: 500;
-  color: var(--anclora-blue-dark);
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-2);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-400);
 }
 
+.input {
+  width: 100%;
+  padding: var(--space-3);
+  border: 1px solid var(--color-gray-700);
+  border-radius: 6px;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-normal);
+  color: var(--color-white);
+  background-color: rgba(31, 41, 55, 0.3);
+  transition: all 0.2s ease;
+}
+
+.input:hover {
+  border-color: var(--color-gray-400);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 110, 230, 0.15);
+}
+
+/* Tipografía */
+.text-h1 {
+  font-size: var(--font-size-h1);
+  line-height: var(--line-height-tight);
+  font-weight: var(--font-weight-bold);
+}
+
+.text-h2 {
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-tight);
+  font-weight: var(--font-weight-bold);
+}
+
+.text-h3 {
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-snug);
+  font-weight: var(--font-weight-semibold);
+}
+
+.text-h4 {
+  font-size: var(--font-size-h4);
+  line-height: var(--line-height-snug);
+  font-weight: var(--font-weight-semibold);
+}
+
+.text-subtitle {
+  font-size: var(--font-size-subtitle);
+  line-height: var(--line-height-normal);
+  font-weight: var(--font-weight-medium);
+}
+
+.text-body {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-relaxed);
+  font-weight: var(--font-weight-regular);
+}
+
+.text-small {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-relaxed);
+  font-weight: var(--font-weight-regular);
+}
+
+.text-micro {
+  font-size: var(--font-size-micro);
+  line-height: var(--line-height-relaxed);
+  font-weight: var(--font-weight-regular);
+}
+
+/* Colores de texto */
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+.text-success {
+  color: var(--color-success);
+}
+
+.text-warning {
+  color: var(--color-warning);
+}
+
+.text-danger {
+  color: var(--color-danger);
+}
+
+/* Accesibilidad */
+:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.js-focus-visible :focus:not(.focus-visible) {
+  outline: none;
+}
+
+/* Estilos generales */
+body {
+  font-family: var(--font-primary);
+  color: var(--color-white);
+  background-color: var(--color-gray-900);
+}
+
+/* Estilos específicos para el conversor */
+.conversion-step {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-subtitle);
+  transition: all 0.3s ease;
+}
+
+.conversion-step.active {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  box-shadow: 0 0 0 4px rgba(0, 110, 230, 0.2);
+}
+
+.conversion-step.completed {
+  background-color: var(--color-success);
+  color: var(--color-white);
+}
+
+.conversion-step.inactive {
+  background-color: var(--color-gray-700);
+  color: var(--color-gray-400);
+}
+
+.step-connector {
+  height: 2px;
+  width: 64px;
+  background-color: var(--color-gray-700);
+  transition: all 0.3s ease;
+}
+
+.step-connector.active {
+  background-color: var(--color-primary);
+}
+
+.conversion-card {
+  background-color: rgba(31, 41, 55, 0.8);
+  border-radius: 8px;
+  padding: 16px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(62, 76, 89, 0.5);
+}
+
+.conversion-card.active {
+  border: 2px solid var(--color-primary);
+  box-shadow: 0 4px 12px rgba(0, 110, 230, 0.15);
+}
+
+.conversion-card.completed {
+  border-color: var(--color-success);
+}
+
+.file-upload-area {
+  border: 2px dashed var(--color-gray-600);
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.file-upload-area:hover {
+  border-color: var(--color-primary);
+  background-color: rgba(0, 110, 230, 0.05);
+}
+
+.popular-conversion-card {
+  background-color: rgba(31, 41, 55, 0.8);
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(62, 76, 89, 0.5);
+}
+
+.popular-conversion-card:hover {
+  background-color: rgba(62, 76, 89, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilos para el sidebar */
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: var(--font-weight-medium);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.sidebar-nav-item.active {
+  background-color: rgba(0, 110, 230, 0.1);
+  color: var(--color-white);
+}
+
+.sidebar-nav-item:hover:not(.active) {
+  background-color: rgba(62, 76, 89, 0.3);
+  color: var(--color-white);
+}
+
+.sidebar-nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+  font-size: 20px;
+}
+
+.sidebar-badge {
+  margin-left: auto;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: var(--font-size-micro);
+  font-weight: var(--font-weight-semibold);
+}
+
+.sidebar-badge.pro {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.sidebar-badge.count {
+  background-color: var(--color-gray-700);
+  color: var(--color-white);
+}
+
+/* Animaciones */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 1.5s infinite;
+}

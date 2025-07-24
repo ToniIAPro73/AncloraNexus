@@ -1,11 +1,1 @@
-// archivo: pages/index.tsx (VersiÃ³n Final)
-import { Layout } from '../components/Layout';
-import { UniversalConverter } from '../components/UniversalConverter';
-
-export default function HomePage() {
-  return (
-    <Layout>
-      <UniversalConverter />
-    </Layout>
-  );
-}
+// archivo: pages/index.tsx (Versión Final)\r\nimport { Layout } from "../components/Layout";\r\nimport { ConversorInteligente } from "../components/ConversorInteligente";\r\n\r\nexport default function HomePage() {\r\n  return (\r\n    <Layout>\r\n      <ConversorInteligente />\r\n    </Layout>\r\n  );\r\n}

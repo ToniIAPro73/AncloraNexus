@@ -1,3 +1,4 @@
+// frontend/src/auth/AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { apiService, User, LoginData, RegisterData } from '../services/api';
 
@@ -136,8 +137,8 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500"></div>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-primary-dark to-gray-900">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-gray-300 border-t-primary"></div>
       </div>
     );
   }
@@ -145,7 +146,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   return isAuthenticated ? <>{children}</> : <>{fallback}</>;
 };
 
-// Componente de formulario de login
+// Componente de formulario de login optimizado según la guía
 export const LoginForm: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
@@ -191,22 +192,22 @@ export const LoginForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-primary-dark to-gray-900">
       <div className="max-w-md w-full space-y-8 p-8">
         <div className="text-center">
-          <h2 className="text-3xl font-bold text-white mb-2">
+          <h2 className="text-h2 font-bold text-white mb-2">
             {isLogin ? 'Iniciar Sesión' : 'Crear Cuenta'}
           </h2>
-          <p className="text-slate-300">
+          <p className="text-gray-300">
             {isLogin ? 'Accede a tu cuenta de Anclora Metaform' : 'Únete a Anclora Metaform'}
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6 space-y-4">
+          <div className="card p-6 space-y-4">
             {!isLogin && (
-              <div>
-                <label htmlFor="full_name" className="block text-sm font-medium text-slate-300 mb-2">
+              <div className="input-group">
+                <label htmlFor="full_name" className="input-label">
                   Nombre Completo
                 </label>
                 <input
@@ -216,14 +217,14 @@ export const LoginForm: React.FC = () => {
                   required={!isLogin}
                   value={formData.full_name}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="input"
                   placeholder="Tu nombre completo"
                 />
               </div>
             )}
 
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">
+            <div className="input-group">
+              <label htmlFor="email" className="input-label">
                 Email
               </label>
               <input
@@ -233,13 +234,13 @@ export const LoginForm: React.FC = () => {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="input"
                 placeholder="tu@email.com"
               />
             </div>
 
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-slate-300 mb-2">
+            <div className="input-group">
+              <label htmlFor="password" className="input-label">
                 Contraseña
               </label>
               <input
@@ -249,25 +250,26 @@ export const LoginForm: React.FC = () => {
                 required
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="input"
                 placeholder="••••••••"
               />
             </div>
 
             {error && (
-              <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3">
-                <p className="text-red-400 text-sm">{error}</p>
+              <div className="bg-danger/10 border border-danger/30 rounded-lg p-3">
+                <p className="text-danger text-sm">{error}</p>
               </div>
             )}
 
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white py-2 px-4 rounded-lg font-medium hover:from-blue-600 hover:to-cyan-600 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="btn btn-primary w-full"
+              aria-busy={isSubmitting}
             >
               {isSubmitting ? (
                 <div className="flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2"></div>
                   {isLogin ? 'Iniciando sesión...' : 'Creando cuenta...'}
                 </div>
               ) : (
@@ -284,7 +286,7 @@ export const LoginForm: React.FC = () => {
                 setError('');
                 setFormData({ email: '', password: '', full_name: '' });
               }}
-              className="text-blue-400 hover:text-blue-300 transition-colors"
+              className="text-primary hover:text-primary-dark transition-colors"
             >
               {isLogin 
                 ? '¿No tienes cuenta? Crear una nueva' 
@@ -295,9 +297,9 @@ export const LoginForm: React.FC = () => {
         </form>
 
         {/* Usuario de prueba */}
-        <div className="bg-slate-800/30 backdrop-blur-sm rounded-lg border border-slate-700/50 p-4">
-          <h3 className="text-slate-300 font-medium mb-2">Usuario de Prueba:</h3>
-          <p className="text-slate-400 text-sm">
+        <div className="bg-gray-800/30 backdrop-blur-sm rounded-lg border border-gray-700/50 p-4">
+          <h3 className="text-gray-300 font-medium mb-2">Usuario de Prueba:</h3>
+          <p className="text-gray-400 text-sm">
             Email: ancoratest@dominio.com<br />
             Contraseña: Ancoratest123
           </p>
@@ -314,40 +316,52 @@ export const UserProfile: React.FC = () => {
   if (!user) return null;
 
   return (
-    <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-bold text-white">Mi Perfil</h2>
+    <div className="card p-6">
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-h3 font-bold text-white">Mi Perfil</h2>
         <button
           onClick={logout}
-          className="text-red-400 hover:text-red-300 transition-colors"
+          className="btn btn-danger"
         >
           Cerrar Sesión
         </button>
       </div>
 
-      <div className="space-y-3">
-        <div>
-          <span className="text-slate-400">Nombre: </span>
-          <span className="text-white">{user.full_name}</span>
+      <div className="space-y-4">
+        <div className="p-4 bg-gray-800/30 rounded-lg">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <span className="text-gray-400 block text-sm">Nombre:</span>
+              <span className="text-white font-medium">{user.full_name}</span>
+            </div>
+            <div>
+              <span className="text-gray-400 block text-sm">Email:</span>
+              <span className="text-white font-medium">{user.email}</span>
+            </div>
+            <div>
+              <span className="text-gray-400 block text-sm">Plan:</span>
+              <span className="text-primary font-medium">{user.plan_info.name}</span>
+            </div>
+            <div>
+              <span className="text-gray-400 block text-sm">Créditos:</span>
+              <span className="text-success font-bold">{user.credits}</span>
+            </div>
+            <div>
+              <span className="text-gray-400 block text-sm">Conversiones realizadas:</span>
+              <span className="text-white font-medium">{user.total_conversions}</span>
+            </div>
+          </div>
         </div>
-        <div>
-          <span className="text-slate-400">Email: </span>
-          <span className="text-white">{user.email}</span>
-        </div>
-        <div>
-          <span className="text-slate-400">Plan: </span>
-          <span className="text-blue-400">{user.plan_info.name}</span>
-        </div>
-        <div>
-          <span className="text-slate-400">Créditos: </span>
-          <span className="text-green-400 font-bold">{user.credits}</span>
-        </div>
-        <div>
-          <span className="text-slate-400">Conversiones realizadas: </span>
-          <span className="text-white">{user.total_conversions}</span>
+        
+        <div className="mt-6">
+          <h3 className="text-h4 text-white mb-4">Actividad Reciente</h3>
+          <div className="bg-gray-800/30 rounded-lg overflow-hidden">
+            <div className="p-4 text-center text-gray-400">
+              <p>Historial de actividad disponible próximamente</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 };
-

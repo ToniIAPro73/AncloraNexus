@@ -1,0 +1,311 @@
+/* Estilos específicos para el Conversor Inteligente */
+
+/* Colores principales */
+:root {
+  --converter-bg: #1a73e8;
+  --converter-card-bg: rgba(255, 255, 255, 0.1);
+  --converter-card-border: rgba(255, 255, 255, 0.2);
+  --converter-step-active: #fff;
+  --converter-step-inactive: #4d4d4d;
+  --converter-step-completed: #4caf50;
+  --converter-text: #ffffff;
+  --converter-text-secondary: rgba(255, 255, 255, 0.7);
+}
+
+/* Contenedor principal del conversor */
+.converter-container {
+  background-color: var(--converter-bg);
+  min-height: calc(100vh - 64px);
+  padding: 2rem;
+  color: var(--converter-text);
+}
+
+/* Encabezado del conversor */
+.converter-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.converter-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.converter-subtitle {
+  font-size: 1rem;
+  color: var(--converter-text-secondary);
+}
+
+/* Pasos del proceso */
+.converter-steps {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.step-circle.active {
+  background-color: var(--converter-step-active);
+  color: var(--converter-bg);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2);
+}
+
+.step-circle.completed {
+  background-color: var(--converter-step-completed);
+  color: white;
+}
+
+.step-circle.inactive {
+  background-color: var(--converter-step-inactive);
+  color: white;
+}
+
+.step-connector {
+  width: 100px;
+  height: 4px;
+  margin: 0 -10px;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.step-connector.active {
+  background-color: var(--converter-step-active);
+}
+
+/* Tarjetas de proceso */
+.converter-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.converter-card {
+  background-color: var(--converter-card-bg);
+  border: 1px solid var(--converter-card-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.converter-card.active {
+  border: 2px solid white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.converter-card.completed {
+  border-color: var(--converter-step-completed);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.card-icon {
+  font-size: 1.5rem;
+  margin-right: 0.75rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.completed-badge {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: #4caf50;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+/* Área de subida de archivos */
+.file-upload-area {
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.file-upload-area:hover {
+  border-color: white;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Selector de formato */
+.format-selector {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: white;
+  font-size: 1rem;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+}
+
+/* Botones */
+.converter-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background-color: white;
+  color: var(--converter-bg);
+}
+
+.btn-primary:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.btn-success {
+  background-color: var(--converter-step-completed);
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #3d8b40;
+}
+
+/* Conversiones populares */
+.popular-conversions {
+  background-color: var(--converter-card-bg);
+  border: 1px solid var(--converter-card-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+.popular-conversions-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.popular-conversions-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+
+.conversion-item {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.conversion-item:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.conversion-icons {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.conversion-format {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.conversion-cost {
+  font-size: 0.75rem;
+  color: var(--converter-text-secondary);
+}
+
+/* Animaciones */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .converter-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .popular-conversions-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .converter-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .popular-conversions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .step-connector {
+    width: 50px;
+  }
+}
