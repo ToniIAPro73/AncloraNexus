@@ -1,3 +1,10 @@
+/* tailwindcss */
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* frontend/src/styles/variables.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -428,3 +435,23 @@ body {
 .animate-pulse {
   animation: pulse 1.5s infinite;
 }
+
+@import url('https://fonts.apple.com/sf-pro-display.css');
+
+:root {
+  --color-primary: #006EE6;
+  --color-secondary: #00B8D9;
+  --color-success: #28A745;
+  --color-warning: #FFC107;
+  --color-danger: #DC3545;
+  --color-neutral-100: #FFFFFF;
+  --color-neutral-200: #F5F5F5;
+  --color-neutral-900: #0D0D0D;
+  --font-heading: 'SF Pro Display', -apple-system, sans-serif;
+}
+
+.button-primary {
+  background: var(--color-primary);
+  color: var(--color-neutral-100);
+}
+
