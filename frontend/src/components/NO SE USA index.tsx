@@ -1,3 +1,4 @@
+console.log("🧪 index.tsx está siendo usado");
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
