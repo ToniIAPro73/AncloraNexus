@@ -2,26 +2,7 @@
 const API_BASE_URL = 'http://localhost:8000/api';
 
 // Tipos de datos
-export interface User {
-  id: number;
-  email: string;
-  full_name: string;
-  plan: string;
-  credits: number;
-  total_conversions: number;
-  credits_used_today: number;
-  credits_used_this_month: number;
-  created_at: string;
-  last_login: string | null;
-  is_active: boolean;
-  plan_info: {
-    name: string;
-    monthly_credits: number;
-    daily_limit: number;
-    features: string[];
-    price?: number;
-  };
-}
+import type { User } from '../../../frontend/src/types/User';
 
 export interface LoginResponse {
   message: string;

@@ -1,11 +1,7 @@
 // frontend/src/components/Layout/Header.tsx
 import React from 'react';
 import { useAuth } from '../../auth/AuthContext';
-
-interface User {
-  name?: string;
-  email?: string;
-}
+import type { User } from '../../types/User';
 
 interface HeaderProps {
   sidebarCollapsed: boolean;
