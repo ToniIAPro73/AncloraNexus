@@ -2,6 +2,11 @@
 import React from 'react';
 import { useAuth } from '../../auth/AuthContext';
 
+interface User {
+  name?: string;
+  email?: string;
+}
+
 interface HeaderProps {
   sidebarCollapsed: boolean;
 }
@@ -53,7 +58,6 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed }) => {
                 {user?.email || 'usuario@ejemplo.com'}
               </div>
             </div>
-            
             {/* Dropdown indicator */}
             <svg className="w-4 h-4 text-gray-400 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -64,4 +68,3 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed }) => {
     </header>
   );
 };
-
