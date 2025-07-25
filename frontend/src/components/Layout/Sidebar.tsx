@@ -34,12 +34,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
   setIsCollapsed 
 }) => {
   return (
-    <div className={`
-      fixed left-0 top-0 h-full bg-gradient-to-br from-primary to-secondary
-      backdrop-blur-sm border-r border-slate-700/50 shadow-lg rounded-lg
-      transition-all duration-300 ease-in-out z-40
-      ${isCollapsed ? 'w-16' : 'w-72'}
-    `}>
+    <div
+      className={`
+        fixed left-0 top-0 h-full bg-gradient-to-br from-primary to-secondary
+        backdrop-blur-sm border-r border-slate-700/50 shadow-lg rounded-lg
+        transition-all duration-300 ease-in-out z-40 transform
+        ${isCollapsed ? 'w-16 md:translate-x-0 -translate-x-full' : 'w-72 translate-x-0'}
+      `}
+    >
       {/* Header del Sidebar */}
       <div className="flex items-center justify-between p-4 border-b border-slate-700/50">
         {!isCollapsed && (
