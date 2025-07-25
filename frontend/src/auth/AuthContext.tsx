@@ -1,12 +1,7 @@
 // frontend/src/auth/AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { apiService, User, LoginData, RegisterData } from '../services/api';
-
-export interface User {
-  name: string;
-  email: string;
-  // Puedes añadir más campos si lo necesitas, como `id`, `avatar`, etc.
-}
+import { apiService, LoginData, RegisterData } from '../services/api';
+import type { User } from '../types/User';
 
 interface AuthContextType {
   user: User | null;
