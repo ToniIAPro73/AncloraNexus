@@ -15,12 +15,14 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed }) => {
   const { user } = useAuth();
 
   return (
-    <header className={`
-      fixed top-0 right-0 h-16 bg-gradient-to-br from-primary to-secondary
-      backdrop-blur-sm border-b border-slate-700/50 shadow-lg rounded-lg
-      transition-all duration-300 ease-in-out z-30
-      ${sidebarCollapsed ? 'left-16' : 'left-72'}
-    `}>
+    <header
+      className={`
+        fixed top-0 right-0 h-16 bg-gradient-to-br from-primary to-secondary
+        backdrop-blur-sm border-b border-slate-700/50 shadow-lg rounded-lg
+        transition-all duration-300 ease-in-out z-30
+        left-0 ${sidebarCollapsed ? 'md:left-16' : 'md:left-72'}
+      `}
+    >
       <div className="flex items-center justify-between h-full px-6">
         {/* Título de la página actual */}
         <div className="flex items-center">
