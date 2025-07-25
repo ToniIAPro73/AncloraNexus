@@ -106,6 +106,12 @@ Si encuentras problemas:
 2. Ejecuta `node test-all-converters.js`
 3. Revisa `instructions/PRUEBAS.md`
 
+## 📱 Layout Responsivo
+Los componentes del dashboard ahora se adaptan mejor a pantallas pequeñas:
+1. El **sidebar** se oculta fuera de la vista en móviles y aparece deslizando.
+2. El **header** y el contenido principal ocupan todo el ancho en resoluciones inferiores a `768px`.
+3. Al cambiar el tamaño de la ventana, el sidebar se colapsa o expande automáticamente.
+
 ## 📈 Próximos Pasos Recomendados
 1. **Integrar** los conversores en producción
 2. **Probar** con usuarios beta
