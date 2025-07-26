@@ -1,6 +1,6 @@
 // frontend/src/auth/AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { apiService, User, LoginData, RegisterData } from '../services/api';
+import { apiService, User as ApiUser, LoginData, RegisterData } from '../services/api';
 
 export interface User {
   name: string;
@@ -9,13 +9,13 @@ export interface User {
 }
 
 interface AuthContextType {
-  user: User | null;
+  user: ApiUser | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (data: LoginData) => Promise<void>;
   register: (data: RegisterData) => Promise<void>;
   logout: () => void;
-  updateUser: (userData: Partial<User>) => void;
+  updateUser: (userData: Partial<ApiUser>) => void;
   refreshUser: () => Promise<void>;
 }
 
@@ -34,7 +34,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<ApiUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const isAuthenticated = !!user;
@@ -94,7 +94,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setUser(null);
   };
 
-  const updateUser = (userData: Partial<User>) => {
+  const updateUser = (userData: Partial<ApiUser>) => {
     if (user) {
       setUser({ ...user, ...userData });
     }
@@ -103,7 +103,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const refreshUser = async () => {
   try {
     const response = await apiService.getProfile();
-    setUser(response); // ✅ Aquí va el objeto User completo
+    setUser(response); // ✅ Aquí va el objeto de usuario completo
   } catch (error) {
     console.error('Error refrescando usuario:', error);
     logout();
