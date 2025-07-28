@@ -35,3 +35,6 @@ Thumbs.db
 
 # Archivos de backup y comprimidos
 *.tar.gz
+# Archivos de mocks y resultados de pruebas
+_mocks__/
+frontend/test-results/
