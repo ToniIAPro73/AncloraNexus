@@ -17,13 +17,12 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Detectar si es móvil
+  // Detectar si es móvil y colapsar/expandir automáticamente
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-      if (window.innerWidth < 768) {
-        setSidebarCollapsed(true);
-      }
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      setSidebarCollapsed(mobile);
     };
 
     checkMobile();
@@ -62,10 +61,12 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
       )}
 
       {/* Contenido principal */}
-      <main className={`
-        pt-16 min-h-screen transition-all duration-300 ease-in-out relative z-10
-        ${sidebarCollapsed ? 'ml-16' : 'ml-72'}
-      `}>
+      <main
+        className={`
+          pt-16 min-h-screen transition-all duration-300 ease-in-out relative z-10
+          ml-0 ${sidebarCollapsed ? 'md:ml-16' : 'md:ml-72'}
+        `}
+      >
         <div className="p-6">
           {children}
         </div>
