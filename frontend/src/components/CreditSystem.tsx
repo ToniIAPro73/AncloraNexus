@@ -374,7 +374,7 @@ export const ConversionCost: React.FC<ConversionCostProps> = ({
       {!canAfford && (
         <div className="mt-3 p-2 bg-red-100 border border-red-200 rounded">
           <p className="text-red-800 text-sm font-medium">
-            Créditos insuficientes. Necesitas {cost - canAffordConversion(cost) ? 0 : cost} créditos más.
+            Créditos insuficientes. Necesitas {canAffordConversion(cost) ? 0 : cost} créditos más.
           </p>
         </div>
       )}
