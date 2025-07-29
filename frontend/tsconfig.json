@@ -24,10 +24,11 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "paths": {
-      "@/*": [
-        "./*"
-      ]
+    "baseUrl": "src",
+     "paths": {
+      "@/*": ["*"],
+      "@ui/*": ["components/ui/*"],
+      "@lib/*": ["lib/*"]
     },
     "incremental": true,
     "esModuleInterop": true,
