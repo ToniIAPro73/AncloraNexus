@@ -44,27 +44,35 @@ export const Sidebar: React.FC<SidebarProps> = ({
     >
       {/* Header del Sidebar */}
       <div className="flex items-center justify-between p-4 border-b border-slate-700/50">
+        {/* Brand: logo and title only when not collapsed */}
         {!isCollapsed && (
-          <div className="flex items-center">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center text-white font-bold text-sm">
-              A
+          <div className="flex items-center space-x-3">
+            {/* Logo icon */}
+            <img
+              src="/assets/logos/icono-metaform.png"
+              alt="Logo Anclora Metaform"
+              className="w-8 h-8 rounded-lg object-contain"
+            />
+            <div className="flex flex-col">
+              {/* Brand name split across two lines for clarity */}
+              <span className="text-white font-semibold text-sm leading-tight">Anclora Metaform</span>
+              <span className="text-white font-semibold text-xs leading-tight">Workspace</span>
             </div>
-            <div className="ml-3">
-              <h2 className="text-white font-semibold text-sm">Anclora Workspace</h2>
-              <span className="text-xs text-blue-400 bg-blue-400/10 px-2 py-0.5 rounded-full">
-                Beta
-              </span>
-            </div>
+            {/* Beta badge */}
+            <span className="ml-2 text-xs text-blue-400 bg-blue-400/10 px-2 py-0.5 rounded-full whitespace-nowrap">
+              Beta
+            </span>
           </div>
         )}
-        
+        {/* Collapse / expand button */}
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
+          aria-label={isCollapsed ? 'Expandir menú' : 'Colapsar menú'}
           className="p-1.5 rounded-lg hover:bg-slate-700/50 text-gray-400 hover:text-white transition-colors"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-              d={isCollapsed ? "M9 5l7 7-7 7" : "M15 19l-7-7 7-7"} />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+              d={isCollapsed ? 'M9 5l7 7-7 7' : 'M15 19l-7-7 7-7'} />
           </svg>
         </button>
       </div>
