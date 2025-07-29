@@ -10,6 +10,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 ### 🎉 Lanzamiento Inicial
 
 #### ✨ Añadido
+
 - **Conversores Universales**: Implementación completa de 6 conversores de archivos
   - TXT → HTML: Conversión a páginas web con estilos CSS profesionales
   - TXT → DOC: Generación de documentos Word (.docx) compatibles
@@ -44,6 +45,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
   - Configuración de desarrollo completa
 
 #### 🔧 Técnico
+
 - **Frontend**: React 18 + Next.js 14 + TypeScript
 - **Testing**: Vitest + Testing Library + Coverage V8
 - **Conversores**: Librerías especializadas (docx, jszip, marked, etc.)
@@ -51,12 +53,14 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 - **CI/CD**: Configuración para GitHub Actions
 
 #### 📊 Métricas de Calidad
+
 - **Tasa de éxito conversiones**: 100% en pruebas automatizadas
 - **Cobertura de código**: 85%+ en componentes críticos
 - **Tiempo de conversión**: <2s para archivos estándar
 - **Compatibilidad**: Todos los formatos validados técnicamente
 
 #### 🎯 Paridad Competitiva
+
 - **Formatos soportados**: 10 conversiones (vs 11 de Online-File-Converter)
 - **Ventaja adicional**: Formato GIF que competencia no ofrece
 - **Calidad**: Nivel profesional en todas las conversiones
@@ -65,18 +69,21 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 ### 🚀 Próximas Versiones
 
 #### [1.1.0] - Planificado
+
 - Motor de conversión avanzado con rutas multi-paso
 - Conversiones de imágenes (PNG, JPG, GIF)
 - API REST para integraciones
 - Dashboard de usuario mejorado
 
 #### [1.2.0] - Planificado  
+
 - Conversiones multimedia (video/audio)
 - Sistema de barajas y gamificación
 - Integración con servicios cloud
 - Modo batch para conversiones múltiples
 
 #### [2.0.0] - Futuro
+
 - Conversiones de e-books (EPUB, MOBI, AZW)
 - IA avanzada para optimización automática
 - Plantillas personalizables
@@ -98,4 +105,3 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.h
 - **🗑️ Removido**: Funcionalidades removidas
 - **🐛 Corregido**: Corrección de bugs
 - **🔒 Seguridad**: Vulnerabilidades corregidas
-

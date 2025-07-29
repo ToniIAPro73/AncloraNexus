@@ -1,1 +1,7 @@
-// frontend/src/components/ConversorInteligente.tsx\r\nimport React, { useState } from "react";\r\nimport "../styles/converter-styles.css";\r\n\r\nexport const ConversorInteligente: React.FC = () => {\r\n  const [currentStep, setCurrentStep] = useState(3);\r\n\r\n  return (\r\n    <div className="converter-container">\r\n      <h1>Conversor Inteligente</h1>\r\n      <p>Implementación pendiente</p>\r\n    </div>\r\n  );\r\n};
+import React from "react";
+
+const ConversorInteligente = () => {
+  return <div>Conversor Inteligente activo</div>;
+};
+
+export default ConversorInteligente;

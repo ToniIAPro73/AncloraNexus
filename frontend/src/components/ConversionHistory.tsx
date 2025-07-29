@@ -110,15 +110,15 @@ export const ConversionHistory: React.FC = () => {
         <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
             <div>
-              <div className="text-2xl font-bold text-blue-400">{user.total_conversions}</div>
+              <div className="text-2xl font-bold text-blue-400">{user.total_conversions || 0}</div>
               <div className="text-slate-400">Total Conversiones</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-green-400">{user.credits}</div>
+              <div className="text-2xl font-bold text-green-400">{user.credits || 0}</div>
               <div className="text-slate-400">Créditos Disponibles</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-purple-400">{user.credits_used_this_month}</div>
+              <div className="text-2xl font-bold text-purple-400">{user.credits_used_this_month || 0}</div>
               <div className="text-slate-400">Créditos Usados Este Mes</div>
             </div>
           </div>
@@ -219,4 +219,3 @@ export const ConversionHistory: React.FC = () => {
     </div>
   );
 };
-
