@@ -94,7 +94,7 @@ export const CreditPurchase: React.FC = () => {
     <div className="space-y-8">
       {/* Header */}
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-white mb-2">
+        <h1 className="text-h1 text-white mb-2">
           💳 Gestión de Créditos
         </h1>
         <p className="text-slate-300">
@@ -140,18 +140,16 @@ export const CreditPurchase: React.FC = () => {
 
       {/* Paquetes de créditos */}
       <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
-        <h2 className="text-2xl font-bold text-white mb-6 text-center">
+        <h2 className="text-h2 text-white mb-6 text-center">
           🎯 Paquetes de Créditos
         </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {creditPackages.map((pkg, index) => (
-            <div 
+            <div
               key={index}
-              className={`relative p-4 rounded-lg border transition-all duration-200 hover:scale-105 ${
-                pkg.popular 
-                  ? 'bg-gradient-to-br from-blue-500/20 to-purple-500/20 border-blue-500/50' 
-                  : 'bg-slate-700/30 border-slate-600/30 hover:border-blue-500/30'
+              className={`card relative transition-all duration-200 hover:scale-105 ${
+                pkg.popular ? 'border-primary' : ''
               }`}
             >
               {pkg.popular && (
@@ -161,8 +159,8 @@ export const CreditPurchase: React.FC = () => {
                   </span>
                 </div>
               )}
-              
-              <div className="text-center">
+
+              <div className="card-body text-center">
                 <div className="text-2xl font-bold text-white mb-1">
                   {pkg.credits + pkg.bonus}
                 </div>
@@ -181,7 +179,7 @@ export const CreditPurchase: React.FC = () => {
                 <button
                   onClick={() => handlePurchaseCredits(pkg.credits)}
                   disabled={isLoading}
-                  className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 px-3 rounded text-sm transition-colors disabled:opacity-50"
+                  className="btn btn-primary w-full text-sm disabled:opacity-50"
                 >
                   {isLoading ? 'Comprando...' : 'Comprar'}
                 </button>
@@ -193,18 +191,16 @@ export const CreditPurchase: React.FC = () => {
 
       {/* Planes de suscripción */}
       <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
-        <h2 className="text-2xl font-bold text-white mb-6 text-center">
+        <h2 className="text-h2 text-white mb-6 text-center">
           🚀 Planes de Suscripción
         </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {plans.map((plan) => (
-            <div 
+            <div
               key={plan.id}
-              className={`relative p-6 rounded-lg border transition-all duration-200 ${
-                plan.popular 
-                  ? 'bg-gradient-to-br from-blue-500/20 to-purple-500/20 border-blue-500/50 scale-105' 
-                  : 'bg-slate-700/30 border-slate-600/30'
+              className={`card relative transition-all duration-200 ${
+                plan.popular ? 'border-primary scale-105' : ''
               }`}
             >
               {plan.popular && (
@@ -214,20 +210,21 @@ export const CreditPurchase: React.FC = () => {
                   </span>
                 </div>
               )}
-              
-              <div className="text-center mb-4">
-                <h3 className="text-xl font-bold text-white mb-2">{plan.name}</h3>
-                <div className="text-3xl font-bold text-blue-400 mb-1">
-                  €{plan.price}
-                </div>
-                <div className="text-slate-400 text-sm">por mes</div>
-              </div>
-              
-              <div className="mb-6">
+
+              <div className="card-body">
                 <div className="text-center mb-4">
-                  <span className="text-lg font-bold text-green-400">{plan.credits}</span>
-                  <span className="text-slate-400 text-sm ml-1">créditos/mes</span>
+                  <h3 className="text-xl font-bold text-white mb-2">{plan.name}</h3>
+                  <div className="text-3xl font-bold text-blue-400 mb-1">
+                    €{plan.price}
+                  </div>
+                  <div className="text-slate-400 text-sm">por mes</div>
                 </div>
+
+                <div className="mb-6">
+                  <div className="text-center mb-4">
+                    <span className="text-lg font-bold text-green-400">{plan.credits}</span>
+                    <span className="text-slate-400 text-sm ml-1">créditos/mes</span>
+                  </div>
                 
                 <ul className="space-y-2">
                   {plan.features.map((feature, index) => (
@@ -242,13 +239,11 @@ export const CreditPurchase: React.FC = () => {
               <button
                 onClick={() => handleUpgradePlan(plan.id)}
                 disabled={isLoading || user?.plan === plan.id}
-                className={`w-full py-2 px-4 rounded font-medium transition-colors ${
+                className={`btn w-full font-medium transition-colors ${
                   user?.plan === plan.id
-                    ? 'bg-gray-500 text-gray-300 cursor-not-allowed'
-                    : plan.popular
-                    ? 'bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white'
-                    : 'bg-blue-500 hover:bg-blue-600 text-white'
-                } disabled:opacity-50`}
+                    ? 'btn-secondary cursor-not-allowed opacity-50'
+                    : 'btn-primary'
+                }`}
               >
                 {user?.plan === plan.id 
                   ? 'Plan Actual' 
@@ -256,7 +251,8 @@ export const CreditPurchase: React.FC = () => {
                   ? 'Actualizando...' 
                   : 'Seleccionar Plan'
                 }
-              </button>
+                </button>
+              </div>
             </div>
           ))}
         </div>
