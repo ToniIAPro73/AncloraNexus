@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { apiService, LoginData, RegisterData } from '../services/api';
 import type { User } from '../types/User';
 
+
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
@@ -98,7 +99,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const refreshUser = async () => {
   try {
     const response = await apiService.getProfile();
-    setUser(response); // ✅ Aquí va el objeto User completo
+    setUser(response); // ✅ Aquí va el objeto de usuario completo
   } catch (error) {
     console.error('Error refrescando usuario:', error);
     logout();
@@ -341,7 +342,7 @@ export const UserProfile: React.FC = () => {
             </div>
             <div>
               <span className="text-gray-400 block text-sm">Plan:</span>
-              <span className="text-primary font-medium">{user.plan_info.name}</span>
+              <span className="text-primary font-medium">{user.plan_info?.name ?? 'Sin plan asignado'}</span>
             </div>
             <div>
               <span className="text-gray-400 block text-sm">Créditos:</span>
