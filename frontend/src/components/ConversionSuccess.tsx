@@ -33,35 +33,37 @@ export const ConversionSuccess: React.FC<ConversionSuccessProps> = ({ fromFile, 
 
   return (
     <div className="flex flex-col items-center text-center space-y-6">
-      <div className="flex items-center justify-center w-16 h-16 bg-green-100 rounded-full">
-        <IconCheck className="w-10 h-10 text-green-600" />
+      <div className="flex items-center justify-center w-16 h-16 rounded-full bg-green-100">
+        <IconCheck className="w-10 h-10 text-success" />
       </div>
       <div>
-        <h2 className="text-2xl font-bold text-slate-800">Conversion Complete!</h2>
-        <p className="text-slate-500 mt-1">
-          Your file <span className="font-semibold text-slate-700">{fromFile}</span> has been converted to <span className="font-semibold text-slate-700">{toFormat}</span>.
+        <h2 className="text-h2 text-success">¡Conversión completada!</h2>
+        <p className="text-body mt-1">
+          Tu archivo <span className="font-semibold">{fromFile}</span> se convirtió a <span className="font-semibold text-primary">{toFormat}</span>.
         </p>
       </div>
 
-      <div className="w-full max-w-md bg-slate-50 border rounded-lg p-4">
-        <p className="font-mono text-slate-800 break-all">{getNewFileName()}</p>
+      <div className="card w-full max-w-md">
+        <div className="card-body">
+          <p className="font-mono break-all">{getNewFileName()}</p>
+        </div>
       </div>
-      
+
       <div className="w-full flex flex-col sm:flex-row sm:justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
         <button
-            onClick={onReset}
-            className="w-full sm:w-auto order-2 sm:order-1 flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-slate-700 bg-slate-200 hover:bg-slate-300 transition-colors"
-          >
-            <IconRefresh className="w-5 h-5 mr-2" />
-            Convert Another
-          </button>
-          <button
-            onClick={handleDownload}
-            className="w-full sm:w-auto order-1 sm:order-2 flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
-          >
-            <IconDownload className="w-5 h-5 mr-2" />
-            Download File
-          </button>
+          onClick={onReset}
+          className="btn btn-secondary w-full sm:w-auto order-2 sm:order-1 flex items-center justify-center"
+        >
+          <IconRefresh className="w-5 h-5 mr-2" />
+          Convertir otro
+        </button>
+        <button
+          onClick={handleDownload}
+          className="btn btn-primary w-full sm:w-auto order-1 sm:order-2 flex items-center justify-center"
+        >
+          <IconDownload className="w-5 h-5 mr-2" />
+          Descargar archivo
+        </button>
       </div>
     </div>
   );

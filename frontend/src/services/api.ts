@@ -1,25 +1,5 @@
 // --- TIPOS DE DATOS (Interfaces) ---
-// Esta interfaz 'User' está actualizada para coincidir con lo que el backend devuelve
-export interface User {
-  id: number;
-  full_name: string;
-  email: string;
-  credits: number;
-  plan: string;
-  plan_info: {
-    name: string;
-    monthly_credits?: number;
-    daily_limit?: number;
-    price?: number;
-    features?: string[];
-  };
-  total_conversions: number;
-  credits_used_today: number;
-  credits_used_this_month: number;
-  created_at: string | null;
-  last_login: string | null;
-  is_active: boolean;
-}
+import type { User } from '../types/User';
 
 export interface LoginData {
   email: string;

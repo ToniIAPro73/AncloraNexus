@@ -1,21 +1,17 @@
 // frontend/src/auth/AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { apiService, User as ApiUser, LoginData, RegisterData } from '../services/api';
+import { apiService, LoginData, RegisterData } from '../services/api';
+import type { User } from '../types/User';
 
-export interface User {
-  name: string;
-  email: string;
-  // Puedes añadir más campos si lo necesitas, como `id`, `avatar`, etc.
-}
 
 interface AuthContextType {
-  user: ApiUser | null;
+  user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (data: LoginData) => Promise<void>;
   register: (data: RegisterData) => Promise<void>;
   logout: () => void;
-  updateUser: (userData: Partial<ApiUser>) => void;
+  updateUser: (userData: Partial<User>) => void;
   refreshUser: () => Promise<void>;
 }
 
@@ -34,7 +30,7 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<ApiUser | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const isAuthenticated = !!user;
@@ -94,7 +90,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setUser(null);
   };
 
-  const updateUser = (userData: Partial<ApiUser>) => {
+  const updateUser = (userData: Partial<User>) => {
     if (user) {
       setUser({ ...user, ...userData });
     }
@@ -346,7 +342,7 @@ export const UserProfile: React.FC = () => {
             </div>
             <div>
               <span className="text-gray-400 block text-sm">Plan:</span>
-              <span className="text-primary font-medium">{user.plan_info.name}</span>
+              <span className="text-primary font-medium">{user.plan_info?.name ?? 'Sin plan asignado'}</span>
             </div>
             <div>
               <span className="text-gray-400 block text-sm">Créditos:</span>
