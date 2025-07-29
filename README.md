@@ -82,6 +82,8 @@ npm install
 
 # Configurar variables de entorno
 cp .env.example .env.local
+cp frontend/.env.example frontend/.env.local
+# Edit `frontend/.env.local` and set `NEXT_PUBLIC_API_BASE_URL` to the URL of your backend API
 
 # Iniciar en modo desarrollo
 npm run dev
