@@ -1,10 +1,14 @@
-import React from 'react';
-import { UniversalConverter } from '../components/UniversalConverter';
+import { MainLayout } from "../components/Layout/MainLayout";
+import ConversorInteligente from "../components/ConversorInteligente";
+import { useState } from "react";
+
 
 export default function HomePage() {
+  const [activeTab, setActiveTab] = useState("Conversor");
+
   return (
-    <main>
-      <UniversalConverter />
-    </main>
+    <MainLayout activeTab={activeTab} setActiveTab={setActiveTab}>
+      <ConversorInteligente />
+    </MainLayout>
   );
 }

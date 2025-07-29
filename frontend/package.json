@@ -3,15 +3,21 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"next dev\" \"open-cli http://localhost:3000\"",
+    "dev": "concurrently \"next dev\" \"start chrome http://localhost:3000\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.2.3",
+    "class-variance-authority": "^0.7.1",
+    "lucide-react": "^0.532.0",
     "next": "^14.2.30",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "tailwind-merge": "^3.3.1",
+    "tailwind-variants": "^2.0.1",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.11",

@@ -1,7 +1,7 @@
-// frontend/src/components/Layout/MainLayout.tsx
 import React, { useState, useEffect } from 'react';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
+import { CreditProvider, CreditBalance, CreditHistory } from '@/components/CreditSystem';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -9,15 +9,14 @@ interface MainLayoutProps {
   setActiveTab: (tab: string) => void;
 }
 
-export const MainLayout: React.FC<MainLayoutProps> = ({ 
-  children, 
-  activeTab, 
-  setActiveTab 
+export const MainLayout: React.FC<MainLayoutProps> = ({
+  children,
+  activeTab,
+  setActiveTab,
 }) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Detectar si es móvil y colapsar/expandir automáticamente
   useEffect(() => {
     const checkMobile = () => {
       const mobile = window.innerWidth < 768;
@@ -32,13 +31,11 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
-      {/* Fondo animado con efecto de ondas */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/10 to-primary/20 animate-pulse"></div>
-        <div className="absolute top-0 left-0 w-full h-full">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        </div>
+      {/* Fondo animado de ondas */}
+      <div className="absolute inset-0 opacity-30 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/10 to-primary/20 animate-pulse" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-pulse delay-1000" />
       </div>
 
       {/* Sidebar */}
@@ -52,9 +49,9 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
       {/* Header */}
       <Header sidebarCollapsed={sidebarCollapsed} />
 
-      {/* Overlay para móvil cuando el sidebar está abierto */}
+      {/* Capa negra en móvil al abrir menú */}
       {isMobile && !sidebarCollapsed && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/50 z-30"
           onClick={() => setSidebarCollapsed(true)}
         />
@@ -63,15 +60,21 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
       {/* Contenido principal */}
       <main
         className={`
-          pt-16 min-h-screen transition-all duration-300 ease-in-out relative z-10
+          pt-16 min-h-screen relative z-10 transition-all duration-300 ease-in-out
           ml-0 ${sidebarCollapsed ? 'md:ml-16' : 'md:ml-72'}
         `}
       >
-        <div className="p-6">
-          {children}
-        </div>
+        {activeTab === 'Créditos' ? (
+          <CreditProvider>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
+              <CreditBalance />
+              <CreditHistory />
+            </div>
+          </CreditProvider>
+        ) : (
+          <div className="p-6">{children}</div>
+        )}
       </main>
     </div>
   );
 };
-
