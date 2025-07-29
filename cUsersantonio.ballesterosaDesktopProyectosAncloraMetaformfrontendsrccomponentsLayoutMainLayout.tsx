@@ -3,8 +3,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 import { CreditProvider } from '@/components/CreditSystem';
-import CreditBalance from '@/components/CreditSystem/CreditBalance';
-import CreditHistory from '@/components/CreditSystem/CreditHistory';
+import { CreditBalance, CreditHistory } from '@/components/CreditSystem';
 
 interface MainLayoutProps {
   children: React.ReactNode;
