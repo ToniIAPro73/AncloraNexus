@@ -14,8 +14,8 @@ export interface RegisterData {
 
 // --- LÓGICA DEL SERVICIO DE API ---
 
-// URL base de la API. En el futuro, esto debería venir de un archivo .env
-const API_BASE_URL = 'http://localhost:8000/api';
+// URL base de la API configurable mediante variable de entorno
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000/api';
 
 // --- Funciones de Ayuda para el Token ---
 const setAuthToken = (token: string) => {
@@ -134,6 +134,43 @@ export const apiService = {
     });
     if (!response.ok) throw new Error('Error al descargar el archivo');
     return response.blob();
+  },
+
+  getConversionHistory: async (): Promise<any> => {
+    const token = getAuthToken();
+    const response = await fetch(`${API_BASE_URL}/conversion/history`, {
+      headers: { 'Authorization': `Bearer ${token}` },
+    });
+    if (!response.ok) throw new Error('Error obteniendo el historial de conversiones');
+    return response.json();
+  },
+
+  purchaseCredits: async (amount: number): Promise<any> => {
+    const token = getAuthToken();
+    const response = await fetch(`${API_BASE_URL}/billing/purchase`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ amount }),
+    });
+    if (!response.ok) throw new Error('Error comprando créditos');
+    return response.json();
+  },
+
+  upgradePlan: async (planId: string): Promise<any> => {
+    const token = getAuthToken();
+    const response = await fetch(`${API_BASE_URL}/billing/upgrade`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ plan_id: planId }),
+    });
+    if (!response.ok) throw new Error('Error actualizando plan');
+    return response.json();
   },
 };
 
