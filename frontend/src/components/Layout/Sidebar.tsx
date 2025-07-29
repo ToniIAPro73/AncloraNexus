@@ -39,14 +39,39 @@ export const Sidebar: React.FC<SidebarProps> = ({
         isCollapsed ? "w-16" : "w-72"
       )}
     >
-      {/* Branding */}
-      <div className="flex items-center gap-3 px-4 py-4 border-b border-white/10">
-        <img src="/icono-metaform.png" alt="Logo" className="w-8 h-8" />
+      {/* Header del Sidebar */}
+      <div className="flex items-center justify-between p-4 border-b border-slate-700/50">
+        {/* Brand: logo and title only when not collapsed */}
         {!isCollapsed && (
-          <span className="text-base font-semibold tracking-wide">
-            Anclora Metaform Workspace
-          </span>
+          <div className="flex items-center space-x-3">
+            {/* Logo icon */}
+            <img
+              src="/assets/logos/icono-metaform.png"
+              alt="Logo Anclora Metaform"
+              className="w-8 h-8 rounded-lg object-contain"
+            />
+            <div className="flex flex-col">
+              {/* Brand name split across two lines for clarity */}
+              <span className="text-white font-semibold text-sm leading-tight">Anclora Metaform</span>
+              <span className="text-white font-semibold text-xs leading-tight">Workspace</span>
+            </div>
+            {/* Beta badge */}
+            <span className="ml-2 text-xs text-blue-400 bg-blue-400/10 px-2 py-0.5 rounded-full whitespace-nowrap">
+              Beta
+            </span>
+          </div>
         )}
+        {/* Collapse / expand button */}
+        <button
+          onClick={() => setIsCollapsed(!isCollapsed)}
+          aria-label={isCollapsed ? 'Expandir menú' : 'Colapsar menú'}
+          className="p-1.5 rounded-lg hover:bg-slate-700/50 text-gray-400 hover:text-white transition-colors"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+              d={isCollapsed ? 'M9 5l7 7-7 7' : 'M15 19l-7-7 7-7'} />
+          </svg>
+        </button>
       </div>
 
       {/* Menu principal */}
