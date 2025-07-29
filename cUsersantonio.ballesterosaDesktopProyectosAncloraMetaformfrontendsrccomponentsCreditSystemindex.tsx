@@ -1,7 +1,7 @@
 // frontend/src/components/CreditSystem/index.tsx
 import React, { createContext, useContext, useState, ReactNode, useMemo } from 'react';
 import { 
-  CreditBalance, 
+  CreditBalance as CreditBalanceType, 
   CreditTransaction, 
   CreditContextType,
   CONVERSION_COSTS,
@@ -21,14 +21,14 @@ export const useCreditSystem = () => {
 
 interface CreditProviderProps {
   children: ReactNode;
-  initialBalance?: Partial<CreditBalance>;
+  initialBalance?: Partial<CreditBalanceType>;
 }
 
 export const CreditProvider: React.FC<CreditProviderProps> = ({ 
   children, 
   initialBalance = {} 
 }) => {
-  const [balance, setBalance] = useState<CreditBalance>({
+  const [balance, setBalance] = useState<CreditBalanceType>({
     current: 50, // Plan gratuito: 50 créditos
     total_purchased: 0,
     total_consumed: 0,
@@ -162,6 +162,8 @@ export const CreditProvider: React.FC<CreditProviderProps> = ({
 };
 
 export { CONVERSION_COSTS, SIZE_MULTIPLIERS, QUALITY_MULTIPLIERS };
+
+// Exportar los componentes
 export { default as CreditBalance } from './CreditBalance';
 export { default as CreditHistory } from './CreditHistory';
 export { default as ConversionCost } from './ConversionCost';
