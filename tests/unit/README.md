@@ -19,6 +19,8 @@ pip install -r requirements-test.txt
 tests/unit/
 ├── conftest.py              # Configuración de fixtures para pytest
 ├── test_user_model.py       # Pruebas para el modelo User
+├── test_conversion_models.py # Pruebas para Conversion y CreditTransaction
+├── test_conversion_engine.py # Pruebas para ConversionEngine
 └── README.md               # Este archivo
 ```
 
@@ -30,19 +32,16 @@ tests/unit/
 python -m pytest tests/unit/ -v
 ```
 
-### Pruebas específicas del modelo User
+### Pruebas específicas
 ```bash
+# Modelo User
 python -m pytest tests/unit/test_user_model.py -v
-```
 
-### Con reporte de cobertura
-```bash
-python -m pytest tests/unit/test_user_model.py --cov=src.models.user --cov-report=term-missing
-```
+# Modelos Conversion y CreditTransaction
+python -m pytest tests/unit/test_conversion_models.py -v
 
-### Con reporte HTML de cobertura
-```bash
-python -m pytest tests/unit/test_user_model.py --cov=src.models.user --cov-report=html
+# Motor de conversión
+python -m pytest tests/unit/test_conversion_engine.py -v
 ```
 
 ## Pruebas del modelo User
