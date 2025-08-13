@@ -52,3 +52,12 @@ __pycache__/
 
 # Node modules (si aplica)
 node_modules/
+
+# Directorios de agentes
+.claude/
+.cursor/
+.ai/
+
+# Package files en raíz (solo frontend debe tenerlos)
+/package-lock.json
+/package.json
