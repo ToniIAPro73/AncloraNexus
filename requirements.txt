@@ -1,1 +1,2 @@
-python-docx>=0.8.11
+# Raíz -> delega en backend para evitar duplicados
+-r backend/requirements.txt
