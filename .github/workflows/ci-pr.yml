@@ -1,29 +1,54 @@
 name: CI PR
 
 on:
-  push:
   pull_request:
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+          cache: 'pip'
 
-      - name: Install dependencies
+      - name: Install dependencies (backend + test) + Preflight
         shell: bash
         run: |
           set -euo pipefail
           python -m pip install --upgrade pip
-          pip install -r backend/requirements.txt
-          if [ -f backend/requirements-test.txt ]; then pip install -r backend/requirements-test.txt; fi
-          pip install python-docx fpdf2
-          python -c "import pkgutil,sys; ok1=pkgutil.find_loader('docx') is not None; ok2=pkgutil.find_loader('fpdf') is not None; print(f'Has docx?: {ok1} | Has fpdf?: {ok2}'); sys.exit(0 if (ok1 and ok2) else 1)"
+
+          # Backend deps
+          if [ -f backend/requirements.txt ]; then
+            pip install -r backend/requirements.txt
+          fi
+
+          # Test deps
+          if [ -f backend/requirements-test.txt ]; then
+            pip install -r backend/requirements-test.txt
+          fi
+
+          # Diagnóstico rápido
+          pip freeze | grep -Ei 'python-docx|fpdf2|pypdf2' || true
+
+          # Preflight: asegura módulos clave antes de lanzar pytest
+          python - <<'PY'
+          import pkgutil, sys
+          required = ["docx", "fpdf", "PyPDF2"]
+          status = {m: (pkgutil.find_loader(m) is not None) for m in required}
+          print("Preflight deps ->", status)
+          missing = [m for m, ok in status.items() if not ok]
+          if missing:
+              sys.stderr.write(f"Missing: {missing}\n")
+              sys.exit(1)
+          PY
 
       - name: Run tests
         env:
