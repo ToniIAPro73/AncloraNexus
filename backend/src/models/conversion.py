@@ -7,7 +7,7 @@ import uuid
 from docx import Document
 from fpdf import FPDF
 from PIL import Image, ImageDraw
-import PyPDF2
+from pypdf import PdfReader
 
 # Importar el motor de conversión existente
 # (Aquí integraremos el motor que ya tienes implementado)
@@ -389,7 +389,7 @@ class ConversionEngine:
     def _convert_pdf_to_txt(self, input_path, output_path):
         """Convierte PDF a TXT"""
         try:
-            reader = PyPDF2.PdfReader(input_path)
+            reader = PdfReader(input_path)
             text = ''
             for page in reader.pages:
                 text += page.extract_text() or ''
