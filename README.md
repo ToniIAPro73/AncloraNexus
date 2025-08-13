@@ -84,10 +84,20 @@ npm install
 cp .env.example .env.local
 cp frontend/.env.example frontend/.env.local
 # Edit `frontend/.env.local` and set `NEXT_PUBLIC_API_BASE_URL` to the URL of your backend API
+# Define `SECRET_KEY` y `JWT_SECRET_KEY` en `.env.local` o variables de entorno del sistema
 
 # Iniciar en modo desarrollo
 npm run dev
 ```
+
+### Variables de entorno requeridas
+
+El backend requiere las siguientes variables para ejecutarse:
+
+- `SECRET_KEY`: clave usada por Flask para sesiones y cookies.
+- `JWT_SECRET_KEY`: clave usada para firmar y verificar tokens JWT.
+
+Asegúrate de definirlas en tu `.env.local` o como variables de entorno del sistema antes de iniciar el servidor.
 
 ### Uso Básico
 
