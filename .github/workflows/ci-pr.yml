@@ -1,47 +1,33 @@
-name: CI PR
+name: test
 
 on:
   pull_request:
-    branches: [ main ]
-  workflow_dispatch:
+    branches: [main]
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
-          cache: pip
+          python-version: '3.10'
 
-      - name: Install dependencies (backend + test) + Preflight
-        shell: bash
+      - name: Install dependencies
         run: |
-          set -euo pipefail
           python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements-test.txt || true
 
-          # Backend deps
-          if [ -f backend/requirements.txt ]; then
-            pip install -r backend/requirements.txt
-          fi
-
-          # Test deps
-          if [ -f backend/requirements-test.txt ]; then
-            pip install -r backend/requirements-test.txt
-          fi
-
-          # Fuerza los paquetes que importan los tests
-          pip install --upgrade "python-docx>=0.8.11" "fpdf2>=2.7" "pypdf" || true
-
-
-          # Preflight (sin heredoc)
-          python -c "import importlib.util as u; has=lambda m:u.find_spec(m) is not None; print('Has PyPDF2?:',has('PyPDF2')); print('Has pypdf?:',has('pypdf')); print('Has fpdf2?:',has('fpdf')); print('Has docx?:',has('docx'))"
+      - name: Cleanup compiled files
+        run: |
+          find . -type d -name '__pycache__' -exec rm -rf {} +
+          rm -rf .pytest_cache
 
       - name: Run tests
-        env:
-          PYTHONPATH: ${{ github.workspace }}/backend/src
-        run: pytest -q
+        run: |
+          pytest -q
