@@ -8,7 +8,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -16,8 +15,8 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
-          cache: 'pip'
+          python-version: "3.10"
+          cache: pip
 
       - name: Install dependencies (backend + test) + Preflight
         shell: bash
@@ -35,20 +34,11 @@ jobs:
             pip install -r backend/requirements-test.txt
           fi
 
-          # Diagnóstico rápido
-          pip freeze | grep -Ei 'python-docx|fpdf2|pypdf2' || true
+          # Fuerza los paquetes que importan los tests
+          pip install --upgrade "PyPDF2<3" "python-docx>=0.8.11" "fpdf2>=2.7" pypdf || true
 
-          # Preflight: asegura módulos clave antes de lanzar pytest
-          python - <<'PY'
-          import pkgutil, sys
-          required = ["docx", "fpdf", "PyPDF2"]
-          status = {m: (pkgutil.find_loader(m) is not None) for m in required}
-          print("Preflight deps ->", status)
-          missing = [m for m, ok in status.items() if not ok]
-          if missing:
-              sys.stderr.write(f"Missing: {missing}\n")
-              sys.exit(1)
-          PY
+          # Preflight (sin heredoc)
+          python -c "import importlib.util as u; has=lambda m:u.find_spec(m) is not None; print('Has PyPDF2?:',has('PyPDF2')); print('Has pypdf?:',has('pypdf')); print('Has fpdf2?:',has('fpdf')); print('Has docx?:',has('docx'))"
 
       - name: Run tests
         env:
