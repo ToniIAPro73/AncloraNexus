@@ -1,0 +1,2 @@
+# Raíz -> delega en backend para evitar duplicados
+-r backend/requirements.txt
