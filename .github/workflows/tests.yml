@@ -8,15 +8,27 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+
       - name: Install dependencies
+        shell: bash
         run: |
+          set -euo pipefail
           python -m pip install --upgrade pip
+          # instala los requirements del backend (los que usa tu CI)
           pip install -r backend/requirements.txt
-          pip install -r backend/requirements-test.txt
+          if [ -f backend/requirements-test.txt ]; then pip install -r backend/requirements-test.txt; fi
+          # salvavidas para este PR
+          pip install python-docx
+          # verificación explícita
+          python -c "import pkgutil,sys; ok=pkgutil.find_loader('docx') is not None; print(f'Has docx?: {ok}'); sys.exit(0 if ok else 1)"
+
       - name: Run tests
-        run: pytest
+        env:
+          PYTHONPATH: ${{ github.workspace }}/backend/src
+        run: pytest -q
