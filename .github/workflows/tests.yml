@@ -20,15 +20,15 @@ jobs:
         run: |
           set -euo pipefail
           python -m pip install --upgrade pip
-          # instala los requirements del backend (los que usa tu CI)
           pip install -r backend/requirements.txt
           if [ -f backend/requirements-test.txt ]; then pip install -r backend/requirements-test.txt; fi
           # salvavidas para este PR
-          pip install python-docx
+          pip install python-docx fpdf2
           # verificación explícita
-          python -c "import pkgutil,sys; ok=pkgutil.find_loader('docx') is not None; print(f'Has docx?: {ok}'); sys.exit(0 if ok else 1)"
+          python -c "import pkgutil,sys; ok1=pkgutil.find_loader('docx') is not None; ok2=pkgutil.find_loader('fpdf') is not None; print(f'Has docx?: {ok1} | Has fpdf?: {ok2}'); sys.exit(0 if (ok1 and ok2) else 1)"
 
       - name: Run tests
         env:
           PYTHONPATH: ${{ github.workspace }}/backend/src
         run: pytest -q
+
