@@ -35,7 +35,8 @@ jobs:
           fi
 
           # Fuerza los paquetes que importan los tests
-          pip install --upgrade "PyPDF2<3" "python-docx>=0.8.11" "fpdf2>=2.7" pypdf || true
+          pip install --upgrade "python-docx>=0.8.11" "fpdf2>=2.7" "pypdf" || true
+
 
           # Preflight (sin heredoc)
           python -c "import importlib.util as u; has=lambda m:u.find_spec(m) is not None; print('Has PyPDF2?:',has('PyPDF2')); print('Has pypdf?:',has('pypdf')); print('Has fpdf2?:',has('fpdf')); print('Has docx?:',has('docx'))"
