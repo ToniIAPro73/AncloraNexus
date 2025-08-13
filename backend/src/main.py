@@ -16,8 +16,13 @@ from datetime import timedelta
 app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
 
 # Configuración de seguridad
-app.config['SECRET_KEY'] = 'anclora-metaform-secret-key-2024'
-app.config['JWT_SECRET_KEY'] = 'anclora-jwt-secret-key-2024'
+secret_key = os.environ.get('SECRET_KEY')
+jwt_secret_key = os.environ.get('JWT_SECRET_KEY')
+if not secret_key or not jwt_secret_key:
+    raise RuntimeError('SECRET_KEY and JWT_SECRET_KEY must be set as environment variables')
+
+app.config['SECRET_KEY'] = secret_key
+app.config['JWT_SECRET_KEY'] = jwt_secret_key
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=7)
 
 # Configuración de CORS para permitir requests del frontend
