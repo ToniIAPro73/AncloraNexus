@@ -11,6 +11,7 @@ from pypdf import PdfReader
 
 # Importar el motor de conversión existente
 # (Aquí integraremos el motor que ya tienes implementado)
+# (Aquí integraremos el motor que ya tienes implementado)
 
 class ConversionEngine:
     """Motor de conversión de Anclora Metaform"""
