@@ -12,6 +12,9 @@
 - mov → mp4
 - png → jpg, webp
 - jpg → png, webp
+- webp → jpg, png
+- png → svg
+- svg → png
 - docx → pdf, txt
 - pdf → docx
 

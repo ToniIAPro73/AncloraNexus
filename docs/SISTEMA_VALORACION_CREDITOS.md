@@ -80,9 +80,12 @@ Las conversiones básicas representan transformaciones directas entre formatos s
 
 **Conversiones de Imagen Básicas:**
 - JPG ↔ PNG (1 crédito): Conversión directa entre formatos raster comunes
-- BMP → JPG (1 crédito): Compresión básica sin pérdida de calidad significativa  
-- GIF → PNG (1 crédito): Preservación de transparencia básica
-- WEBP → JPG (1 crédito): Conversión de formato web moderno a estándar
+- JPG ↔ WEBP (1 crédito): Optimización para web moderna
+- PNG ↔ WEBP (1 crédito): Optimización web con transparencia
+- PNG ↔ SVG (2 créditos): Raster a vector básico
+- GIF ↔ PNG (1 crédito): Preservación de transparencia básica
+- GIF ↔ WEBP (2 créditos): Animación optimizada
+- BMP → JPG (1 crédito): Compresión básica sin pérdida de calidad significativa
 
 **Conversiones de Documento Simples:**
 - TXT → PDF (1 crédito): Generación de PDF básico sin formateo complejo
@@ -105,6 +108,7 @@ Las conversiones estándar involucran procesamiento más complejo, utilización 
 - MOV → MP4 (3 créditos): Conversión entre formatos de contenedor populares
 - WMV → MP4 (4 créditos): Migración desde formato propietario Microsoft
 - FLV → MP4 (4 créditos): Conversión desde formato Flash legacy
+- MP4 ↔ GIF (5 créditos): Conversión básica entre video y animación
 
 **Procesamiento de Audio Profesional:**
 - WAV → FLAC (3 créditos): Compresión sin pérdida con algoritmos avanzados

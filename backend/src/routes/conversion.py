@@ -20,7 +20,7 @@ os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
 ALLOWED_EXTENSIONS = {
     'txt', 'pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png', 'gif',
-    'html', 'md', 'rtf', 'odt', 'tex'
+    'html', 'md', 'rtf', 'odt', 'tex', 'webp', 'svg', 'mp4'
 }
 
 def allowed_file(filename):

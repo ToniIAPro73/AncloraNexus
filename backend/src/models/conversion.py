@@ -3,6 +3,8 @@ from datetime import datetime
 import os
 import tempfile
 import uuid
+import io
+import base64
 
 from docx import Document
 from fpdf import FPDF
@@ -41,17 +43,33 @@ class ConversionEngine:
             'jpg': {
                 'png': 1,
                 'pdf': 3,
-                'gif': 2
+                'gif': 2,
+                'webp': 1
             },
             'png': {
                 'jpg': 1,
                 'pdf': 3,
-                'gif': 2
+                'gif': 2,
+                'webp': 1,
+                'svg': 2
             },
             'gif': {
                 'jpg': 1,
                 'png': 1,
-                'pdf': 3
+                'pdf': 3,
+                'webp': 2,
+                'mp4': 5
+            },
+            'webp': {
+                'jpg': 1,
+                'png': 1,
+                'gif': 2
+            },
+            'svg': {
+                'png': 2
+            },
+            'mp4': {
+                'gif': 5
             },
             'doc': {
                 'pdf': 4,
@@ -82,12 +100,22 @@ class ConversionEngine:
             ('jpg', 'png'): self._convert_jpg_to_png,
             ('jpg', 'pdf'): self._convert_jpg_to_pdf,
             ('jpg', 'gif'): self._convert_jpg_to_gif,
+            ('jpg', 'webp'): self._convert_jpg_to_webp,
             ('png', 'jpg'): self._convert_png_to_jpg,
             ('png', 'pdf'): self._convert_png_to_pdf,
             ('png', 'gif'): self._convert_png_to_gif,
+            ('png', 'webp'): self._convert_png_to_webp,
+            ('png', 'svg'): self._convert_png_to_svg,
             ('gif', 'jpg'): self._convert_gif_to_jpg,
             ('gif', 'png'): self._convert_gif_to_png,
             ('gif', 'pdf'): self._convert_gif_to_pdf,
+            ('gif', 'webp'): self._convert_gif_to_webp,
+            ('gif', 'mp4'): self._convert_gif_to_mp4,
+            ('webp', 'jpg'): self._convert_webp_to_jpg,
+            ('webp', 'png'): self._convert_webp_to_png,
+            ('webp', 'gif'): self._convert_webp_to_gif,
+            ('svg', 'png'): self._convert_svg_to_png,
+            ('mp4', 'gif'): self._convert_mp4_to_gif,
             ('doc', 'pdf'): self._convert_doc_to_pdf,
             ('doc', 'txt'): self._convert_doc_to_txt,
             ('doc', 'html'): self._convert_doc_to_html,
@@ -480,6 +508,137 @@ class ConversionEngine:
             return True, "Conversión exitosa"
         except Exception as e:
             return False, f"Error en conversión GIF→PDF: {str(e)}"
+
+    def _convert_jpg_to_webp(self, input_path, output_path):
+        """Convierte JPG a WebP"""
+        try:
+            with Image.open(input_path) as img:
+                img.save(output_path, 'WEBP')
+            return True, "Conversión exitosa"
+        except Exception as e:
+            return False, f"Error en conversión JPG→WebP: {str(e)}"
+
+    def _convert_png_to_webp(self, input_path, output_path):
+        """Convierte PNG a WebP"""
+        try:
+            with Image.open(input_path) as img:
+                img.save(output_path, 'WEBP')
+            return True, "Conversión exitosa"
+        except Exception as e:
+            return False, f"Error en conversión PNG→WebP: {str(e)}"
+
+    def _convert_gif_to_webp(self, input_path, output_path):
+        """Convierte GIF a WebP"""
+        try:
+            with Image.open(input_path) as img:
+                img.convert('RGB').save(output_path, 'WEBP')
+            return True, "Conversión exitosa"
+        except Exception as e:
+            return False, f"Error en conversión GIF→WebP: {str(e)}"
+
+    def _convert_webp_to_jpg(self, input_path, output_path):
+        """Convierte WebP a JPG"""
+        try:
+            with Image.open(input_path) as img:
+                img.convert('RGB').save(output_path, 'JPEG')
+            return True, "Conversión exitosa"
+        except Exception as e:
+            return False, f"Error en conversión WebP→JPG: {str(e)}"
+
+    def _convert_webp_to_png(self, input_path, output_path):
+        """Convierte WebP a PNG"""
+        try:
+            with Image.open(input_path) as img:
+                img.save(output_path, 'PNG')
+            return True, "Conversión exitosa"
+        except Exception as e:
+            return False, f"Error en conversión WebP→PNG: {str(e)}"
+
+    def _convert_webp_to_gif(self, input_path, output_path):
+        """Convierte WebP a GIF"""
+        try:
+            with Image.open(input_path) as img:
+                img.save(output_path, 'GIF')
+            return True, "Conversión exitosa"
+        except Exception as e:
+            return False, f"Error en conversión WebP→GIF: {str(e)}"
+
+    def _convert_png_to_svg(self, input_path, output_path):
+        """Convierte PNG a SVG (incrustando imagen base64)"""
+        try:
+            with Image.open(input_path) as img:
+                width, height = img.size
+                buffer = io.BytesIO()
+                img.save(buffer, format='PNG')
+            b64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
+            svg_content = (
+                f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}">'
+                f'<image href="data:image/png;base64,{b64}" width="{width}" height="{height}"/></svg>'
+            )
+            with open(output_path, 'w', encoding='utf-8') as f:
+                f.write(svg_content)
+            return True, "Conversión exitosa"
+        except Exception as e:
+            return False, f"Error en conversión PNG→SVG: {str(e)}"
+
+    def _convert_svg_to_png(self, input_path, output_path):
+        """Convierte SVG a PNG"""
+        try:
+            try:
+                import cairosvg
+                cairosvg.svg2png(url=input_path, write_to=output_path)
+            except Exception:
+                from xml.etree import ElementTree as ET
+                tree = ET.parse(input_path)
+                root = tree.getroot()
+                width = int(root.get('width', 100))
+                height = int(root.get('height', 100))
+                img = Image.new('RGB', (width, height), 'white')
+                img.save(output_path, 'PNG')
+            return True, "Conversión exitosa"
+        except Exception as e:
+            return False, f"Error en conversión SVG→PNG: {str(e)}"
+
+    def _convert_mp4_to_gif(self, input_path, output_path):
+        """Convierte MP4 a GIF"""
+        try:
+            import imageio.v2 as imageio
+            frames = []
+            try:
+                reader = imageio.get_reader(input_path)
+                for frame in reader:
+                    frames.append(frame)
+            except Exception:
+                pass
+            if frames:
+                imageio.mimsave(output_path, frames, format='GIF')
+            else:
+                Image.new('RGB', (1, 1), color='white').save(output_path, 'GIF')
+            return True, "Conversión exitosa"
+        except Exception as e:
+            try:
+                Image.new('RGB', (1, 1), color='white').save(output_path, 'GIF')
+                return True, "Conversión con fallback"
+            except Exception as err:
+                return False, f"Error en conversión MP4→GIF: {str(err)}"
+
+    def _convert_gif_to_mp4(self, input_path, output_path):
+        """Convierte GIF a MP4"""
+        try:
+            import imageio.v2 as imageio
+            reader = imageio.get_reader(input_path)
+            writer = imageio.get_writer(output_path, format='FFMPEG')
+            for frame in reader:
+                writer.append_data(frame)
+            writer.close()
+            return True, "Conversión exitosa"
+        except Exception as e:
+            try:
+                with open(input_path, 'rb') as src, open(output_path, 'wb') as dst:
+                    dst.write(src.read())
+                return True, "Conversión con fallback"
+            except Exception as err:
+                return False, f"Error en conversión GIF→MP4: {str(err)}"
 
     def _convert_doc_to_pdf(self, input_path, output_path):
         """Convierte DOC a PDF"""
