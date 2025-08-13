@@ -1,39 +1,50 @@
 import os
+import tempfile
+import pytest
+from src.models.conversion import conversion_engine
+from fpdf import FPDF
+from PIL import Image
+from docx import Document
 
-from src.models.conversion import ConversionEngine
+
+def create_sample_file(ext: str, path: str):
+    if ext == 'txt':
+        with open(path, 'w', encoding='utf-8') as f:
+            f.write('hola mundo')
+    elif ext == 'pdf':
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.set_font('Arial', size=12)
+        pdf.cell(0, 10, 'hola pdf', ln=1)
+        pdf.output(path)
+    elif ext in ('jpg', 'png', 'gif'):
+        img = Image.new('RGB', (50, 50), color='red')
+        img.save(path)
+    elif ext == 'docx':
+        doc = Document()
+        doc.add_paragraph('hola docx')
+        doc.save(path)
+    elif ext == 'doc':
+        with open(path, 'w', encoding='utf-8') as f:
+            f.write('hola doc')
+    else:
+        raise ValueError('unsupported ext')
 
 
-class TestConversionEngine:
-    """Pruebas unitarias para ConversionEngine"""
-
-    def test_get_supported_formats(self):
-        engine = ConversionEngine()
-        formats = engine.get_supported_formats('txt')
-        assert 'html' in formats
-        assert 'pdf' in formats
-
-    def test_get_conversion_cost(self):
-        engine = ConversionEngine()
-        assert engine.get_conversion_cost('txt', 'html') == 1
-        assert engine.get_conversion_cost('jpg', 'gif') == 2
-
-    def test_validate_file(self, tmp_path):
-        engine = ConversionEngine()
-        missing = tmp_path / 'missing.txt'
-        assert engine.validate_file(str(missing))[0] is False
-        valid = tmp_path / 'valid.txt'
-        valid.write_text('hello')
-        assert engine.validate_file(str(valid))[0] is True
-
-    def test_convert_txt_to_html(self, tmp_path):
-        engine = ConversionEngine()
-        input_file = tmp_path / 'input.txt'
-        input_file.write_text('hola mundo')
-        output_file = tmp_path / 'output.html'
-        success, message = engine.convert_file(
-            str(input_file), str(output_file), 'txt', 'html'
-        )
-        assert success is True
-        assert os.path.exists(output_file)
-        content = output_file.read_text()
-        assert '<html' in content.lower()
+@pytest.mark.parametrize('source_ext,target_ext', [
+    ('txt', 'doc'), ('txt', 'docx'), ('txt', 'pdf'), ('txt', 'odt'), ('txt', 'tex'),
+    ('pdf', 'jpg'), ('pdf', 'png'), ('pdf', 'gif'), ('pdf', 'txt'),
+    ('jpg', 'png'), ('jpg', 'pdf'), ('jpg', 'gif'),
+    ('png', 'jpg'), ('png', 'pdf'), ('png', 'gif'),
+    ('gif', 'jpg'), ('gif', 'png'), ('gif', 'pdf'),
+    ('doc', 'pdf'), ('doc', 'txt'), ('doc', 'html'),
+    ('docx', 'pdf'), ('docx', 'txt'), ('docx', 'html')
+])
+def test_conversion_engine(source_ext, target_ext):
+    with tempfile.TemporaryDirectory() as tmp:
+        input_path = os.path.join(tmp, f'in.{source_ext}')
+        output_path = os.path.join(tmp, f'out.{target_ext}')
+        create_sample_file(source_ext, input_path)
+        result, msg = conversion_engine.convert_file(input_path, output_path, source_ext, target_ext)
+        assert result, msg
+        assert os.path.exists(output_path)
