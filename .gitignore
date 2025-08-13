@@ -38,3 +38,17 @@ Thumbs.db
 # Archivos de mocks y resultados de pruebas
 _mocks__/
 frontend/test-results/
+
+# Archivos generados por agentes
+pytest.ini
+requirements.txt
+package.json
+package-lock.json
+
+# Python testing
+.pytest_cache/
+__pycache__/
+*.pyc
+
+# Node modules (si aplica)
+node_modules/
