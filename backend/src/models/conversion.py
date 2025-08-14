@@ -4,12 +4,12 @@ import os
 import tempfile
 import uuid
 import shutil
+from collections import deque
 
 from docx import Document
 from fpdf import FPDF
 from PIL import Image, ImageDraw
 from pypdf import PdfReader
-
 
 def validate_and_classify(file_path):
     """Clasifica un archivo en valid, salvageable o unsalvageable"""
@@ -42,6 +42,7 @@ def validate_and_classify(file_path):
 # Importar el motor de conversión existente
 # (Aquí integraremos el motor que ya tienes implementado)
 # (Aquí integraremos el motor que ya tienes implementado)
+from src.ws import emit_progress, Phase
 
 class ConversionEngine:
     """Motor de conversión de Anclora Metaform"""
@@ -189,18 +190,91 @@ class ConversionEngine:
                 'Para documentos, PDF mantiene la calidad',
                 'Para web, considera optimización de tamaño'
             ]
-        
+
         return analysis
+
+    def find_conversion_path(self, src_format: str, dst_format: str):
+        """Busca una ruta de conversión usando BFS con hasta dos intermediarios.
+
+        Devuelve una lista de formatos que representa el camino desde src_format
+        hasta dst_format, inclusive. Si no se encuentra una ruta válida dentro
+        del límite de profundidad, devuelve None.
+        """
+        src = src_format.lower()
+        dst = dst_format.lower()
+
+        if src == dst:
+            return [src]
+
+        max_depth = 3  # número máximo de pasos (edges): src -> a -> b -> dst
+        queue = deque([(src, [src])])
+        visited = {src}
+
+        while queue:
+            current, path = queue.popleft()
+            depth = len(path) - 1
+            if depth >= max_depth:
+                continue
+            for neighbor in self.supported_conversions.get(current, {}):
+                if neighbor in visited:
+                    continue
+                new_path = path + [neighbor]
+                if neighbor == dst:
+                    return new_path
+                visited.add(neighbor)
+                queue.append((neighbor, new_path))
+
+        return None
 
     def convert_file(self, input_path, output_path, source_format, target_format):
         """Realiza la conversión de archivo"""
         try:
-            source = source_format.lower()
+            source = source_format.lower().replace('.', '')
+            if source in TEXT_EXTENSIONS:
+                ok, msg = normalize_to_utf8(input_path)
+                if not ok:
+                    return False, msg
+
             target = target_format.lower()
             method = self.conversion_methods.get((source, target))
             if method:
                 return method(input_path, output_path)
-            return False, f"Conversión {source_format} → {target_format} no implementada aún"
+
+            path = self.find_conversion_path(source, target)
+            if not path:
+                return False, f"Conversión {source_format} → {target_format} no implementada aún"
+
+            logs = []
+            temp_files = []
+            current_input = input_path
+
+            try:
+                for i in range(len(path) - 1):
+                    src_fmt = path[i]
+                    dst_fmt = path[i + 1]
+                    step_method = self.conversion_methods.get((src_fmt, dst_fmt))
+                    if not step_method:
+                        return False, f"Conversión {src_fmt} → {dst_fmt} no implementada"
+
+                    if i == len(path) - 2:
+                        current_output = output_path
+                    else:
+                        fd, current_output = tempfile.mkstemp(suffix=f'.{dst_fmt}')
+                        os.close(fd)
+                        temp_files.append(current_output)
+
+                    success, msg = step_method(current_input, current_output)
+                    logs.append(f"{src_fmt}->{dst_fmt}: {msg}")
+                    if not success:
+                        return False, f"Fallo en {src_fmt}->{dst_fmt}: {msg}"
+
+                    current_input = current_output
+
+                return True, " | ".join(logs)
+            finally:
+                for tmp in temp_files:
+                    if os.path.exists(tmp):
+                        os.remove(tmp)
         except Exception as e:
             return False, f"Error durante la conversión: {str(e)}"
 
@@ -208,12 +282,24 @@ class ConversionEngine:
         """Procesa un lote de conversiones."""
         results = []
         for task in tasks:
+            conversion_id = task.get('conversion_id')
+            if conversion_id is not None:
+                emit_progress(conversion_id, Phase.PREPROCESS, 0)
+                emit_progress(conversion_id, Phase.PREPROCESS, 100)
+                emit_progress(conversion_id, Phase.CONVERT, 0)
+
             success, message = self.convert_file(
                 task['input_path'],
                 task['output_path'],
                 task.get('source_format') or task['input_path'].split('.')[-1],
                 task['target_format']
             )
+
+            if conversion_id is not None:
+                emit_progress(conversion_id, Phase.CONVERT, 100)
+                emit_progress(conversion_id, Phase.POSTPROCESS, 0)
+                emit_progress(conversion_id, Phase.POSTPROCESS, 100)
+
             results.append({
                 'input_path': task['input_path'],
                 'output_path': task['output_path'],
