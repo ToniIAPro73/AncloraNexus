@@ -38,3 +38,42 @@ Thumbs.db
 # Archivos de mocks y resultados de pruebas
 _mocks__/
 frontend/test-results/
+
+# Archivos generados por agentes
+pytest.ini
+requirements.txt
+package.json
+package-lock.json
+
+# Python testing
+.pytest_cache/
+__pycache__/
+*.pyc
+
+# Node modules (si aplica)
+node_modules/
+
+# Directorios de agentes
+.claude/
+.cursor/
+.ai/
+
+# Package files en raíz (solo frontend debe tenerlos)
+/package-lock.json
+/package.json
+
+# === PREVENCIÓN DE ARCHIVOS DE AGENTES ===
+.claude/
+.cursor/
+.ai/
+.anthropic/
+
+# Package files solo en subdirectorios específicos
+/package-lock.json
+/package.json
+/requirements.txt
+/pytest.ini
+
+# Los archivos legítimos están en:
+# - backend/requirements.txt ✅
+# - frontend/package.json ✅

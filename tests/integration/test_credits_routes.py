@@ -1,4 +1,5 @@
 import pytest
+<<<<<<< HEAD
 from flask_jwt_extended import create_access_token
 from src.models.user import User, db
 
@@ -35,6 +36,8 @@ def mock_transaction(monkeypatch):
         return original_add(obj)
 
     monkeypatch.setattr(credits.db.session, 'add', add_no_transaction)
+=======
+>>>>>>> main
 
 
 @pytest.mark.integration
@@ -46,11 +49,16 @@ class TestCreditsRoutes:
         data = resp.get_json()
         assert data['credits'] == 10
 
+<<<<<<< HEAD
     def test_purchase_credits(self, client, auth_headers, mock_transaction):
+=======
+    def test_purchase_credits(self, client, auth_headers):
+>>>>>>> main
         resp = client.post('/api/credits/purchase', json={'amount': 50}, headers=auth_headers)
         assert resp.status_code == 200
         data = resp.get_json()
         assert data['new_balance'] == 60
+<<<<<<< HEAD
 
     def test_purchase_insufficient_balance(self, client, auth_headers, mock_transaction, monkeypatch):
         def fail_add_credits(self, amount):
@@ -104,3 +112,5 @@ class TestCreditsRoutes:
         assert 'current_balance' in data
         assert 'usage_summary' in data
         assert 'daily_usage' in data
+=======
+>>>>>>> main
