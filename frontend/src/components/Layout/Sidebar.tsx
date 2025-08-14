@@ -1,5 +1,8 @@
 // frontend/src/components/Layout/Sidebar.tsx
-import React, { useRef } from "react";
+
+import React from "react";
+import { motion } from "framer-motion";
+
 import {
   Home, FileText, History, CreditCard, Star,
   Settings, HelpCircle, BarChart, LogOut
@@ -53,10 +56,16 @@ interface SidebarProps {
     { name: "Estadísticas", icon: BarChart },
   ];
 
-    return (
+
+  const sidebarVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
+    exit: { opacity: 0, x: -50, transition: { duration: 0.2 } },
+  };
+
+  return (
+    <motion.div initial="hidden" animate="visible" exit="exit" variants={sidebarVariants}>
       <aside
-        role="navigation"
-        aria-label="Barra lateral"
         className={cn(
           "fixed top-0 left-0 h-full z-40 bg-gradient-to-b from-slate-950 to-slate-800 text-white shadow-md transition-all duration-300 ease-in-out",
           isCollapsed ? "w-16" : "w-72"
@@ -131,6 +140,7 @@ interface SidebarProps {
           {!isCollapsed && <span>Salir</span>}
         </Button>
       </div>
-    </aside>
+      </aside>
+    </motion.div>
   );
 };
