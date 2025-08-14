@@ -3,6 +3,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from werkzeug.utils import secure_filename
 from src.models.user import User, Conversion, CreditTransaction, db
 from src.models.conversion import conversion_engine
+from src.models.conversion_history import ConversionHistory
 import os
 import tempfile
 import uuid
@@ -219,6 +220,8 @@ def convert_file():
             # Error durante el proceso
             conversion.status = 'failed'
             conversion.error_message = str(e)
+            processing_time = time.time() - start_time if 'start_time' in locals() else None
+            conversion.processing_time = processing_time
             conversion.completed_at = datetime.utcnow()
             db.session.commit()
             emit_progress(conversion.id, 100)
@@ -279,16 +282,36 @@ def get_conversion_history():
     """Obtiene el historial de conversiones del usuario"""
     try:
         user_id = get_jwt_identity()
-        
-        # Parámetros de paginación
+
         page = request.args.get('page', 1, type=int)
         per_page = request.args.get('per_page', 10, type=int)
-        
-        # Obtener conversiones paginadas
-        conversions = Conversion.query.filter_by(user_id=user_id)\
-            .order_by(Conversion.created_at.desc())\
-            .paginate(page=page, per_page=per_page, error_out=False)
-        
+        conv_type = request.args.get('type')
+        start_date = request.args.get('start_date')
+        end_date = request.args.get('end_date')
+        search = request.args.get('search')
+
+        query = ConversionHistory.query.filter_by(user_id=user_id)
+        if conv_type:
+            query = query.filter(ConversionHistory.conversion_type == conv_type)
+        if start_date:
+            try:
+                start_dt = datetime.fromisoformat(start_date)
+                query = query.filter(ConversionHistory.created_at >= start_dt)
+            except ValueError:
+                pass
+        if end_date:
+            try:
+                end_dt = datetime.fromisoformat(end_date)
+                query = query.filter(ConversionHistory.created_at <= end_dt)
+            except ValueError:
+                pass
+        if search:
+            query = query.filter(ConversionHistory.original_filename.ilike(f"%{search}%"))
+
+        conversions = query.order_by(ConversionHistory.created_at.desc()).paginate(
+            page=page, per_page=per_page, error_out=False
+        )
+
         return jsonify({
             'conversions': [conv.to_dict() for conv in conversions.items],
             'pagination': {

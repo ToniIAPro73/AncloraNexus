@@ -150,9 +150,20 @@ export const apiService = {
     return response.blob();
   },
 
-  getConversionHistory: async (): Promise<any> => {
+  getConversionHistory: async (params: {
+    page?: number;
+    per_page?: number;
+    type?: string;
+    start_date?: string;
+    end_date?: string;
+    search?: string;
+  } = {}): Promise<any> => {
     const token = getAuthToken();
-    const response = await fetch(`${API_BASE_URL}/conversion/history`, {
+    const query = new URLSearchParams();
+    Object.entries(params).forEach(([key, value]) => {
+      if (value) query.append(key, String(value));
+    });
+    const response = await fetch(`${API_BASE_URL}/conversion/history?${query.toString()}`, {
       headers: { 'Authorization': `Bearer ${token}` },
     });
     if (!response.ok) throw new Error('Error obteniendo el historial de conversiones');
