@@ -57,7 +57,6 @@ def test_conversion_engine(source_ext, target_ext):
         assert result, msg
         assert os.path.exists(output_path)
 
-
 def test_svg_to_jpg_via_png():
     """Verifica que SVG se convierte a JPG usando una ruta intermedia PNG."""
     with tempfile.TemporaryDirectory() as tmp:
@@ -68,3 +67,4 @@ def test_svg_to_jpg_via_png():
         assert result, msg
         assert os.path.exists(output_path)
         assert 'svg->png' in msg and 'png->jpg' in msg
+

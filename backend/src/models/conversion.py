@@ -11,6 +11,49 @@ from fpdf import FPDF
 from PIL import Image, ImageDraw
 from pypdf import PdfReader
 
+# Para normalización de texto
+try:
+    from ftfy import fix_text
+except Exception:  # pragma: no cover - ftfy es opcional en tiempo de ejecución
+    fix_text = None
+
+
+# Extensiones consideradas texto plano
+TEXT_EXTENSIONS = {
+    'txt', 'md', 'html', 'rtf', 'csv', 'tex', 'odt', 'svg'
+}
+
+
+def normalize_to_utf8(path: str):
+    """Normaliza un archivo de texto a UTF-8.
+
+    Si el archivo contiene bytes nulos se considera irrecuperable
+    (unsalvageable). Si la decodificación falla se intenta reparar
+    utilizando latin-1 y ftfy si está disponible.
+    """
+
+    with open(path, 'rb') as f:
+        data = f.read()
+
+    if b"\x00" in data:
+        return False, "unsalvageable"
+
+    try:
+        text = data.decode('utf-8')
+    except UnicodeDecodeError:
+        text = data.decode('latin-1', errors='replace')
+
+    if fix_text:
+        try:
+            text = fix_text(text)
+        except Exception:
+            pass
+
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(text)
+
+    return True, "normalized"
+
 # Importar el motor de conversión existente
 # (Aquí integraremos el motor que ya tienes implementado)
 # (Aquí integraremos el motor que ya tienes implementado)
@@ -200,7 +243,12 @@ class ConversionEngine:
     def convert_file(self, input_path, output_path, source_format, target_format):
         """Realiza la conversión de archivo"""
         try:
-            source = source_format.lower()
+            source = source_format.lower().replace('.', '')
+            if source in TEXT_EXTENSIONS:
+                ok, msg = normalize_to_utf8(input_path)
+                if not ok:
+                    return False, msg
+
             target = target_format.lower()
             method = self.conversion_methods.get((source, target))
             if method:
