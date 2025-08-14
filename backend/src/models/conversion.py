@@ -11,48 +11,33 @@ from fpdf import FPDF
 from PIL import Image, ImageDraw
 from pypdf import PdfReader
 
-# Para normalización de texto
-try:
-    from ftfy import fix_text
-except Exception:  # pragma: no cover - ftfy es opcional en tiempo de ejecución
-    fix_text = None
-
-
-# Extensiones consideradas texto plano
-TEXT_EXTENSIONS = {
-    'txt', 'md', 'html', 'rtf', 'csv', 'tex', 'odt', 'svg'
-}
-
-
-def normalize_to_utf8(path: str):
-    """Normaliza un archivo de texto a UTF-8.
-
-    Si el archivo contiene bytes nulos se considera irrecuperable
-    (unsalvageable). Si la decodificación falla se intenta reparar
-    utilizando latin-1 y ftfy si está disponible.
-    """
-
-    with open(path, 'rb') as f:
-        data = f.read()
-
-    if b"\x00" in data:
-        return False, "unsalvageable"
+def validate_and_classify(file_path):
+    """Clasifica un archivo en valid, salvageable o unsalvageable"""
+    if not os.path.exists(file_path) or os.path.isdir(file_path):
+        return "unsalvageable"
 
     try:
-        text = data.decode('utf-8')
+        with open(file_path, "rb") as f:
+            data = f.read()
+    except OSError:
+        return "unsalvageable"
+
+    if not data:
+        return "unsalvageable"
+
+    try:
+        text = data.decode("utf-8")
+        # Si contiene caracteres de reemplazo, es recuperable
+        if "\ufffd" in text:
+            return "salvageable"
+        return "valid"
     except UnicodeDecodeError:
-        text = data.decode('latin-1', errors='replace')
-
-    if fix_text:
-        try:
-            text = fix_text(text)
-        except Exception:
-            pass
-
-    with open(path, 'w', encoding='utf-8') as f:
-        f.write(text)
-
-    return True, "normalized"
+        text = data.decode("utf-8", errors="replace")
+        if not text:
+            return "unsalvageable"
+        replacements = text.count("\ufffd")
+        ratio = replacements / len(text)
+        return "salvageable" if ratio < 0.3 else "unsalvageable"
 
 # Importar el motor de conversión existente
 # (Aquí integraremos el motor que ya tienes implementado)
