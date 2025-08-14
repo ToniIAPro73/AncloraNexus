@@ -1,26 +1,59 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import type { Socket } from 'socket.io-client';
+import { apiService } from '../services/api';
 import { FileUploader } from './FileUploader';
+
+interface PhaseProgress {
+  preprocess: number;
+  convert: number;
+  postprocess: number;
+}
 
 interface QueueItem {
   id: string;
   file: File;
-  progress: number;
+  progress: PhaseProgress;
   status: 'pending' | 'processing' | 'completed';
 }
 
 export const UniversalConverter: React.FC = () => {
   const [queue, setQueue] = useState<QueueItem[]>([]);
   const [processing, setProcessing] = useState(false);
+  const socketRef = useRef<Socket | null>(null);
 
   const handleFileSelect = useCallback((files: File | File[]) => {
     const list = Array.isArray(files) ? files : [files];
     const items = list.map(file => ({
       id: crypto.randomUUID(),
       file,
-      progress: 0,
+      progress: { preprocess: 0, convert: 0, postprocess: 0 },
       status: 'pending' as const,
     }));
     setQueue(prev => [...prev, ...items]);
+  }, []);
+
+  useEffect(() => {
+    const socket = apiService.connectProgress();
+    socket.on('conversion_progress', ({ conversion_id, phase, percent }) => {
+      setQueue(prev =>
+        prev.map(item =>
+          item.id === String(conversion_id)
+            ? {
+                ...item,
+                progress: { ...item.progress, [phase]: percent },
+                status:
+                  phase === 'postprocess' && percent === 100
+                    ? 'completed'
+                    : item.status,
+              }
+            : item
+        )
+      );
+    });
+    socketRef.current = socket;
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -36,32 +69,23 @@ export const UniversalConverter: React.FC = () => {
     setProcessing(true);
     setQueue(prev =>
       prev.map(q =>
-        q.id === item.id ? { ...q, status: 'processing', progress: 0 } : q
+        q.id === item.id
+          ? { ...q, status: 'processing', progress: { preprocess: 0, convert: 0, postprocess: 0 } }
+          : q
       )
     );
 
-    const interval = setInterval(() => {
-      setQueue(prev =>
-        prev.map(q =>
-          q.id === item.id
-            ? { ...q, progress: Math.min(q.progress + 10, 100) }
-            : q
-        )
-      );
-    }, 200);
-
-
-    setTimeout(() => {
-      clearInterval(interval);
-      setQueue(prev =>
-        prev.map(q =>
-          q.id === item.id
-            ? { ...q, progress: 100, status: 'completed' }
-            : q
-        )
-      );
-      setProcessing(false);
-    }, 2000);
+    apiService
+      .convertFile({ file: item.file, target_format: 'html' })
+      .then(res => {
+        const convId = String(res.conversion.id);
+        setQueue(prev =>
+          prev.map(q => (q.id === item.id ? { ...q, id: convId } : q))
+        );
+      })
+      .finally(() => {
+        setProcessing(false);
+      });
   };
 
   return (
@@ -77,21 +101,34 @@ export const UniversalConverter: React.FC = () => {
       </FileUploader>
       {queue.length > 0 && (
         <div className="space-y-3">
-          {queue.map(item => (
-            <div key={item.id} className="p-4 border rounded-md">
-              <div className="flex justify-between mb-1">
-                <span className="truncate">{item.file.name}</span>
-                <span className="text-sm">{item.progress}%</span>
-
+          {queue.map(item => {
+            const total = Math.round(
+              (item.progress.preprocess + item.progress.convert + item.progress.postprocess) /
+                3
+            );
+            return (
+              <div key={item.id} className="p-4 border rounded-md">
+                <div className="flex justify-between mb-1">
+                  <span className="truncate">{item.file.name}</span>
+                  <span className="text-sm">{total}%</span>
+                </div>
+                <div className="w-full bg-gray-200 h-2 rounded flex overflow-hidden">
+                  <div
+                    className="bg-blue-500 h-2"
+                    style={{ width: `${item.progress.preprocess / 3}%` }}
+                  ></div>
+                  <div
+                    className="bg-yellow-500 h-2"
+                    style={{ width: `${item.progress.convert / 3}%` }}
+                  ></div>
+                  <div
+                    className="bg-green-500 h-2"
+                    style={{ width: `${item.progress.postprocess / 3}%` }}
+                  ></div>
+                </div>
               </div>
-              <div className="w-full bg-gray-200 h-2 rounded">
-                <div
-                  className="bg-green-500 h-2 rounded"
-                  style={{ width: `${item.progress}%` }}
-                ></div>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>
