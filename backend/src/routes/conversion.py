@@ -3,6 +3,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from werkzeug.utils import secure_filename
 from src.models.user import User, Conversion, CreditTransaction, db
 from src.models.conversion import conversion_engine
+from src.models.conversion_history import ConversionHistory
 import os
 import tempfile
 import uuid
@@ -189,7 +190,25 @@ def convert_file():
                 conversion.processing_time = processing_time
                 conversion.completed_at = datetime.utcnow()
                 conversion.output_filename = output_filename
-                
+
+                history = ConversionHistory(
+                    conversion_id=conversion.id,
+                    user_id=user.id,
+                    original_filename=conversion.original_filename,
+                    original_format=conversion.original_format,
+                    target_format=conversion.target_format,
+                    file_size=conversion.file_size,
+                    conversion_type=conversion.conversion_type,
+                    credits_used=conversion.credits_used,
+                    processing_time=processing_time,
+                    status=conversion.status,
+                    error_message=conversion.error_message,
+                    output_filename=conversion.output_filename,
+                    created_at=conversion.created_at,
+                    completed_at=conversion.completed_at
+                )
+                db.session.add(history)
+
                 db.session.commit()
                 
                 return jsonify({
@@ -205,7 +224,25 @@ def convert_file():
                 conversion.error_message = message
                 conversion.processing_time = processing_time
                 conversion.completed_at = datetime.utcnow()
-                
+
+                history = ConversionHistory(
+                    conversion_id=conversion.id,
+                    user_id=user.id,
+                    original_filename=conversion.original_filename,
+                    original_format=conversion.original_format,
+                    target_format=conversion.target_format,
+                    file_size=conversion.file_size,
+                    conversion_type=conversion.conversion_type,
+                    credits_used=conversion.credits_used,
+                    processing_time=processing_time,
+                    status=conversion.status,
+                    error_message=conversion.error_message,
+                    output_filename=conversion.output_filename,
+                    created_at=conversion.created_at,
+                    completed_at=conversion.completed_at
+                )
+                db.session.add(history)
+
                 db.session.commit()
                 
                 return jsonify({
@@ -217,8 +254,28 @@ def convert_file():
             # Error durante el proceso
             conversion.status = 'failed'
             conversion.error_message = str(e)
+            processing_time = time.time() - start_time if 'start_time' in locals() else None
+            conversion.processing_time = processing_time
             conversion.completed_at = datetime.utcnow()
-            
+
+            history = ConversionHistory(
+                conversion_id=conversion.id,
+                user_id=user.id,
+                original_filename=conversion.original_filename,
+                original_format=conversion.original_format,
+                target_format=conversion.target_format,
+                file_size=conversion.file_size,
+                conversion_type=conversion.conversion_type,
+                credits_used=conversion.credits_used,
+                processing_time=processing_time,
+                status=conversion.status,
+                error_message=conversion.error_message,
+                output_filename=conversion.output_filename,
+                created_at=conversion.created_at,
+                completed_at=conversion.completed_at
+            )
+            db.session.add(history)
+
             db.session.commit()
             
             return jsonify({
@@ -277,16 +334,36 @@ def get_conversion_history():
     """Obtiene el historial de conversiones del usuario"""
     try:
         user_id = get_jwt_identity()
-        
-        # Parámetros de paginación
+
         page = request.args.get('page', 1, type=int)
         per_page = request.args.get('per_page', 10, type=int)
-        
-        # Obtener conversiones paginadas
-        conversions = Conversion.query.filter_by(user_id=user_id)\
-            .order_by(Conversion.created_at.desc())\
-            .paginate(page=page, per_page=per_page, error_out=False)
-        
+        conv_type = request.args.get('type')
+        start_date = request.args.get('start_date')
+        end_date = request.args.get('end_date')
+        search = request.args.get('search')
+
+        query = ConversionHistory.query.filter_by(user_id=user_id)
+        if conv_type:
+            query = query.filter(ConversionHistory.conversion_type == conv_type)
+        if start_date:
+            try:
+                start_dt = datetime.fromisoformat(start_date)
+                query = query.filter(ConversionHistory.created_at >= start_dt)
+            except ValueError:
+                pass
+        if end_date:
+            try:
+                end_dt = datetime.fromisoformat(end_date)
+                query = query.filter(ConversionHistory.created_at <= end_dt)
+            except ValueError:
+                pass
+        if search:
+            query = query.filter(ConversionHistory.original_filename.ilike(f"%{search}%"))
+
+        conversions = query.order_by(ConversionHistory.created_at.desc()).paginate(
+            page=page, per_page=per_page, error_out=False
+        )
+
         return jsonify({
             'conversions': [conv.to_dict() for conv in conversions.items],
             'pagination': {
