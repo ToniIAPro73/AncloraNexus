@@ -24,21 +24,50 @@ export const ConversionHistory: React.FC = () => {
   const [error, setError] = useState('');
   const { user } = useAuth();
 
-  useEffect(() => {
-    loadConversions();
-  }, []);
+  const [filterType, setFilterType] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [searchText, setSearchText] = useState('');
+  const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState({
+    page: 1,
+    per_page: 10,
+    total: 0,
+    pages: 1,
+    has_next: false,
+    has_prev: false,
+  });
 
-  const loadConversions = async () => {
+  useEffect(() => {
+    loadConversions(page);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]);
+
+  const loadConversions = async (pageParam = page) => {
     try {
       setIsLoading(true);
-      const response = await apiService.getConversionHistory();
+      const response = await apiService.getConversionHistory({
+        page: pageParam,
+        type: filterType || undefined,
+        start_date: startDate || undefined,
+        end_date: endDate || undefined,
+        search: searchText || undefined,
+      });
       setConversions(response.conversions);
+      if (response.pagination) setPagination(response.pagination);
     } catch (error: any) {
       setError(error.message || 'Error cargando historial');
     } finally {
       setIsLoading(false);
     }
   };
+
+  const handleFilter = () => {
+    setPage(1);
+    loadConversions(1);
+  };
+
+  const typeOptions = Array.from(new Set(conversions.map(c => c.conversion_type)));
 
   const handleDownload = async (conversionId: number, filename: string) => {
     try {
@@ -125,6 +154,51 @@ export const ConversionHistory: React.FC = () => {
         </div>
       )}
 
+      {/* Filtros */}
+      <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <input
+            type="text"
+            placeholder="Buscar..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            className="px-3 py-2 rounded bg-slate-700/50 text-white"
+          />
+          <select
+            value={filterType}
+            onChange={(e) => setFilterType(e.target.value)}
+            className="px-3 py-2 rounded bg-slate-700/50 text-white"
+          >
+            <option value="">Todos los tipos</option>
+            {typeOptions.map((type) => (
+              <option key={type} value={type}>
+                {type.toUpperCase()}
+              </option>
+            ))}
+          </select>
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            className="px-3 py-2 rounded bg-slate-700/50 text-white"
+          />
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+            className="px-3 py-2 rounded bg-slate-700/50 text-white"
+          />
+        </div>
+        <div className="mt-4 text-right">
+          <button
+            onClick={handleFilter}
+            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors"
+          >
+            Aplicar filtros
+          </button>
+        </div>
+      </div>
+
       {/* Lista de conversiones */}
       <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
         {error && (
@@ -205,10 +279,33 @@ export const ConversionHistory: React.FC = () => {
           </div>
         )}
 
+        {/* Paginación */}
+        {pagination.pages > 1 && (
+          <div className="flex justify-center items-center space-x-4 mt-6">
+            <button
+              onClick={() => pagination.has_prev && setPage(page - 1)}
+              disabled={!pagination.has_prev}
+              className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded disabled:opacity-50"
+            >
+              Anterior
+            </button>
+            <span className="text-slate-300">
+              Página {page} de {pagination.pages}
+            </span>
+            <button
+              onClick={() => pagination.has_next && setPage(page + 1)}
+              disabled={!pagination.has_next}
+              className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded disabled:opacity-50"
+            >
+              Siguiente
+            </button>
+          </div>
+        )}
+
         {/* Botón de actualizar */}
         <div className="mt-6 text-center">
           <button
-            onClick={loadConversions}
+            onClick={() => loadConversions(page)}
             disabled={isLoading}
             className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg transition-colors disabled:opacity-50"
           >
