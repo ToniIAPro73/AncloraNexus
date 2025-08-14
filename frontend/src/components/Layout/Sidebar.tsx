@@ -1,5 +1,6 @@
 // frontend/src/components/Layout/Sidebar.tsx
 import React from "react";
+import { motion } from "framer-motion";
 import {
   Home, FileText, History, CreditCard, Star,
   Settings, HelpCircle, BarChart, LogOut
@@ -32,13 +33,20 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { name: "Estadísticas", icon: BarChart },
   ];
 
+  const sidebarVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.3 } },
+    exit: { opacity: 0, x: -50, transition: { duration: 0.2 } },
+  };
+
   return (
-    <aside
-      className={cn(
-        "fixed top-0 left-0 h-full z-40 bg-gradient-to-b from-slate-950 to-slate-800 text-white shadow-md transition-all duration-300 ease-in-out",
-        isCollapsed ? "w-16" : "w-72"
-      )}
-    >
+    <motion.div initial="hidden" animate="visible" exit="exit" variants={sidebarVariants}>
+      <aside
+        className={cn(
+          "fixed top-0 left-0 h-full z-40 bg-gradient-to-b from-slate-950 to-slate-800 text-white shadow-md transition-all duration-300 ease-in-out",
+          isCollapsed ? "w-16" : "w-72"
+        )}
+      >
       {/* Header del Sidebar */}
       <div className="flex items-center justify-between p-4 border-b border-slate-700/50">
         {/* Brand: logo and title only when not collapsed */}
@@ -102,6 +110,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           {!isCollapsed && <span>Salir</span>}
         </Button>
       </div>
-    </aside>
+      </aside>
+    </motion.div>
   );
 };

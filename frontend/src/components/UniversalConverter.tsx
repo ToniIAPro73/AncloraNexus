@@ -1,5 +1,6 @@
 // frontend/src/components/UniversalConverter.tsx
 import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react';
+import { motion } from 'framer-motion';
 import { apiService, getConversionCost, formatFileSize } from '../services/api';
 import { useAuth } from '../auth/AuthContext';
 
@@ -33,9 +34,13 @@ const ConversionCard: React.FC<{
   isActive: boolean;
   isCompleted?: boolean;
 }> = ({ icon, title, children, isActive, isCompleted }) => (
-  <div className={`bg-gray-800/80 rounded-lg p-5 transition-all ${
-    isActive ? 'border-2 border-primary shadow-lg' : 'border border-gray-700/50'
-  }`}>
+  <motion.div
+    whileHover={{ scale: 1.02 }}
+    transition={{ type: 'spring', stiffness: 300 }}
+    className={`bg-gray-800/80 rounded-lg p-5 transition-all ${
+      isActive ? 'border-2 border-primary shadow-lg' : 'border border-gray-700/50'
+    }`}
+  >
     <div className="flex items-center mb-3">
       <div className="text-3xl mr-3">{icon}</div>
       <h3 className="text-xl font-semibold">{title}</h3>
@@ -46,7 +51,7 @@ const ConversionCard: React.FC<{
       )}
     </div>
     <div>{children}</div>
-  </div>
+  </motion.div>
 );
 
 // Componente de conversión popular
@@ -130,9 +135,20 @@ export const UniversalConverter: React.FC = () => {
       setIsConverting(false);
     }, 2000);
   }, [selectedFile, targetFormat]);
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+    exit: { opacity: 0, y: -20, transition: { duration: 0.2 } },
+  };
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-6 space-y-8">
+    <motion.div
+      className="w-full max-w-6xl mx-auto p-6 space-y-8"
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      variants={containerVariants}
+    >
       {/* Encabezado */}
       <div className="text-center mb-8">
         <div className="flex items-center justify-center mb-2">
@@ -308,6 +324,6 @@ export const UniversalConverter: React.FC = () => {
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
