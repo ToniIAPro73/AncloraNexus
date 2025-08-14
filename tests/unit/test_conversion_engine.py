@@ -38,6 +38,11 @@ def create_sample_file(ext: str, path: str):
         raise ValueError('unsupported ext')
 
 
+def test_plugins_discovered():
+    """Ensure plugins are loaded into the registry."""
+    assert ('txt', 'pdf') in conversion_engine.conversion_methods
+
+
 @pytest.mark.parametrize('source_ext,target_ext', [
     ('txt', 'doc'), ('txt', 'docx'), ('txt', 'pdf'), ('txt', 'odt'), ('txt', 'tex'),
     ('pdf', 'jpg'), ('pdf', 'png'), ('pdf', 'gif'), ('pdf', 'txt'),
