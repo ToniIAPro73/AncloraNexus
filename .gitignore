@@ -2,8 +2,11 @@
 venv/
 
 # Archivos compilados y caché de Python
-__pycache__/
+**/__pycache__/
 *.pyc
+
+# Archivos de compilación de TypeScript
+*.tsbuildinfo
 
 # Dependencias de Node.js
 node_modules/
@@ -47,8 +50,6 @@ package-lock.json
 
 # Python testing
 .pytest_cache/
-__pycache__/
-*.pyc
 
 # Node modules (si aplica)
 node_modules/
