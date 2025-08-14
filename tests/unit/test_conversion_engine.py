@@ -56,3 +56,25 @@ def test_conversion_engine(source_ext, target_ext):
         result, msg = conversion_engine.convert_file(input_path, output_path, source_ext, target_ext)
         assert result, msg
         assert os.path.exists(output_path)
+
+
+def test_mojibake_normalization_and_conversion():
+    """El motor debe reparar mojibake antes de convertir."""
+    with tempfile.TemporaryDirectory() as tmp:
+        input_path = os.path.join(tmp, 'in.txt')
+        output_path = os.path.join(tmp, 'out.pdf')
+
+        # Texto original con carácter especial
+        original = 'señor'
+        # Simular mojibake: bytes UTF-8 mal interpretados como latin-1
+        mojibake = original.encode('utf-8').decode('latin-1')
+        with open(input_path, 'w', encoding='utf-8') as f:
+            f.write(mojibake)
+
+        result, msg = conversion_engine.convert_file(input_path, output_path, 'txt', 'pdf')
+        assert result, msg
+        assert os.path.exists(output_path)
+
+        # Verificar que el archivo haya sido normalizado
+        with open(input_path, encoding='utf-8') as f:
+            assert original in f.read()
