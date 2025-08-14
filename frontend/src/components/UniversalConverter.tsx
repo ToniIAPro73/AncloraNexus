@@ -3,6 +3,7 @@ import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react'
 import { motion } from 'framer-motion';
 import { apiService, getConversionCost, formatFileSize } from '../services/api';
 import { useAuth } from '../auth/AuthContext';
+import type { Socket } from 'socket.io-client';
 
 // Componente de paso de conversión
 const ConversionStep: React.FC<{
@@ -33,7 +34,8 @@ const ConversionCard: React.FC<{
   children: React.ReactNode;
   isActive: boolean;
   isCompleted?: boolean;
-}> = ({ icon, title, children, isActive, isCompleted }) => (
+  progress?: number;
+}> = ({ icon, title, children, isActive, isCompleted, progress }) => (
   <motion.div
     whileHover={{ scale: 1.02 }}
     transition={{ type: 'spring', stiffness: 300 }}
@@ -51,6 +53,14 @@ const ConversionCard: React.FC<{
       )}
     </div>
     <div>{children}</div>
+    {typeof progress === 'number' && (
+      <div className="mt-2 w-full bg-gray-700 rounded-full h-2">
+        <div
+          className="bg-primary h-2 rounded-full transition-all"
+          style={{ width: `${progress}%` }}
+        ></div>
+      </div>
+    )}
   </motion.div>
 );
 
@@ -82,6 +92,8 @@ export const UniversalConverter: React.FC = () => {
   const [isConverting, setIsConverting] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [error, setError] = useState('');
+  const [progress, setProgress] = useState(0);
+  const socketRef = useRef<Socket | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { user } = useAuth();
 
@@ -125,16 +137,36 @@ export const UniversalConverter: React.FC = () => {
   }, [handleFileSelect]);
 
   // Optimized convert handler
-  const handleConvert = useCallback(() => {
+  const handleConvert = useCallback(async () => {
     if (!selectedFile || !targetFormat) return;
     setIsConverting(true);
     setCurrentStep(4);
-    
-    // Simulación de conversión completada
-    setTimeout(() => {
+    setProgress(0);
+
+    socketRef.current = apiService.connectProgress();
+    socketRef.current.on('conversion_progress', (data: { progress: number }) => {
+      setProgress(data.progress);
+      if (data.progress >= 100) {
+        setIsConverting(false);
+        window.alert('Conversión completada');
+        socketRef.current?.disconnect();
+      }
+    });
+
+    try {
+      await apiService.convertFile({ file: selectedFile, target_format: targetFormat });
+    } catch (err: any) {
+      setError(err.message || 'Error en la conversión');
       setIsConverting(false);
-    }, 2000);
+      socketRef.current?.disconnect();
+    }
   }, [selectedFile, targetFormat]);
+
+  useEffect(() => {
+    return () => {
+      socketRef.current?.disconnect();
+    };
+  }, []);
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
@@ -270,17 +302,17 @@ export const UniversalConverter: React.FC = () => {
         </ConversionCard>
 
         {/* Paso 4: Descargar */}
-        <ConversionCard 
-          icon="⬇️" 
-          title="Descargar" 
+        <ConversionCard
+          icon="⬇️"
+          title="Descargar"
           isActive={currentStep === 4}
           isCompleted={currentStep > 4}
+          progress={progress}
         >
           {currentStep === 4 ? (
             isConverting ? (
               <div className="text-center py-2">
-                <div className="animate-pulse w-8 h-8 bg-primary rounded-full mx-auto mb-2"></div>
-                <p className="text-gray-300 text-sm">Procesando...</p>
+                <p className="text-gray-300 text-sm mb-2">Procesando... {progress}%</p>
               </div>
             ) : (
               <div className="text-center">

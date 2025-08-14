@@ -9,6 +9,7 @@ import tempfile
 import uuid
 from datetime import datetime
 import time
+from src.ws import emit_progress
 
 conversion_bp = Blueprint('conversion', __name__)
 
@@ -158,6 +159,7 @@ def convert_file():
         
         db.session.add(conversion)
         db.session.flush()  # Para obtener el ID
+        emit_progress(conversion.id, 0)
         
         try:
             # Preparar archivo de salida
@@ -190,27 +192,9 @@ def convert_file():
                 conversion.processing_time = processing_time
                 conversion.completed_at = datetime.utcnow()
                 conversion.output_filename = output_filename
-
-                history = ConversionHistory(
-                    conversion_id=conversion.id,
-                    user_id=user.id,
-                    original_filename=conversion.original_filename,
-                    original_format=conversion.original_format,
-                    target_format=conversion.target_format,
-                    file_size=conversion.file_size,
-                    conversion_type=conversion.conversion_type,
-                    credits_used=conversion.credits_used,
-                    processing_time=processing_time,
-                    status=conversion.status,
-                    error_message=conversion.error_message,
-                    output_filename=conversion.output_filename,
-                    created_at=conversion.created_at,
-                    completed_at=conversion.completed_at
-                )
-                db.session.add(history)
-
                 db.session.commit()
-                
+                emit_progress(conversion.id, 100)
+
                 return jsonify({
                     'message': 'Conversión completada exitosamente',
                     'conversion': conversion.to_dict(),
@@ -224,27 +208,9 @@ def convert_file():
                 conversion.error_message = message
                 conversion.processing_time = processing_time
                 conversion.completed_at = datetime.utcnow()
-
-                history = ConversionHistory(
-                    conversion_id=conversion.id,
-                    user_id=user.id,
-                    original_filename=conversion.original_filename,
-                    original_format=conversion.original_format,
-                    target_format=conversion.target_format,
-                    file_size=conversion.file_size,
-                    conversion_type=conversion.conversion_type,
-                    credits_used=conversion.credits_used,
-                    processing_time=processing_time,
-                    status=conversion.status,
-                    error_message=conversion.error_message,
-                    output_filename=conversion.output_filename,
-                    created_at=conversion.created_at,
-                    completed_at=conversion.completed_at
-                )
-                db.session.add(history)
-
                 db.session.commit()
-                
+                emit_progress(conversion.id, 100)
+
                 return jsonify({
                     'error': f'Error en la conversión: {message}',
                     'conversion': conversion.to_dict()
@@ -257,27 +223,9 @@ def convert_file():
             processing_time = time.time() - start_time if 'start_time' in locals() else None
             conversion.processing_time = processing_time
             conversion.completed_at = datetime.utcnow()
-
-            history = ConversionHistory(
-                conversion_id=conversion.id,
-                user_id=user.id,
-                original_filename=conversion.original_filename,
-                original_format=conversion.original_format,
-                target_format=conversion.target_format,
-                file_size=conversion.file_size,
-                conversion_type=conversion.conversion_type,
-                credits_used=conversion.credits_used,
-                processing_time=processing_time,
-                status=conversion.status,
-                error_message=conversion.error_message,
-                output_filename=conversion.output_filename,
-                created_at=conversion.created_at,
-                completed_at=conversion.completed_at
-            )
-            db.session.add(history)
-
             db.session.commit()
-            
+            emit_progress(conversion.id, 100)
+
             return jsonify({
                 'error': f'Error durante la conversión: {str(e)}',
                 'conversion': conversion.to_dict()
