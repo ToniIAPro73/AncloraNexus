@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAuth } from '../../auth/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 
 interface HeaderProps {
@@ -8,11 +9,16 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed }) => {
   const { user } = useAuth();
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    i18n.changeLanguage(e.target.value);
+  };
 
   return (
     <header
       role="banner"
-      aria-label="Encabezado principal"
+      aria-label={t('header.ariaLabel')}
       className={`
         fixed top-0 right-0 h-16
         bg-gradient-to-br from-primary to-secondary
@@ -25,19 +31,27 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed }) => {
         {/* Título de la página actual */}
         <div className="flex flex-col justify-center">
           <h1 className="text-xl font-bold text-white leading-snug">
-            Conversor Inteligente
+            {t('header.title')}
           </h1>
           <p className="text-sm text-blue-100 -mt-1">
-            Convierte archivos con inteligencia artificial avanzada
+            {t('header.subtitle')}
           </p>
         </div>
 
         {/* Área de usuario y créditos */}
         <div className="flex items-center space-x-4">
+          <select
+            value={i18n.language}
+            onChange={changeLanguage}
+            className="bg-slate-800 text-white px-2 py-1 rounded"
+          >
+            <option value="es">ES</option>
+            <option value="en">EN</option>
+          </select>
           {/* Contador de créditos */}
           <div className="flex items-center gap-2 bg-blue-700/60 px-3 py-1 rounded-full text-white shadow-sm">
             <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-            <span className="text-sm font-medium">50 créditos</span>
+            <span className="text-sm font-medium">{t('header.credits', { count: 50 })}</span>
           </div>
 
           {/* Perfil de usuario */}
@@ -47,10 +61,10 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed }) => {
             </div>
             <div className="flex-col hidden sm:flex leading-tight">
               <span className="text-sm text-white font-medium">
-                {user?.name || 'Usuario'}
+                {user?.name || t('header.defaultName')}
               </span>
               <span className="text-xs text-gray-300">
-                {user?.email || 'usuario@ejemplo.com'}
+                {user?.email || t('header.defaultEmail')}
               </span>
             </div>
             <svg className="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">

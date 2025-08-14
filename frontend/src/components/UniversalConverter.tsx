@@ -50,6 +50,7 @@ export const UniversalConverter: React.FC = () => {
       );
     }, 200);
 
+
     setTimeout(() => {
       clearInterval(interval);
       setQueue(prev =>
@@ -74,7 +75,6 @@ export const UniversalConverter: React.FC = () => {
           </button>
         </div>
       </FileUploader>
-
       {queue.length > 0 && (
         <div className="space-y-3">
           {queue.map(item => (
@@ -82,6 +82,7 @@ export const UniversalConverter: React.FC = () => {
               <div className="flex justify-between mb-1">
                 <span className="truncate">{item.file.name}</span>
                 <span className="text-sm">{item.progress}%</span>
+
               </div>
               <div className="w-full bg-gray-200 h-2 rounded">
                 <div
