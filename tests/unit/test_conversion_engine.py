@@ -56,3 +56,15 @@ def test_conversion_engine(source_ext, target_ext):
         result, msg = conversion_engine.convert_file(input_path, output_path, source_ext, target_ext)
         assert result, msg
         assert os.path.exists(output_path)
+
+
+def test_svg_to_jpg_via_png():
+    """Verifica que SVG se convierte a JPG usando una ruta intermedia PNG."""
+    with tempfile.TemporaryDirectory() as tmp:
+        input_path = os.path.join(tmp, 'in.svg')
+        output_path = os.path.join(tmp, 'out.jpg')
+        create_sample_file('svg', input_path)
+        result, msg = conversion_engine.convert_file(input_path, output_path, 'svg', 'jpg')
+        assert result, msg
+        assert os.path.exists(output_path)
+        assert 'svg->png' in msg and 'png->jpg' in msg
