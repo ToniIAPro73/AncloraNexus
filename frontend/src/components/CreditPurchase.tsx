@@ -145,13 +145,22 @@ export const CreditPurchase: React.FC = () => {
         </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {creditPackages.map((pkg, index) => (
-            <div
-              key={index}
-              className={`card relative transition-all duration-200 hover:scale-105 ${
-                pkg.popular ? 'border-primary' : ''
-              }`}
-            >
+        {creditPackages.map((pkg, index) => (
+          <div
+            key={index}
+            tabIndex={0}
+            role="button"
+            aria-label={`Comprar ${pkg.credits} créditos por €${pkg.price}`}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handlePurchaseCredits(pkg.credits);
+              }
+            }}
+            className={`card relative transition-all duration-200 hover:scale-105 ${
+              pkg.popular ? 'border-primary' : ''
+            }`}
+          >
               {pkg.popular && (
                 <div className="absolute -top-2 left-1/2 transform -translate-x-1/2">
                   <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs px-2 py-1 rounded-full">
@@ -183,9 +192,9 @@ export const CreditPurchase: React.FC = () => {
                 >
                   {isLoading ? 'Comprando...' : 'Comprar'}
                 </button>
-              </div>
-            </div>
-          ))}
+          </div>
+        </div>
+      ))}
         </div>
       </div>
 
@@ -196,13 +205,22 @@ export const CreditPurchase: React.FC = () => {
         </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {plans.map((plan) => (
-            <div
-              key={plan.id}
-              className={`card relative transition-all duration-200 ${
-                plan.popular ? 'border-primary scale-105' : ''
-              }`}
-            >
+        {plans.map((plan) => (
+          <div
+            key={plan.id}
+            tabIndex={0}
+            role="button"
+            aria-label={`Seleccionar plan ${plan.name} por €${plan.price}`}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleUpgradePlan(plan.id);
+              }
+            }}
+            className={`card relative transition-all duration-200 ${
+              plan.popular ? 'border-primary scale-105' : ''
+            }`}
+          >
               {plan.popular && (
                 <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                   <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-white text-sm px-3 py-1 rounded-full">
