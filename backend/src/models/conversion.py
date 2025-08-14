@@ -57,6 +57,7 @@ def normalize_to_utf8(path: str):
 # Importar el motor de conversión existente
 # (Aquí integraremos el motor que ya tienes implementado)
 # (Aquí integraremos el motor que ya tienes implementado)
+from src.ws import emit_progress, Phase
 
 class ConversionEngine:
     """Motor de conversión de Anclora Metaform"""
@@ -296,12 +297,24 @@ class ConversionEngine:
         """Procesa un lote de conversiones."""
         results = []
         for task in tasks:
+            conversion_id = task.get('conversion_id')
+            if conversion_id is not None:
+                emit_progress(conversion_id, Phase.PREPROCESS, 0)
+                emit_progress(conversion_id, Phase.PREPROCESS, 100)
+                emit_progress(conversion_id, Phase.CONVERT, 0)
+
             success, message = self.convert_file(
                 task['input_path'],
                 task['output_path'],
                 task.get('source_format') or task['input_path'].split('.')[-1],
                 task['target_format']
             )
+
+            if conversion_id is not None:
+                emit_progress(conversion_id, Phase.CONVERT, 100)
+                emit_progress(conversion_id, Phase.POSTPROCESS, 0)
+                emit_progress(conversion_id, Phase.POSTPROCESS, 100)
+
             results.append({
                 'input_path': task['input_path'],
                 'output_path': task['output_path'],
