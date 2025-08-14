@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { AuthService } from '../services/authService';
 import { apiService } from '../services/api';
 
@@ -12,16 +12,21 @@ export const Login: React.FC<LoginProps> = ({
   onSuccess, 
   onSwitchToRegister, 
   onClose 
-}) => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
+  }) => {
+    const [formData, setFormData] = useState({
+      email: '',
+      password: ''
+    });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const authService = AuthService.getInstance();
+    const authService = AuthService.getInstance();
+    const emailRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+      emailRef.current?.focus();
+    }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,9 +90,11 @@ export const Login: React.FC<LoginProps> = ({
     }
   };
 
-  return (
-    <div className="login-container">
-      <div className="login-modal">
+    return (
+      <div className="login-container" onKeyDown={(e) => {
+        if (e.key === 'Escape') onClose?.();
+      }}>
+        <div className="login-modal" role="dialog" aria-modal="true" aria-label="Formulario de inicio de sesión">
         {/* Header */}
         <div className="login-header">
           <h2 className="login-title">Iniciar Sesión</h2>
@@ -140,6 +147,7 @@ export const Login: React.FC<LoginProps> = ({
               Email
             </label>
             <input
+              ref={emailRef}
               type="email"
               id="email"
               name="email"

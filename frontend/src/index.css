@@ -1,3 +1,13 @@
+@import './styles/anclora-animations.css';
+
+/* Variables de color con contraste accesible */
+:root {
+  --color-primary: #004aad;
+  --color-secondary: #0066cc;
+  --color-neutral-100: #ffffff;
+  --color-neutral-900: #111827;
+}
+
 .button-primary {
   background: var(--color-primary);
   color: var(--color-neutral-100);
@@ -9,4 +19,3 @@
 }
 
 /* Estilos personalizados de Anclora */
-@import './styles/anclora-animations.css';
