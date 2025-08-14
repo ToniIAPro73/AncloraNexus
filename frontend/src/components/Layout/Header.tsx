@@ -11,6 +11,8 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed }) => {
 
   return (
     <header
+      role="banner"
+      aria-label="Encabezado principal"
       className={`
         fixed top-0 right-0 h-16
         bg-gradient-to-br from-primary to-secondary

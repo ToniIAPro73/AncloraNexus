@@ -1,6 +1,8 @@
 // frontend/src/components/Layout/Sidebar.tsx
+
 import React from "react";
 import { motion } from "framer-motion";
+
 import {
   Home, FileText, History, CreditCard, Star,
   Settings, HelpCircle, BarChart, LogOut
@@ -15,12 +17,33 @@ interface SidebarProps {
   setIsCollapsed: (collapsed: boolean) => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({
-  activeTab,
-  setActiveTab,
-  isCollapsed,
-  setIsCollapsed,
-}) => {
+  export const Sidebar: React.FC<SidebarProps> = ({
+    activeTab,
+    setActiveTab,
+    isCollapsed,
+    setIsCollapsed,
+  }) => {
+    const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>, index: number) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const next = (index + 1) % itemRefs.current.length;
+        itemRefs.current[next]?.focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prev = (index - 1 + itemRefs.current.length) % itemRefs.current.length;
+        itemRefs.current[prev]?.focus();
+      }
+    };
+
+    const toggleCollapse = () => {
+      const newState = !isCollapsed;
+      setIsCollapsed(newState);
+      if (!newState) {
+        setTimeout(() => itemRefs.current[0]?.focus(), 0);
+      }
+    };
   const menuItems = [
     { name: "Conversor", icon: Home },
     { name: "Formatos", icon: FileText },
@@ -32,6 +55,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { name: "Configuración", icon: Settings },
     { name: "Estadísticas", icon: BarChart },
   ];
+
 
   const sidebarVariants = {
     hidden: { opacity: 0, x: -50 },
@@ -70,11 +94,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
         )}
         {/* Collapse / expand button */}
-        <button
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          aria-label={isCollapsed ? 'Expandir menú' : 'Colapsar menú'}
-          className="p-1.5 rounded-lg hover:bg-slate-700/50 text-gray-400 hover:text-white transition-colors"
-        >
+          <button
+            onClick={toggleCollapse}
+            aria-label={isCollapsed ? 'Expandir menú' : 'Colapsar menú'}
+            aria-expanded={!isCollapsed}
+            aria-controls="sidebar-menu"
+            className="p-1.5 rounded-lg hover:bg-slate-700/50 text-gray-400 hover:text-white transition-colors"
+          >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
               d={isCollapsed ? 'M9 5l7 7-7 7' : 'M15 19l-7-7 7-7'} />
@@ -83,22 +109,26 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Menu principal */}
-      <nav className="flex flex-col px-2 py-4 space-y-1">
-        {menuItems.map((item) => (
-          <Button
-            key={item.name}
-            variant={activeTab === item.name ? "default" : "ghost"}
-            className={cn(
-              "w-full justify-start gap-3 text-left px-3 py-2 rounded-lg",
-              activeTab === item.name && "bg-blue-600 hover:bg-blue-500"
-            )}
-            onClick={() => setActiveTab(item.name)}
-          >
-            <item.icon className="w-5 h-5" />
-            {!isCollapsed && <span>{item.name}</span>}
-          </Button>
-        ))}
-      </nav>
+        <nav id="sidebar-menu" className="flex flex-col px-2 py-4 space-y-1" role="menu">
+          {menuItems.map((item, index) => (
+            <Button
+              key={item.name}
+              role="menuitem"
+              aria-current={activeTab === item.name ? 'page' : undefined}
+              ref={(el) => (itemRefs.current[index] = el)}
+              onKeyDown={(e) => handleKeyDown(e, index)}
+              variant={activeTab === item.name ? "default" : "ghost"}
+              className={cn(
+                "w-full justify-start gap-3 text-left px-3 py-2 rounded-lg",
+                activeTab === item.name && "bg-blue-600 hover:bg-blue-500"
+              )}
+              onClick={() => setActiveTab(item.name)}
+            >
+              <item.icon className="w-5 h-5" />
+              {!isCollapsed && <span>{item.name}</span>}
+            </Button>
+          ))}
+        </nav>
 
       {/* Cierre de sesión */}
       <div className="absolute bottom-0 w-full px-2 py-3 border-t border-white/10">
