@@ -20,6 +20,13 @@ def create_sample_file(ext: str, path: str):
     elif ext in ('jpg', 'png', 'gif'):
         img = Image.new('RGB', (50, 50), color='red')
         img.save(path)
+    elif ext == 'svg':
+        svg_content = (
+            '<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50">'
+            '<rect width="50" height="50" fill="red"/></svg>'
+        )
+        with open(path, 'w', encoding='utf-8') as f:
+            f.write(svg_content)
     elif ext == 'docx':
         doc = Document()
         doc.add_paragraph('hola docx')
@@ -35,10 +42,11 @@ def create_sample_file(ext: str, path: str):
     ('txt', 'doc'), ('txt', 'docx'), ('txt', 'pdf'), ('txt', 'odt'), ('txt', 'tex'),
     ('pdf', 'jpg'), ('pdf', 'png'), ('pdf', 'gif'), ('pdf', 'txt'),
     ('jpg', 'png'), ('jpg', 'pdf'), ('jpg', 'gif'),
-    ('png', 'jpg'), ('png', 'pdf'), ('png', 'gif'),
-    ('gif', 'jpg'), ('gif', 'png'), ('gif', 'pdf'),
+    ('png', 'jpg'), ('png', 'pdf'), ('png', 'gif'), ('png', 'webp'),
+    ('gif', 'jpg'), ('gif', 'png'), ('gif', 'pdf'), ('gif', 'mp4'),
     ('doc', 'pdf'), ('doc', 'txt'), ('doc', 'html'),
-    ('docx', 'pdf'), ('docx', 'txt'), ('docx', 'html')
+    ('docx', 'pdf'), ('docx', 'txt'), ('docx', 'html'),
+    ('svg', 'png')
 ])
 def test_conversion_engine(source_ext, target_ext):
     with tempfile.TemporaryDirectory() as tmp:

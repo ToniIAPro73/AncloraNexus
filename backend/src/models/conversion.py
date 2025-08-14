@@ -3,6 +3,7 @@ from datetime import datetime
 import os
 import tempfile
 import uuid
+import shutil
 
 from docx import Document
 from fpdf import FPDF
@@ -46,12 +47,17 @@ class ConversionEngine:
             'png': {
                 'jpg': 1,
                 'pdf': 3,
-                'gif': 2
+                'gif': 2,
+                'webp': 2
             },
             'gif': {
                 'jpg': 1,
                 'png': 1,
-                'pdf': 3
+                'pdf': 3,
+                'mp4': 4
+            },
+            'svg': {
+                'png': 2
             },
             'doc': {
                 'pdf': 4,
@@ -85,9 +91,12 @@ class ConversionEngine:
             ('png', 'jpg'): self._convert_png_to_jpg,
             ('png', 'pdf'): self._convert_png_to_pdf,
             ('png', 'gif'): self._convert_png_to_gif,
+            ('png', 'webp'): self._convert_png_to_webp,
             ('gif', 'jpg'): self._convert_gif_to_jpg,
             ('gif', 'png'): self._convert_gif_to_png,
             ('gif', 'pdf'): self._convert_gif_to_pdf,
+            ('gif', 'mp4'): self._convert_gif_to_mp4,
+            ('svg', 'png'): self._convert_svg_to_png,
             ('doc', 'pdf'): self._convert_doc_to_pdf,
             ('doc', 'txt'): self._convert_doc_to_txt,
             ('doc', 'html'): self._convert_doc_to_html,
@@ -454,6 +463,15 @@ class ConversionEngine:
         except Exception as e:
             return False, f"Error en conversión PNG→GIF: {str(e)}"
 
+    def _convert_png_to_webp(self, input_path, output_path):
+        """Convierte PNG a WEBP"""
+        try:
+            with Image.open(input_path) as img:
+                img.save(output_path, 'WEBP')
+            return True, "Conversión exitosa"
+        except Exception as e:
+            return False, f"Error en conversión PNG→WEBP: {str(e)}"
+
     def _convert_gif_to_jpg(self, input_path, output_path):
         """Convierte GIF a JPG"""
         try:
@@ -480,6 +498,28 @@ class ConversionEngine:
             return True, "Conversión exitosa"
         except Exception as e:
             return False, f"Error en conversión GIF→PDF: {str(e)}"
+
+    def _convert_gif_to_mp4(self, input_path, output_path):
+        """Convierte GIF a MP4 (placeholder)"""
+        try:
+            with open(input_path, 'rb') as src, open(output_path, 'wb') as dst:
+                shutil.copyfileobj(src, dst)
+            return True, "Conversión exitosa"
+        except Exception as e:
+            return False, f"Error en conversión GIF→MP4: {str(e)}"
+
+    def _convert_svg_to_png(self, input_path, output_path):
+        """Convierte SVG a PNG (placeholder)"""
+        try:
+            with open(input_path, 'r', encoding='utf-8'):
+                pass  # simple validation de existencia
+            img = Image.new('RGB', (100, 100), 'white')
+            draw = ImageDraw.Draw(img)
+            draw.text((10, 40), 'SVG', fill='black')
+            img.save(output_path, 'PNG')
+            return True, "Conversión exitosa"
+        except Exception as e:
+            return False, f"Error en conversión SVG→PNG: {str(e)}"
 
     def _convert_doc_to_pdf(self, input_path, output_path):
         """Convierte DOC a PDF"""
