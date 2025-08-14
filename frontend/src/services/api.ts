@@ -68,6 +68,18 @@ export const apiService = {
     return { token: responseData.access_token, user: responseData.user };
   },
 
+  requestPasswordReset: async (email: string): Promise<void> => {
+    const response = await fetch(`${API_BASE_URL}/auth/forgot-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      throw new Error(data.error || 'Error solicitando recuperación de contraseña');
+    }
+  },
+
   logout: () => {
     console.log('Cerrando sesión...');
     clearToken();
