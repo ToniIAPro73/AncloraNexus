@@ -1,16 +1,17 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { FileUploader } from './FileUploader';
 
 interface QueueItem {
   id: string;
   file: File;
   progress: number;
-  status: 'pending' | 'processing' | 'completed';
+  status: 'pending' | 'processing' | 'completed' | 'cancelled';
 }
 
 export const UniversalConverter: React.FC = () => {
   const [queue, setQueue] = useState<QueueItem[]>([]);
   const [processing, setProcessing] = useState(false);
+  const timersRef = useRef<Record<string, { interval: ReturnType<typeof setInterval>; timeout: ReturnType<typeof setTimeout> }>>({});
 
   const handleFileSelect = useCallback((files: File | File[]) => {
     const list = Array.isArray(files) ? files : [files];
@@ -50,8 +51,7 @@ export const UniversalConverter: React.FC = () => {
       );
     }, 200);
 
-
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       clearInterval(interval);
       setQueue(prev =>
         prev.map(q =>
@@ -60,8 +60,39 @@ export const UniversalConverter: React.FC = () => {
             : q
         )
       );
+      delete timersRef.current[item.id];
       setProcessing(false);
     }, 2000);
+
+    timersRef.current[item.id] = { interval, timeout };
+  };
+
+  const cancelConversion = (id: string) => {
+    const timer = timersRef.current[id];
+    if (timer) {
+      clearInterval(timer.interval);
+      clearTimeout(timer.timeout);
+      delete timersRef.current[id];
+    }
+    const wasProcessing = queue.find(q => q.id === id)?.status === 'processing';
+    setQueue(prev =>
+      prev.map(q => (q.id === id ? { ...q, status: 'cancelled' } : q))
+    );
+    if (wasProcessing) {
+      setProcessing(false);
+    }
+  };
+
+  const moveItem = (id: string, direction: 'up' | 'down') => {
+    setQueue(prev => {
+      const index = prev.findIndex(q => q.id === id);
+      if (index === -1) return prev;
+      const newIndex = direction === 'up' ? Math.max(index - 1, 0) : Math.min(index + 1, prev.length - 1);
+      const newQueue = [...prev];
+      const [item] = newQueue.splice(index, 1);
+      newQueue.splice(newIndex, 0, item);
+      return newQueue;
+    });
   };
 
   return (
@@ -77,18 +108,42 @@ export const UniversalConverter: React.FC = () => {
       </FileUploader>
       {queue.length > 0 && (
         <div className="space-y-3">
-          {queue.map(item => (
-            <div key={item.id} className="p-4 border rounded-md">
+          {queue.map((item, index) => (
+            <div key={item.id} className="p-4 border rounded-md space-y-2">
               <div className="flex justify-between mb-1">
                 <span className="truncate">{item.file.name}</span>
-                <span className="text-sm">{item.progress}%</span>
-
+                <span className="text-sm">
+                  {item.status === 'cancelled' ? 'Cancelado' : `${item.progress}%`}
+                </span>
               </div>
               <div className="w-full bg-gray-200 h-2 rounded">
                 <div
                   className="bg-green-500 h-2 rounded"
                   style={{ width: `${item.progress}%` }}
                 ></div>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => cancelConversion(item.id)}
+                  disabled={item.status === 'completed' || item.status === 'cancelled'}
+                  className="px-2 py-1 border rounded"
+                >
+                  Cancelar
+                </button>
+                <button
+                  onClick={() => moveItem(item.id, 'up')}
+                  disabled={index === 0 || item.status !== 'pending'}
+                  className="px-2 py-1 border rounded"
+                >
+                  ↑
+                </button>
+                <button
+                  onClick={() => moveItem(item.id, 'down')}
+                  disabled={index === queue.length - 1 || item.status !== 'pending'}
+                  className="px-2 py-1 border rounded"
+                >
+                  ↓
+                </button>
               </div>
             </div>
           ))}
