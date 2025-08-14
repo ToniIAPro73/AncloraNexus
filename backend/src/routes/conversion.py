@@ -165,18 +165,23 @@ def convert_file():
         
         db.session.add(conversion)
         db.session.flush()  # Para obtener el ID
-        emit_progress(conversion.id, 0)
-        
+        emit_progress(conversion.id, Phase.PREPROCESS, 0)
+
         try:
+            emit_progress(conversion.id, Phase.PREPROCESS, 100)
+            emit_progress(conversion.id, Phase.CONVERT, 0)
+
             # Preparar archivo de salida
             output_filename = f"{filename.rsplit('.', 1)[0]}.{target_format}"
             output_path = os.path.join(OUTPUT_FOLDER, f"{uuid.uuid4()}_{output_filename}")
-            
+
             # Realizar conversión
             start_time = time.time()
             success, message = conversion_engine.convert_file(
                 input_path, output_path, source_format, target_format
             )
+            emit_progress(conversion.id, Phase.CONVERT, 100)
+            emit_progress(conversion.id, Phase.POSTPROCESS, 0)
             processing_time = time.time() - start_time
             
             if success:
@@ -215,7 +220,7 @@ def convert_file():
                 conversion.completed_at = datetime.utcnow()
                 conversion.output_filename = output_filename
                 db.session.commit()
-                emit_progress(conversion.id, 100)
+                emit_progress(conversion.id, Phase.POSTPROCESS, 100)
 
                 return jsonify({
                     'message': 'Conversión completada exitosamente',
@@ -231,7 +236,7 @@ def convert_file():
                 conversion.processing_time = processing_time
                 conversion.completed_at = datetime.utcnow()
                 db.session.commit()
-                emit_progress(conversion.id, 100)
+                emit_progress(conversion.id, Phase.POSTPROCESS, 100)
 
                 return jsonify({
                     'error': f'Error en la conversión: {message}',
@@ -246,7 +251,7 @@ def convert_file():
             conversion.processing_time = processing_time
             conversion.completed_at = datetime.utcnow()
             db.session.commit()
-            emit_progress(conversion.id, 100)
+            emit_progress(conversion.id, Phase.POSTPROCESS, 100)
 
             return jsonify({
                 'error': f'Error durante la conversión: {str(e)}',
