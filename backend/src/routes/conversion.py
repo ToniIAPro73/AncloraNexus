@@ -8,6 +8,7 @@ import tempfile
 import uuid
 from datetime import datetime
 import time
+from src.ws import emit_progress
 
 conversion_bp = Blueprint('conversion', __name__)
 
@@ -157,6 +158,7 @@ def convert_file():
         
         db.session.add(conversion)
         db.session.flush()  # Para obtener el ID
+        emit_progress(conversion.id, 0)
         
         try:
             # Preparar archivo de salida
@@ -189,9 +191,9 @@ def convert_file():
                 conversion.processing_time = processing_time
                 conversion.completed_at = datetime.utcnow()
                 conversion.output_filename = output_filename
-                
                 db.session.commit()
-                
+                emit_progress(conversion.id, 100)
+
                 return jsonify({
                     'message': 'Conversión completada exitosamente',
                     'conversion': conversion.to_dict(),
@@ -205,9 +207,9 @@ def convert_file():
                 conversion.error_message = message
                 conversion.processing_time = processing_time
                 conversion.completed_at = datetime.utcnow()
-                
                 db.session.commit()
-                
+                emit_progress(conversion.id, 100)
+
                 return jsonify({
                     'error': f'Error en la conversión: {message}',
                     'conversion': conversion.to_dict()
@@ -218,9 +220,9 @@ def convert_file():
             conversion.status = 'failed'
             conversion.error_message = str(e)
             conversion.completed_at = datetime.utcnow()
-            
             db.session.commit()
-            
+            emit_progress(conversion.id, 100)
+
             return jsonify({
                 'error': f'Error durante la conversión: {str(e)}',
                 'conversion': conversion.to_dict()

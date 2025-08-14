@@ -12,6 +12,7 @@ from src.routes.auth import auth_bp
 from src.routes.conversion import conversion_bp
 from src.routes.credits import credits_bp
 from datetime import timedelta
+from src.ws import socketio
 
 app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
 
@@ -34,6 +35,9 @@ CORS(app,
      origins=origins,
      supports_credentials=True,
      allow_headers=['Content-Type', 'Authorization'])
+
+# Inicializar SocketIO
+socketio.init_app(app, cors_allowed_origins=origins)
 
 # Configuración de JWT
 jwt = JWTManager(app)
@@ -144,5 +148,5 @@ if __name__ == '__main__':
     print("❤️  Verificación de salud: http://localhost:8000/api/health")
     print("=" * 50)
     debug_mode = os.environ.get('FLASK_DEBUG', 'false').lower() in ('1', 'true', 'yes')
-    app.run(host='0.0.0.0', port=8000, debug=debug_mode)
+    socketio.run(app, host='0.0.0.0', port=8000, debug=debug_mode)
 

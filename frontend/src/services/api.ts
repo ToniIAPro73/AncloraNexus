@@ -1,5 +1,6 @@
 // --- TIPOS DE DATOS (Interfaces) ---
 import type { User } from '../types/User';
+import { io, type Socket } from 'socket.io-client';
 
 export interface LoginData {
   email: string;
@@ -16,6 +17,7 @@ export interface RegisterData {
 
 // URL base de la API configurable mediante variable de entorno
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000/api';
+const WS_BASE_URL = process.env.NEXT_PUBLIC_WS_BASE_URL || 'http://localhost:8000';
 
 // --- Funciones de Ayuda para el Token ---
 const setAuthToken = (token: string) => {
@@ -183,6 +185,9 @@ export const apiService = {
     });
     if (!response.ok) throw new Error('Error actualizando plan');
     return response.json();
+  },
+  connectProgress: (): Socket => {
+    return io(WS_BASE_URL);
   },
 };
 
