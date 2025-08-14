@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AuthService } from '../services/authService';
+import { PasswordResetModal } from './PasswordResetModal';
 
 interface LoginProps {
   onSuccess?: () => void;
@@ -19,6 +20,7 @@ export const Login: React.FC<LoginProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [showResetModal, setShowResetModal] = useState(false);
 
   const authService = AuthService.getInstance();
 
@@ -72,6 +74,7 @@ export const Login: React.FC<LoginProps> = ({
   };
 
   return (
+    <>
     <div className="login-container">
       <div className="login-modal">
         {/* Header */}
@@ -186,8 +189,8 @@ export const Login: React.FC<LoginProps> = ({
 
         {/* Footer Links */}
         <div className="login-footer">
-          <button 
-            onClick={() => {/* TODO: Implementar forgot password */}}
+          <button
+            onClick={() => setShowResetModal(true)}
             className="link-button"
           >
             ¿Olvidaste tu contraseña?
@@ -496,6 +499,10 @@ export const Login: React.FC<LoginProps> = ({
         }
       `}</style>
     </div>
+    {showResetModal && (
+      <PasswordResetModal onClose={() => setShowResetModal(false)} />
+    )}
+    </>
   );
 };
 

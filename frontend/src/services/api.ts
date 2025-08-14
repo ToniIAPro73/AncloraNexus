@@ -108,6 +108,19 @@ export const apiService = {
     return data.user;
   },
 
+  requestPasswordReset: async (email: string): Promise<void> => {
+    const response = await fetch(`${API_BASE_URL}/auth/request-password-reset`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      throw new Error(data.error || 'Error solicitando recuperación de contraseña');
+    }
+  },
+
   clearToken,
 
   // --- Funciones de Conversión ---
