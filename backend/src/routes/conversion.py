@@ -4,21 +4,27 @@ from werkzeug.utils import secure_filename
 from src.models.user import User, Conversion, CreditTransaction, db
 from src.models.conversion import conversion_engine
 from src.models.conversion_history import ConversionHistory
+from src.models.conversion_log import ConversionLog
 import os
 import tempfile
 import uuid
 from datetime import datetime
 import time
+import hashlib
+import shutil
+from pathlib import Path
 from src.ws import emit_progress
 
 conversion_bp = Blueprint('conversion', __name__)
 
 UPLOAD_FOLDER = '/tmp/anclora_uploads'
 OUTPUT_FOLDER = '/tmp/anclora_outputs'
+BACKUP_FOLDER = Path(__file__).resolve().parents[2] / 'backups'
 
 # Crear directorios si no existen
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+BACKUP_FOLDER.mkdir(exist_ok=True)
 
 ALLOWED_EXTENSIONS = {
     'txt', 'pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png', 'gif',
@@ -174,9 +180,16 @@ def convert_file():
             processing_time = time.time() - start_time
             
             if success:
+                # Guardar hash del archivo original y crear backup
+                with open(input_path, 'rb') as f:
+                    original_hash = hashlib.sha256(f.read()).hexdigest()
+                backup_filename = f"{conversion.id}_{filename}"
+                backup_path = BACKUP_FOLDER / backup_filename
+                shutil.copy(input_path, backup_path)
+
                 # Consumir créditos
                 user.consume_credits(credits_needed)
-                
+
                 # Registrar transacción de créditos
                 transaction = CreditTransaction(
                     user_id=user.id,
@@ -186,7 +199,16 @@ def convert_file():
                     conversion_id=conversion.id
                 )
                 db.session.add(transaction)
-                
+
+                # Registrar log de conversión
+                log = ConversionLog(
+                    conversion_id=conversion.id,
+                    file_hash=original_hash,
+                    output_path=output_path,
+                    backup_path=str(backup_path)
+                )
+                db.session.add(log)
+
                 # Actualizar conversión
                 conversion.status = 'completed'
                 conversion.processing_time = processing_time
@@ -239,6 +261,27 @@ def convert_file():
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': f'Error interno del servidor: {str(e)}'}), 500
+
+
+@conversion_bp.route('/conversions/<int:conversion_id>', methods=['DELETE'])
+@jwt_required()
+def undo_conversion(conversion_id):
+    """Restaura el archivo original desde el backup"""
+    try:
+        user_id = get_jwt_identity()
+        conversion = Conversion.query.filter_by(id=conversion_id, user_id=user_id).first()
+        if not conversion:
+            return jsonify({'error': 'Conversión no encontrada'}), 404
+
+        log = ConversionLog.query.filter_by(conversion_id=conversion_id).first()
+        if not log or not os.path.exists(log.backup_path):
+            return jsonify({'error': 'Backup no disponible'}), 404
+
+        shutil.copy(log.backup_path, log.output_path)
+
+        return jsonify({'message': 'Conversión revertida', 'conversion_id': conversion_id}), 200
+    except Exception as e:
+        return jsonify({'error': f'Error al restaurar: {str(e)}'}), 500
 
 @conversion_bp.route('/download/<int:conversion_id>', methods=['GET'])
 @jwt_required()
