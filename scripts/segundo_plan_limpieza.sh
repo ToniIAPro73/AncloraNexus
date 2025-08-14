@@ -62,8 +62,6 @@ echo "⚙️ Reorganizando configuraciones..."
 # Consolidar tsconfig.json
 if [ -f "tsconfig.json" ] && [ -f "frontend/tsconfig.json" ]; then
     echo "🔄 Consolidando tsconfig.json..."
-    # Crear backup del frontend tsconfig
-    cp "frontend/tsconfig.json" "frontend/tsconfig.json.backup"
     # Mover el de raíz al frontend (generalmente más completo)
     mv "tsconfig.json" "frontend/"
 fi
