@@ -77,3 +77,8 @@ node_modules/
 # Los archivos legítimos están en:
 # - backend/requirements.txt ✅
 # - frontend/package.json ✅
+
+# CI artifacts
+.ci-rebuild-trigger
+.coverage
+temp_ci_fix.txt
