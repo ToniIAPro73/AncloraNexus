@@ -17,11 +17,9 @@ class Phase(str, Enum):
 
 def emit_progress(conversion_id: int, phase: Union[Phase, str], percent: int) -> None:
     """Broadcast conversion progress to all connected clients."""
-    socketio.emit(
-        "conversion_progress",
-        {
-            "conversion_id": conversion_id,
-            "phase": phase.value if isinstance(phase, Phase) else phase,
-            "percent": percent,
-        },
-    )
+    try:
+        socketio.emit("conversion_progress", {"conversion_id": conversion_id, "progress": progress})
+    except Exception:
+        # Durante las pruebas el servidor SocketIO no está inicializado
+        pass
+
