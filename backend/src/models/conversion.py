@@ -10,6 +10,35 @@ from fpdf import FPDF
 from PIL import Image, ImageDraw
 from pypdf import PdfReader
 
+
+def validate_and_classify(file_path):
+    """Clasifica un archivo en valid, salvageable o unsalvageable"""
+    if not os.path.exists(file_path) or os.path.isdir(file_path):
+        return "unsalvageable"
+
+    try:
+        with open(file_path, "rb") as f:
+            data = f.read()
+    except OSError:
+        return "unsalvageable"
+
+    if not data:
+        return "unsalvageable"
+
+    try:
+        text = data.decode("utf-8")
+        # Si contiene caracteres de reemplazo, es recuperable
+        if "\ufffd" in text:
+            return "salvageable"
+        return "valid"
+    except UnicodeDecodeError:
+        text = data.decode("utf-8", errors="replace")
+        if not text:
+            return "unsalvageable"
+        replacements = text.count("\ufffd")
+        ratio = replacements / len(text)
+        return "salvageable" if ratio < 0.3 else "unsalvageable"
+
 # Importar el motor de conversión existente
 # (Aquí integraremos el motor que ya tienes implementado)
 # (Aquí integraremos el motor que ya tienes implementado)

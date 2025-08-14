@@ -6,22 +6,40 @@ interface QueueItem {
   file: File;
   progress: number;
   status: 'pending' | 'processing' | 'completed';
+  classification: 'valid' | 'salvageable' | 'unsalvageable';
 }
 
 export const UniversalConverter: React.FC = () => {
   const [queue, setQueue] = useState<QueueItem[]>([]);
   const [processing, setProcessing] = useState(false);
 
-  const handleFileSelect = useCallback((files: File | File[]) => {
-    const list = Array.isArray(files) ? files : [files];
-    const items = list.map(file => ({
-      id: crypto.randomUUID(),
-      file,
-      progress: 0,
-      status: 'pending' as const,
-    }));
-    setQueue(prev => [...prev, ...items]);
+  const classifyFile = useCallback(async (file: File) => {
+    try {
+      const text = await file.text();
+      const replacements = text.split('\ufffd').length - 1;
+      if (!replacements) return 'valid';
+      const ratio = replacements / (text.length || 1);
+      return ratio < 0.3 ? 'salvageable' : 'unsalvageable';
+    } catch {
+      return 'unsalvageable';
+    }
   }, []);
+
+  const handleFileSelect = useCallback(async (files: File | File[]) => {
+    const list = Array.isArray(files) ? files : [files];
+    const items: QueueItem[] = [];
+    for (const file of list) {
+      const classification = await classifyFile(file);
+      items.push({
+        id: crypto.randomUUID(),
+        file,
+        progress: 0,
+        status: 'pending',
+        classification,
+      });
+    }
+    setQueue(prev => [...prev, ...items]);
+  }, [classifyFile]);
 
   useEffect(() => {
     if (!processing) {
@@ -82,8 +100,8 @@ export const UniversalConverter: React.FC = () => {
               <div className="flex justify-between mb-1">
                 <span className="truncate">{item.file.name}</span>
                 <span className="text-sm">{item.progress}%</span>
-
               </div>
+              <p className="text-xs mb-1">Clasificación: {item.classification}</p>
               <div className="w-full bg-gray-200 h-2 rounded">
                 <div
                   className="bg-green-500 h-2 rounded"

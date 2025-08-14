@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify, send_file
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from werkzeug.utils import secure_filename
 from src.models.user import User, Conversion, CreditTransaction, db
-from src.models.conversion import conversion_engine
+from src.models.conversion import conversion_engine, validate_and_classify
 from src.models.conversion_history import ConversionHistory
 import os
 import tempfile
@@ -66,13 +66,15 @@ def analyze_file():
         file.save(temp_path)
         
         try:
+            classification = validate_and_classify(temp_path)
             # Validar archivo
             is_valid, message = conversion_engine.validate_file(temp_path)
             if not is_valid:
-                return jsonify({'error': message}), 400
-            
+                return jsonify({'error': message, 'classification': classification}), 400
+
             # Analizar archivo
             analysis = conversion_engine.analyze_file(temp_path, filename)
+            analysis['classification'] = classification
             
             # Añadir información de costos
             source_format = analysis['extension']
