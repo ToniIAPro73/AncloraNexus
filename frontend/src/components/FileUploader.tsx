@@ -1,24 +1,29 @@
 import React, { useState, useCallback, PropsWithChildren } from 'react';
 
 interface FileUploaderProps {
-  onFileSelect: (file: File) => void;
+  onFileSelect: (file: File | File[]) => void;
   isLoading: boolean;
   acceptedFiles?: string;
+  multiple?: boolean;
 }
 
-export const FileUploader: React.FC<PropsWithChildren<FileUploaderProps>> = ({ 
-  onFileSelect, 
-  isLoading, 
+export const FileUploader: React.FC<PropsWithChildren<FileUploaderProps>> = ({
+  onFileSelect,
+  isLoading,
   acceptedFiles = '*',
+  multiple = false,
   children
 }) => {
   const [isDragging, setIsDragging] = useState(false);
 
-  const handleFile = useCallback((files: FileList | null) => {
-    if (files && files[0]) {
-        onFileSelect(files[0]);
-    }
-  }, [onFileSelect]);
+  const handleFile = useCallback(
+    (files: FileList | null) => {
+      if (files && files.length > 0) {
+        onFileSelect(multiple ? Array.from(files) : files[0]);
+      }
+    },
+    [onFileSelect, multiple]
+  );
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -67,6 +72,7 @@ export const FileUploader: React.FC<PropsWithChildren<FileUploaderProps>> = ({
                 accept={acceptedFiles}
                 onChange={handleInputChange}
                 disabled={isLoading}
+                multiple={multiple}
               />
               {children}
           </div>
@@ -84,13 +90,14 @@ export const FileUploader: React.FC<PropsWithChildren<FileUploaderProps>> = ({
       onClick={handleClick}
     >
         {/* Input is now outside the main clickable div to support both modes */}
-         <input
+        <input
             id="file-input"
             type="file"
             className="hidden"
             accept={acceptedFiles}
             onChange={handleInputChange}
             disabled={isLoading}
+            multiple={multiple}
         />
         {/* ... rest of default UI ... */}
     </div>

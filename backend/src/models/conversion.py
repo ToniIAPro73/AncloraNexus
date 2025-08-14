@@ -175,6 +175,24 @@ class ConversionEngine:
         except Exception as e:
             return False, f"Error durante la conversión: {str(e)}"
 
+    def convert_batch(self, tasks):
+        """Procesa un lote de conversiones."""
+        results = []
+        for task in tasks:
+            success, message = self.convert_file(
+                task['input_path'],
+                task['output_path'],
+                task.get('source_format') or task['input_path'].split('.')[-1],
+                task['target_format']
+            )
+            results.append({
+                'input_path': task['input_path'],
+                'output_path': task['output_path'],
+                'success': success,
+                'message': message
+            })
+        return results
+
     def _convert_txt_to_html(self, input_path, output_path):
         """Convierte TXT a HTML"""
         try:
