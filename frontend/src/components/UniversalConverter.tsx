@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+
 import { FileUploader } from './FileUploader';
+
+interface PhaseProgress {
+  preprocess: number;
+  convert: number;
+  postprocess: number;
+}
 
 interface QueueItem {
   id: string;
@@ -12,16 +19,39 @@ export const UniversalConverter: React.FC = () => {
   const [queue, setQueue] = useState<QueueItem[]>([]);
   const [processing, setProcessing] = useState(false);
   const timersRef = useRef<Record<string, { interval: ReturnType<typeof setInterval>; timeout: ReturnType<typeof setTimeout> }>>({});
-
   const handleFileSelect = useCallback((files: File | File[]) => {
     const list = Array.isArray(files) ? files : [files];
     const items = list.map(file => ({
       id: crypto.randomUUID(),
       file,
-      progress: 0,
+      progress: { preprocess: 0, convert: 0, postprocess: 0 },
       status: 'pending' as const,
     }));
     setQueue(prev => [...prev, ...items]);
+  }, []);
+
+  useEffect(() => {
+    const socket = apiService.connectProgress();
+    socket.on('conversion_progress', ({ conversion_id, phase, percent }) => {
+      setQueue(prev =>
+        prev.map(item =>
+          item.id === String(conversion_id)
+            ? {
+                ...item,
+                progress: { ...item.progress, [phase]: percent },
+                status:
+                  phase === 'postprocess' && percent === 100
+                    ? 'completed'
+                    : item.status,
+              }
+            : item
+        )
+      );
+    });
+    socketRef.current = socket;
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -37,7 +67,9 @@ export const UniversalConverter: React.FC = () => {
     setProcessing(true);
     setQueue(prev =>
       prev.map(q =>
-        q.id === item.id ? { ...q, status: 'processing', progress: 0 } : q
+        q.id === item.id
+          ? { ...q, status: 'processing', progress: { preprocess: 0, convert: 0, postprocess: 0 } }
+          : q
       )
     );
 
