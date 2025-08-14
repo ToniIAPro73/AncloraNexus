@@ -26,8 +26,12 @@ app.config['JWT_SECRET_KEY'] = jwt_secret_key
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=7)
 
 # Configuración de CORS para permitir requests del frontend
-CORS(app, 
-     origins=['http://localhost:3000', 'http://localhost:5173', '*'],
+allowed_origins = os.environ.get('CORS_ORIGINS')
+if not allowed_origins:
+    raise RuntimeError('CORS_ORIGINS must be set as environment variable')
+origins = [origin.strip() for origin in allowed_origins.split(',') if origin.strip()]
+CORS(app,
+     origins=origins,
      supports_credentials=True,
      allow_headers=['Content-Type', 'Authorization'])
 
@@ -139,6 +143,6 @@ if __name__ == '__main__':
     print("🔍 Información del API: http://localhost:8000/api/info")
     print("❤️  Verificación de salud: http://localhost:8000/api/health")
     print("=" * 50)
-    
-    app.run(host='0.0.0.0', port=8000, debug=True)
+    debug_mode = os.environ.get('FLASK_DEBUG', 'false').lower() in ('1', 'true', 'yes')
+    app.run(host='0.0.0.0', port=8000, debug=debug_mode)
 
