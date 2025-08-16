@@ -114,7 +114,12 @@ export const Login: React.FC<LoginProps> = ({
 
         {/* Error Message */}
         {error && (
-          <div className="login-error">
+          <div
+            id="login-error"
+            role="alert"
+            aria-live="polite"
+            className="login-error"
+          >
             <span className="error-icon">⚠️</span>
             {error}
           </div>
@@ -158,6 +163,7 @@ export const Login: React.FC<LoginProps> = ({
               className="form-input"
               placeholder="tu@email.com"
               autoComplete="email"
+              aria-describedby={error ? 'login-error' : undefined}
             />
           </div>
 
@@ -178,6 +184,7 @@ export const Login: React.FC<LoginProps> = ({
                 placeholder="••••••••"
                 autoComplete="current-password"
                 minLength={6}
+                aria-describedby={error ? 'login-error' : undefined}
               />
               <button
                 type="button"

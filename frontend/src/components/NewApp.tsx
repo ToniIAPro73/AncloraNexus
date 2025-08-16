@@ -6,6 +6,7 @@ import { MainLayout } from './Layout/MainLayout';
 import { NewConversorInteligente } from './NewConversorInteligente';
 import { ConversionHistory } from './ConversionHistory';
 import { CreditPurchase } from './CreditPurchase';
+import { ThemeProvider } from '../theme/ThemeProvider';
 import './styles/anclora-animations.css';
 
 // Componente placeholder para las secciones que aún no están implementadas
@@ -116,13 +117,15 @@ const AuthenticatedApp: React.FC = () => {
 // Componente principal de la aplicación
 const NewApp: React.FC = () => {
   return (
-    <AuthProvider>
-      <CreditProvider>
-        <ProtectedRoute>
-          <AuthenticatedApp />
-        </ProtectedRoute>
-      </CreditProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <CreditProvider>
+          <ProtectedRoute>
+            <AuthenticatedApp />
+          </ProtectedRoute>
+        </CreditProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 };
 

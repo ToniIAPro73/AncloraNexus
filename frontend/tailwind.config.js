@@ -26,6 +26,12 @@ module.exports = {
           700: '#3E4C59',
           900: '#1F2933',
         },
+        // Paleta de alto contraste (ratio ≥ 7:1)
+        hc: {
+          background: '#000000', // Negro
+          foreground: '#FFFFFF', // Blanco
+          accent: '#FFD700', // Amarillo dorado
+        },
       },
       fontFamily: {
         primary: ['var(--font-primary)', 'sans-serif'],
@@ -72,5 +78,5 @@ module.exports = {
       transform: ['active'],
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/container-queries')],
 };

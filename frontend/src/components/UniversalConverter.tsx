@@ -19,6 +19,7 @@ interface QueueItem {
 export const UniversalConverter: React.FC = () => {
   const [queue, setQueue] = useState<QueueItem[]>([]);
   const [processing, setProcessing] = useState(false);
+  const [liveMessage, setLiveMessage] = useState('');
   const classifyFile = useCallback(async (file: File) => {
     try {
       const text = await file.text();
@@ -111,6 +112,7 @@ export const UniversalConverter: React.FC = () => {
       );
       delete timersRef.current[item.id];
       setProcessing(false);
+      setLiveMessage(`Conversión completada para ${item.file.name}`);
     }, 2000);
 
     timersRef.current[item.id] = { interval, timeout };
@@ -123,13 +125,15 @@ export const UniversalConverter: React.FC = () => {
       clearTimeout(timer.timeout);
       delete timersRef.current[id];
     }
-    const wasProcessing = queue.find(q => q.id === id)?.status === 'processing';
+    const cancelledItem = queue.find(q => q.id === id);
+    const wasProcessing = cancelledItem?.status === 'processing';
     setQueue(prev =>
       prev.map(q => (q.id === id ? { ...q, status: 'cancelled' } : q))
     );
     if (wasProcessing) {
       setProcessing(false);
     }
+    setLiveMessage(`Conversión cancelada para ${cancelledItem?.file.name || 'archivo'}`);
   };
 
   const moveItem = (id: string, direction: 'up' | 'down') => {
@@ -164,12 +168,19 @@ export const UniversalConverter: React.FC = () => {
                 <span className="text-sm">{item.progress}%</span>
               </div>
               <p className="text-xs mb-1">Clasificación: {item.classification}</p>
-              <div className="w-full bg-gray-200 h-2 rounded">
                 <div
-                  className="bg-green-500 h-2 rounded"
-                  style={{ width: `${item.progress}%` }}
-                ></div>
-              </div>
+                  className="w-full bg-gray-200 h-2 rounded"
+                  role="progressbar"
+                  aria-label={`Progreso de conversión de ${item.file.name}`}
+                  aria-valuenow={item.progress}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                >
+                  <div
+                    className="bg-green-500 h-2 rounded"
+                    style={{ width: `${item.progress}%` }}
+                  ></div>
+                </div>
               <div className="flex gap-2">
                 <button
                   onClick={() => cancelConversion(item.id)}
