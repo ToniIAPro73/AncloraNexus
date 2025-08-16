@@ -92,7 +92,7 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({ onClose }) => {
                 )}
               </div>
               <div className="user-details">
-                <h2 className="user-name">{profile.full_name || 'Usuario'}</h2>
+                <h2 className="user-name text-h2">{profile.full_name || 'Usuario'}</h2>
                 <p className="user-email">{profile.email}</p>
                 <div className="plan-badge" style={{ backgroundColor: getPlanColor() }}>
                   {getPlanDisplayName()}
@@ -135,7 +135,7 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({ onClose }) => {
               <div className="stats-grid">
                 <div className="stat-card">
                   <div className="stat-header">
-                    <h3>Conversiones este mes</h3>
+                    <h3 className="text-h3">Conversiones este mes</h3>
                     <span className="stat-icon">📊</span>
                   </div>
                   <div className="stat-value">
@@ -165,7 +165,7 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({ onClose }) => {
 
                 <div className="stat-card">
                   <div className="stat-header">
-                    <h3>Tamaño máximo de archivo</h3>
+                    <h3 className="text-h3">Tamaño máximo de archivo</h3>
                     <span className="stat-icon">📁</span>
                   </div>
                   <div className="stat-value">
@@ -178,7 +178,7 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({ onClose }) => {
 
                 <div className="stat-card">
                   <div className="stat-header">
-                    <h3>Conversiones simultáneas</h3>
+                    <h3 className="text-h3">Conversiones simultáneas</h3>
                     <span className="stat-icon">⚡</span>
                   </div>
                   <div className="stat-value">
@@ -191,7 +191,7 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({ onClose }) => {
 
                 <div className="stat-card">
                   <div className="stat-header">
-                    <h3>Procesamiento por lotes</h3>
+                    <h3 className="text-h3">Procesamiento por lotes</h3>
                     <span className="stat-icon">📦</span>
                   </div>
                   <div className="stat-value">
@@ -205,7 +205,7 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({ onClose }) => {
 
               {/* Quick Actions */}
               <div className="quick-actions">
-                <h3>Acciones rápidas</h3>
+                <h3 className="text-h3">Acciones rápidas</h3>
                 <div className="actions-grid">
                   <button className="action-btn">
                     <span className="action-icon">🔄</span>
@@ -233,7 +233,7 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({ onClose }) => {
                     {isAtLimit ? '🚫' : '⚠️'}
                   </span>
                   <div className="warning-content">
-                    <h4>
+                    <h4 className="text-h4">
                       {isAtLimit 
                         ? 'Has alcanzado tu límite mensual'
                         : 'Te estás acercando a tu límite'
@@ -258,7 +258,7 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({ onClose }) => {
             <div className="profile-tab">
               <div className="profile-section">
                 <div className="section-header">
-                  <h3>Información personal</h3>
+                  <h3 className="text-h3">Información personal</h3>
                   <button
                     onClick={() => setIsEditing(!isEditing)}
                     className="edit-btn"
@@ -366,10 +366,10 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({ onClose }) => {
           {activeTab === 'billing' && (
             <div className="billing-tab">
               <div className="billing-section">
-                <h3>Plan actual</h3>
+                <h3 className="text-h3">Plan actual</h3>
                 <div className="current-plan">
                   <div className="plan-info">
-                    <h4 style={{ color: getPlanColor() }}>
+                    <h4 className="text-h4" style={{ color: getPlanColor() }}>
                       {getPlanDisplayName()}
                     </h4>
                     <p>
@@ -387,7 +387,7 @@ export const UserDashboard: React.FC<UserDashboardProps> = ({ onClose }) => {
                 </div>
 
                 <div className="plan-features">
-                  <h4>Características incluidas</h4>
+                  <h4 className="text-h4">Características incluidas</h4>
                   <ul>
                     <li>✅ {limits?.max_conversions_per_month === -1 ? 'Conversiones ilimitadas' : `${limits?.max_conversions_per_month} conversiones/mes`}</li>
                     <li>✅ Archivos hasta {limits?.max_file_size_mb}MB</li>

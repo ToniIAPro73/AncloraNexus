@@ -36,7 +36,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
     }`}>
       <div className="flex items-center justify-between p-4 border-b border-gray-200">
         {!isCollapsed && (
-          <h1 className="text-xl font-bold text-blue-600">Anclora</h1>
+          <h1 className="text-h1 font-bold text-blue-600">Anclora</h1>
         )}
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}

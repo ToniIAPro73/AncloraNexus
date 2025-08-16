@@ -68,10 +68,9 @@ export const EbookConverterPage: React.FC<EbookConverterPageProps> = ({
               <div className="flex items-center" style={{ gap: 'var(--space-2)' }}>
                 <IconEbook className="w-8 h-8" style={{ color: 'var(--color-primary)' }} />
                 <div>
-                  <h1 
-                    className="font-bold"
-                    style={{ 
-                      fontSize: '24px',
+                  <h1
+                    className="text-h1 font-bold"
+                    style={{
                       color: 'var(--color-neutral-900)',
                       fontFamily: 'var(--font-heading)'
                     }}
@@ -197,10 +196,9 @@ export const EbookConverterPage: React.FC<EbookConverterPageProps> = ({
               boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
             }}
           >
-            <h3 
-              className="font-semibold mb-4"
-              style={{ 
-                fontSize: '18px',
+            <h3
+              className="text-h3 font-semibold mb-4"
+              style={{
                 color: 'var(--color-neutral-900)'
               }}
             >

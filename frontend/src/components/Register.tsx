@@ -140,7 +140,7 @@ export const Register: React.FC<RegisterProps> = ({
       <div className="register-modal">
         {/* Header */}
         <div className="register-header">
-          <h2 className="register-title">Crear Cuenta</h2>
+          <h2 className="register-title text-h2">Crear Cuenta</h2>
           <p className="register-subtitle">
             Únete a Anclora Converter y comienza a convertir archivos
           </p>

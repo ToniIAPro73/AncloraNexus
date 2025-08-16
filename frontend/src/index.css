@@ -1,11 +1,52 @@
 @import './styles/anclora-animations.css';
 
-/* Variables de color con contraste accesible */
+/* Variables de color y tipografía con contraste accesible */
 :root {
   --color-primary: #004aad;
   --color-secondary: #0066cc;
   --color-neutral-100: #ffffff;
   --color-neutral-900: #111827;
+
+  /* Tipografías */
+  --font-primary: 'Inter', system-ui, sans-serif;
+  --font-secondary: 'Merriweather', serif;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-size: clamp(1rem, 0.5vw + 0.875rem, 1.125rem);
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-secondary);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw + 1rem, 3.5rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw + 1rem, 2.75rem);
+}
+
+h3 {
+  font-size: clamp(1.75rem, 3vw + 1rem, 2rem);
+}
+
+h4 {
+  font-size: clamp(1.5rem, 2vw + 1rem, 1.75rem);
+}
+
+button {
+  font-family: var(--font-primary);
+  font-size: clamp(0.875rem, 0.5vw + 0.75rem, 1rem);
+  line-height: 1.4;
 }
 
 .button-primary {

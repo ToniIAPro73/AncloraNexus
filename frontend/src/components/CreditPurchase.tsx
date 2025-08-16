@@ -106,7 +106,7 @@ export const CreditPurchase: React.FC = () => {
       {user && (
         <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-xl p-6">
           <div className="text-center">
-            <h2 className="text-xl font-bold text-white mb-2">Saldo Actual</h2>
+            <h2 className="text-h2 font-bold text-white mb-2">Saldo Actual</h2>
             <div className="text-4xl font-bold text-blue-400 mb-2">{user.credits}</div>
             <p className="text-slate-300">créditos disponibles</p>
             <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
@@ -231,7 +231,7 @@ export const CreditPurchase: React.FC = () => {
 
               <div className="card-body">
                 <div className="text-center mb-4">
-                  <h3 className="text-xl font-bold text-white mb-2">{plan.name}</h3>
+                  <h3 className="text-h3 font-bold text-white mb-2">{plan.name}</h3>
                   <div className="text-3xl font-bold text-blue-400 mb-1">
                     €{plan.price}
                   </div>
@@ -278,10 +278,10 @@ export const CreditPurchase: React.FC = () => {
 
       {/* Información adicional */}
       <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
-        <h3 className="text-lg font-bold text-white mb-4">ℹ️ Información sobre Créditos</h3>
+        <h3 className="text-h3 font-bold text-white mb-4">ℹ️ Información sobre Créditos</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
           <div>
-            <h4 className="font-medium text-white mb-2">¿Cómo funcionan los créditos?</h4>
+            <h4 className="text-h4 font-medium text-white mb-2">¿Cómo funcionan los créditos?</h4>
             <ul className="space-y-1">
               <li>• Cada conversión consume créditos según la complejidad</li>
               <li>• Los créditos no expiran</li>
@@ -290,7 +290,7 @@ export const CreditPurchase: React.FC = () => {
             </ul>
           </div>
           <div>
-            <h4 className="font-medium text-white mb-2">Ventajas de los planes</h4>
+            <h4 className="text-h4 font-medium text-white mb-2">Ventajas de los planes</h4>
             <ul className="space-y-1">
               <li>• Créditos mensuales automáticos</li>
               <li>• Descuentos en créditos adicionales</li>

@@ -127,10 +127,9 @@ export const EbookFormatSelector: React.FC<EbookFormatSelectorProps> = ({
     <div className={className}>
       {/* Header */}
       <div style={{ marginBottom: 'var(--space-3)' }}>
-        <h3 
-          className="font-semibold flex items-center"
-          style={{ 
-            fontSize: '20px',
+        <h3
+          className="text-h3 font-semibold flex items-center"
+          style={{
             color: 'var(--color-neutral-900)',
             marginBottom: 'var(--space-1)',
             gap: 'var(--space-1)'
@@ -258,10 +257,9 @@ export const EbookFormatSelector: React.FC<EbookFormatSelectorProps> = ({
                   style={{ color: selectedFormat === option.format ? 'var(--color-primary)' : 'var(--color-neutral-900)' }}
                 />
                 <div>
-                  <h4 
-                    className="font-semibold"
-                    style={{ 
-                      fontSize: '16px',
+                  <h4
+                    className="text-h4 font-semibold"
+                    style={{
                       color: 'var(--color-neutral-900)'
                     }}
                   >
@@ -411,10 +409,9 @@ export const EbookFormatSelector: React.FC<EbookFormatSelectorProps> = ({
             border: `1px solid var(--color-neutral-200)`
           }}
         >
-          <h4 
-            className="font-semibold mb-3"
-            style={{ 
-              fontSize: '16px',
+          <h4
+            className="text-h4 font-semibold mb-3"
+            style={{
               color: 'var(--color-neutral-900)'
             }}
           >

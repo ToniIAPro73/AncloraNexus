@@ -7,7 +7,7 @@ export default function LandingPage() {
     <div className="min-h-screen font-sans">
       {/* Hero Section */}
       <section className="bg-[#dbeafe] text-center py-24 px-4">
-        <h1 className="text-4xl md:text-5xl font-bold text-[#1e40af] mb-4">
+        <h1 className="text-h1 font-bold text-[#1e40af] mb-4">
           {t('landing.heroTitle')}
         </h1>
         <p className="text-xl md:text-2xl text-[#2563eb] italic">
@@ -17,12 +17,12 @@ export default function LandingPage() {
 
       {/* Features Section */}
       <section className="py-16 px-4">
-        <h2 className="text-3xl font-semibold text-center text-[#1e40af] mb-12">
+        <h2 className="text-h2 font-semibold text-center text-[#1e40af] mb-12">
           {t('landing.featuresTitle')}
         </h2>
         <div className="max-w-5xl mx-auto grid gap-8 md:grid-cols-3">
           <div className="p-6 rounded-lg shadow bg-white">
-            <h3 className="text-xl font-semibold text-[#2563eb] mb-2">
+            <h3 className="text-h3 font-semibold text-[#2563eb] mb-2">
               {t('landing.features.smartConversion.title')}
             </h3>
             <p className="text-[#64748b]">
@@ -30,7 +30,7 @@ export default function LandingPage() {
             </p>
           </div>
           <div className="p-6 rounded-lg shadow bg-white">
-            <h3 className="text-xl font-semibold text-[#2563eb] mb-2">
+            <h3 className="text-h3 font-semibold text-[#2563eb] mb-2">
               {t('landing.features.intuitiveDesign.title')}
             </h3>
             <p className="text-[#64748b]">
@@ -38,7 +38,7 @@ export default function LandingPage() {
             </p>
           </div>
           <div className="p-6 rounded-lg shadow bg-white">
-            <h3 className="text-xl font-semibold text-[#2563eb] mb-2">
+            <h3 className="text-h3 font-semibold text-[#2563eb] mb-2">
               {t('landing.features.multiplatformSupport.title')}
             </h3>
             <p className="text-[#64748b]">
@@ -50,12 +50,12 @@ export default function LandingPage() {
 
       {/* Pricing Section */}
       <section className="bg-[#f8fafc] py-16 px-4">
-        <h2 className="text-3xl font-semibold text-center text-[#1e40af] mb-12">
+        <h2 className="text-h2 font-semibold text-center text-[#1e40af] mb-12">
           {t('landing.pricingTitle')}
         </h2>
         <div className="max-w-5xl mx-auto grid gap-8 md:grid-cols-3">
           <div className="p-6 border rounded-lg">
-            <h3 className="text-xl font-semibold text-[#2563eb] mb-4">
+            <h3 className="text-h3 font-semibold text-[#2563eb] mb-4">
               {t('landing.pricing.free.title')}
             </h3>
             <p className="text-[#64748b] mb-6">{t('landing.pricing.free.desc')}</p>
@@ -67,7 +67,7 @@ export default function LandingPage() {
             </Link>
           </div>
           <div className="p-6 border-2 border-[#2563eb] rounded-lg">
-            <h3 className="text-xl font-semibold text-[#2563eb] mb-4">
+            <h3 className="text-h3 font-semibold text-[#2563eb] mb-4">
               {t('landing.pricing.pro.title')}
             </h3>
             <p className="text-[#64748b] mb-6">
@@ -81,7 +81,7 @@ export default function LandingPage() {
             </Link>
           </div>
           <div className="p-6 border rounded-lg">
-            <h3 className="text-xl font-semibold text-[#2563eb] mb-4">
+            <h3 className="text-h3 font-semibold text-[#2563eb] mb-4">
               {t('landing.pricing.enterprise.title')}
             </h3>
             <p className="text-[#64748b] mb-6">
@@ -99,7 +99,7 @@ export default function LandingPage() {
 
       {/* CTA Section */}
       <section className="text-center py-20 bg-[#1e293b] text-white px-4">
-        <h2 className="text-3xl font-bold mb-6">
+        <h2 className="text-h2 font-bold mb-6">
           {t('landing.ctaTitle')}
         </h2>
         <Link

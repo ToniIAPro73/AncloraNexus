@@ -152,10 +152,9 @@ export const EbookMetadataViewer: React.FC<EbookMetadataViewerProps> = ({
     <div className={className}>
       {/* Header */}
       <div className="flex items-center justify-between" style={{ marginBottom: 'var(--space-3)' }}>
-        <h3 
-          className="font-semibold flex items-center"
-          style={{ 
-            fontSize: '20px',
+        <h3
+          className="text-h3 font-semibold flex items-center"
+          style={{
             color: 'var(--color-neutral-900)',
             gap: 'var(--space-1)'
           }}
@@ -296,10 +295,9 @@ export const EbookMetadataViewer: React.FC<EbookMetadataViewerProps> = ({
             border: `1px solid var(--color-neutral-200)`
           }}
         >
-          <h4 
-            className="font-semibold mb-4"
-            style={{ 
-              fontSize: '16px',
+          <h4
+            className="text-h4 font-semibold mb-4"
+            style={{
               color: 'var(--color-neutral-900)'
             }}
           >
@@ -341,10 +339,9 @@ export const EbookMetadataViewer: React.FC<EbookMetadataViewerProps> = ({
             border: `1px solid var(--color-neutral-200)`
           }}
         >
-          <h4 
-            className="font-semibold mb-4"
-            style={{ 
-              fontSize: '16px',
+          <h4
+            className="text-h4 font-semibold mb-4"
+            style={{
               color: 'var(--color-neutral-900)'
             }}
           >
@@ -387,10 +384,9 @@ export const EbookMetadataViewer: React.FC<EbookMetadataViewerProps> = ({
             border: `1px solid var(--color-neutral-200)`
           }}
         >
-          <h4 
-            className="font-semibold mb-4"
-            style={{ 
-              fontSize: '16px',
+          <h4
+            className="text-h4 font-semibold mb-4"
+            style={{
               color: 'var(--color-neutral-900)'
             }}
           >
@@ -436,10 +432,9 @@ export const EbookMetadataViewer: React.FC<EbookMetadataViewerProps> = ({
             border: `1px solid var(--color-neutral-200)`
           }}
         >
-          <h4 
-            className="font-semibold mb-4"
-            style={{ 
-              fontSize: '16px',
+          <h4
+            className="text-h4 font-semibold mb-4"
+            style={{
               color: 'var(--color-neutral-900)'
             }}
           >
@@ -465,10 +460,9 @@ export const EbookMetadataViewer: React.FC<EbookMetadataViewerProps> = ({
             border: `1px solid var(--color-neutral-200)`
           }}
         >
-          <h4 
-            className="font-semibold mb-4"
-            style={{ 
-              fontSize: '16px',
+          <h4
+            className="text-h4 font-semibold mb-4"
+            style={{
               color: 'var(--color-neutral-900)'
             }}
           >
