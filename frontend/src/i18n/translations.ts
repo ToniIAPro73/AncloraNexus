@@ -11,6 +11,7 @@ export const resources = {
         highContrast: 'High Contrast'
       },
       landing: {
+        skipLink: 'Skip to main content',
         heroTitle: 'Anclora Metaform',
         heroSubtitle: 'Your Content, Reinvented',
         featuresTitle: 'Features',
@@ -63,6 +64,7 @@ export const resources = {
         highContrast: 'Contraste alto'
       },
       landing: {
+        skipLink: 'Ir al contenido principal',
         heroTitle: 'Anclora Metaform',
         heroSubtitle: 'Tu Contenido, Reinventado',
         featuresTitle: 'Características',
