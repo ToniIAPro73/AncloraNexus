@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { ChevronLeft, ChevronRight, Home, FileText, Settings, User, CreditCard } from 'lucide-react';
+import AccessibleIcon from '../AccessibleIcon';
 
 interface SidebarProps {
   isCollapsed: boolean;
@@ -42,7 +43,15 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
           onClick={() => setIsCollapsed(!isCollapsed)}
           className="p-1 rounded-lg hover:bg-gray-100 transition-colors"
         >
-          {isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
+          {isCollapsed ? (
+            <AccessibleIcon label="Expandir menú">
+              <ChevronRight size={20} />
+            </AccessibleIcon>
+          ) : (
+            <AccessibleIcon label="Contraer menú">
+              <ChevronLeft size={20} />
+            </AccessibleIcon>
+          )}
         </button>
       </div>
       
@@ -57,7 +66,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
                   isCollapsed ? 'justify-center' : 'justify-start'
                 }`}
               >
-                <item.icon size={20} />
+                <AccessibleIcon label={item.label}>
+                  <item.icon size={20} />
+                </AccessibleIcon>
                 {!isCollapsed && <span className="ml-3">{item.label}</span>}
               </button>
             </li>

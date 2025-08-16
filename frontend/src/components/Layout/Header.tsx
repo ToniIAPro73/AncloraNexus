@@ -1,8 +1,8 @@
 import React from 'react';
 import { useAuth } from '../../auth/AuthContext';
 import { useTranslation } from 'react-i18next';
-import { useTheme } from '../../theme/ThemeProvider';
-
+import { ChevronDown } from 'lucide-react';
+import AccessibleIcon from '../AccessibleIcon';
 
 export const Header: React.FC = () => {
   const { user } = useAuth();
@@ -66,9 +66,9 @@ export const Header: React.FC = () => {
                 {user?.email || t('header.defaultEmail')}
               </span>
             </div>
-            <svg className="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
+            <AccessibleIcon label="Abrir menú">
+              <ChevronDown className="w-4 h-4 text-white/50" />
+            </AccessibleIcon>
           </div>
         </div>
       </div>
