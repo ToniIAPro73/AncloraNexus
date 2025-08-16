@@ -10,6 +10,7 @@ export const resources = {
         defaultEmail: 'user@example.com'
       },
       landing: {
+        skipLink: 'Skip to main content',
         heroTitle: 'Anclora Metaform',
         heroSubtitle: 'Your Content, Reinvented',
         featuresTitle: 'Features',
@@ -61,6 +62,7 @@ export const resources = {
         defaultEmail: 'usuario@ejemplo.com'
       },
       landing: {
+        skipLink: 'Ir al contenido principal',
         heroTitle: 'Anclora Metaform',
         heroSubtitle: 'Tu Contenido, Reinventado',
         featuresTitle: 'Características',
