@@ -116,8 +116,8 @@ export const PopularConversions: React.FC = () => {
                         })}
                     </ul>
                 </aside>
-                <main className="w-full md:w-3/4">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <main className="w-full md:w-3/4 @container">
+                    <div className="grid grid-cols-1 gap-4 @[30rem]:grid-cols-2">
                         {activeInfo.conversions.map((conv, index) => (
                             <ConversionButton key={index} from={conv.from} to={conv.to} />
                         ))}

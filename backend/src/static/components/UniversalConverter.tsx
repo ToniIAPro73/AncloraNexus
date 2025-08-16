@@ -7,6 +7,8 @@ export const UniversalConverter: React.FC = () => {
   const [isConverting, setIsConverting] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [aiSuggestion, setAiSuggestion] = useState<string>('');
+  const [conversionProgress, setConversionProgress] = useState(0);
+  const [liveMessage, setLiveMessage] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { balance, consumeCredits, calculateConversionCost } = useCreditSystem();
 
@@ -89,32 +91,40 @@ export const UniversalConverter: React.FC = () => {
 
   const handleConvert = async () => {
     if (!selectedFile || !targetFormat) return;
-    
+
     const cost = calculateCost(selectedFile, targetFormat);
     if (balance.current < cost) {
       alert('Créditos insuficientes');
+      setLiveMessage('Créditos insuficientes');
       return;
     }
 
     setIsConverting(true);
+    setConversionProgress(0);
     setCurrentStep(4);
-    
+
+    const interval = setInterval(() => {
+      setConversionProgress(prev => Math.min(prev + 10, 100));
+    }, 200);
+
     // Simular conversión con progreso realista
     try {
       // Simular proceso de conversión
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
+      clearInterval(interval);
+      setConversionProgress(100);
+
       // Consumir créditos y crear transacción
       const success = consumeCredits(cost, `${selectedFile.name} → ${targetFormat}`);
-      
+
       if (success) {
         // Simular descarga del archivo convertido
         const convertedFileName = selectedFile.name.replace(/\.[^/.]+$/, `.${targetFormat}`);
         const simulatedContent = `Archivo convertido: ${convertedFileName}\nConversión de ${selectedFile.name} a formato ${targetFormat.toUpperCase()}\nTamaño original: ${(selectedFile.size / 1024 / 1024).toFixed(2)} MB\nFecha de conversión: ${new Date().toLocaleString()}`;
-        
+
         const blob = new Blob([simulatedContent], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
-        
+
         const a = document.createElement('a');
         a.href = url;
         a.download = convertedFileName;
@@ -122,25 +132,31 @@ export const UniversalConverter: React.FC = () => {
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
-        
+
         // Resetear el formulario
         setIsConverting(false);
         setCurrentStep(1);
         setSelectedFile(null);
         setTargetFormat('');
         setAiSuggestion('');
+        setLiveMessage('Conversión completada');
       } else {
         throw new Error('Error al procesar el pago de créditos');
       }
     } catch (error) {
+      clearInterval(interval);
       console.error('Error en conversión:', error);
       setIsConverting(false);
+      setLiveMessage('Error durante la conversión');
       alert('Error durante la conversión. Inténtalo de nuevo.');
     }
   };
 
   return (
     <div className="space-y-6">
+      <div aria-live="assertive" className="sr-only">
+        {liveMessage}
+      </div>
       {/* Header */}
       <div className="text-center">
         <h1 className="text-3xl font-bold text-white mb-2">
@@ -268,8 +284,8 @@ export const UniversalConverter: React.FC = () => {
 
           {/* Step 4: Download */}
           <div className={`p-4 rounded-lg border transition-all duration-300 ${
-            currentStep === 4 
-              ? 'bg-cyan-500/10 border-cyan-500/30' 
+            currentStep === 4
+              ? 'bg-cyan-500/10 border-cyan-500/30'
               : 'bg-slate-700/30 border-slate-600/30'
           }`}>
             <h3 className="text-white font-medium mb-3">📥 Descargar</h3>
@@ -277,7 +293,19 @@ export const UniversalConverter: React.FC = () => {
               <div className="text-center">
                 {isConverting ? (
                   <>
-                    <div className="animate-pulse w-8 h-8 bg-cyan-500 rounded-full mx-auto mb-2"></div>
+                    <div
+                      role="progressbar"
+                      aria-label="Progreso de conversión"
+                      aria-valuenow={conversionProgress}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                      className="w-full bg-slate-600 h-2 rounded-full mb-2"
+                    >
+                      <div
+                        className="bg-cyan-500 h-2 rounded-full"
+                        style={{ width: `${conversionProgress}%` }}
+                      ></div>
+                    </div>
                     <p className="text-slate-300 text-sm">Convirtiendo...</p>
                   </>
                 ) : (

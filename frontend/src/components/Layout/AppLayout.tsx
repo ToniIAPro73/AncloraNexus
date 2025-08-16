@@ -3,13 +3,13 @@ import Sidebar from './Sidebar';
 import { Header } from './Header';
 import { CreditProvider, CreditBalance, CreditHistory } from '@/components/CreditSystem';
 
-interface MainLayoutProps {
+interface AppLayoutProps {
   children: React.ReactNode;
   activeTab: string;
   setActiveTab: (tab: string) => void;
 }
 
-export const MainLayout: React.FC<MainLayoutProps> = ({
+export const AppLayout: React.FC<AppLayoutProps> = ({
   children,
   activeTab,
   setActiveTab,
@@ -35,7 +35,14 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   }, [activeTab]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
+    <div
+      className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden grid"
+      style={{
+        gridTemplateColumns: 'auto 1fr',
+        gridTemplateRows: 'auto 1fr',
+        gridTemplateAreas: `'sidebar header' 'sidebar main'`,
+      }}
+    >
       {/* Fondo animado de ondas */}
       <div className="absolute inset-0 opacity-30 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/10 to-primary/20 animate-pulse" />
@@ -44,44 +51,46 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
       </div>
 
       {/* Sidebar */}
-      <Sidebar
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        isCollapsed={sidebarCollapsed}
-        setIsCollapsed={setSidebarCollapsed}
-      />
+      <div style={{ gridArea: 'sidebar' }} className="relative z-20">
+        <Sidebar
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          isCollapsed={sidebarCollapsed}
+          setIsCollapsed={setSidebarCollapsed}
+        />
+      </div>
 
       {/* Header */}
-      <Header />
+      <div style={{ gridArea: 'header' }} className="relative z-20">
+        <Header />
+      </div>
 
       {/* Capa negra en móvil al abrir menú */}
       {isMobile && !sidebarCollapsed && (
         <div
-          className="fixed inset-0 bg-black/50 z-30"
+          className="fixed inset-0 bg-black/50 z-10"
           onClick={() => setSidebarCollapsed(true)}
         />
       )}
 
       {/* Contenido principal */}
-        <main
-          ref={mainRef}
-          tabIndex={-1}
-          role="main"
-          aria-label="Contenido principal"
-          className={`
-            pt-16 min-h-screen relative z-10 transition-all duration-300 ease-in-out
-            ml-0 ${sidebarCollapsed ? 'md:ml-16' : 'md:ml-72'}
-          `}
-        >
+      <main
+        ref={mainRef}
+        tabIndex={-1}
+        role="main"
+        aria-label="Contenido principal"
+        style={{ gridArea: 'main' }}
+        className="pt-16 min-h-screen relative z-10 transition-all duration-300 ease-in-out p-6"
+      >
         {activeTab === 'Créditos' ? (
           <CreditProvider>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
+            <div className="grid grid-cols-1 @[50rem]:grid-cols-2 gap-6">
               <CreditBalance />
               <CreditHistory />
             </div>
           </CreditProvider>
         ) : (
-          <div className="p-6">{children}</div>
+          <div>{children}</div>
         )}
       </main>
     </div>

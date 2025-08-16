@@ -19,3 +19,17 @@
 }
 
 /* Estilos personalizados de Anclora */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #1e40af;
+  color: var(--color-neutral-100);
+  padding: 8px;
+  z-index: 1000;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 0;
+}
