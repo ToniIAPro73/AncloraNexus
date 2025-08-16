@@ -181,6 +181,20 @@ constructor() {
 }
 ```
 
+### **Utilidades de Layout Responsivo**
+
+- `AppLayout` emplea **CSS Grid** con áreas nombradas `sidebar`, `header` y `main` para organizar la aplicación.
+- Se habilitó el plugin `@tailwindcss/container-queries` para usar `@container` y adaptar las columnas según el ancho del contenedor.
+- Ejemplo:
+
+```jsx
+<section className="@container">
+  <div className="grid grid-cols-1 @[30rem]:grid-cols-2 @[48rem]:grid-cols-3">
+    {/* cards */}
+  </div>
+</section>
+```
+
 ## ✅ Checklist de Implementación
 
 ### **Componentes React**
