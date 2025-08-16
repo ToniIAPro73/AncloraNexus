@@ -4,11 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../theme/ThemeProvider';
 
 
-interface HeaderProps {
-  sidebarCollapsed: boolean;
-}
-
-export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed }) => {
+export const Header: React.FC = () => {
   const { user } = useAuth();
   const { t, i18n } = useTranslation();
   const { highContrast, toggleHighContrast } = useTheme();
@@ -21,13 +17,7 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed }) => {
     <header
       role="banner"
       aria-label={t('header.ariaLabel')}
-      className={`
-        fixed top-0 right-0 h-16
-        bg-gradient-to-br from-primary to-secondary
-        backdrop-blur-md shadow-md z-30 border-b border-white/10
-        transition-all duration-300 ease-in-out
-        left-0 ${sidebarCollapsed ? 'md:left-16' : 'md:left-72'}
-      `}
+      className="h-16 bg-gradient-to-br from-primary to-secondary backdrop-blur-md shadow-md z-30 border-b border-white/10"
     >
       <div className="flex items-center justify-between h-full px-6">
         {/* Título de la página actual */}

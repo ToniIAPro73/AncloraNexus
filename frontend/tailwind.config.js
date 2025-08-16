@@ -76,9 +76,5 @@ module.exports = {
       transform: ['active'],
     },
   },
-  plugins: [
-    function ({ addVariant }) {
-      addVariant('hc', '.hc &');
-    },
-  ],
+  plugins: [require('@tailwindcss/container-queries')],
 };
