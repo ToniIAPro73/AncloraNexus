@@ -157,7 +157,12 @@ export const Register: React.FC<RegisterProps> = ({
 
         {/* Error Message */}
         {error && (
-          <div className="register-error">
+          <div
+            id="register-error"
+            role="alert"
+            aria-live="polite"
+            className="register-error"
+          >
             <span className="error-icon">⚠️</span>
             {error}
           </div>
@@ -190,35 +195,37 @@ export const Register: React.FC<RegisterProps> = ({
               <label htmlFor="fullName" className="form-label">
                 Nombre completo
               </label>
-              <input
-                type="text"
-                id="fullName"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleInputChange}
-                required
-                disabled={isLoading}
-                className="form-input"
-                placeholder="Tu nombre"
-                autoComplete="name"
-              />
+            <input
+              type="text"
+              id="fullName"
+              name="fullName"
+              value={formData.fullName}
+              onChange={handleInputChange}
+              required
+              disabled={isLoading}
+              className="form-input"
+              placeholder="Tu nombre"
+              autoComplete="name"
+              aria-describedby={error ? 'register-error' : undefined}
+            />
             </div>
 
             <div className="form-group">
               <label htmlFor="company" className="form-label">
                 Empresa (opcional)
               </label>
-              <input
-                type="text"
-                id="company"
-                name="company"
-                value={formData.company}
-                onChange={handleInputChange}
-                disabled={isLoading}
-                className="form-input"
-                placeholder="Tu empresa"
-                autoComplete="organization"
-              />
+            <input
+              type="text"
+              id="company"
+              name="company"
+              value={formData.company}
+              onChange={handleInputChange}
+              disabled={isLoading}
+              className="form-input"
+              placeholder="Tu empresa"
+              autoComplete="organization"
+              aria-describedby={error ? 'register-error' : undefined}
+            />
             </div>
           </div>
 
@@ -237,6 +244,7 @@ export const Register: React.FC<RegisterProps> = ({
               className="form-input"
               placeholder="tu@email.com"
               autoComplete="email"
+              aria-describedby={error ? 'register-error' : undefined}
             />
           </div>
 
@@ -257,6 +265,7 @@ export const Register: React.FC<RegisterProps> = ({
                 placeholder="••••••••"
                 autoComplete="new-password"
                 minLength={6}
+                aria-describedby={error ? 'register-error' : undefined}
               />
               <button
                 type="button"
@@ -305,21 +314,35 @@ export const Register: React.FC<RegisterProps> = ({
               className="form-input"
               placeholder="••••••••"
               autoComplete="new-password"
+              aria-describedby={`${error ? 'register-error ' : ''}${
+                formData.confirmPassword && formData.password !== formData.confirmPassword
+                  ? 'confirmPassword-error'
+                  : ''
+              }`.trim() || undefined}
             />
             {formData.confirmPassword && formData.password !== formData.confirmPassword && (
-              <span className="field-error">Las contraseñas no coinciden</span>
+              <span
+                id="confirmPassword-error"
+                role="alert"
+                aria-live="polite"
+                className="field-error"
+              >
+                Las contraseñas no coinciden
+              </span>
             )}
           </div>
 
           {/* Marketing Consent */}
           <div className="form-group checkbox-group">
-            <label className="checkbox-label">
+            <label htmlFor="marketingConsent" className="checkbox-label">
               <input
                 type="checkbox"
+                id="marketingConsent"
                 name="marketingConsent"
                 checked={formData.marketingConsent}
                 onChange={handleInputChange}
                 className="checkbox-input"
+                aria-describedby={error ? 'register-error' : undefined}
               />
               <span className="checkbox-text">
                 Quiero recibir actualizaciones y ofertas especiales por email

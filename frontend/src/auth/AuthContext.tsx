@@ -208,21 +208,22 @@ export const LoginForm: React.FC = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="card p-6 space-y-4">
             {!isLogin && (
-              <div className="input-group">
-                <label htmlFor="full_name" className="input-label">
-                  Nombre Completo
-                </label>
-                <input
-                  id="full_name"
-                  name="full_name"
-                  type="text"
-                  required={!isLogin}
-                  value={formData.full_name}
-                  onChange={handleChange}
-                  className="input"
-                  placeholder="Tu nombre completo"
-                />
-              </div>
+            <div className="input-group">
+              <label htmlFor="full_name" className="input-label">
+                Nombre Completo
+              </label>
+              <input
+                id="full_name"
+                name="full_name"
+                type="text"
+                required={!isLogin}
+                value={formData.full_name}
+                onChange={handleChange}
+                className="input"
+                placeholder="Tu nombre completo"
+                aria-describedby={error ? 'auth-error' : undefined}
+              />
+            </div>
             )}
 
             <div className="input-group">
@@ -238,6 +239,7 @@ export const LoginForm: React.FC = () => {
                 onChange={handleChange}
                 className="input"
                 placeholder="tu@email.com"
+                aria-describedby={error ? 'auth-error' : undefined}
               />
             </div>
 
@@ -254,11 +256,17 @@ export const LoginForm: React.FC = () => {
                 onChange={handleChange}
                 className="input"
                 placeholder="••••••••"
+                aria-describedby={error ? 'auth-error' : undefined}
               />
             </div>
 
             {error && (
-              <div className="bg-danger/10 border border-danger/30 rounded-lg p-3">
+              <div
+                id="auth-error"
+                role="alert"
+                aria-live="polite"
+                className="bg-danger/10 border border-danger/30 rounded-lg p-3"
+              >
                 <p className="text-danger text-sm">{error}</p>
               </div>
             )}
