@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
 export default function LandingPage() {
@@ -13,6 +15,22 @@ export default function LandingPage() {
         <p className="text-xl md:text-2xl text-[#2563eb] italic">
           {t('landing.heroSubtitle')}
         </p>
+        <motion.svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 200 200"
+          className="mx-auto mt-10 h-48 w-48"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          <rect x="40" y="30" width="120" height="150" rx="12" fill="#ffffff" />
+          <path
+            d="M60 70h80M60 100h80M60 130h80"
+            stroke="#2563eb"
+            strokeWidth="6"
+            strokeLinecap="round"
+          />
+        </motion.svg>
       </section>
 
       {/* Features Section */}
@@ -99,14 +117,15 @@ export default function LandingPage() {
 
       {/* CTA Section */}
       <section className="text-center py-20 bg-[#1e293b] text-white px-4">
-        <h2 className="text-3xl font-bold mb-6">
+        <h2 className="text-2xl md:text-3xl font-bold mb-6">
           {t('landing.ctaTitle')}
         </h2>
         <Link
           href="/app"
-          className="inline-block bg-[#3b82f6] hover:bg-[#2563eb] text-white px-8 py-3 rounded-lg font-medium"
+          className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#2563eb] px-8 py-3 font-medium text-white transition-colors hover:bg-[#1e40af] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1e293b] focus:ring-white sm:w-auto"
         >
-          {t('landing.ctaButton')}
+          <span>{t('landing.ctaButton')}</span>
+          <ArrowRight className="h-5 w-5" />
         </Link>
       </section>
     </div>
