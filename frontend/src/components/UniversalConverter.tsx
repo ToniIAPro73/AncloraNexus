@@ -150,10 +150,7 @@ export const UniversalConverter: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div aria-live="assertive" className="sr-only">
-        {liveMessage}
-      </div>
-      <h1 className="text-3xl font-bold text-center">Conversor Inteligente</h1>
+      <h1 className="text-h1 font-bold text-center">Conversor Inteligente</h1>
       <FileUploader onFileSelect={handleFileSelect} isLoading={processing} multiple>
         <div className="p-6 border-2 border-dashed rounded-md text-center">
           <p className="text-sm mb-2">Haz clic o arrastra archivos aquí</p>

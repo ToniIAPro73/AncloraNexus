@@ -18,7 +18,7 @@ const PlaceholderSection: React.FC<{ title: string; icon: string; description: s
   <div className="max-w-4xl mx-auto">
     <div className="bg-slate-800/40 backdrop-blur-sm rounded-xl border border-slate-700/50 p-8 text-center">
       <div className="text-6xl mb-4">{icon}</div>
-      <h2 className="text-2xl font-bold text-white mb-3">{title}</h2>
+      <h2 className="text-h2 font-bold text-white mb-3">{title}</h2>
       <p className="text-gray-300 mb-6">{description}</p>
       <div className="inline-flex items-center text-sm text-primary">
         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

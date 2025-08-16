@@ -308,7 +308,7 @@ export const LoginForm: React.FC = () => {
 
         {/* Usuario de prueba */}
         <div className="bg-gray-800/30 backdrop-blur-sm rounded-lg border border-gray-700/50 p-4">
-          <h3 className="text-gray-300 font-medium mb-2">Usuario de Prueba:</h3>
+          <h3 className="text-h3 text-gray-300 font-medium mb-2">Usuario de Prueba:</h3>
           <p className="text-gray-400 text-sm">
             Email: ancoratest@dominio.com<br />
             Contraseña: Ancoratest123
@@ -328,7 +328,7 @@ export const UserProfile: React.FC = () => {
   return (
     <div className="card p-6">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-h3 font-bold text-white">Mi Perfil</h2>
+        <h2 className="text-h2 font-bold text-white">Mi Perfil</h2>
         <button
           onClick={logout}
           className="btn btn-danger"
@@ -364,7 +364,7 @@ export const UserProfile: React.FC = () => {
         </div>
         
         <div className="mt-6">
-          <h3 className="text-h4 text-white mb-4">Actividad Reciente</h3>
+          <h3 className="text-h3 text-white mb-4">Actividad Reciente</h3>
           <div className="bg-gray-800/30 rounded-lg overflow-hidden">
             <div className="p-4 text-center text-gray-400">
               <p>Historial de actividad disponible próximamente</p>

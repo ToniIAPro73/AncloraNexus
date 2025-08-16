@@ -97,7 +97,7 @@ export const Login: React.FC<LoginProps> = ({
         <div className="login-modal" role="dialog" aria-modal="true" aria-label="Formulario de inicio de sesión">
         {/* Header */}
         <div className="login-header">
-          <h2 className="login-title">Iniciar Sesión</h2>
+          <h2 className="login-title text-h2">Iniciar Sesión</h2>
           <p className="login-subtitle">
             Accede a tu cuenta de Anclora Converter
           </p>

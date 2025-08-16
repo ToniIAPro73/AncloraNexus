@@ -188,11 +188,9 @@ export const EbookConverter: React.FC<EbookConverterProps> = ({
         <div className="flex justify-center" style={{ marginBottom: 'var(--space-2)' }}>
           <IconEbook className="w-16 h-16" style={{ color: 'var(--color-primary)' }} />
         </div>
-        <h1 
-          className="font-bold" 
-          style={{ 
-            fontSize: '32px',
-            lineHeight: '1.2',
+        <h1
+          className="text-h1 font-bold"
+          style={{
             color: 'var(--color-neutral-900)',
             marginBottom: 'var(--space-1)',
             fontFamily: 'var(--font-heading)'
@@ -344,10 +342,9 @@ export const EbookConverter: React.FC<EbookConverterProps> = ({
             boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
           }}
         >
-          <h3 
-            className="font-semibold"
-            style={{ 
-              fontSize: '18px',
+          <h3
+            className="text-h3 font-semibold"
+            style={{
               color: 'var(--color-neutral-900)',
               marginBottom: 'var(--space-2)'
             }}
@@ -408,10 +405,9 @@ export const EbookConverter: React.FC<EbookConverterProps> = ({
             boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)'
           }}
         >
-          <h3 
-            className="font-semibold"
-            style={{ 
-              fontSize: '18px',
+          <h3
+            className="text-h3 font-semibold"
+            style={{
               color: 'var(--color-neutral-900)',
               marginBottom: 'var(--space-2)'
             }}

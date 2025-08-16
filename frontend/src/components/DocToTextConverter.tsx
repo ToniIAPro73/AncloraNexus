@@ -5,7 +5,7 @@ import React from 'react';
  */
 export const DocToTextConverter: React.FC = () => (
   <div className="p-4">
-    <h2 className="text-xl font-semibold">Document to Text Converter</h2>
+    <h2 className="text-h2 font-semibold">Document to Text Converter</h2>
     <p className="text-slate-600">Upload a document and get a text version back.</p>
   </div>
 );

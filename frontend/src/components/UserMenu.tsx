@@ -35,7 +35,7 @@ export const UserMenu: React.FC = () => {
                 <span className="text-white text-lg">{userInfo.avatar}</span>
               </div>
               <div>
-                <h3 className="text-white font-medium">{userInfo.name}</h3>
+                <h3 className="text-h3 text-white font-medium">{userInfo.name}</h3>
                 <p className="text-slate-400 text-sm">{userInfo.email}</p>
                 <span className="inline-block px-2 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs rounded-full mt-1">
                   Plan {userInfo.plan}
@@ -46,7 +46,7 @@ export const UserMenu: React.FC = () => {
 
           {/* Credits & Usage */}
           <div className="p-4 border-b border-slate-700/50">
-            <h4 className="text-slate-300 font-medium mb-3">Tu Actividad</h4>
+            <h4 className="text-h4 text-slate-300 font-medium mb-3">Tu Actividad</h4>
             <div className="space-y-2">
               <div className="flex justify-between items-center">
                 <span className="text-slate-400 text-sm">Créditos disponibles</span>
@@ -69,7 +69,7 @@ export const UserMenu: React.FC = () => {
 
           {/* Quick Actions */}
           <div className="p-4 border-b border-slate-700/50">
-            <h4 className="text-slate-300 font-medium mb-3">Acciones Rápidas</h4>
+            <h4 className="text-h4 text-slate-300 font-medium mb-3">Acciones Rápidas</h4>
             <div className="space-y-2">
               <button className="w-full flex items-center space-x-3 p-2 hover:bg-slate-700/50 rounded-lg transition-colors">
                 <span className="text-blue-400">💳</span>

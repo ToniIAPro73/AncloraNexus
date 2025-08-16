@@ -126,7 +126,7 @@ export const ConversionHistory: React.FC = () => {
     <div className="space-y-6">
       {/* Header */}
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-white mb-2">
+        <h1 className="text-h1 font-bold text-white mb-2">
           📋 Historial de Conversiones
         </h1>
         <p className="text-slate-300">

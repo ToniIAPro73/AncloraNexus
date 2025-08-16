@@ -84,7 +84,7 @@ export const LimitGuard: React.FC<LimitGuardProps> = ({
         <div className="limit-overlay">
           <div className="limit-modal">
             <div className="limit-icon">🚫</div>
-            <h3>Límite alcanzado</h3>
+            <h3 className="text-h3">Límite alcanzado</h3>
             <p>{checkResult.reason}</p>
             
             <div className="limit-actions">
@@ -336,7 +336,7 @@ export const LimitWarning: React.FC<LimitWarningProps> = ({
       </div>
       
       <div className="warning-content">
-        <h4>
+        <h4 className="text-h4">
           {isAtLimit 
             ? 'Has alcanzado tu límite mensual'
             : 'Te estás acercando a tu límite'
