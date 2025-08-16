@@ -23,8 +23,8 @@ interface FeaturesProps {
 
 export const Features: React.FC<FeaturesProps> = ({ onStartConverting }) => {
   return (
-    <section className="w-full max-w-5xl mx-auto py-16 sm:py-24">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <section className="w-full max-w-5xl mx-auto py-16 sm:py-24 @container">
+        <div className="grid grid-cols-1 gap-8 @[30rem]:grid-cols-2 @[48rem]:grid-cols-3">
             <FeatureCard 
                 icon={<IconSparkles className="w-10 h-10 text-orange-500" />}
                 title={<>Es <span className="text-orange-500">fácil</span></>}
