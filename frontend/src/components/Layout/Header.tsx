@@ -1,11 +1,13 @@
 import React from 'react';
 import { useAuth } from '../../auth/AuthContext';
 import { useTranslation } from 'react-i18next';
+import { useTheme } from '../../theme/ThemeProvider';
 
 
 export const Header: React.FC = () => {
   const { user } = useAuth();
   const { t, i18n } = useTranslation();
+  const { highContrast, toggleHighContrast } = useTheme();
 
   const changeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
     i18n.changeLanguage(e.target.value);
@@ -38,6 +40,13 @@ export const Header: React.FC = () => {
             <option value="es">ES</option>
             <option value="en">EN</option>
           </select>
+          <button
+            onClick={toggleHighContrast}
+            aria-pressed={highContrast}
+            className="bg-slate-800 text-white px-2 py-1 rounded"
+          >
+            {t('header.highContrast')}
+          </button>
           {/* Contador de créditos */}
           <div className="flex items-center gap-2 bg-blue-700/60 px-3 py-1 rounded-full text-white shadow-sm">
             <div className="w-2 h-2 bg-green-400 rounded-full"></div>
