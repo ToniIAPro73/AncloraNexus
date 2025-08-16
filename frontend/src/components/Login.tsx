@@ -97,7 +97,7 @@ export const Login: React.FC<LoginProps> = ({
         <div className="login-modal" role="dialog" aria-modal="true" aria-label="Formulario de inicio de sesión">
         {/* Header */}
         <div className="login-header">
-          <h2 className="login-title">Iniciar Sesión</h2>
+          <h2 className="login-title text-h2">Iniciar Sesión</h2>
           <p className="login-subtitle">
             Accede a tu cuenta de Anclora Converter
           </p>
@@ -114,7 +114,12 @@ export const Login: React.FC<LoginProps> = ({
 
         {/* Error Message */}
         {error && (
-          <div className="login-error">
+          <div
+            id="login-error"
+            role="alert"
+            aria-live="polite"
+            className="login-error"
+          >
             <span className="error-icon">⚠️</span>
             {error}
           </div>
@@ -158,6 +163,7 @@ export const Login: React.FC<LoginProps> = ({
               className="form-input"
               placeholder="tu@email.com"
               autoComplete="email"
+              aria-describedby={error ? 'login-error' : undefined}
             />
           </div>
 
@@ -178,6 +184,7 @@ export const Login: React.FC<LoginProps> = ({
                 placeholder="••••••••"
                 autoComplete="current-password"
                 minLength={6}
+                aria-describedby={error ? 'login-error' : undefined}
               />
               <button
                 type="button"

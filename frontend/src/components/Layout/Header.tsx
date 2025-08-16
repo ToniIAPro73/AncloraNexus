@@ -1,15 +1,13 @@
 import React from 'react';
 import { useAuth } from '../../auth/AuthContext';
 import { useTranslation } from 'react-i18next';
+import { ChevronDown } from 'lucide-react';
+import AccessibleIcon from '../AccessibleIcon';
 
-
-interface HeaderProps {
-  sidebarCollapsed: boolean;
-}
-
-export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed }) => {
+export const Header: React.FC = () => {
   const { user } = useAuth();
   const { t, i18n } = useTranslation();
+  const { highContrast, toggleHighContrast } = useTheme();
 
   const changeLanguage = (e: React.ChangeEvent<HTMLSelectElement>) => {
     i18n.changeLanguage(e.target.value);
@@ -19,18 +17,12 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed }) => {
     <header
       role="banner"
       aria-label={t('header.ariaLabel')}
-      className={`
-        fixed top-0 right-0 h-16
-        bg-gradient-to-br from-primary to-secondary
-        backdrop-blur-md shadow-md z-30 border-b border-white/10
-        transition-all duration-300 ease-in-out
-        left-0 ${sidebarCollapsed ? 'md:left-16' : 'md:left-72'}
-      `}
+      className="h-16 bg-gradient-to-br from-primary to-secondary backdrop-blur-md shadow-md z-30 border-b border-white/10"
     >
       <div className="flex items-center justify-between h-full px-6">
         {/* Título de la página actual */}
         <div className="flex flex-col justify-center">
-          <h1 className="text-xl font-bold text-white leading-snug">
+          <h1 className="text-h1 font-bold text-white leading-snug">
             {t('header.title')}
           </h1>
           <p className="text-sm text-blue-100 -mt-1">
@@ -48,6 +40,13 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed }) => {
             <option value="es">ES</option>
             <option value="en">EN</option>
           </select>
+          <button
+            onClick={toggleHighContrast}
+            aria-pressed={highContrast}
+            className="bg-slate-800 text-white px-2 py-1 rounded"
+          >
+            {t('header.highContrast')}
+          </button>
           {/* Contador de créditos */}
           <div className="flex items-center gap-2 bg-blue-700/60 px-3 py-1 rounded-full text-white shadow-sm">
             <div className="w-2 h-2 bg-green-400 rounded-full"></div>
@@ -67,9 +66,9 @@ export const Header: React.FC<HeaderProps> = ({ sidebarCollapsed }) => {
                 {user?.email || t('header.defaultEmail')}
               </span>
             </div>
-            <svg className="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
+            <AccessibleIcon label="Abrir menú">
+              <ChevronDown className="w-4 h-4 text-white/50" />
+            </AccessibleIcon>
           </div>
         </div>
       </div>

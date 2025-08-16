@@ -7,7 +7,7 @@
 
     return (
         <div className="p-4 bg-slate-800 rounded-lg shadow text-white">
-        <h3 className="text-lg font-semibold mb-2">Historial de Créditos</h3>
+        <h3 className="text-h3 font-semibold mb-2">Historial de Créditos</h3>
         <ul className="space-y-1 text-sm">
             {creditHistory.map((entry, index) => (
             <li key={index}>

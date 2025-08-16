@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import '@testing-library/jest-dom/vitest';
-import { PopularConversions } from '../../../components/PopularConversions';
+import { PopularConversions } from '../PopularConversions';
 
 describe('PopularConversions Component', () => {
     it('renders the component with the default category (ebook) active', () => {
@@ -37,5 +37,11 @@ describe('PopularConversions Component', () => {
 
         // And ebook conversions should be gone
         expect(screen.queryByRole('button', { name: /AZW a AZW3/i })).not.toBeInTheDocument();
+    });
+
+    it('renders arrow icons with accessible labels', () => {
+        render(<PopularConversions />);
+        const icon = screen.getAllByLabelText('Ir')[0];
+        expect(icon).toHaveAttribute('title', 'Ir');
     });
 });

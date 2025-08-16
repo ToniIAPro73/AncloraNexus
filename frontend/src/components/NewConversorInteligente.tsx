@@ -43,7 +43,7 @@ const ConversionStep: React.FC<ConversionStepProps> = ({
             {isCompleted ? '✓' : number}
           </div>
           <div className="ml-3">
-            <h3 className="text-white font-semibold">{title}</h3>
+            <h3 className="text-h3 text-white font-semibold">{title}</h3>
             <div className="flex items-center mt-1">
               <span className="text-2xl mr-2">{icon}</span>
               {isCompleted && (
@@ -106,7 +106,7 @@ const PopularConversion: React.FC<PopularConversionProps> = ({
       </div>
     </div>
     <div className="text-center">
-      <h4 className="font-medium text-white text-sm">{from} → {to}</h4>
+      <h4 className="text-h4 font-medium text-white">{from} → {to}</h4>
       <p className="text-xs text-gray-400 mt-1">{cost} créditos</p>
     </div>
   </div>
@@ -174,7 +174,7 @@ export const NewConversorInteligente: React.FC = () => {
           <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center text-2xl">
             🎯
           </div>
-          <h1 className="text-3xl font-bold text-white ml-4">Conversor Inteligente</h1>
+          <h1 className="text-h1 font-bold text-white ml-4">Conversor Inteligente</h1>
         </div>
         <p className="text-gray-300 text-lg">
           Convierte archivos con inteligencia artificial avanzada
@@ -317,7 +317,7 @@ export const NewConversorInteligente: React.FC = () => {
                   </div>
                   <button
                     onClick={handleConvert}
-                    className="w-full bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded-lg transition-colors text-sm font-medium"
+                    className="w-full bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded-lg transition-colors text-button font-medium"
                   >
                     Iniciar Conversión
                   </button>
@@ -351,7 +351,7 @@ export const NewConversorInteligente: React.FC = () => {
             ) : (
               <div className="text-center py-2">
                 <div className="text-4xl mb-3">🎉</div>
-                <button className="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg transition-colors text-sm font-medium mb-2">
+                <button className="w-full bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-lg transition-colors text-button font-medium mb-2">
                   Descargar Archivo
                 </button>
                 <p className="text-xs text-gray-400">
@@ -373,7 +373,7 @@ export const NewConversorInteligente: React.FC = () => {
           <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg flex items-center justify-center text-xl">
             🚀
           </div>
-          <h2 className="text-2xl font-bold text-white ml-3">Conversiones Populares</h2>
+          <h2 className="text-h2 font-bold text-white ml-3">Conversiones Populares</h2>
         </div>
         
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">

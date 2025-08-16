@@ -15,21 +15,21 @@ export const Footer: React.FC = () => {
             <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="py-12 grid grid-cols-1 md:grid-cols-2 gap-12 border-b-2 border-slate-700">
                     <div>
-                        <h3 className="text-xl font-bold mb-4">¿Todavía tienes una pregunta?</h3>
+                        <h3 className="text-h3 font-bold mb-4">¿Todavía tienes una pregunta?</h3>
                         <p className="text-slate-400">Póngase en contacto con nuestro amable equipo de soporte.</p>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                         <div className="flex items-start space-x-4">
                             <IconEnvelope className="w-8 h-8 text-green-400 flex-shrink-0 mt-1" />
                             <div>
-                                <h4 className="font-semibold">contact@online-file-converter.com</h4>
+                                <h4 className="text-h4 font-semibold">contact@online-file-converter.com</h4>
                                 <p className="text-sm text-green-400">Respuesta en menos de 24 horas</p>
                             </div>
                         </div>
                         <div className="flex items-start space-x-4">
                             <IconChatBubble className="w-8 h-8 text-green-400 flex-shrink-0 mt-1" />
                             <div>
-                                <h4 className="font-semibold">Ve al chat</h4>
+                                <h4 className="text-h4 font-semibold">Ve al chat</h4>
                                 <p className="text-sm text-green-400">Respuesta en menos de 24 horas</p>
                             </div>
                         </div>

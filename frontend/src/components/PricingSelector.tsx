@@ -127,7 +127,7 @@ export const PricingSelector: React.FC = () => {
     <div className="max-w-7xl mx-auto px-4 py-12">
       {/* Header */}
       <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-unified-primary mb-4">
+        <h2 className="text-h2 font-bold text-unified-primary mb-4">
           Elige tu Plan Anclora
         </h2>
         <p className="text-xl text-unified-secondary mb-8">
@@ -243,7 +243,7 @@ export const PricingSelector: React.FC = () => {
 
               <div className="p-6">
                 <div className="text-center mb-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  <h3 className="text-h3 font-bold text-gray-900 mb-2">
                     {plan.name}
                   </h3>
                   <p className="text-gray-600 text-sm mb-4">
@@ -345,7 +345,7 @@ export const PricingSelector: React.FC = () => {
 
       {/* Features Comparison */}
       <div className="mt-16 text-center">
-        <h3 className="text-2xl font-bold text-gray-900 mb-4">
+        <h3 className="text-h3 font-bold text-gray-900 mb-4">
           Características de los Créditos
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -355,7 +355,7 @@ export const PricingSelector: React.FC = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h4 className="font-semibold text-gray-900 mb-2">Sin Expiración</h4>
+            <h4 className="text-h4 font-semibold text-gray-900 mb-2">Sin Expiración</h4>
             <p className="text-gray-600 text-sm text-center">Los créditos nunca caducan</p>
           </div>
           
@@ -365,7 +365,7 @@ export const PricingSelector: React.FC = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
               </svg>
             </div>
-            <h4 className="font-semibold text-gray-900 mb-2">Transferibles</h4>
+            <h4 className="text-h4 font-semibold text-gray-900 mb-2">Transferibles</h4>
             <p className="text-gray-600 text-sm text-center">Comparte entre cuentas del mismo dominio</p>
           </div>
           
@@ -375,7 +375,7 @@ export const PricingSelector: React.FC = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
               </svg>
             </div>
-            <h4 className="font-semibold text-gray-900 mb-2">Transparentes</h4>
+            <h4 className="text-h4 font-semibold text-gray-900 mb-2">Transparentes</h4>
             <p className="text-gray-600 text-sm text-center">Coste exacto mostrado antes de conversión</p>
           </div>
           
@@ -385,7 +385,7 @@ export const PricingSelector: React.FC = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
             </div>
-            <h4 className="font-semibold text-gray-900 mb-2">Flexibles</h4>
+            <h4 className="text-h4 font-semibold text-gray-900 mb-2">Flexibles</h4>
             <p className="text-gray-600 text-sm text-center">Usa solo lo que necesitas</p>
           </div>
         </div>
@@ -393,24 +393,24 @@ export const PricingSelector: React.FC = () => {
 
       {/* FAQ Section */}
       <div className="mt-16 bg-gray-50 rounded-2xl p-8">
-        <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+        <h3 className="text-h3 font-bold text-gray-900 mb-6 text-center">
           Preguntas Frecuentes
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <h4 className="font-semibold text-gray-900 mb-2">¿Puedo cambiar de plan en cualquier momento?</h4>
+            <h4 className="text-h4 font-semibold text-gray-900 mb-2">¿Puedo cambiar de plan en cualquier momento?</h4>
             <p className="text-gray-600 text-sm">Sí, puedes actualizar o degradar tu plan en cualquier momento. Los cambios se aplican inmediatamente.</p>
           </div>
           <div>
-            <h4 className="font-semibold text-gray-900 mb-2">¿Qué sucede si no uso todos mis créditos?</h4>
+            <h4 className="text-h4 font-semibold text-gray-900 mb-2">¿Qué sucede si no uso todos mis créditos?</h4>
             <p className="text-gray-600 text-sm">Los créditos no utilizados se acumulan al mes siguiente. Nunca pierdes créditos pagados.</p>
           </div>
           <div>
-            <h4 className="font-semibold text-gray-900 mb-2">¿Puedo comprar créditos adicionales?</h4>
+            <h4 className="text-h4 font-semibold text-gray-900 mb-2">¿Puedo comprar créditos adicionales?</h4>
             <p className="text-gray-600 text-sm">Sí, puedes comprar paquetes de créditos adicionales en cualquier momento con descuentos por volumen.</p>
           </div>
           <div>
-            <h4 className="font-semibold text-gray-900 mb-2">¿Hay descuentos para facturación anual?</h4>
+            <h4 className="text-h4 font-semibold text-gray-900 mb-2">¿Hay descuentos para facturación anual?</h4>
             <p className="text-gray-600 text-sm">Sí, obtienes hasta 15% de descuento al pagar anualmente en lugar de mensualmente.</p>
           </div>
         </div>

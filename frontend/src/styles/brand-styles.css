@@ -114,7 +114,7 @@
   padding: var(--space-2) var(--space-4);
   border-radius: 6px;
   font-weight: var(--font-weight-medium);
-  font-size: var(--font-size-body);
+  font-size: clamp(0.875rem, 0.5vw + 0.75rem, 1rem);
   line-height: var(--line-height-normal);
   transition: all 0.2s ease;
   cursor: pointer;
