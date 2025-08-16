@@ -7,7 +7,8 @@ export const resources = {
         subtitle: 'Convert files with advanced artificial intelligence',
         credits: '{{count}} credits',
         defaultName: 'User',
-        defaultEmail: 'user@example.com'
+        defaultEmail: 'user@example.com',
+        highContrast: 'High Contrast'
       },
       landing: {
         heroTitle: 'Anclora Metaform',
@@ -58,7 +59,8 @@ export const resources = {
         subtitle: 'Convierte archivos con inteligencia artificial avanzada',
         credits: '{{count}} créditos',
         defaultName: 'Usuario',
-        defaultEmail: 'usuario@ejemplo.com'
+        defaultEmail: 'usuario@ejemplo.com',
+        highContrast: 'Contraste alto'
       },
       landing: {
         heroTitle: 'Anclora Metaform',
