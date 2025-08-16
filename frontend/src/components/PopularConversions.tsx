@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { IconAudio, IconVideo, IconImage, IconFile, IconArchive, IconPresentation, IconArrowRight, IconEbook } from '../frontend/components/Icons';
+import { IconAudio, IconVideo, IconImage, IconFile, IconArchive, IconPresentation, IconArrowRight, IconEbook } from './Icons';
 import { FileCategory } from '../utils/conversionMaps';
+import AccessibleIcon from './AccessibleIcon';
 
 type CategoryInfo = {
   name: string;
@@ -80,7 +81,9 @@ const displayCategories: FileCategory[] = ['ebook', 'audio', 'video', 'image', '
 const ConversionButton: React.FC<{from: string, to: string}> = ({ from, to }) => (
     <button className="popular-conversion-card w-full flex items-center justify-between">
         <span className="font-semibold">{from} a {to}</span>
-        <IconArrowRight className="w-5 h-5" />
+        <AccessibleIcon label="Ir">
+            <IconArrowRight className="w-5 h-5" />
+        </AccessibleIcon>
     </button>
 );
 
