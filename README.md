@@ -61,6 +61,9 @@ anclora-nexus/
 - Git
 
 ### Frontend
+
+Instala las dependencias y arranca el modo desarrollo:
+
 ```bash
 cd frontend
 npm install
@@ -68,10 +71,15 @@ npm run dev
 ```
 
 ### Backend
+
+Instala las dependencias base (y opcionalmente las de prueba) antes de ejecutar:
+
 ```bash
 cd backend
 python -m pip install --upgrade pip
 pip install -r requirements.txt
+# Dependencias opcionales para tests
+pip install -r requirements-test.txt
 python main.py
 ```
 

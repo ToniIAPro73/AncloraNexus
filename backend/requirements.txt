@@ -1,0 +1,13 @@
+Flask
+Flask-Cors
+Flask-JWT-Extended
+Flask-SocketIO
+Flask-SQLAlchemy
+SQLAlchemy
+Pillow
+pypdf
+python-docx
+fpdf2
+moviepy
+bcrypt
+chardet
