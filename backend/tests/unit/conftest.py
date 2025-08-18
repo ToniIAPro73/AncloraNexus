@@ -11,8 +11,7 @@ sys.path.insert(0, str(backend_src))
 parent_dir = Path(__file__).parent.parent
 sys.path.insert(0, str(parent_dir))
 
-from src.models.user import db, User
-from src.models.conversion import Conversion, CreditTransaction
+from src.models.user import db, User, Conversion, CreditTransaction
 from src.nexus.encoding_normalizer import normalize_to_utf8
 import tempfile
 import shutil
