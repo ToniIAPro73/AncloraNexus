@@ -82,6 +82,18 @@ export const apiService = {
     }
   },
 
+  resetPassword: async (token: string, password: string): Promise<void> => {
+    const response = await fetch(`${API_BASE_URL}/auth/reset-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token, password }),
+    });
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      throw new Error(data.error || 'Error restableciendo la contraseña');
+    }
+  },
+
   logout: () => {
     console.log('Cerrando sesión...');
     clearToken();
