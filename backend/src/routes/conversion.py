@@ -13,7 +13,7 @@ import time
 import hashlib
 import shutil
 from pathlib import Path
-from src.ws import emit_progress
+from src.ws import emit_progress, Phase
 
 conversion_bp = Blueprint('conversion', __name__)
 
@@ -28,7 +28,7 @@ BACKUP_FOLDER.mkdir(exist_ok=True)
 
 ALLOWED_EXTENSIONS = {
     'txt', 'pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png', 'gif',
-    'html', 'md', 'rtf', 'odt', 'tex'
+    'html', 'md', 'rtf', 'odt', 'tex', 'svg'
 }
 
 def allowed_file(filename):

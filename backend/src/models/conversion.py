@@ -1,7 +1,33 @@
 import os
 import importlib
 import pkgutil
+import tempfile
+from collections import deque
 from pathlib import Path
+
+from src.nexus.encoding_normalizer import normalize_to_utf8
+from src.ws import emit_progress, Phase
+
+# Extensiones consideradas de texto para normalización
+TEXT_EXTENSIONS = {
+    'txt', 'md', 'rtf', 'html', 'tex'
+}
+
+
+def validate_and_classify(file_path: str) -> str:
+    """Clasifica el archivo según su legibilidad."""
+    try:
+        with open(file_path, 'rb') as fh:
+            data = fh.read()
+        if not data or b'\x00' in data:
+            return "unsalvageable"
+        try:
+            data.decode('utf-8')
+            return "valid"
+        except UnicodeDecodeError:
+            return "salvageable"
+    except Exception:
+        return "unsalvageable"
 
 class ConversionEngine:
     """Motor de conversión de Anclora Metaform"""
@@ -164,9 +190,10 @@ class ConversionEngine:
         try:
             source = source_format.lower().replace('.', '')
             if source in TEXT_EXTENSIONS:
-                ok, msg = normalize_to_utf8(input_path)
-                if not ok:
-                    return False, msg
+                try:
+                    normalize_to_utf8(input_path)
+                except Exception as e:
+                    return False, f"Error de normalización: {e}"
 
             target = target_format.lower()
             method = self.conversion_methods.get((source, target))

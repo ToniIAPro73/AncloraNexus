@@ -41,10 +41,13 @@ def create_sample_file(ext: str, path: str):
 def test_plugins_discovered():
     """Ensure plugins are loaded into the registry."""
     assert ('txt', 'pdf') in conversion_engine.conversion_methods
+    assert ('txt', 'md') in conversion_engine.conversion_methods
+    assert ('txt', 'rtf') in conversion_engine.conversion_methods
 
 
 @pytest.mark.parametrize('source_ext,target_ext', [
     ('txt', 'doc'), ('txt', 'docx'), ('txt', 'pdf'), ('txt', 'odt'), ('txt', 'tex'),
+    ('txt', 'md'), ('txt', 'rtf'),
     ('pdf', 'jpg'), ('pdf', 'png'), ('pdf', 'gif'), ('pdf', 'txt'),
     ('jpg', 'png'), ('jpg', 'pdf'), ('jpg', 'gif'),
     ('png', 'jpg'), ('png', 'pdf'), ('png', 'gif'), ('png', 'webp'),

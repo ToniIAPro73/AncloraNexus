@@ -3,6 +3,7 @@ from fpdf import FPDF
 from PIL import Image, ImageDraw
 from docx import Document
 from pypdf import PdfReader
+from datetime import datetime
 
 CONVERSION = ('txt', 'html')
 
