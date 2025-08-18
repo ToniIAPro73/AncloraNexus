@@ -5,3 +5,7 @@ out
 
 # Variables de entorno locales del frontend
 .env.local
+
+# Compilación y caché
+**/__pycache__/
+*.tsbuildinfo
