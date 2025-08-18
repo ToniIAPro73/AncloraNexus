@@ -1,17 +1,20 @@
 import React, { useRef } from 'react';
-import { ChevronLeft, ChevronRight, Home, FileText, Settings, User, CreditCard } from 'lucide-react';
+import Link from 'next/link';
+import { ChevronLeft, ChevronRight, Home, FileText, Settings, User, CreditCard, History } from 'lucide-react';
 import AccessibleIcon from '../AccessibleIcon';
 
 interface SidebarProps {
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
   isCollapsed: boolean;
   setIsCollapsed: (collapsed: boolean) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
+const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed, setIsCollapsed }) => {
   // Ahora useRef está correctamente importado
-  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>, index: number) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>, index: number) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       const nextIndex = (index + 1) % itemRefs.current.length;
@@ -26,6 +29,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
   const menuItems = [
     { icon: Home, label: 'Dashboard', path: '/' },
     { icon: FileText, label: 'Conversiones', path: '/conversions' },
+    { icon: History, label: 'Historial', path: '/history' },
     { icon: CreditCard, label: 'Créditos', path: '/credits' },
     { icon: User, label: 'Perfil', path: '/profile' },
     { icon: Settings, label: 'Configuración', path: '/settings' }
@@ -59,9 +63,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
         <ul className="space-y-2">
           {menuItems.map((item, index) => (
             <li key={item.path}>
-              <button
+              <Link
+                href={item.path}
                 ref={(el) => { itemRefs.current[index] = el; }}
                 onKeyDown={(e) => handleKeyDown(e, index)}
+                onClick={() => setActiveTab(item.label)}
                 className={`flex items-center w-full px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors ${
                   isCollapsed ? 'justify-center' : 'justify-start'
                 }`}
@@ -70,7 +76,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, setIsCollapsed }) => {
                   <item.icon size={20} />
                 </AccessibleIcon>
                 {!isCollapsed && <span className="ml-3">{item.label}</span>}
-              </button>
+              </Link>
             </li>
           ))}
         </ul>
