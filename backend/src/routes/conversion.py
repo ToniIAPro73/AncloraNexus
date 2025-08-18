@@ -13,7 +13,7 @@ import time
 import hashlib
 import shutil
 from pathlib import Path
-from src.ws import emit_progress
+from src.ws import emit_progress, Phase
 
 conversion_bp = Blueprint('conversion', __name__)
 
