@@ -49,7 +49,7 @@ cp -r Anclora_Metaform_Complete/frontend/assets/ tu_repositorio/frontend/
 cp -r Anclora_Metaform_Complete/frontend/styles/ tu_repositorio/frontend/
 cp Anclora_Metaform_Complete/components/UniversalConverter.tsx tu_repositorio/components/
 cp -r Anclora_Metaform_Complete/docs/ tu_repositorio/
-cp -r Anclora_Metaform_Complete/tests/ tu_repositorio/
+cp -r Anclora_Metaform_Complete/frontend/tests/ tu_repositorio/frontend/
 
 # 3. Actualizar archivos de configuración
 cp Anclora_Metaform_Complete/package.json tu_repositorio/
@@ -82,6 +82,8 @@ tu_repositorio_actualizado/
 ├── components/
 │   └── UniversalConverter.tsx           # Componente actualizado
 ├── tests/                               # Scripts de prueba
+│   ├── unit/                            # Tests unitarios
+│   ├── integration/                     # Tests de integración
 │   ├── test-all-converters.js
 │   └── test-tex-converter.js
 ├── docs/                                # Documentación
@@ -91,6 +93,45 @@ tu_repositorio_actualizado/
 ├── BRANDING_GUIDE.md                    # Guía de identidad visual
 ├── CHANGELOG.md                         # Historial de cambios
 └── package.json                         # Dependencias actualizadas
+```
+
+## 🏗️ **Nueva Estructura de Tests**
+
+```
+tu_repositorio_actualizado/
+├── backend/
+│   └── tests/
+│       ├── unit/                        # Tests unitarios backend
+│       │   ├── conftest.py
+│       │   ├── test_user_model.py
+│       │   ├── test_conversion_models.py
+│       │   ├── test_conversion_engine.py
+│       │   ├── test_conversion_classifier.py
+│       │   └── test_encoding_normalizer.py
+│       ├── integration/                 # Tests de integración backend
+│       │   ├── conftest.py
+│       │   ├── test_auth_routes.py
+│       │   ├── test_conversion_routes.py
+│       │   ├── test_credits_routes.py
+│       │   ├── test_conversion_progress.py
+│       │   └── test_conversion_undo.py
+│       └── utils/                       # Utilidades de testing
+├── frontend/
+│   └── tests/
+│       ├── unit/                        # Tests unitarios frontend
+│       │   └── __tests__/               # Tests de componentes
+│       ├── integration/                 # Tests de integración frontend
+│       │   ├── test-all-converters.js
+│       │   ├── test-tex-converter.js
+│       │   ├── archives-test.ts
+│       │   ├── document-tests.ts
+│       │   ├── images-test.ts
+│       │   ├── media-tests.ts
+│       │   ├── sequential-conversions-test.ts
+│       │   ├── Batería de Pruebas Vitest para Anclora Metaform (Extendida).js
+│       │   ├── test-auth.js
+│       │   └── test-tex-converter.js
+│       └── utils/                       # Utilidades de testing
 ```
 
 ## 🔧 **Dependencias Nuevas Requeridas**
@@ -115,12 +156,30 @@ npm install docx jszip
 ### **1. Verificar Conversores**
 ```bash
 # Ejecutar pruebas automatizadas
-node tests/test-all-converters.js
+node frontend/tests/integration/test-all-converters.js
 
 # Resultado esperado: 37/37 pruebas exitosas
 ```
 
-### **2. Verificar Aplicación**
+### **2. Verificar Tests Backend**
+```bash
+# Ejecutar tests unitarios backend
+cd backend && python -m pytest tests/unit/ -v
+
+# Ejecutar tests de integración backend
+cd backend && python -m pytest tests/integration/ -v
+```
+
+### **3. Verificar Tests Frontend**
+```bash
+# Ejecutar tests unitarios frontend
+cd frontend && npx vitest run
+
+# Ejecutar tests de integración frontend
+cd frontend && node tests/integration/test-all-converters.js
+```
+
+### **4. Verificar Aplicación**
 ```bash
 # Iniciar servidor de desarrollo
 npm run dev
@@ -131,7 +190,7 @@ npm run dev
 # - Estilos de marca aplicados
 ```
 
-### **3. Verificar Assets**
+### **5. Verificar Assets**
 ```bash
 # Confirmar que el logo existe
 ls -la frontend/assets/anclora_metaform_logo.png
@@ -149,7 +208,7 @@ ls -la frontend/converters/*.js | wc -l
 - Preserva cualquier **configuración personalizada**
 
 ### **Integración de tu Trabajo**
-- **Baterías de pruebas Vitest:** Integra en `/tests/`
+- **Baterías de pruebas Vitest:** Integra en `/frontend/tests/`
 - **Documentos de prueba:** Añade a `/docs/`
 - **Configuraciones:** Merge con los archivos actualizados
 
@@ -189,10 +248,10 @@ ls -la frontend/converters/*.js | wc -l
 ### **Integración de tu Trabajo Vitest**
 ```bash
 # Crear directorio para tus pruebas
-mkdir tests/vitest
+mkdir frontend/tests/vitest
 
 # Copiar tus baterías de prueba
-cp tu_trabajo_vitest/* tests/vitest/
+cp tu_trabajo_vitest/* frontend/tests/vitest/
 
 # Actualizar configuración de testing
 # (Mantén tu configuración Vitest existente)

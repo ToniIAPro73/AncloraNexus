@@ -13,10 +13,9 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: ['./tests/utils/vitest-a11y-setup.ts'],
-    include: ['**/*.{test,spec}.{ts,tsx}'],
-    exclude: ['**/node_modules/**', '**/dist/**', '**/cypress/**', '**/.{idea,git,cache,output,temp}/**'],
+    include: ['**/*.a11y.test.{ts,tsx}'],
     reporters: ['verbose', 'html'],
-    outputFile: './test-results/unit-report.html',
+    outputFile: './test-results/a11y-report.html',
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],

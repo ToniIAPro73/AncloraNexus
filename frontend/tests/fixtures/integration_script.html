@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Integration Test Script</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>Integration Test Script</h1>
+    <p>This HTML file contains JavaScript for integration testing.</p>
+    
+    <h2>Form Elements</h2>
+    <form id="testForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4" cols="50"></textarea>
+        
+        <label for="category">Category:</label>
+        <select id="category" name="category">
+            <option value="general">General</option>
+            <option value="support">Support</option>
+            <option value="feedback">Feedback</option>
+        </select>
+        
+        <input type="checkbox" id="subscribe" name="subscribe" value="yes">
+        <label for="subscribe">Subscribe to newsletter</label>
+        
+        <input type="radio" id="priority-low" name="priority" value="low">
+        <label for="priority-low">Low</label>
+        
+        <input type="radio" id="priority-high" name="priority" value="high" checked>
+        <label for="priority-high">High</label>
+        
+        <input type="submit" value="Submit">
+    </form>
+    
+    <h2>Interactive Elements</h2>
+    <button id="testButton">Click Me</button>
+    <div id="output"></div>
+    
+    <h2>Dynamic Content</h2>
+    <ul id="dynamicList">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+    </ul>
+    
+    <h2>Styling</h2>
+    <div style="color: blue; font-size: 18px; background-color: #f0f0f0; padding: 10px;">
+        This div has inline styles for testing CSS handling.
+    </div>
+    
+    <h2>Special Features</h2>
+    <p>Data attribute: <span data-test="value123">Span with data attribute</span></p>
+    <p>Custom element: <custom-element>Custom HTML element</custom-element></p>
+    
+    <script>
+        // Simple script for testing
+        document.getElementById('testButton').addEventListener('click', function() {
+            document.getElementById('output').innerHTML = '<p>Button clicked!</p>';
+        });
+        
+        // Form validation
+        document.getElementById('testForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            
+            if (name && email) {
+                document.getElementById('output').innerHTML = 
+                    `<p>Form submitted successfully!<br>Name: ${name}<br>Email: ${email}</p>`;
+            } else {
+                document.getElementById('output').innerHTML = 
+                    '<p style="color: red;">Please fill in all required fields.</p>';
+            }
+        });
+        
+        // Dynamic list manipulation
+        function addItem() {
+            const list = document.getElementById('dynamicList');
+            const newItem = document.createElement('li');
+            newItem.textContent = `Item ${list.children.length + 1}`;
+            list.appendChild(newItem);
+        }
+        
+        // Add a few items
+        addItem();
+        addItem();
+    </script>
+</body>
+</html>

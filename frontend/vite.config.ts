@@ -41,6 +41,9 @@ export default defineConfig(({ mode }) => {
         alias: {
           '@': path.resolve(__dirname, '.'),
         }
-      }
+      },
+      test: {
+        setupFiles: 'src/setupTests.ts',
+      },
     };
 });

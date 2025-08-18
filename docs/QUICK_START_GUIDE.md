@@ -60,6 +60,7 @@ Si prefieres ir paso a paso sin riesgo, sigue la **`SYNC_GUIDE.md`** incluida en
 - **100% tasa de éxito** validada
 - **Archivos reales** probados
 - **Vitest configurado** y listo
+- **Estructura de tests organizada** en backend/tests/ y frontend/tests/
 
 ### 🎨 Branding Profesional:
 - **Logo oficial** integrado
@@ -99,10 +100,11 @@ Con este repositorio, **Anclora Metaform** tiene:
 
 **Archivos Clave:**
 - `README.md` - Documentación principal
-- `SYNC_GUIDE.md` - Guía de sincronización detallada  
+- `SYNC_GUIDE.md` - Guía de sincronización detallada
 - `CHANGELOG.md` - Historial de cambios
 - `package.json` - Configuración del proyecto
 - `frontend/` - Conversores y componentes
-- `tests/` - Batería de pruebas Vitest
+- `backend/tests/` - Batería de pruebas backend
+- `frontend/tests/` - Batería de pruebas frontend
 - `docs/` - Documentación y análisis
 

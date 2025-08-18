@@ -42,7 +42,11 @@ Esta hoja de ruta nos llevará desde nuestro estado actual hasta la aplicación 
 
   1. **Configurar Linting y Formateo:** Añadir ESLint y Prettier al package.json del frontend para mantener un código consistente y limpio.
 
-  2. **Implementar la Batería de Pruebas:** Crear y ejecutar las pruebas unitarias y de integración (con Vitest) para el frontend y el backend, utilizando la estructura que definimos en la carpeta tests/.
+  2. **Implementar la Batería de Pruebas:** Crear y ejecutar las pruebas unitarias y de integración (con Vitest) para el frontend y el backend, utilizando la nueva estructura en las carpetas:
+     - `backend/tests/unit/` - Tests unitarios backend
+     - `backend/tests/integration/` - Tests de integración backend
+     - `frontend/tests/unit/` - Tests unitarios frontend
+     - `frontend/tests/integration/` - Tests de integración frontend
 
   3. **Establecer un Flujo de Git Profesional:** Formalizar el uso de ramas (feature/, fix/) para el desarrollo y requerir Pull Requests para fusionar cambios a la rama main.
 

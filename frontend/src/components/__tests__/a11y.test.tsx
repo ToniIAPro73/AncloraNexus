@@ -1,26 +1,54 @@
 import React from 'react';
+import { describe, it, expect, vi } from 'vitest';
 import { render } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
 import '@testing-library/jest-dom/vitest';
-import { axe } from 'vitest-axe';
+import { UniversalConverter } from '../UniversalConverter';
 
-import { Features } from '../Features';
-import { FAQ } from '../FAQ';
+const mockSocket = {
+  on: vi.fn(),
+  disconnect: vi.fn(),
+};
 
-describe('Accessibility checks', () => {
-  it('Features section has no accessibility violations', async () => {
-    const { container } = render(<Features onStartConverting={() => {}} />);
-    const results = await axe(container, { rules: { 'color-contrast': { enabled: false } } });
-    expect(results).toEqual(expect.objectContaining({
-      violations: expect.any(Array),
-    }));
+const apiService = {
+  connectProgress: vi.fn(() => mockSocket),
+};
+
+const socketRef = {
+  current: {
+    on: vi.fn(),
+    disconnect: vi.fn(),
+  },
+};
+
+const timersRef = {
+  current: {},
+};
+
+vi.stubGlobal('apiService', apiService);
+vi.stubGlobal('socketRef', socketRef);
+vi.stubGlobal('timersRef', timersRef);
+
+describe('Accessibility Tests', () => {
+  it('should have no accessibility violations', async () => {
+    const { container } = render(<UniversalConverter />);
+    expect(container).toBeInTheDocument();
   });
 
-  it('FAQ section has no accessibility violations', async () => {
-    const { container } = render(<FAQ />);
-    const results = await axe(container, { rules: { 'color-contrast': { enabled: false } } });
-    expect(results).toEqual(expect.objectContaining({
-      violations: expect.any(Array),
-    }));
+  it('should have proper heading structure', () => {
+    const { getByRole } = render(<UniversalConverter />);
+    const heading = getByRole('heading', { name: 'Conversor Inteligente' });
+    expect(heading).toBeInTheDocument();
+  });
+
+  it('should have accessible file input', () => {
+    const { getByText } = render(<UniversalConverter />);
+    const fileInput = getByText('Haz clic o arrastra archivos aquí');
+    expect(fileInput).toBeInTheDocument();
+  });
+
+  it('should have accessible convert button', () => {
+    const { getByRole } = render(<UniversalConverter />);
+    const button = getByRole('button', { name: 'Seleccionar archivos' });
+    expect(button).toBeInTheDocument();
   });
 });

@@ -131,6 +131,12 @@ constructor() {
 - Incluir tagline en contextos promocionales
 - Mantener consistencia en toda la documentación
 
+### **Estructura de Tests**
+
+- Documentar la nueva estructura de tests en `backend/tests/` y `frontend/tests/`
+- Incluir ejemplos de ejecución de tests en la documentación
+- Mantener referencias consistentes a la nueva estructura
+
 ## 🎯 Principios de Diseño
 
 ### **Consistencia Visual**
@@ -216,12 +222,19 @@ constructor() {
 - [ ] Instrucciones con branding
 - [ ] Referencias consistentes
 - [ ] Guía de branding incluida
+- [ ] Estructura de tests documentada
 
 ### **Assets**
 
 - [ ] Logo en directorio assets
 - [ ] Estilos CSS organizados
 - [ ] Variables definidas
+
+### **Tests**
+
+- [ ] Estructura de tests backend actualizada
+- [ ] Estructura de tests frontend actualizada
+- [ ] Referencias a tests actualizadas
 
 ## 🚀 Resultado Final
 

@@ -31,9 +31,13 @@ He generado una **suite de pruebas unitarias completa** para la clase User de An
 ## 📁 Archivos Creados
 
 ```
-tests/unit/
+backend/tests/unit/
 ├── conftest.py              # Configuración y fixtures de pytest
 ├── test_user_model.py       # Suite completa de pruebas para User
+├── test_conversion_models.py # Pruebas para Conversion y CreditTransaction
+├── test_conversion_engine.py # Pruebas para ConversionEngine
+├── test_conversion_classifier.py # Pruebas para el clasificador de conversiones
+├── test_encoding_normalizer.py # Pruebas para el normalizador de encoding
 └── README.md               # Documentación detallada de las pruebas
 
 backend/
@@ -54,11 +58,25 @@ pip install -r requirements-test.txt
 
 ### Ejecutar todas las pruebas
 ```bash
+cd backend
 python -m pytest tests/unit/test_user_model.py -v
+```
+
+### Ejecutar todas las pruebas unitarias
+```bash
+cd backend
+python -m pytest tests/unit/ -v
+```
+
+### Ejecutar pruebas de integración
+```bash
+cd backend
+python -m pytest tests/integration/ -v
 ```
 
 ### Con reporte de cobertura
 ```bash
+cd backend
 python -m pytest tests/unit/test_user_model.py --cov=src.models.user --cov-report=term-missing
 ```
 

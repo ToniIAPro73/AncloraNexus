@@ -42,12 +42,12 @@ anclora-nexus/
 │   │   ├── routes/         # Endpoints API
 │   │   ├── services/       # Servicios de conversión
 │   │   └── utils/          # Utilidades backend
+│   ├── tests/              # Suite de pruebas backend
+│   │   ├── unit/           # Tests unitarios
+│   │   ├── integration/    # Tests de integración
+│   │   └── utils/          # Utilidades de testing
 │   ├── requirements.txt    # Dependencias Python
 │   └── main.py            # Punto de entrada
-├── tests/                   # Suite de pruebas
-│   ├── frontend/           # Tests frontend
-│   ├── backend/            # Tests backend
-│   └── integration/        # Tests de integración
 ├── docs/                    # Documentación
 ├── scripts/                 # Scripts de automatización
 └── data/                   # Archivos de datos
@@ -90,10 +90,17 @@ Antes de ejecutar el backend, configura las siguientes variables de entorno:
 cd frontend && npm test
 
 # Backend
-cd backend && python -m pytest
+cd backend && python -m pytest tests/
 
-# Integración
-npm run test:integration
+# Ejecutar tests específicos
+cd backend && python -m pytest tests/unit/ -v
+cd backend && python -m pytest tests/integration/ -v
+
+# Frontend (Vitest)
+cd frontend && npx vitest run
+
+# Frontend (Vitest con cobertura)
+cd frontend && npx vitest run --coverage
 ```
 
 ## 🔧 Funcionalidades Principales

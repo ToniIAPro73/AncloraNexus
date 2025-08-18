@@ -28,7 +28,8 @@
      "paths": {
       "@/*": ["*"],
       "@ui/*": ["components/ui/*"],
-      "@lib/*": ["lib/*"]
+      "@lib/*": ["lib/*"],
+      "@test/*": ["../tests/*"]
     },
     "incremental": true,
     "esModuleInterop": true,
