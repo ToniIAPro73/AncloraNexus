@@ -36,6 +36,14 @@ class TestCreditsRoutes:
         data = resp.get_json()
         assert data['recipient_new_balance'] == 5
 
+    def test_gift_credits_insufficient_permissions(self, client, auth_headers):
+        """Non-enterprise users cannot gift credits"""
+        payload = {'recipient_email': 'friend@example.com', 'amount': 5}
+        resp = client.post('/api/credits/gift', json=payload, headers=auth_headers)
+        assert resp.status_code == 403
+        data = resp.get_json()
+        assert data['error'] == 'Permisos insuficientes'
+
     def test_upgrade_plan(self, client, auth_headers):
         resp = client.post('/api/credits/upgrade-plan', json={'plan': 'BASIC'}, headers=auth_headers)
         assert resp.status_code == 200
@@ -49,11 +57,27 @@ class TestCreditsRoutes:
         data = resp.get_json()
         assert data['error'] == 'Plan inválido'
 
+    def test_upgrade_plan_same_plan(self, client, auth_headers):
+        """Cannot upgrade to the current active plan"""
+        resp = client.post('/api/credits/upgrade-plan', json={'plan': 'FREE'}, headers=auth_headers)
+        assert resp.status_code == 400
+        data = resp.get_json()
+        assert data['error'] == 'Ya tienes este plan activo'
+
     def test_usage_stats(self, client, auth_headers):
         resp = client.get('/api/credits/usage-stats', headers=auth_headers)
         assert resp.status_code == 200
         data = resp.get_json()
         assert data['current_balance'] == 10
+
+    def test_usage_stats_user_not_found(self, client, app):
+        with app.app_context():
+            token = create_access_token(identity='9999')
+        headers = {'Authorization': f'Bearer {token}'}
+        resp = client.get('/api/credits/usage-stats', headers=headers)
+        assert resp.status_code == 404
+        data = resp.get_json()
+        assert data['error'] == 'Usuario no encontrado'
 
     def test_insufficient_credits(self, client, auth_headers, app):
         with app.app_context():
