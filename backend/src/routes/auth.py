@@ -3,6 +3,7 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identi
 from src.models.user import User, db
 from datetime import datetime, timedelta
 import re
+import secrets
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -118,6 +119,67 @@ def login():
         }), 200
         
     except Exception as e:
+        return jsonify({'error': f'Error interno del servidor: {str(e)}'}), 500
+
+
+@auth_bp.route('/forgot-password', methods=['POST'])
+def forgot_password():
+    """Genera un token de recuperación y envía (simulado) un enlace"""
+    try:
+        data = request.get_json()
+        email = (data.get('email') or '').lower().strip()
+        if not email:
+            return jsonify({'error': 'Email es requerido'}), 400
+
+        user = User.query.filter_by(email=email).first()
+
+        # Siempre respondemos positivamente para evitar enumeración de usuarios
+        if not user:
+            return jsonify({'message': 'Si el email está registrado se enviará un enlace'}), 200
+
+        token = secrets.token_urlsafe(32)
+        user.reset_token = token
+        user.reset_token_expiration = datetime.utcnow() + timedelta(hours=1)
+        db.session.commit()
+
+        reset_link = f"{request.host_url.rstrip('/')}/reset-password?token={token}"
+        # Simulación de envío de correo
+        print(f"Password reset link for {user.email}: {reset_link}")
+
+        return jsonify({'message': 'Se ha enviado un enlace de recuperación'}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': f'Error interno del servidor: {str(e)}'}), 500
+
+
+@auth_bp.route('/reset-password', methods=['POST'])
+def reset_password():
+    """Verifica el token y actualiza la contraseña"""
+    try:
+        data = request.get_json()
+        token = data.get('token')
+        new_password = data.get('password')
+
+        if not token or not new_password:
+            return jsonify({'error': 'Token y nueva contraseña son requeridos'}), 400
+
+        user = User.query.filter_by(reset_token=token).first()
+        if not user or not user.reset_token_expiration or user.reset_token_expiration < datetime.utcnow():
+            return jsonify({'error': 'Token inválido o expirado'}), 400
+
+        is_valid, message = validate_password(new_password)
+        if not is_valid:
+            return jsonify({'error': message}), 400
+
+        user.set_password(new_password)
+        user.reset_token = None
+        user.reset_token_expiration = None
+        user.updated_at = datetime.utcnow()
+        db.session.commit()
+
+        return jsonify({'message': 'Contraseña restablecida exitosamente'}), 200
+    except Exception as e:
+        db.session.rollback()
         return jsonify({'error': f'Error interno del servidor: {str(e)}'}), 500
 
 @auth_bp.route('/profile', methods=['GET'])

@@ -1,5 +1,6 @@
 // frontend/src/auth/AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { apiService, LoginData, RegisterData } from '../services/api';
 import type { User } from '../types/User';
 
@@ -13,6 +14,8 @@ interface AuthContextType {
   logout: () => void;
   updateUser: (userData: Partial<User>) => void;
   refreshUser: () => Promise<void>;
+  requestPasswordReset: (email: string) => Promise<void>;
+  resetPassword: (token: string, password: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -32,8 +35,15 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   const isAuthenticated = !!user;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/app');
+    }
+  }, [isAuthenticated, navigate]);
 
   // Verificar autenticación al cargar la aplicación
   useEffect(() => {
@@ -106,6 +116,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }
   };
 
+  const requestPasswordReset = async (email: string) => {
+    await apiService.requestPasswordReset(email);
+  };
+
+  const resetPassword = async (token: string, password: string) => {
+    await apiService.resetPassword(token, password);
+  };
+
 
   const value: AuthContextType = {
     user,
@@ -116,6 +134,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     logout,
     updateUser,
     refreshUser,
+    requestPasswordReset,
+    resetPassword,
   };
 
   return (
@@ -373,5 +393,81 @@ export const UserProfile: React.FC = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+// Formulario para solicitar recuperación de contraseña
+export const ForgotPasswordForm: React.FC = () => {
+  const { requestPasswordReset } = useAuth();
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setMessage('');
+    try {
+      await requestPasswordReset(email);
+      setMessage('Revisa tu correo para continuar con el proceso.');
+    } catch {
+      setMessage('No se pudo procesar la solicitud.');
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="input-group">
+        <label htmlFor="fp-email" className="input-label">Email</label>
+        <input
+          id="fp-email"
+          type="email"
+          className="input"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          required
+        />
+      </div>
+      <button type="submit" className="btn btn-primary w-full">Enviar enlace</button>
+      {message && <p className="text-center text-sm text-gray-300">{message}</p>}
+    </form>
+  );
+};
+
+// Formulario para restablecer la contraseña con un token
+interface ResetPasswordFormProps {
+  token: string;
+}
+
+export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({ token }) => {
+  const { resetPassword } = useAuth();
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setMessage('');
+    try {
+      await resetPassword(token, password);
+      setMessage('Contraseña actualizada correctamente');
+    } catch (err) {
+      setMessage('No se pudo actualizar la contraseña');
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="input-group">
+        <label htmlFor="new-password" className="input-label">Nueva Contraseña</label>
+        <input
+          id="new-password"
+          type="password"
+          className="input"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          required
+        />
+      </div>
+      <button type="submit" className="btn btn-primary w-full">Restablecer contraseña</button>
+      {message && <p className="text-center text-sm text-gray-300">{message}</p>}
+    </form>
   );
 };

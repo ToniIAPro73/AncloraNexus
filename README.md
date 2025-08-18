@@ -110,6 +110,7 @@ cd frontend && npx vitest run --coverage
 - Procesamiento asíncrono para archivos grandes
 - Validación de entrada y manejo de errores
 - Cache inteligente para optimización
+- Normalización de codificación a UTF-8 previa a la conversión ([detalle](./docs/encoding_normalization.md))
 
 ### Sistema de Créditos
 - Compra y gestión de créditos

@@ -77,7 +77,7 @@ export const Footer: React.FC = () => {
                         <h5 className="font-bold mb-4">Acerca de</h5>
                         <ul className="space-y-3">
                             <FooterLink href="#">Precios</FooterLink>
-                            <FooterLink href="#">Formatos Compatibles</FooterLink>
+                            <FooterLink href="/formats">Formatos Compatibles</FooterLink>
                             <FooterLink href="#">FAQ</FooterLink>
                         </ul>
                         <a href="#" className="mt-6 inline-block w-full text-center px-4 py-2 border border-white rounded-md hover:bg-white hover:text-slate-800 font-semibold transition-colors">

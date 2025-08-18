@@ -82,6 +82,18 @@ export const apiService = {
     }
   },
 
+  resetPassword: async (token: string, password: string): Promise<void> => {
+    const response = await fetch(`${API_BASE_URL}/auth/reset-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token, password }),
+    });
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      throw new Error(data.error || 'Error restableciendo la contraseña');
+    }
+  },
+
   logout: () => {
     console.log('Cerrando sesión...');
     clearToken();
@@ -168,6 +180,15 @@ export const apiService = {
     });
     if (!response.ok) throw new Error('Error obteniendo el historial de conversiones');
     return response.json();
+  },
+
+  getSupportedFormats: async (): Promise<{ supported_conversions: Record<string, Record<string, number>>; allowed_extensions: string[] }> => {
+    const response = await fetch(`${API_BASE_URL}/conversion/supported-formats`);
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error || 'Error obteniendo formatos soportados');
+    }
+    return data;
   },
 
   purchaseCredits: async (amount: number): Promise<any> => {

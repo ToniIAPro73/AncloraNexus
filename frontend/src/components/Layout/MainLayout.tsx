@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Sidebar from './Sidebar';
 import { Header } from './Header';
 import { CreditProvider, CreditBalance, CreditHistory } from '@/components/CreditSystem';
+import { InteractiveConversions } from '@/components/InteractiveConversions';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -81,7 +82,10 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
             </div>
           </CreditProvider>
         ) : (
-          <div className="p-6">{children}</div>
+          <div className="p-6 space-y-8">
+            {children}
+            <InteractiveConversions />
+          </div>
         )}
       </main>
     </div>
