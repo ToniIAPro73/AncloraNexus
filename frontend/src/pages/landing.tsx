@@ -15,6 +15,9 @@ export default function LandingPage() {
         <p className="text-xl md:text-2xl text-[#2563eb] italic">
           {t('landing.heroSubtitle')}
         </p>
+        <Link href="/formats" className="mt-6 inline-block text-[#1e40af] underline">
+          Ver formatos soportados
+        </Link>
         <motion.svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 200 200"
