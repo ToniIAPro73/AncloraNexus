@@ -27,14 +27,24 @@ app.config['JWT_SECRET_KEY'] = jwt_secret_key
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=7)
 
 # Configuración de CORS para permitir requests del frontend
-allowed_origins = os.environ.get('CORS_ORIGINS')
+allowed_origins = os.environ.get('ALLOWED_ORIGINS')
 if not allowed_origins:
-    raise RuntimeError('CORS_ORIGINS must be set as environment variable')
-origins = [origin.strip() for origin in allowed_origins.split(',') if origin.strip()]
-CORS(app,
-     origins=origins,
-     supports_credentials=True,
-     allow_headers=['Content-Type', 'Authorization'])
+    raise RuntimeError('ALLOWED_ORIGINS must be set as environment variable')
+
+origins = [
+    origin.strip()
+    for origin in allowed_origins.split(',')
+    if origin.strip() and origin.strip() != '*'
+]
+if not origins:
+    raise RuntimeError('ALLOWED_ORIGINS must specify at least one origin without wildcard')
+
+CORS(
+    app,
+    origins=origins,
+    supports_credentials=True,
+    allow_headers=['Content-Type', 'Authorization']
+)
 
 # Inicializar SocketIO
 socketio.init_app(app, cors_allowed_origins=origins)
@@ -147,6 +157,6 @@ if __name__ == '__main__':
     print("🔍 Información del API: http://localhost:8000/api/info")
     print("❤️  Verificación de salud: http://localhost:8000/api/health")
     print("=" * 50)
-    debug_mode = os.environ.get('FLASK_DEBUG', 'false').lower() in ('1', 'true', 'yes')
+    debug_mode = os.environ.get('FLASK_DEBUG', '').lower() in ('1', 'true', 'yes')
     socketio.run(app, host='0.0.0.0', port=8000, debug=debug_mode)
 

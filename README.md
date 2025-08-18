@@ -81,7 +81,7 @@ Antes de ejecutar el backend, configura las siguientes variables de entorno:
 
 - `SECRET_KEY`: clave usada por Flask para sesiones.
 - `JWT_SECRET_KEY`: clave para firmar tokens JWT.
-- `CORS_ORIGINS`: lista separada por comas de orígenes permitidos para CORS (ej. `http://localhost:3000,http://localhost:5173`).
+- `ALLOWED_ORIGINS`: lista separada por comas de orígenes permitidos para CORS (ej. `http://localhost:3000,http://localhost:5173`). El comodín `*` se ignora por seguridad.
 - `FLASK_DEBUG`: establece `true` para habilitar el modo debug (opcional).
 
 ### Ejecutar Tests
