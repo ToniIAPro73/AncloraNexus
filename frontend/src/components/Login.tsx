@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { AuthService } from '../services/authService';
-import { apiService } from '../services/api';
 
 interface LoginProps {
   onSuccess?: () => void;
@@ -77,17 +76,8 @@ export const Login: React.FC<LoginProps> = ({
     if (error) setError('');
   };
 
-  const handleForgotPassword = async () => {
-    if (!formData.email) {
-      setError('Por favor ingresa tu correo electrónico');
-      return;
-    }
-    try {
-      await apiService.requestPasswordReset(formData.email);
-      alert('Se ha enviado un enlace de recuperación a tu correo.');
-    } catch (e) {
-      setError('No se pudo iniciar la recuperación de contraseña');
-    }
+  const handleForgotPassword = () => {
+    window.location.assign('/forgot-password');
   };
 
     return (

@@ -19,3 +19,9 @@ class TestAuthRoutes:
         resp = client.post('/api/auth/login', json=login_data)
         assert resp.status_code == 200
         assert 'access_token' in resp.get_json()
+
+    def test_forgot_password(self, client):
+        """Debe iniciar el flujo de recuperación de contraseña"""
+        resp = client.post('/api/auth/forgot-password', json={'email': 'user@example.com'})
+        assert resp.status_code == 200
+        assert 'message' in resp.get_json()

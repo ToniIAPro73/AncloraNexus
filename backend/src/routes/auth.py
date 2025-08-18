@@ -120,6 +120,21 @@ def login():
     except Exception as e:
         return jsonify({'error': f'Error interno del servidor: {str(e)}'}), 500
 
+
+@auth_bp.route('/forgot-password', methods=['POST'])
+def forgot_password():
+    """Inicia el proceso de recuperación de contraseña"""
+    try:
+        data = request.get_json() or {}
+        email = data.get('email')
+        if not email:
+            return jsonify({'error': 'Email requerido'}), 400
+
+        # Aquí se enviaría un correo electrónico real o un código temporal
+        return jsonify({'message': 'Se enviaron instrucciones de recuperación si el email existe'}), 200
+    except Exception as e:
+        return jsonify({'error': f'Error interno del servidor: {str(e)}'}), 500
+
 @auth_bp.route('/profile', methods=['GET'])
 @jwt_required()
 def get_profile():
