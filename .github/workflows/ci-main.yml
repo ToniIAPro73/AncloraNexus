@@ -1,7 +1,7 @@
-name: test
+name: test-main
 
 on:
-  pull_request:
+  push:
     branches: [ main ]
 
 jobs:
@@ -47,3 +47,35 @@ jobs:
         run: |
           npm run test:a11y || echo "Accessibility tests failed, but continuing..."
           echo "Accessibility tests completed"
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push backend image
+        run: |
+          docker build -t ${{ secrets.ECR_REPOSITORY }}:backend-${{ github.sha }} -f backend/Dockerfile backend
+          docker push ${{ secrets.ECR_REPOSITORY }}:backend-${{ github.sha }}
+
+      - name: Build and push frontend image
+        run: |
+          docker build -t ${{ secrets.ECR_REPOSITORY }}:frontend-${{ github.sha }} -f frontend/Dockerfile frontend
+          docker push ${{ secrets.ECR_REPOSITORY }}:frontend-${{ github.sha }}
+
+      - name: Deploy to staging
+        run: |
+          echo "Deploying to staging environment"
+          # Placeholder for real deployment commands

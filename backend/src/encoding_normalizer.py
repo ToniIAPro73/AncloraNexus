@@ -7,7 +7,7 @@ import chardet
 
 MOJIBAKE_RE = re.compile(r"Ã|Â|â€")
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 LOG_DIR = BASE_DIR / "logs" / "encoding"
 LOG_FILE = LOG_DIR / "encoding_normalizer.log"
 

@@ -4,15 +4,14 @@ from pathlib import Path
 import pytest
 
 from src.models import conversion as conversion_module
-from src import encoding_normalizer
 
 
 @pytest.mark.integration
-@pytest.mark.conversion
-def test_upload_normalize_convert(client, auth_headers, monkeypatch):
+@pytest.mark.parametrize("encoding", ["latin1", "utf-16"])
+def test_full_conversion_flow_multiple_encodings(client, auth_headers, monkeypatch, encoding):
+    """Ensure uploads with various encodings are normalized and converted."""
     calls = []
-
-    original = encoding_normalizer.normalize_to_utf8
+    original = conversion_module.normalize_to_utf8
 
     def tracker(path):
         calls.append(path)
@@ -20,7 +19,7 @@ def test_upload_normalize_convert(client, auth_headers, monkeypatch):
 
     monkeypatch.setattr(conversion_module, "normalize_to_utf8", tracker)
 
-    content = "áéíóú".encode("latin1")
+    content = "áéíóú".encode(encoding)
     data = {
         "file": (io.BytesIO(content), "acentos.txt"),
         "target_format": "html",
@@ -32,7 +31,6 @@ def test_upload_normalize_convert(client, auth_headers, monkeypatch):
         headers=auth_headers,
         content_type="multipart/form-data",
     )
-
     assert resp.status_code == 200
     assert len(calls) == 1
     bak_path = Path(calls[0]).with_suffix(Path(calls[0]).suffix + ".bak")

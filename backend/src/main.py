@@ -3,9 +3,11 @@ import sys
 # DON'T CHANGE THIS !!!
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from flask import Flask, send_from_directory, jsonify
+from flask import Flask, send_from_directory, jsonify, request
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
+from prometheus_flask_exporter import PrometheusMetrics
+import logging
 from src.models.user import db
 from src.routes.user import user_bp
 from src.routes.auth import auth_bp
@@ -18,6 +20,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
+
+# Configuración de logging
+log_level = os.environ.get('LOG_LEVEL', 'INFO').upper()
+logging.basicConfig(level=getattr(logging, log_level, logging.INFO))
+logging.getLogger('werkzeug').setLevel(logging.WARNING)
+metrics = PrometheusMetrics(app)
+metrics.info('app_info', 'Anclora Metaform API', version='1.0.0')
 
 # Configuración de seguridad
 secret_key = os.environ.get('SECRET_KEY')
@@ -71,6 +80,16 @@ app.register_blueprint(credits_bp, url_prefix='/api/credits')
 # Crear tablas de base de datos
 with app.app_context():
     db.create_all()
+
+# Registro de solicitudes
+@app.before_request
+def log_request():
+    app.logger.info("%s %s", request.method, request.path)
+
+@app.after_request
+def log_response(response):
+    app.logger.info("%s %s -> %s", request.method, request.path, response.status_code)
+    return response
 
 # Manejador de errores JWT
 @jwt.expired_token_loader
