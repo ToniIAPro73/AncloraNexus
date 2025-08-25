@@ -16,7 +16,7 @@ def test_imports():
         print("✅ Modelos importados correctamente")
         
         # Test 2: Importar normalización
-        from src.nexus.encoding_normalizer import detect_encoding, normalize_to_utf8
+        from src.encoding_normalizer import detect_encoding, normalize_to_utf8
         print("✅ Módulo de normalización importado correctamente")
         
         # Test 3: Verificar chardet

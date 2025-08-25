@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from src.nexus.encoding_normalizer import (
+from src.encoding_normalizer import (
     detect_encoding,
     normalize_to_utf8,
     repair_mojibake,
@@ -25,7 +25,7 @@ def test_normalize_to_utf8(tmp_path):
     file_path.write_bytes("áéíóú".encode("utf-16"))
 
     # ensure log clean
-    log_file = Path(__file__).resolve().parents[2] / "backend/logs/encoding/encoding_normalizer.log"
+    log_file = Path(__file__).resolve().parents[2] / "logs/encoding/encoding_normalizer.log"
     if log_file.exists():
         log_file.unlink()
 

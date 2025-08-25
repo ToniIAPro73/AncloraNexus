@@ -7,7 +7,7 @@ La normalización de encoding asegura que todos los archivos de texto se procese
 La interfaz de línea de comandos permite normalizar archivos de manera individual o en lote:
 
 ```bash
-python backend/src/nexus/cli.py <archivos>
+python backend/src/cli.py <archivos>
 ```
 
 ### Opciones disponibles
@@ -20,13 +20,13 @@ python backend/src/nexus/cli.py <archivos>
 
 ```bash
 # Normalizar archivo.txt a UTF-8
-python backend/src/nexus/cli.py archivo.txt
+python backend/src/cli.py archivo.txt
 
 # Previsualizar normalización y agregar BOM
-python backend/src/nexus/cli.py archivo.txt --dry-run --bom
+python backend/src/cli.py archivo.txt --dry-run --bom
 
 # Restaurar desde respaldo
-python backend/src/nexus/cli.py archivo.txt --undo
+python backend/src/cli.py archivo.txt --undo
 ```
 
 ## Integración con el Motor de Conversión
