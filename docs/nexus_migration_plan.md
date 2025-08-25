@@ -6,6 +6,8 @@
 | --- | --- | --- | --- |
 | `encoding_normalizer` | `backend/src/nexus/encoding_normalizer.py` | Crítico | Núcleo de normalización de encoding; depende de `chardet`. |
 | `chardet` | Paquete externo | Crítico | Utilizado para detección automática de encoding. |
+| `lxml` | Paquete externo | Opcional | Biblioteca XML requerida por `python-docx`. |
+| `typing_extensions` | Paquete externo | Opcional | Proporciona compatibilidad con anotaciones de tipos futuras. |
 | Integración con `ConversionEngine` | `backend/src/models/conversion.py` | Crítico | Se invoca `normalize_to_utf8` antes de cada conversión de texto. |
 | CLI de normalización | `backend/src/nexus/cli.py` | Opcional | Herramienta de línea de comandos para normalizar archivos manualmente. |
 | Registro de eventos | `backend/logs/encoding/encoding_normalizer.log` | Opcional | Mantiene trazabilidad de cambios realizados. |

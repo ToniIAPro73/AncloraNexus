@@ -12,6 +12,7 @@ SQLAlchemy==2.0.23
 python-docx>=0.8.11
 fpdf2>=2.7
 pypdf==6.0.0
+lxml>=4.9.3  # XML parsing for python-docx
 
 # Text processing utilities
 ftfy==6.2.0
@@ -27,6 +28,7 @@ gunicorn==21.2.0
 # Environment variables
 python-dotenv==1.0.0
 
+typing_extensions>=4.14.1  # Backports for newer typing features
 chardet==5.2.0
 bcrypt>=4.0
 
