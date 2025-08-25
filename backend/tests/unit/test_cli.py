@@ -6,11 +6,11 @@ BACKEND_DIR = Path(__file__).resolve().parents[2]
 
 
 def run_cli(args):
-    """Execute the nexus CLI with given arguments."""
+    """Execute the encoding CLI with given arguments."""
     env = os.environ.copy()
     env["PYTHONPATH"] = str(BACKEND_DIR / "src")
     return subprocess.run(
-        ["python", "-m", "src.nexus.cli", *args],
+        ["python", "-m", "src.cli", *args],
         cwd=str(BACKEND_DIR),
         capture_output=True,
         text=True,

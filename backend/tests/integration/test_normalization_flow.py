@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 from src.models import conversion as conversion_module
-from src.nexus import encoding_normalizer
+from src import encoding_normalizer
 
 
 @pytest.mark.integration

@@ -6,7 +6,7 @@ from collections import deque
 from pathlib import Path
 
 from src.ws import emit_progress, Phase
-from src.nexus.encoding_normalizer import normalize_to_utf8
+from src.encoding_normalizer import normalize_to_utf8
 from src.models.user import Conversion, CreditTransaction
 
 
