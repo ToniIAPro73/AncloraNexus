@@ -4,8 +4,12 @@ import os
 from datetime import datetime
 
 # Cargar configuración de archivos de prueba
-with open('/home/ubuntu/test_results.json', 'r') as f:
-    test_config = json.load(f)
+try:
+    with open('/home/ubuntu/test_results.json', 'r') as f:
+        test_config = json.load(f)
+except FileNotFoundError:
+    # Fallback vacío para evitar errores durante la importación en entornos de prueba
+    test_config = {"test_files": []}
 
 # Configuración de pruebas
 test_conversions = [
