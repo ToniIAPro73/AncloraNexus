@@ -73,6 +73,8 @@ cd backend
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 python main.py
+
+La API expondrá un endpoint de métricas en `http://localhost:8000/metrics` y mostrará logs según el nivel definido.
 ```
 
 ### Variables de entorno (Backend)
@@ -83,6 +85,7 @@ Antes de ejecutar el backend, configura las siguientes variables de entorno:
 - `JWT_SECRET_KEY`: clave para firmar tokens JWT.
 - `ALLOWED_ORIGINS`: lista separada por comas de orígenes permitidos para CORS (ej. `http://localhost:3000,http://localhost:5173`). El comodín `*` se ignora por seguridad.
 - `FLASK_DEBUG`: establece `true` para habilitar el modo debug (opcional).
+- `LOG_LEVEL`: nivel de logs (`DEBUG`, `INFO`, `WARNING`, etc.). Opcional, por defecto `INFO`.
 
 ### Ejecutar Tests
 ```bash
@@ -166,7 +169,7 @@ npm run test:all
 ## 📈 Monitoreo y Logs
 
 - Logging estructurado
-- Métricas de uso
+- Métricas de uso expuestas en `/metrics`
 - Monitoring de performance
 - Error tracking
 

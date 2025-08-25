@@ -83,6 +83,7 @@ Con este repositorio, **Anclora Metaform** tiene:
 - ✅ **Calidad profesional** en todas las conversiones
 - ✅ **Base sólida** para futuras funcionalidades
 - ✅ **Todo sincronizado** y listo para producción
+- ✅ **Observabilidad integrada**: logs configurables y métricas en `/metrics`
 
 ## 🆘 ¿Necesitas Ayuda?
 

@@ -16,4 +16,8 @@ This document summarizes how newly added e‑book conversion modules integrate w
 - The e‑book modules interact with existing authentication and credit systems without requiring schema changes.
 - Both converters emit progress updates over the same WebSocket channel, allowing the frontend to monitor status uniformly.
 
+## Observability
+- A new metrics module exposes Prometheus data at `/metrics`, integrating with existing services without altering API contracts.
+- Centralized request logging reuses Flask's logging system, so authentication and conversion modules emit uniform logs.
+
 These interactions were reviewed after integration to verify that legacy functionality continues to operate alongside the new e‑book features.
