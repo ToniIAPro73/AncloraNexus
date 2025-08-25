@@ -154,6 +154,17 @@ npm install --save-dev @types/jszip
 3. **Formatos:** Todos los formatos generados son estándar y compatibles con software común
 4. **Rendimiento:** Las conversiones son instantáneas para archivos de texto típicos
 
+## 📈 Métricas y Logs
+
+Una vez integrado el backend, instala también las dependencias de observabilidad:
+
+```bash
+cd backend
+pip install -r requirements.txt
+```
+
+Define el nivel de logging con la variable de entorno `LOG_LEVEL` y consulta las métricas en `http://localhost:8000/metrics`.
+
 ## 🎉 ¡Listo!
 
 Una vez completada la instalación, tu Anclora Converter tendrá:
