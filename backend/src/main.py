@@ -13,6 +13,9 @@ from src.routes.conversion import conversion_bp
 from src.routes.credits import credits_bp
 from datetime import timedelta
 from src.ws import socketio
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
 
@@ -152,11 +155,9 @@ def bad_request(error):
     return jsonify({'error': 'Solicitud inválida'}), 400
 
 if __name__ == '__main__':
-    print("🚀 Iniciando Anclora Metaform API...")
-    print("📍 API disponible en: http://localhost:8000/api")
-    print("🔍 Información del API: http://localhost:8000/api/info")
-    print("❤️  Verificación de salud: http://localhost:8000/api/health")
+    print("Iniciando Anclora Metaform API...")
+    print("API disponible en: http://localhost:8000/api")
+    print("Información del API: http://localhost:8000/api/info")
+    print("Verificación de salud: http://localhost:8000/api/health")
     print("=" * 50)
-    debug_mode = os.environ.get('FLASK_DEBUG', '').lower() in ('1', 'true', 'yes')
-    socketio.run(app, host='0.0.0.0', port=8000, debug=debug_mode)
 
