@@ -174,19 +174,25 @@ class ConversionEngine:
         """Realiza la conversión de archivo"""
         try:
             source = source_format.lower().replace('.', '')
+            logs = []
+
             if source in TEXT_EXTENSIONS:
-                normalize_to_utf8(input_path)
+                log_entry = normalize_to_utf8(input_path)
+                logs.append(
+                    f"normalized:{log_entry.get('from')}->{log_entry.get('to')}"
+                )
 
             target = target_format.lower()
             method = self.conversion_methods.get((source, target))
             if method:
-                return method(input_path, output_path)
+                success, msg = method(input_path, output_path)
+                logs.append(f"{source}->{target}: {msg}")
+                return success, " | ".join(logs)
 
             path = self.find_conversion_path(source, target)
             if not path:
                 return False, f"Conversión {source_format} → {target_format} no implementada aún"
 
-            logs = []
             temp_files = []
             current_input = input_path
 
@@ -199,7 +205,10 @@ class ConversionEngine:
                         return False, f"Conversión {src_fmt} → {dst_fmt} no implementada"
 
                     if src_fmt in TEXT_EXTENSIONS:
-                        normalize_to_utf8(current_input)
+                        log_entry = normalize_to_utf8(current_input)
+                        logs.append(
+                            f"normalized:{log_entry.get('from')}->{log_entry.get('to')}"
+                        )
 
                     if i == len(path) - 2:
                         current_output = output_path
