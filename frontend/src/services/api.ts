@@ -16,8 +16,8 @@ export interface RegisterData {
 // --- LÓGICA DEL SERVICIO DE API ---
 
 // URL base de la API configurable mediante variable de entorno
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000/api';
-const WS_BASE_URL = process.env.NEXT_PUBLIC_WS_BASE_URL || 'http://localhost:8000';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
+const WS_BASE_URL = import.meta.env.VITE_WS_BASE_URL || 'http://localhost:8000';
 
 // --- Funciones de Ayuda para el Token ---
 const setAuthToken = (token: string) => {
@@ -226,8 +226,22 @@ export const apiService = {
 
 // --- Funciones de Ayuda (Helpers) ---
 export const getConversionCost = (fromFormat: string, toFormat: string): number => {
-  // En el futuro, esto podría hacer una llamada a la API para obtener costes dinámicos
-  return 2; 
+  // Lógica básica de costos basada en complejidad de conversión
+  const formatComplexity: Record<string, number> = {
+    'txt': 1,
+    'md': 1,
+    'html': 2,
+    'docx': 3,
+    'pdf': 4,
+    'csv': 2,
+    'json': 2
+  };
+
+  const fromComplexity = formatComplexity[fromFormat.toLowerCase()] || 2;
+  const toComplexity = formatComplexity[toFormat.toLowerCase()] || 2;
+  
+  // Costo base + complejidad de conversión
+  return Math.max(1, Math.floor((fromComplexity + toComplexity) / 2));
 };
 export const formatFileSize = (bytes: number, decimals = 2): string => {
   if (bytes === 0) return '0 Bytes';

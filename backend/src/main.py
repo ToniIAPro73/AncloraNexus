@@ -15,11 +15,17 @@ from src.routes.conversion import conversion_bp
 from src.routes.credits import credits_bp
 from datetime import timedelta
 from src.ws import socketio
+from src.config import get_config
 from dotenv import load_dotenv
 
-load_dotenv()
+# Cargar variables de entorno desde el directorio backend
+load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env'))
 
-app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
+app = Flask(__name__)
+
+# Aplicar configuración centralizada
+config_class = get_config()
+app.config.from_object(config_class)
 
 # Configuración de logging
 log_level = os.environ.get('LOG_LEVEL', 'INFO').upper()
@@ -28,38 +34,20 @@ logging.getLogger('werkzeug').setLevel(logging.WARNING)
 metrics = PrometheusMetrics(app)
 metrics.info('app_info', 'Anclora Metaform API', version='1.0.0')
 
-# Configuración de seguridad
-secret_key = os.environ.get('SECRET_KEY')
-jwt_secret_key = os.environ.get('JWT_SECRET_KEY')
-if not secret_key or not jwt_secret_key:
-    raise RuntimeError('SECRET_KEY and JWT_SECRET_KEY must be set as environment variables')
+# Validar configuración crítica
+if not app.config.get('SECRET_KEY') or not app.config.get('JWT_SECRET_KEY'):
+    raise RuntimeError('SECRET_KEY and JWT_SECRET_KEY must be set in configuration')
 
-app.config['SECRET_KEY'] = secret_key
-app.config['JWT_SECRET_KEY'] = jwt_secret_key
-app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=7)
-
-# Configuración de CORS para permitir requests del frontend
-allowed_origins = os.environ.get('ALLOWED_ORIGINS')
-if not allowed_origins:
-    raise RuntimeError('ALLOWED_ORIGINS must be set as environment variable')
-
-origins = [
-    origin.strip()
-    for origin in allowed_origins.split(',')
-    if origin.strip() and origin.strip() != '*'
-]
-if not origins:
-    raise RuntimeError('ALLOWED_ORIGINS must specify at least one origin without wildcard')
-
+# Configuración de CORS
 CORS(
     app,
-    origins=origins,
+    origins=app.config['ALLOWED_ORIGINS'],
     supports_credentials=True,
     allow_headers=['Content-Type', 'Authorization']
 )
 
 # Inicializar SocketIO
-socketio.init_app(app, cors_allowed_origins=origins)
+socketio.init_app(app, cors_allowed_origins=app.config['ALLOWED_ORIGINS'])
 
 # Configuración de JWT
 jwt = JWTManager(app)
@@ -179,4 +167,5 @@ if __name__ == '__main__':
     print("Información del API: http://localhost:8000/api/info")
     print("Verificación de salud: http://localhost:8000/api/health")
     print("=" * 50)
+    app.run(host='0.0.0.0', port=8000, debug=True)
 

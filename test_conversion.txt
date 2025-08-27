@@ -1,0 +1,7 @@
+Este es un archivo de prueba para la conversión.
+
+Vamos a probar si el sistema de conversión funciona correctamente.
+
+El archivo será convertido de TXT a PDF usando fpdf2.
+
+¡Anclora Metaform funcionando! 🚀
