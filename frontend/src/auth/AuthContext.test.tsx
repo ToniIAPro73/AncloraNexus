@@ -1,4 +1,4 @@
-import React from 'react';
+// Eliminamos la importación no utilizada de React
 import { render, fireEvent, screen, waitFor, cleanup } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import '@testing-library/jest-dom/vitest';
