@@ -37,5 +37,5 @@ python src/main.py
 ```
 
 ### Ejemplo de uso
-Envía un `POST` a `http://localhost:8000/api/conversion` con un archivo TXT y recibe el documento convertido en el formato solicitado.
+Envía un `POST` a `http://localhost:${PORT:-8000}/api/conversion` con un archivo TXT y recibe el documento convertido en el formato solicitado. Puedes modificar el puerto mediante la variable de entorno `PORT`.
 
