@@ -1,5 +1,5 @@
 @echo off
-ECHO Iniciando todos los servicios de Anclora Metaform...
+ECHO Iniciando todos los servicios de Anclora Nexus...
 
 REM Llama a los otros scripts usando su ruta completa
 call "%~dp0start_backend.bat"

@@ -1,4 +1,4 @@
-# 🚀 Guía de Inicio Rápido - Anclora Metaform
+# 🚀 Guía de Inicio Rápido - Anclora Nexus
 
 ## 📦 ¿Qué tienes aquí?
 
@@ -6,7 +6,7 @@
 
 ### ✅ Incluye TODO:
 - **6 conversores** funcionando al 100% (HTML, DOC, MD, RTF, ODT, TEX)
-- **Branding completo** Anclora Metaform integrado
+- **Branding completo** Anclora Nexus integrado
 - **Tu batería de pruebas** Vitest con 37+ casos
 - **Análisis de competencia** completo
 - **Estructura Git** con historial completo
@@ -76,7 +76,7 @@ Si prefieres ir paso a paso sin riesgo, sigue la **`SYNC_GUIDE.md`** incluida en
 
 ## 🏆 Resultado Final
 
-Con este repositorio, **Anclora Metaform** tiene:
+Con este repositorio, **Anclora Nexus** tiene:
 
 - ✅ **Paridad competitiva** 100% lograda
 - ✅ **10 formatos** de conversión
@@ -93,7 +93,7 @@ Con este repositorio, **Anclora Metaform** tiene:
 
 ## 🎉 ¡Listo para Dominar el Mercado!
 
-**Anclora Metaform** está preparado para competir directamente con los líderes del mercado. 
+**Anclora Nexus** está preparado para competir directamente con los líderes del mercado. 
 
 **Tu Contenido, Reinventado** 🚀
 

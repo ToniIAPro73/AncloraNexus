@@ -32,7 +32,7 @@ log_level = os.environ.get('LOG_LEVEL', 'INFO').upper()
 logging.basicConfig(level=getattr(logging, log_level, logging.INFO))
 logging.getLogger('werkzeug').setLevel(logging.WARNING)
 metrics = PrometheusMetrics(app)
-metrics.info('app_info', 'Anclora Metaform API', version='1.0.0')
+metrics.info('app_info', 'Anclora Nexus API', version='2.0.0')
 
 # Validar configuración crítica
 if not app.config.get('SECRET_KEY') or not app.config.get('JWT_SECRET_KEY'):
@@ -98,7 +98,7 @@ def health_check():
     """Endpoint de verificación de salud del API"""
     return jsonify({
         'status': 'healthy',
-        'service': 'Anclora Metaform API',
+        'service': 'Anclora Nexus API',
         'version': '1.0.0',
         'message': 'API funcionando correctamente'
     }), 200
@@ -108,7 +108,7 @@ def health_check():
 def api_info():
     """Información general del API"""
     return jsonify({
-        'name': 'Anclora Metaform API',
+        'name': 'Anclora Nexus API',
         'version': '1.0.0',
         'description': 'API para conversión inteligente de archivos',
         'endpoints': {
@@ -142,7 +142,7 @@ def serve(path):
             return send_from_directory(static_folder_path, 'index.html')
         else:
             return jsonify({
-                'message': 'Anclora Metaform API',
+                'message': 'Anclora Nexus API',
                 'status': 'running',
                 'frontend': 'not_configured',
                 'api_docs': '/api/info'
@@ -162,7 +162,7 @@ def bad_request(error):
     return jsonify({'error': 'Solicitud inválida'}), 400
 
 if __name__ == '__main__':
-    print("Iniciando Anclora Metaform API...")
+    print("Iniciando Anclora Nexus API...")
     print("API disponible en: http://localhost:8000/api")
     print("Información del API: http://localhost:8000/api/info")
     print("Verificación de salud: http://localhost:8000/api/health")

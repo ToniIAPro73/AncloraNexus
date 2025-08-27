@@ -1,5 +1,5 @@
 @echo off
-ECHO Forzando el cierre de los servidores de Anclora Metaform...
+ECHO Forzando el cierre de los servidores de Anclora Nexus...
 
 REM Busca el proceso que usa el puerto 3000 (Frontend) y lo detiene
 for /f "tokens=5" %%a in ('netstat -aon ^| findstr :3000') do (

@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
         registerType: 'autoUpdate',
         includeAssets: ['icono-metaform.png', 'anclora_metaform_logo.png'],
         manifest: {
-          name: 'Anclora Metaform',
+          name: 'Anclora Nexus',
           short_name: 'Metaform',
           start_url: '/',
           display: 'standalone',

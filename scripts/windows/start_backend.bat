@@ -1,5 +1,5 @@
 @echo off
-ECHO Iniciando servidor Backend de Anclora Metaform...
+ECHO Iniciando servidor Backend de Anclora Nexus...
 
 REM %~dp0 se expande a la ruta de la carpeta 'scripts/windows/'
 REM ..\.. sube dos niveles para llegar a la raíz del proyecto

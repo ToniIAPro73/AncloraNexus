@@ -1,8 +1,14 @@
-# GEMINI.md - Anclora Metaform
+# GEMINI.md - Anclora Nexus
 
 ## Project Overview
 
-Anclora Metaform is a powerful, full-stack file conversion application with a primary focus on providing a high-quality, AI-powered API-as-a-Service (APIaaS). The project is designed to be a comprehensive solution for both individual users and businesses, offering a wide range of conversion formats and a flexible monetization model.
+Anclora Nexus is a powerful, full-stack content transformation platform with a primary focus on providing a high-quality, AI-powered API-as-a-Service (APIaaS). The project is designed to be a comprehensive solution for both individual users and businesses, offering two main modules:
+
+### 🔄 Core Conversion Engine
+A wide range of file conversion formats with a flexible monetization model.
+
+### 📚 Anclora Press (Optional Module)
+Advanced tool for creating and publishing digital books, allowing users to import documents (.txt, .md, .doc, .docx, .pdf), edit them to create both digital and physical books, export them to the most relevant market formats, and even publish them.
 
 The application consists of two main parts:
 

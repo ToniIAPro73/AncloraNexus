@@ -38,7 +38,7 @@ app.config.from_object(get_config())
 ```bash
 # Estado: FUNCIONANDO ✅
 - API Health Check: http://localhost:8000/api/health
-- Respuesta: {"status": "healthy", "service": "Anclora Metaform API"}
+- Respuesta: {"status": "healthy", "service": "Anclora Nexus API"}
 - Configuración centralizada: ACTIVA
 - Flask Debug Mode: ACTIVO
 ```

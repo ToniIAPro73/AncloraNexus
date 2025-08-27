@@ -1,5 +1,6 @@
 @echo off
-ECHO Iniciando servidor Frontend de Anclora Metaform...
+@echo off
+ECHO Iniciando servidor Frontend de Anclora Nexus...
 
 REM Calculamos la ruta a la raíz del proyecto
 SET "ROOT_PATH=%~dp0..\..\"

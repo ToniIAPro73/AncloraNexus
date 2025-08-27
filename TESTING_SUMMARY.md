@@ -2,7 +2,7 @@
 
 ## 📋 Resumen Ejecutivo
 
-He generado una **suite de pruebas unitarias completa** para la clase User de Anclora Metaform usando pytest. Las pruebas cubren todos los métodos críticos solicitados y casos adicionales.
+He generado una **suite de pruebas unitarias completa** para la clase User de Anclora Nexus usando pytest. Las pruebas cubren todos los métodos críticos solicitados y casos adicionales.
 
 ### 📊 Métricas de Cobertura
 - **18 pruebas implementadas** ✅
@@ -146,4 +146,4 @@ python -m pytest tests/unit/test_user_model.py --cov=src.models.user --cov-repor
 4. **Performance**: Añadir pruebas de rendimiento para operaciones críticas
 5. **Mocking**: Implementar mocks para dependencias externas
 
-La suite de pruebas está **lista para producción** y proporciona una base sólida para el desarrollo continuo de Anclora Metaform. 🎉
+La suite de pruebas está **lista para producción** y proporciona una base sólida para el desarrollo continuo de Anclora Nexus. 🎉

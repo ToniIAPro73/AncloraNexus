@@ -1,8 +1,14 @@
-# 📖 Manual de Ejecución y Pruebas - Anclora Metaform
+# 📖 Manual de Ejecución y Pruebas - Anclora Nexus
 
 ## 🎯 ¿Qué es este manual?
 
-Este manual te enseñará paso a paso cómo ejecutar y probar la aplicación **Anclora Metaform**, un conversor de archivos que puede transformar documentos de un formato a otro (por ejemplo, de Word a PDF, de texto a PDF, etc.).
+Este manual te enseñará paso a paso cómo ejecutar y probar la aplicación **Anclora Nexus**, una plataforma integral de transformación de contenido que incluye:
+
+### 🔄 **Núcleo de Conversión**: 
+Conversor de archivos que puede transformar documentos de un formato a otro (por ejemplo, de Word a PDF, de texto a PDF, etc.).
+
+### 📚 **Anclora Press** (Módulo Opcional):
+Herramienta avanzada para la creación y publicación de libros digitales, que permite importar documentos, editarlos para crear libros tanto digitales como físicos, y publicarlos en múltiples formatos.
 
 La aplicación tiene dos partes:
 - **Backend** (servidor): La parte que hace las conversiones
@@ -144,7 +150,7 @@ python src\main.py
 
 **¿Qué verás?**
 ```
-Iniciando Anclora Metaform API...
+Iniciando Anclora Nexus API...
 API disponible en: http://localhost:8000/api
 Información del API: http://localhost:8000/api/info
 Verificación de salud: http://localhost:8000/api/health
@@ -195,7 +201,7 @@ curl "http://localhost:8000/api/health"
 ```json
 {
   "message": "API funcionando correctamente",
-  "service": "Anclora Metaform API", 
+  "service": "Anclora Nexus API", 
   "status": "healthy",
   "version": "1.0.0"
 }
@@ -205,7 +211,7 @@ curl "http://localhost:8000/api/health"
 
 1. Abre tu navegador web (Chrome, Firefox, Edge, etc.)
 2. Ve a: `http://localhost:5173`
-3. Deberías ver la página principal de Anclora Metaform
+3. Deberías ver la página principal de Anclora Nexus
 
 ---
 
@@ -384,10 +390,10 @@ Antes de usar la aplicación, verifica que:
 - [ ] Ambos servicios responden correctamente
 - [ ] Puedes acceder a http://localhost:5173 en el navegador
 
-**¡Listo! Ya puedes usar Anclora Metaform para convertir archivos. 🎉**
+**¡Listo! Ya puedes usar Anclora Nexus para convertir archivos. 🎉**
 
 ---
 
 **Fecha de creación**: 27 de Agosto, 2025  
-**Versión del manual**: 1.0  
+**Versión del manual**: 2.0 - Anclora Nexus
 **Compatibilidad**: Windows PowerShell + VS Code

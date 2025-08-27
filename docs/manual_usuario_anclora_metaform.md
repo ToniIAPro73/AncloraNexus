@@ -1,6 +1,6 @@
-# Manual de Usuario - Anclora Metaform
+# Manual de Usuario - Anclora Nexus
 
-![Anclora Metaform Logo](assets/anclora_metaform_logo.png)
+![Anclora Nexus Logo](assets/anclora_nexus_logo.png)
 
 **Tu Contenido, Reinventado**
 
@@ -22,9 +22,15 @@
 
 ## Introducción
 
-### ¿Qué es Anclora Metaform?
+### ¿Qué es Anclora Nexus?
 
-Anclora Metaform es una herramienta inteligente de conversión de archivos que transforma tu contenido entre múltiples formatos de manera rápida, precisa y profesional. Nuestra plataforma utiliza tecnología avanzada para garantizar conversiones de alta calidad manteniendo la integridad de tus documentos.
+Anclora Nexus es una plataforma integral de transformación de contenido que incluye dos módulos principales:
+
+#### 🔄 **Núcleo de Conversión**
+Herramienta inteligente de conversión de archivos que transforma tu contenido entre múltiples formatos de manera rápida, precisa y profesional. Nuestra plataforma utiliza tecnología avanzada para garantizar conversiones de alta calidad manteniendo la integridad de tus documentos.
+
+#### 📚 **Anclora Press** (Módulo Opcional)
+Herramienta avanzada para la creación y publicación de libros digitales, que permite importar documentos (.txt, .md, .doc, .docx, .pdf), editarlos para crear libros tanto digitales como físicos, exportarlos a los formatos más relevantes del mercado, e incluso publicarlos.
 
 ### Características Principales
 
@@ -37,7 +43,7 @@ Anclora Metaform es una herramienta inteligente de conversión de archivos que t
 
 ### Propuesta de Valor
 
-Anclora Metaform no es solo un conversor de archivos, es tu socio digital para la transformación de contenido. Ofrecemos:
+Anclora Nexus no es solo un conversor de archivos, es tu socio digital para la transformación de contenido. Ofrecemos:
 
 - **Eficiencia**: Convierte archivos en segundos, no minutos
 - **Calidad**: Mantiene el formato y la estructura original
@@ -84,7 +90,7 @@ Al registrarte, automáticamente obtienes:
 La interfaz de Anclora Metaform está diseñada para ser intuitiva y eficiente:
 
 #### Header (Cabecera)
-- **Logo de Anclora Metaform**: Acceso rápido a la página principal
+- **Logo de Anclora Nexus**: Acceso rápido a la página principal
 - **Contador de Créditos**: Visualiza tus créditos disponibles
 - **Menú de Usuario**: Acceso a configuración y perfil
 - **Plan Actual**: Información sobre tu suscripción
@@ -188,7 +194,7 @@ La interfaz de Anclora Metaform está diseñada para ser intuitiva y eficiente:
 
 ### ¿Cómo Funcionan los Créditos?
 
-Los créditos son la moneda virtual de Anclora Metaform. Cada conversión consume una cantidad específica de créditos según la complejidad del proceso:
+Los créditos son la moneda virtual de Anclora Nexus. Cada conversión consume una cantidad específica de créditos según la complejidad del proceso:
 
 #### Categorías de Conversión
 
@@ -489,7 +495,7 @@ Cuando contactes soporte, incluye:
 
 ## Conclusión
 
-Anclora Metaform está diseñado para ser tu herramienta definitiva de conversión de archivos. Con una interfaz intuitiva, tecnología avanzada y un sistema flexible de créditos, transformamos la manera en que trabajas con diferentes formatos de archivo.
+Anclora Nexus está diseñado para ser tu herramienta definitiva de conversión de archivos y creación de contenido. Con una interfaz intuitiva, tecnología avanzada, un sistema flexible de créditos, y el innovador módulo Anclora Press para creación de libros, transformamos la manera en que trabajas con diferentes formatos de archivo.
 
 ### Próximos Pasos
 
@@ -506,7 +512,7 @@ En Anclora, nos comprometemos a:
 - **Soporte superior**: Ayuda cuando la necesites
 - **Seguridad total**: Tus archivos están siempre protegidos
 
-**¡Gracias por elegir Anclora Metaform!**
+**¡Gracias por elegir Anclora Nexus!**
 
 *Tu Contenido, Reinventado*
 

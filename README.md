@@ -1,12 +1,18 @@
-# Anclora Metaform
+# Anclora Nexus
 
-![Anclora Metaform Logo](./src/assets/anclora_metaform_logo.png)
+![Anclora Nexus Logo](./src/assets/anclora_nexus_logo.png)
 
 **Tu Contenido, Reinventado**
 
 ## 📋 Resumen
 
-Este paquete contiene **6 nuevos conversores** que expanden las capacidades de Anclora Metaform, logrando **paridad competitiva completa** con las principales herramientas del mercado.
+**Anclora Nexus** es una plataforma integral de transformación de contenido que incluye dos módulos principales:
+
+### 🔄 **Núcleo de Conversión**: 
+Este paquete contiene **6 nuevos conversores** que expanden las capacidades de conversión, logrando **paridad competitiva completa** con las principales herramientas del mercado.
+
+### 📚 **Anclora Press** (Módulo Opcional):
+Herramienta avanzada para la **creación y publicación de libros digitales**, que permite importar documentos (.txt, .md, .doc, .docx, .pdf), editarlos para crear libros tanto digitales como físicos, exportarlos a los formatos más relevantes del mercado, e incluso publicarlos.
 
 ## 🔥 Nuevas Capacidades
 
@@ -115,6 +121,13 @@ cd frontend && npx vitest run --coverage
 - Cache inteligente para optimización
 - Normalización de codificación a UTF-8 previa a la conversión ([detalle](./docs/encoding_normalization.md))
 
+### 📚 Anclora Press (Módulo Opcional)
+- **Importación**: Soporta .txt, .md, .doc, .docx, .pdf
+- **Editor Avanzado**: Herramientas profesionales para creación de libros
+- **Exportación Múltiple**: Formatos estándar de la industria editorial
+- **Publicación Directa**: Integración con plataformas de publicación
+- **Libros Digitales y Físicos**: Formatos optimizados para ambos medios
+
 ### Sistema de Créditos
 - Compra y gestión de créditos
 - Tracking de uso por conversión
@@ -199,13 +212,15 @@ Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
 
 ## 🔄 Changelog
 
-### v1.2.0 (En desarrollo)
+### v2.0.0 (En desarrollo) - Anclora Nexus
+- ✨ **Rebrand**: Anclora Metaform → Anclora Nexus
+- 📚 **Nuevo**: Módulo Anclora Press para creación de libros
 - ✨ Nuevos conversores de documentos
 - 🐛 Mejoras en sistema de créditos
 - 🧪 Ampliación suite de tests
 - 🔧 Refactoring del motor de conversión
 
-### v1.1.0
+### v1.1.0 - Anclora Metaform
 - ✨ Sistema de créditos implementado
 - 🔒 Autenticación JWT
 - 📊 Dashboard de usuario
