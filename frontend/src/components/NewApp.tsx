@@ -35,7 +35,7 @@ const PlaceholderSection: React.FC<{ title: string; icon: string; description: s
 );
 
 // Componente principal de la aplicación autenticada
-const AuthenticatedApp: React.FC<NewAppProps> = ({ onBackToLanding }) => {
+const AuthenticatedApp: React.FC<NewAppProps> = ({ onBackToLanding: _onBackToLanding }) => {
   const [activeTab, setActiveTab] = useState('converter');
 
   const renderContent = () => {
