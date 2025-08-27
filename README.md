@@ -1,6 +1,6 @@
 # Anclora Nexus
 
-![Anclora Nexus Logo](./src/assets/anclora_nexus_logo.png)
+![Anclora Nexus Logo](./frontend/public/images/logos/logo-anclora-nexus.png)
 
 **Tu Contenido, Reinventado**
 
