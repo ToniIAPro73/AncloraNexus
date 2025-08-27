@@ -27,7 +27,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR.parent / ".env")
 load_dotenv(BASE_DIR / ".env")
 
-app = Flask(__name__)
+# Configure Flask to serve the built frontend from the dist directory
+app = Flask(__name__, static_folder="../frontend/dist", static_url_path="")
 
 # Aplicar configuración centralizada
 config_class = get_config()
