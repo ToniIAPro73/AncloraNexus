@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FileText, Zap, Shield, Star, ArrowRight, Download, Upload, Settings, CheckCircle, BookOpen, Moon, Sun, Monitor, Menu, X, Cpu, Lock, Layers, Database, Globe, Package, ChevronDown } from 'lucide-react';
+import { FileText, Zap, Shield, ArrowRight, Download, Upload, Settings, CheckCircle, BookOpen, Moon, Sun, Monitor, Menu, X, Cpu, Lock, Layers, Database, Globe, Package, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface LandingPageProps {
   onEnterApp: () => void;
@@ -10,12 +10,32 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<string>('Professional');
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
+
+  // Determine if current theme is dark
+  const isDark = theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | 'auto' || 'light';
     setTheme(savedTheme);
     applyTheme(savedTheme);
+
+    // Scroll to top button logic
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      setShowScrollToTop(scrollTop > 400);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
 
   const applyTheme = (newTheme: 'light' | 'dark' | 'auto') => {
     let effectiveTheme = newTheme;
@@ -233,7 +253,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
 
             {/* Navigation - Centro */}
             <nav className="hidden lg:flex space-x-6">
-              <a href="#inicio" className="text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors text-sm">Inicio</a>
+              <a href="#proceso" className="text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors text-sm">Proceso</a>
               <a href="#caracteristicas" className="text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors text-sm">Características</a>
               <a href="#conversiones" className="text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors text-sm">Conversiones</a>
               <a href="#precios" className="text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors text-sm">Precios</a>
@@ -304,7 +324,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
         {mobileMenuOpen && (
           <div className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
             <div className="px-4 py-3 space-y-3">
-              <a href="#inicio" className="block text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400">Inicio</a>
+              <a href="#proceso" className="block text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400">Proceso</a>
               <a href="#caracteristicas" className="block text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400">Características</a>
               <a href="#conversiones" className="block text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400">Conversiones</a>
               <a href="#precios" className="block text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400">Precios</a>
@@ -359,14 +379,79 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
         </div>
       </section>
 
-      {/* Rest of landing con bg7.png */}
+      {/* Rest of landing con bg3.png */}
       <div 
         className="relative bg-cover bg-center bg-fixed"
-        style={{ backgroundImage: 'url(/bg7.png)' }}
+        style={{ backgroundImage: 'url(/bg3.png)' }}
       >
-        <div className="absolute inset-0 bg-white/90 dark:bg-gray-900/90" />
+        <div className={`absolute inset-0 transition-colors duration-300 ${
+          isDark ? 'bg-gray-900/85' : 'bg-white/85'
+        }`} />
         
         <div className="relative z-10">
+          {/* Nuestro proceso innovador */}
+          <section id="proceso" className="py-20 relative">
+            <div
+              className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-300 ${
+                isDark ? 'opacity-20' : 'opacity-40'
+              }`}
+              style={{
+                backgroundImage: `url('/bg3.png')`
+              }}
+            />
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+                  Nuestro proceso
+                </h2>
+                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                  Conversión inteligente en 4 pasos simples
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 lg:grid-cols-7 gap-8 items-center">
+                {processSteps.map((step, index) => (
+                  <React.Fragment key={index}>
+                    <div className="lg:col-span-1 relative group">
+                      <div className="p-8 bg-gradient-to-br from-white/90 to-emerald-50/70 dark:from-gray-800/90 dark:to-emerald-900/30 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-emerald-200/50 dark:border-emerald-700/30 backdrop-blur-sm">
+                        <div className="text-center">
+                          <div className="mb-6">
+                            <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full flex items-center justify-center mx-auto shadow-lg group-hover:scale-110 transition-transform duration-300 mb-4">
+                              <span className="text-2xl font-bold text-white">{step.number}</span>
+                            </div>
+                            <div className="w-12 h-12 bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/30 dark:to-teal-900/30 rounded-full flex items-center justify-center shadow-md mx-auto">
+                              {step.icon}
+                            </div>
+                          </div>
+                          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                            {step.title}
+                          </h3>
+                          <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                            {step.description}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Elegant connector arrow */}
+                    {index < processSteps.length - 1 && (
+                      <div className="lg:col-span-1 hidden lg:flex justify-center items-center py-8">
+                        <div className="flex flex-col items-center space-y-2">
+                          <div className="w-16 h-0.5 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full opacity-60"></div>
+                          <div className="relative">
+                            <ArrowRight className="w-8 h-8 text-emerald-500 dark:text-emerald-400 animate-pulse drop-shadow-lg" />
+                            <div className="absolute -inset-2 bg-emerald-400/20 rounded-full blur-sm"></div>
+                          </div>
+                          <div className="w-16 h-0.5 bg-gradient-to-r from-teal-500 to-emerald-400 rounded-full opacity-60"></div>
+                        </div>
+                      </div>
+                    )}
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+          </section>
+
           {/* Características avanzadas */}
           <section id="caracteristicas" className="py-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -443,52 +528,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
                         </div>
                       ))}
                     </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Nuestro proceso innovador */}
-          <section className="py-20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-                  Nuestro proceso
-                </h2>
-                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                  Conversión inteligente en 4 pasos simples
-                </p>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {processSteps.map((step, index) => (
-                  <div key={index} className="relative group">
-                    <div className="p-8 bg-gradient-to-br from-white to-emerald-50/50 dark:from-gray-800 dark:to-emerald-900/20 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-emerald-200/50 dark:border-emerald-700/30">
-                      <div className="text-center">
-                        <div className="mb-6">
-                          <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full flex items-center justify-center mx-auto shadow-lg group-hover:scale-110 transition-transform duration-300 mb-4">
-                            <span className="text-2xl font-bold text-white">{step.number}</span>
-                          </div>
-                          <div className="w-12 h-12 bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/30 dark:to-teal-900/30 rounded-full flex items-center justify-center shadow-md mx-auto">
-                            {step.icon}
-                          </div>
-                        </div>
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                          {step.title}
-                        </h3>
-                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                          {step.description}
-                        </p>
-                      </div>
-                    </div>
-                    
-                    {/* Connector arrow */}
-                    {index < processSteps.length - 1 && (
-                      <div className="hidden lg:flex absolute top-1/2 -right-6 items-center justify-center w-12 h-12 transform -translate-y-1/2">
-                        <ArrowRight className="w-6 h-6 text-emerald-500 dark:text-emerald-400" />
-                      </div>
-                    )}
                   </div>
                 ))}
               </div>
@@ -696,6 +735,17 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
           </div>
         </div>
       </footer>
+
+      {/* Scroll to Top Button */}
+      {showScrollToTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 z-50 p-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-110 group animate-bounce"
+          aria-label="Volver al inicio"
+        >
+          <ChevronUp className="w-6 h-6 group-hover:animate-pulse" />
+        </button>
+      )}
     </div>
   );
 };
