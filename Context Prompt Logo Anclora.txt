@@ -1,0 +1,222 @@
+{
+"metadata": {
+"original_image_hash": "c7ab6d6b-b9f6-4a1d-8d9f-1f6b7a0d1c21",
+"analysis_timestamp": "2025-08-26T16:37:00Z",
+"analyst_id": "context-prompter-v1",
+"source_url": null,
+"confidence_level": 97
+},
+"scene": {
+"scene_type": "ilustración vectorial / logotipo",
+"description": "Emblema circular con división horizontal tipo horizonte: la mitad superior muestra un degradado vertical de teal a aqua y la inferior es azul marino sólido. Un ancla blanca minimalista se ubica centrada; su fuste asciende y atraviesa la línea del horizonte, rematado por un aro. En la banda inferior aparece el nombre ‘ANCLORA’ en mayúsculas serif blancas.",
+"location": "unknown",
+"environment": "fondo exterior liso gris-azulado muy pálido; estética plana con un único degradado en la mitad superior.",
+"weather": null,
+"season": null,
+"time_of_day": "indeterminado",
+"geography": null
+},
+"subjects": [
+{
+"subject_type": "logo",
+"name_or_label": "ANCLORA (marca principal)",
+"description": "Ancla blanca de líneas limpias con aro superior, travesaño corto y uñas simétricas; tipografía serif clásica en blanco para la palabra ‘ANCLORA’. La mitad superior sugiere cielo marino por el degradado y la inferior sugiere mar profundo.",
+"pose": null,
+"expression": null,
+"clothing": null,
+"age": null,
+"gender": null,
+"ethnicity": null,
+"skin_tone": null,
+"hair": {
+"color": null,
+"style": null,
+"length": null
+},
+"eye_color": null,
+"distinctive_features": [
+"círculo perfecto con horizonte recto",
+"degradado teal→aqua en la mitad superior",
+"ancla blanca centrada con simetría vertical",
+"tipografía serif romana en mayúsculas",
+"alto contraste blanco sobre azul marino"
+]
+}
+],
+"composition": {
+"framing": "close-up centrado (1:1; el emblema llena el encuadre)",
+"camera_angle": "frontal ortogonal",
+"perspective": "plana y geométrica sin distorsión",
+"focus": "nítido uniforme (bordes vectoriales limpios)",
+"rule_of_thirds": "no; composición axial centrada",
+"symmetry": "sí; eje vertical del ancla",
+"leading_lines": "sí; el fuste guía hacia el aro y la línea del horizonte",
+"negative_space": "moderado dentro del círculo y amplio en el margen exterior",
+"balance": "equilibrio por masas cromáticas (superior degradada vs inferior sólida) y peso tipográfico inferior"
+},
+"lighting": {
+"source": "no aplica (diseño plano con un degradado decorativo)",
+"direction": "n/a",
+"quality": "uniforme",
+"color_temperature": "fría",
+"intensity": "constante",
+"shadows": "ausentes"
+},
+"color": {
+"palette": ["#0F8F9E", "#7CCBBF", "#0D324A", "#FFFFFF", "#EAEFF4", "#0F6E7E", "#66C3B9", "#103B56"],
+"dominant_color": "#0D324A",
+"color_harmony": "analógica (teal–azul) con acento neutro blanco",
+"saturation": "media",
+"contrast": "alto (blanco vs azul marino)"
+},
+"style": {
+"artistic_style": "diseño gráfico minimalista / flat design con degradado suave",
+"reference_artist": null,
+"medium": "vector digital (SVG)",
+"texture": "lisa; sin grano",
+"finish": "mate"
+},
+"mood_atmosphere": {
+"mood": "sólido y confiable",
+"atmosphere": "marítima y corporativa",
+"emotional_tone": "estabilidad (ancla) y claridad"
+},
+"objects_details": [
+{
+"object_type": "ancla",
+"material": "vector blanco",
+"surface": "lisa",
+"pattern": "sólido",
+"condition": "nuevo"
+},
+{
+"object_type": "mitad superior (cielo)",
+"material": "vector con degradado lineal",
+"surface": "lisa",
+"pattern": "degradado vertical teal→aqua",
+"condition": "nuevo"
+},
+{
+"object_type": "mitad inferior (mar)",
+"material": "vector",
+"surface": "lisa",
+"pattern": "azul marino sólido",
+"condition": "nuevo"
+},
+{
+"object_type": "línea horizonte",
+"material": "vector",
+"surface": "lisa",
+"pattern": "recta horizontal que divide el círculo en 50/50",
+"condition": "nuevo"
+}
+],
+"background": {
+"elements": "campo exterior uniforme gris-azulado pálido",
+"depth": "plano",
+"complexity": "simple",
+"interactions": "el emblema circular flota centrado y no toca los bordes del lienzo"
+},
+"typography": {
+"present": true,
+"text_strings": ["ANCLORA"],
+"overall_typography_style": "serif romana de exhibición (similar a Trajan/Cinzel)",
+"number_of_text_elements": 1,
+"hierarchy": [
+{
+"text": "ANCLORA",
+"role": "marca principal",
+"case": "MAYÚSCULAS",
+"weight": "regular",
+"tracking": "ligeramente expandido",
+"alignment": "centrado",
+"color": "#FFFFFF"
+}
+],
+"interaction_with_other_elements": "el texto se ubica principalmente en la banda azul marino; el fuste del ancla asciende detrás sin solapar el texto"
+},
+"technical": {
+"resolution": "1024x1024",
+"aspect_ratio": "1:1",
+"format": "png",
+"camera_model": null,
+"lens_type": null,
+"aperture": null,
+"iso": null,
+"shutter_speed": null,
+"white_balance": null
+},
+"consistency_anchors": {
+"seed_value": null,
+"reference_images": [],
+"character_reference": "ancla blanca centrada con horizonte marino y palabra ‘ANCLORA’",
+"must_remain_constant": [
+"círculo con división horizontal a mitad",
+"mitad superior con degradado teal→aqua",
+"mitad inferior azul marino sólido",
+"ancla blanca centrada con aro superior",
+"texto ‘ANCLORA’ en serif blanca"
+],
+"allowed_variations": [
+"intensidad y rango del degradado (mantener familia teal/aqua)",
+"tamaño relativo del texto respecto al ancla",
+"grosor del fuste y radio de las curvas del ancla",
+"ligeros ajustes de tonos dentro de la misma paleta"
+]
+},
+"generation_parameters": {
+"positive_prompt": "logo vectorial minimalista, emblema circular 1:1; mitad superior con degradado lineal vertical de teal (#0F8F9E) a aqua (#7CCBBF), mitad inferior azul marino sólido (#0D324A); línea de horizonte recta al 50% de la altura; ancla blanca centrada con aro superior, travesaño corto y uñas simétricas; tipografía serif romana en mayúsculas para la palabra ‘ANCLORA’ en blanco situada en la banda inferior; diseño plano sin sombras, bordes nítidos estilo SVG, alto contraste; fondo exterior gris-azulado pálido (#EAEFF4).",
+"negative_prompts": [
+"fotografía realista o texturas",
+"sombras, brillos o degradados adicionales distintos al superior",
+"efectos 3D o biseles",
+"bordes dentados/pixelados",
+"cambios de texto/ortografía",
+"fondos complejos o patrones ruidosos"
+],
+"prompt_weighting": {
+"subject": 0.52,
+"style": 0.16,
+"lighting": 0.0,
+"background": 0.2,
+"typography": 0.12
+},
+"quality": "high",
+"steps": "30",
+"guidance_scale": "7.0",
+"sampling_method": "Euler a",
+"output": {
+"format": "SVG/PNG",
+"size": "2048x2048 recomendado para máster",
+"color_profile": "sRGB"
+},
+"vector_constraints": {
+"stroke": "sin contornos; rellenos sólidos, degradado solo en la mitad superior",
+"gradient": "lineal 90° (arriba más oscuro, abajo más claro)",
+"corner_radius": "curvas suaves en el ancla",
+"symmetry_check": "true"
+},
+"layout_constraints": {
+"margins": "10% de área segura dentro del círculo",
+"text_alignment": "centrado",
+"circle_division": "exactamente 50/50"
+}
+},
+"contextual": {
+"intended_use": "marca principal ANCLORA para aplicaciones de identidad (web, impresión, señalética)",
+"target_audience": "público general, autores y clientes corporativos",
+"cultural_references": "ancla como símbolo de estabilidad; horizonte marino como navegación/rumbo",
+"historical_period": "contemporáneo con guiños tipográficos clásicos",
+"language": "español"
+},
+"validation": {
+"json_schema_valid": true,
+"missing_elements": [],
+"ambiguity_flags": [
+"códigos HEX del degradado aproximados por muestreo visual",
+"posición exacta del horizonte asumida como 50%"
+]
+}
+}
+
+ChatGPT puede cometer errores. Considera verificar

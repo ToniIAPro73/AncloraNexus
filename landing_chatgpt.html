@@ -1,0 +1,1472 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--
+      Nueva landing page para Anclora Nexus
+      
+      Esta página se ha diseñado siguiendo las directrices de marca de Anclora. Se
+      ha trabajado con un enfoque mobile‑first: los estilos base están
+      optimizados para pantallas pequeñas y, mediante consultas de medios,
+      se adaptan al aumentar el tamaño de la ventana. La paleta de colores
+      implementa los tokens oficiales (brand‑700…brand‑200) y los gradientes
+      definidos en la guía, así como variaciones para tema claro y oscuro.
+    -->
+    <title>Anclora Nexus – Convierte cualquier archivo</title>
+    <!-- Tipografías oficiales -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <!--
+      No se utiliza Font Awesome en esta implementación; los iconos se
+      representan mediante emojis y pseudo-elementos CSS para garantizar
+      compatibilidad offline.
+    -->
+    <style>
+      /*
+        ------------------------------------------------------------
+        Variables de color y tipografía
+        ------------------------------------------------------------
+        Definimos variables CSS para los colores de marca, superficies,
+        tonos de texto y gradientes. Se utilizan en toda la página para
+        mantener la coherencia visual. Para el tema oscuro se redefine
+        parte de estas variables mediante el atributo data-theme.
+      */
+      :root {
+        /* Paleta de marca */
+        --brand-700: #213a57;
+        --brand-600: #0b6477;
+        --brand-500: #14919b;
+        --brand-400: #0ad1c8;
+        --brand-300: #45dfb1;
+        --brand-200: #80ed99;
+        /* Superficies y texto para tema claro */
+        --surface: #ffffff;
+        --surface-variant: #f8fafc;
+        --on-surface: #0f172a;
+        --muted: #334155;
+        /* Gradiente oficial */
+        --grad-light: linear-gradient(
+          120deg,
+          var(--brand-200) 0%,
+          var(--brand-300) 20%,
+          var(--brand-400) 40%,
+          var(--brand-500) 60%,
+          var(--brand-600) 80%,
+          var(--brand-700) 100%
+        );
+        --grad-dark: linear-gradient(
+          120deg,
+          var(--brand-700) 0%,
+          var(--brand-600) 25%,
+          var(--brand-500) 50%,
+          var(--brand-400) 70%,
+          var(--brand-300) 85%,
+          var(--brand-200) 100%
+        );
+      }
+
+      /* Tema oscuro: se aplica cuando se establece data-theme="dark" en html */
+      [data-theme="dark"] {
+        --surface: #0d1f22;
+        --surface-variant: #081b1b;
+        --on-surface: #f1f5f9;
+        --muted: #94a3b8;
+      }
+
+      /* Tipografía y ajustes globales */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: 'Inter', system-ui, sans-serif;
+        background-color: var(--surface);
+        color: var(--on-surface);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        min-height: 100vh;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: 'Space Grotesk', 'Inter', sans-serif;
+        margin-top: 0;
+        color: var(--on-surface);
+      }
+      h1 {
+        font-size: clamp(2.5rem, 6vw, 3.5rem);
+        line-height: 1.1;
+      }
+      h2 {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        margin-bottom: 1rem;
+      }
+      h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+      p {
+        margin-top: 0;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        color: var(--muted);
+      }
+      /* Contenedor general */
+      .container {
+        width: 100%;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 1.5rem;
+      }
+      /* ------------------------------------------------------------
+        Header y navegación
+        ------------------------------------------------------------ */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 999;
+        background-color: var(--surface);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+      }
+      [data-theme="dark"] header {
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+      .nav-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0.75rem 1.5rem;
+      }
+      /* Logo */
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      /* Icono principal de la marca en el encabezado */
+      .logo-icon {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+      }
+      /* Contenedor de los textos de la marca */
+      .logo-texts {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.1;
+      }
+      /* Título de marca: destaca con tamaño y peso superior */
+      .logo-title {
+        font-family: 'Space Grotesk', 'Inter', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--brand-700);
+      }
+      [data-theme="dark"] .logo-title {
+        color: var(--brand-200);
+      }
+      /* Subtítulo descriptivo: tamaño menor y tono más suave */
+      .logo-subtitle {
+        font-size: 0.7rem;
+        font-weight: 400;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+      [data-theme="dark"] .logo-subtitle {
+        color: var(--muted);
+      }
+      /* Navegación principal */
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+      nav a {
+        text-decoration: none;
+        font-weight: 500;
+        color: var(--on-surface);
+        transition: color 0.2s ease;
+        font-size: 0.95rem;
+      }
+      nav a:hover,
+      nav a:focus {
+        color: var(--brand-500);
+      }
+      /* Botón de menú para móviles */
+      #nav-toggle {
+        display: none;
+        background: none;
+        border: none;
+        padding: 0.5rem;
+        color: var(--on-surface);
+        font-size: 1.25rem;
+      }
+      #nav-toggle:focus {
+        outline: 2px solid var(--brand-400);
+        outline-offset: 2px;
+      }
+      /* Menú desplegable en móviles */
+      .mobile-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: var(--surface);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        overflow: hidden;
+        min-width: 180px;
+      }
+      [data-theme="dark"] .mobile-nav {
+        border-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      }
+      .mobile-nav a {
+        display: block;
+        padding: 0.75rem 1rem;
+        color: var(--on-surface);
+      }
+      .mobile-nav a:hover {
+        background-color: var(--surface-variant);
+      }
+      /* Selector de tema */
+      .theme-selector {
+        position: relative;
+        margin-left: 1rem;
+      }
+      .theme-trigger {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        background: var(--surface-variant);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        color: var(--on-surface);
+        transition: background-color 0.2s ease, border-color 0.2s ease;
+      }
+      [data-theme="dark"] .theme-trigger {
+        border-color: rgba(255, 255, 255, 0.15);
+      }
+      .theme-trigger:hover,
+      .theme-trigger:focus {
+        background-color: var(--surface);
+      }
+      .theme-icon {
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .theme-menu {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: calc(100% + 4px);
+        /* Usamos surface-variant para que el contraste de los textos sea alto en modo claro */
+        background: var(--surface-variant);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        border-radius: 8px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        min-width: 140px;
+        overflow: hidden;
+        z-index: 1000;
+        /* Aseguramos que el menú no se mezcle con el fondo del héroe */
+        mix-blend-mode: normal;
+        isolation: isolate;
+      }
+      [data-theme="dark"] .theme-menu {
+        /* En modo oscuro también utilizamos surface-variant para mayor contraste */
+        background: var(--surface-variant);
+        border-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      }
+      .theme-option {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        cursor: pointer;
+        font-size: 0.9rem;
+        /* Forzamos el color para garantizar contraste en cualquier tema */
+        color: var(--on-surface) !important;
+        transition: background-color 0.2s ease;
+      }
+      .theme-option:hover {
+        background-color: var(--surface-variant);
+      }
+      .theme-option.active {
+        font-weight: 600;
+        color: var(--brand-600) !important;
+      }
+      [data-theme="dark"] .theme-option.active {
+        color: var(--brand-300) !important;
+      }
+      /* Label dentro de cada opción de tema */
+      .theme-option-label {
+        color: inherit;
+      }
+      /* Forzamos el color explícitamente para la opción de modo oscuro en el menú, ya que algunos navegadores heredan incorrectamente el color */
+      .theme-option[data-theme="dark"] .theme-option-label {
+        /* Damos un color de marca para asegurar contraste en modo claro */
+        color: var(--brand-600) !important;
+      }
+      /* Garantizamos que todos los elementos dentro del menú de temas sean legibles en modo claro.
+         Algunos navegadores aplican estilos heredados no deseados; con esta regla forzamos el color
+         para todos los descendientes. */
+      .theme-menu,
+      .theme-menu * {
+        color: var(--on-surface) !important;
+      }
+      /* Excepciones: cuando una opción está activa, utilizamos los colores de marca correspondientes */
+      .theme-menu .theme-option.active,
+      .theme-menu .theme-option.active * {
+        color: var(--brand-600) !important;
+      }
+      [data-theme="dark"] .theme-menu .theme-option.active,
+      [data-theme="dark"] .theme-menu .theme-option.active * {
+        color: var(--brand-300) !important;
+      }
+      /* Aseguramos que los spans dentro de las opciones hereden el color del contenedor */
+      .theme-option span {
+        color: inherit !important;
+      }
+      /* ------------------------------------------------------------
+        Hero
+        ------------------------------------------------------------ */
+      .hero {
+        width: 100%;
+        min-height: 100vh;
+        background-image: url('Propuesta%20s%C3%B3lo%20del%20fondo.png');
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6rem 1.5rem 2rem;
+        color: var(--on-surface);
+        text-align: center;
+        position: relative;
+      }
+      /* Oscurecemos el fondo para aumentar contraste de texto */
+      .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(2px);
+        mix-blend-mode: lighten;
+        z-index: 0;
+      }
+      [data-theme="dark"] .hero::before {
+        background: rgba(0, 0, 0, 0.55);
+        mix-blend-mode: darken;
+      }
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .hero-content p {
+        font-size: 1.125rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 2rem;
+        color: var(--muted);
+      }
+      .hero-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+        /* Centramos el contenedor de botones a lo ancho de la página */
+        justify-content: center;
+        /* Al usar márgenes automáticos y un ancho intrínseco, el grupo completo
+           de botones queda perfectamente centrado incluso cuando sus anchos
+           individuales son distintos. */
+        margin-left: auto;
+        margin-right: auto;
+        width: fit-content;
+      }
+      .btn-primary,
+      .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        border-radius: 12px;
+        text-decoration: none;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+        font-size: 1rem;
+      }
+
+      /* Ajustes para iconos dentro de los botones */
+      .btn-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .btn-icon svg {
+        width: 1.2em;
+        height: 1.2em;
+        stroke: currentColor;
+      }
+      .btn-primary {
+        /* Utilizamos un gradiente para el botón principal inspirado en la guía de marca. */
+        background: linear-gradient(120deg, var(--brand-700) 0%, var(--brand-400) 100%);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        background: linear-gradient(120deg, var(--brand-600) 0%, var(--brand-300) 100%);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+      }
+      .btn-secondary {
+        background: transparent;
+        color: var(--brand-700);
+        border: 2px solid var(--brand-700);
+      }
+      .btn-secondary:hover {
+        background: var(--brand-700);
+        color: #fff;
+      }
+      [data-theme="dark"] .btn-secondary {
+        color: var(--brand-200);
+        border-color: var(--brand-200);
+      }
+      [data-theme="dark"] .btn-secondary:hover {
+        background: var(--brand-200);
+        color: #213a57;
+      }
+      /* ------------------------------------------------------------
+        Secciones comunes
+        ------------------------------------------------------------ */
+      section {
+        padding: 4rem 1.5rem;
+      }
+      .section-title {
+        text-align: center;
+        font-family: 'Space Grotesk', 'Inter', sans-serif;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        color: var(--on-surface);
+      }
+      .muted {
+        color: var(--muted);
+      }
+      /* ------------------------------------------------------------
+        Features
+        ------------------------------------------------------------ */
+      .features-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .feature-item {
+        background: var(--surface-variant);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        border-radius: 16px;
+        padding: 2rem;
+        text-align: center;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      [data-theme="dark"] .feature-item {
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+      .feature-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      }
+      .feature-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-size: 2rem;
+        /* El color de fondo aplica el gradiente oficial, mientras que los
+           iconos están coloreados independientemente para garantizar
+           suficiente contraste sobre el degradado. */
+        background: var(--grad-light);
+        position: relative;
+      }
+      [data-theme="dark"] .feature-icon {
+        background: var(--grad-dark);
+      }
+      .feature-item h3 {
+        margin-bottom: 0.5rem;
+        color: var(--on-surface);
+      }
+      .feature-item p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      /* Aseguramos que los iconos dentro de las tarjetas se vean con claridad
+         sobre el gradiente mediante un color blanco y un pequeño halo. */
+      .feature-icon i,
+      .category-icon i {
+        color: #ffffff;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+      }
+      /* ------------------------------------------------------------
+        Categorías de conversión
+        ------------------------------------------------------------ */
+      .categories-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .category-card {
+        background: var(--surface-variant);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        border-radius: 16px;
+        padding: 2rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      [data-theme="dark"] .category-card {
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+      .category-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      }
+      .category-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        color: #fff;
+        background: var(--grad-light);
+      }
+      [data-theme="dark"] .category-icon {
+        background: var(--grad-dark);
+      }
+      .category-card h3 {
+        margin-bottom: 0.5rem;
+        color: var(--on-surface);
+      }
+      .category-card ul {
+        list-style: none;
+        padding-left: 1rem;
+        margin: 0;
+        line-height: 1.6;
+        color: var(--muted);
+      }
+      .category-card li::before {
+        content: '•';
+        display: inline-block;
+        width: 0.75rem;
+        margin-left: -0.75rem;
+        color: var(--brand-500);
+      }
+
+      /* Nueva visualización de las conversiones dentro de cada categoría.
+         Cada conversión se muestra como un par de formatos con una flecha entre ellos.
+         Las pastillas utilizan gradientes de la marca y se adaptan a modo claro/oscuro. */
+      .category-conversions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .conversion-pair {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .format-pill {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        border-radius: 8px;
+        /* Diseño más elegante: pastillas translúcidas con efecto glassmorphism. */
+        background: rgba(255, 255, 255, 0.3);
+        color: var(--brand-700);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(4px);
+      }
+      [data-theme="dark"] .format-pill {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--brand-200);
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+      .arrow {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--brand-500);
+      }
+      [data-theme="dark"] .arrow {
+        color: var(--brand-300);
+      }
+      /* ------------------------------------------------------------
+        Stats
+        ------------------------------------------------------------ */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        background: var(--surface-variant);
+        padding: 3rem 1.5rem;
+        border-radius: 24px;
+      }
+      [data-theme="dark"] .stats {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .stat-item {
+        text-align: center;
+      }
+      .stat-number {
+        font-family: 'Space Grotesk', 'Inter', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+        color: var(--brand-700);
+      }
+      [data-theme="dark"] .stat-number {
+        color: var(--brand-200);
+      }
+      .stat-label {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      /* ------------------------------------------------------------
+        Pricing
+        ------------------------------------------------------------ */
+      .pricing-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      .pricing-card {
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        border-radius: 16px;
+        padding: 2rem;
+        background: var(--surface-variant);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      [data-theme="dark"] .pricing-card {
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+      .pricing-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      }
+      .pricing-card.featured {
+        border: 2px solid var(--brand-700);
+        background: linear-gradient(
+          135deg,
+          rgba(33, 58, 87, 0.03),
+          rgba(20, 145, 155, 0.03)
+        );
+      }
+      [data-theme="dark"] .pricing-card.featured {
+        border-color: var(--brand-300);
+      }
+      .pricing-card h3 {
+        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+        color: var(--on-surface);
+      }
+      .price {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--brand-700);
+        margin-bottom: 0.5rem;
+      }
+      [data-theme="dark"] .price {
+        color: var(--brand-200);
+      }
+      .price span {
+        font-size: 1rem;
+        color: var(--muted);
+      }
+      .pricing-card ul {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0;
+        text-align: left;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .pricing-card li::before {
+        /* Utilizamos un check unicode para las ventajas de cada plan.
+           De este modo evitamos dependencias externas de iconos. */
+        content: '✔️';
+        display: inline-block;
+        margin-right: 0.5rem;
+        color: var(--brand-500);
+      }
+      .pricing-card .btn-primary {
+        margin-top: auto;
+        width: 100%;
+      }
+      /* ------------------------------------------------------------
+        FAQ
+        ------------------------------------------------------------ */
+      .faq {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      details {
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        margin-bottom: 1rem;
+        background: var(--surface-variant);
+        transition: background-color 0.2s ease;
+      }
+      [data-theme="dark"] details {
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+      details summary {
+        cursor: pointer;
+        list-style: none;
+        font-weight: 600;
+        position: relative;
+        padding-right: 1.5rem;
+        color: var(--on-surface);
+      }
+      details summary::marker {
+        display: none;
+      }
+      details[open] {
+        background: var(--surface);
+      }
+      details summary::after {
+        content: '▼';
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: transform 0.2s ease;
+        color: var(--brand-500);
+      }
+      details[open] summary::after {
+        content: '▲';
+        transform: translateY(-50%);
+      }
+      details p {
+        margin-top: 0.5rem;
+        color: var(--muted);
+      }
+      /* ------------------------------------------------------------
+        Contacto
+        ------------------------------------------------------------ */
+      .contact {
+        text-align: center;
+        max-width: 640px;
+        margin: 0 auto;
+      }
+      .contact p {
+        font-size: 1.1rem;
+      }
+      .contact a {
+        color: var(--brand-600);
+        text-decoration: underline;
+        font-weight: 500;
+      }
+      .contact a:hover {
+        color: var(--brand-700);
+      }
+      /* ------------------------------------------------------------
+        Footer
+        ------------------------------------------------------------ */
+      footer {
+        background: var(--brand-700);
+        color: #fff;
+        padding: 3rem 1.5rem 2rem;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+      .footer-brand img {
+        height: 32px;
+        width: auto;
+        margin-bottom: 1rem;
+      }
+      .footer-links,
+      .footer-legal {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .footer-links a {
+        text-decoration: none;
+        color: #cbd5e1;
+        font-size: 0.9rem;
+      }
+      .footer-links a:hover {
+        color: #fff;
+      }
+      .footer-bottom {
+        text-align: center;
+        margin-top: 2rem;
+        font-size: 0.8rem;
+        color: #cbd5e1;
+      }
+      /* ------------------------------------------------------------
+        Responsive
+        ------------------------------------------------------------ */
+      @media (min-width: 600px) {
+        .hero-content p {
+          font-size: 1.25rem;
+        }
+        .hero-actions {
+          flex-direction: row;
+          /* En vistas más grandes, mantenemos la agrupación alineada al centro. */
+          justify-content: center;
+        }
+        .btn-primary,
+        .btn-secondary {
+          font-size: 1rem;
+        }
+        .features-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .categories-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .stats {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        .pricing-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .footer-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      @media (min-width: 960px) {
+        nav {
+          display: flex !important;
+        }
+        #nav-toggle {
+          display: none;
+        }
+        .mobile-nav {
+          display: none !important;
+        }
+        .features-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .categories-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .pricing-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        header {
+          padding: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Encabezado -->
+    <header>
+      <div class="nav-wrapper">
+        <!-- Logo compuesto: icono SVG y texto en dos líneas -->
+        <div class="logo">
+          <!-- Nuevo icono de marca. Utiliza el SVG proporcionado y ajusta su tamaño para que se vea bien en móvil y escritorio. -->
+          <img src="Icono_temporal.svg" alt="Logotipo de Anclora Nexus" class="logo-icon" />
+          <div class="logo-texts">
+            <div class="logo-title">Anclora&nbsp;Nexus</div>
+            <div class="logo-subtitle">Convierte cualquier archivo. Crea sin límites.</div>
+          </div>
+        </div>
+        <!-- Botón hamburguesa para dispositivos móviles -->
+        <button id="nav-toggle" aria-label="Abrir menú">☰</button>
+        <nav id="desktop-nav">
+          <a href="#inicio">Inicio</a>
+          <a href="#caracteristicas">Características</a>
+          <a href="#conversiones">Conversiones</a>
+          <a href="#precios">Precios</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+        <!-- Selector de tema -->
+        <div class="theme-selector">
+          <button id="theme-trigger" class="theme-trigger" aria-haspopup="true" aria-expanded="false">
+            <span id="theme-icon" class="theme-icon">☀️</span>
+            <span id="theme-label">Luz</span>
+            <span class="theme-arrow" style="font-size: 0.8rem; line-height: 1;">▼</span>
+          </button>
+          <div id="theme-menu" class="theme-menu" role="menu">
+            <div class="theme-option" data-theme="light" role="menuitem">
+              <span class="theme-option-icon">☀️</span>
+              <span class="theme-option-label">Luz</span>
+            </div>
+            <div class="theme-option" data-theme="dark" role="menuitem">
+              <span class="theme-option-icon">🌙</span>
+              <span class="theme-option-label">Oscuro</span>
+            </div>
+            <div class="theme-option" data-theme="auto" role="menuitem">
+              <span class="theme-option-icon">🌗</span>
+              <span class="theme-option-label">Auto</span>
+            </div>
+          </div>
+        </div>
+        <!-- Menú móvil (se mostrará mediante JS) -->
+        <div id="mobile-nav" class="mobile-nav" role="menu">
+          <a href="#inicio">Inicio</a>
+          <a href="#caracteristicas">Características</a>
+          <a href="#conversiones">Conversiones</a>
+          <a href="#precios">Precios</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contacto">Contacto</a>
+        </div>
+      </div>
+    </header>
+    <!-- Hero principal -->
+    <section class="hero" id="inicio">
+      <div class="hero-content container">
+        <!-- Título renovado para evitar duplicar el eslogan presente junto al logo.
+             Destaca la propuesta de valor de la plataforma y utiliza palabras clave SEO
+             relacionadas con la conversión y el procesamiento de archivos mediante IA. -->
+        <h1>Convierte y procesa tus archivos<br />con&nbsp;IA</h1>
+        <p>
+          Anclora Nexus es la plataforma que simplifica la conversión y el
+          procesamiento de archivos usando IA. Transforma documentos,
+          imágenes, audio y mucho más con rapidez y precisión.
+        </p>
+        <div class="hero-actions">
+          <!-- Botón principal actualizado: icono de conversión y texto. Se utiliza un SVG inline para representar el icono de redimensionar/cambiar tamaño -->
+          <a href="#" class="btn-primary cta-button" id="cta-button">
+            <span class="btn-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <!-- Esquinas de recorte que sugieren conversión de tamaños -->
+                <path d="M4 4v6h2V6h4V4H4zm16 16v-6h-2v4h-4v2h6z"></path>
+                <path d="M20 8h-6v2h4v4h2V8z"></path>
+                <path d="M4 16h6v-2H6v-4H4v6z"></path>
+              </svg>
+            </span>
+            <span class="btn-label">Comenzar conversión</span>
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- Capacidades -->
+    <section id="caracteristicas">
+      <div class="container">
+        <h2 class="section-title">Capacidades avanzadas</h2>
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="feature-icon">🔄</div>
+            <h3>Conversión universal</h3>
+            <p>Convierte entre más de 200 formatos sin perder calidad. Desde documentos hasta video.</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🧠</div>
+            <h3>IA inteligente</h3>
+            <p>Reconoce contenido y estructura, aplica OCR avanzado y optimiza tus archivos automáticamente.</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">⚡</div>
+            <h3>Velocidad extrema</h3>
+            <p>Procesa archivos de cualquier tamaño en segundos gracias a una infraestructura distribuida.</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🔒</div>
+            <h3>Seguridad total</h3>
+            <p>Cifrado de extremo a extremo y cumplimiento con GDPR. Tus datos siempre están protegidos.</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">📦</div>
+            <h3>Procesamiento por lotes</h3>
+            <p>Convierte miles de archivos simultáneamente con reglas personalizadas y monitorización en tiempo real.</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">⚙️</div>
+            <h3>API robusta</h3>
+            <p>Integra nuestras capacidades en tus sistemas con una API RESTful, SDKs y webhooks.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Conversiones frecuentes -->
+    <section id="conversiones">
+      <div class="container">
+        <h2 class="section-title">Conversiones más frecuentes</h2>
+        <div class="categories-grid">
+          <div class="category-card">
+            <div class="category-icon">📄</div>
+            <h3>Documentos</h3>
+            <div class="category-conversions">
+              <div class="conversion-pair">
+                <span class="format-pill">PDF</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">Word</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">Word</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">PDF</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">Excel</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">PDF</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">PPT</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">PDF</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">CSV</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">Excel</span>
+              </div>
+            </div>
+          </div>
+          <div class="category-card">
+            <div class="category-icon">🖼️</div>
+            <h3>Imágenes & gráficos</h3>
+            <div class="category-conversions">
+              <div class="conversion-pair">
+                <span class="format-pill">PNG</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">JPG</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">JPG</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">PNG</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">SVG</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">PNG</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">WebP</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">JPG</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">TIFF</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">PDF</span>
+              </div>
+            </div>
+          </div>
+          <div class="category-card">
+            <div class="category-icon">🎧</div>
+            <h3>Audio & video</h3>
+            <div class="category-conversions">
+              <div class="conversion-pair">
+                <span class="format-pill">MP4</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">MP3</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">WAV</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">MP3</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">FLAC</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">MP3</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">MOV</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">MP4</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">AVI</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">MP4</span>
+              </div>
+            </div>
+          </div>
+          <div class="category-card">
+            <div class="category-icon">📦</div>
+            <h3>Comprimidos</h3>
+            <div class="category-conversions">
+              <div class="conversion-pair">
+                <span class="format-pill">ZIP</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">RAR</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">RAR</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">ZIP</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">7Z</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">ZIP</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">TAR</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">ZIP</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">GZ</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">ZIP</span>
+              </div>
+            </div>
+          </div>
+          <div class="category-card">
+            <div class="category-icon">📊</div>
+            <h3>Datos & bases</h3>
+            <div class="category-conversions">
+              <div class="conversion-pair">
+                <span class="format-pill">JSON</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">CSV</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">XML</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">JSON</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">SQL</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">CSV</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">YAML</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">JSON</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">Excel</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">CSV</span>
+              </div>
+            </div>
+          </div>
+          <div class="category-card">
+            <div class="category-icon">💻</div>
+            <h3>Web & desarrollo</h3>
+            <div class="category-conversions">
+              <div class="conversion-pair">
+                <span class="format-pill">HTML</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">PDF</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">MD</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">HTML</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">CSS</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">SCSS</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">JS</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">TS</span>
+              </div>
+              <div class="conversion-pair">
+                <span class="format-pill">LESS</span>
+                <span class="arrow">→</span>
+                <span class="format-pill">CSS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Estadísticas -->
+    <section id="stats">
+      <div class="container">
+        <div class="stats">
+          <div class="stat-item">
+            <div class="stat-number">200+</div>
+            <div class="stat-label">Formatos soportados</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">99,99%</div>
+            <div class="stat-label">Disponibilidad</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">1M+</div>
+            <div class="stat-label">Conversiones realizadas</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">0,2 s</div>
+            <div class="stat-label">Tiempo medio</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Planes y precios -->
+    <section id="precios">
+      <div class="container">
+        <h2 class="section-title">Planes y precios</h2>
+        <div class="pricing-grid">
+          <div class="pricing-card">
+            <h3>Starter</h3>
+            <div class="price">€9<span>/mes</span></div>
+            <ul>
+              <li>1 000 conversiones/mes</li>
+              <li>Archivos hasta 50 MB</li>
+              <li>Formatos básicos</li>
+              <li>Soporte por email</li>
+            </ul>
+            <a href="#" class="btn-primary">Comenzar prueba</a>
+          </div>
+          <div class="pricing-card featured">
+            <h3>Professional</h3>
+            <div class="price">€29<span>/mes</span></div>
+            <ul>
+              <li>10 000 conversiones/mes</li>
+              <li>Archivos hasta 500 MB</li>
+              <li>Todos los formatos</li>
+              <li>API completa</li>
+              <li>Procesamiento por lotes</li>
+              <li>Soporte prioritario</li>
+            </ul>
+            <a href="#" class="btn-primary">Empezar ahora</a>
+          </div>
+          <div class="pricing-card">
+            <h3>Enterprise</h3>
+            <div class="price">€99<span>/mes</span></div>
+            <ul>
+              <li>Conversiones ilimitadas</li>
+              <li>Archivos hasta 5 GB</li>
+              <li>Formatos personalizados</li>
+              <li>API dedicada</li>
+              <li>Integración custom</li>
+              <li>Soporte 24/7</li>
+            </ul>
+            <a href="#" class="btn-primary">Contactar ventas</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Preguntas frecuentes -->
+    <section id="faq">
+      <div class="container">
+        <h2 class="section-title">Preguntas frecuentes</h2>
+        <div class="faq">
+          <details>
+            <summary>¿Qué formatos soporta Anclora Nexus?</summary>
+            <p>
+              Soportamos más de 200 formatos diferentes incluyendo documentos de
+              oficina, imágenes, audio, vídeo, archivos comprimidos, datos y
+              formatos web. Si necesitas un formato específico, escríbenos.
+            </p>
+          </details>
+          <details>
+            <summary>¿Es seguro subir mis documentos?</summary>
+            <p>
+              Utilizamos cifrado de extremo a extremo (AES‑256) y cumplimos con
+              GDPR. Los archivos se eliminan automáticamente tras el periodo de
+              retención definido en tu plan. Nunca accedemos al contenido.
+            </p>
+          </details>
+          <details>
+            <summary>¿Cuál es el tamaño máximo de archivo?</summary>
+            <p>
+              Depende de tu plan: Starter admite hasta 50 MB, Professional
+              hasta 500 MB y Enterprise hasta 5 GB por archivo. Para tamaños
+              superiores ofrecemos soluciones personalizadas.
+            </p>
+          </details>
+          <details>
+            <summary>¿Cómo funciona la facturación?</summary>
+            <p>
+              Los planes son mensuales y se renuevan automáticamente. Puedes
+              cancelar en cualquier momento. Ofrecemos facturación anual con
+              descuento y soluciones a medida para empresas.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+    <!-- Contacto -->
+    <section id="contacto">
+      <div class="container contact">
+        <h2 class="section-title">Contacto</h2>
+        <p>
+          ¿Listo para transformar tu flujo de trabajo? Escríbenos a
+          <a href="mailto:info@anclora.com">info@anclora.com</a> o llama al
+          <a href="tel:+34911223344">+34 911 22 33 44</a>.
+        </p>
+      </div>
+    </section>
+    <!-- Pie de página -->
+    <footer>
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="Anclora_Nexus.png" alt="Anclora Nexus" />
+          <p>Crea sin límites con la potencia de la IA.</p>
+        </div>
+        <div class="footer-links">
+          <h3 style="margin:0 0 0.5rem; font-size:1rem; color:#ffffff;">Empresa</h3>
+          <a href="#inicio">Inicio</a>
+          <a href="#caracteristicas">Características</a>
+          <a href="#precios">Precios</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div class="footer-links">
+          <h3 style="margin:0 0 0.5rem; font-size:1rem; color:#ffffff;">Legal</h3>
+          <a href="#">Aviso legal</a>
+          <a href="#">Política de privacidad</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2025 Anclora. Todos los derechos reservados.
+      </div>
+    </footer>
+    <script>
+      // Gestión del menú móvil
+      const navToggle = document.getElementById('nav-toggle');
+      const mobileNav = document.getElementById('mobile-nav');
+      navToggle?.addEventListener('click', () => {
+        const isOpen = mobileNav.style.display === 'block';
+        mobileNav.style.display = isOpen ? 'none' : 'block';
+        navToggle.setAttribute('aria-expanded', (!isOpen).toString());
+      });
+      // Cerrar el menú móvil al seleccionar un enlace
+      mobileNav?.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A') {
+          mobileNav.style.display = 'none';
+          navToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+      // Gestión de temas
+      const themeTrigger = document.getElementById('theme-trigger');
+      const themeMenu = document.getElementById('theme-menu');
+      const themeOptions = document.querySelectorAll('.theme-option');
+      const themeIcon = document.getElementById('theme-icon');
+      const themeLabel = document.getElementById('theme-label');
+      // Determinar el tema inicial basándose en localStorage o preferencia del sistema
+      function applyTheme(theme) {
+        const root = document.documentElement;
+        if (theme === 'auto') {
+          // Eliminar atributo para que media query se encargue
+          root.removeAttribute('data-theme');
+        } else {
+          root.setAttribute('data-theme', theme);
+        }
+        localStorage.setItem('nexus-theme', theme);
+        updateThemeUI(theme);
+      }
+      function updateThemeUI(theme) {
+        // Actualizar icono y etiqueta
+        if (theme === 'dark') {
+          themeIcon.textContent = '🌙';
+          themeLabel.textContent = 'Oscuro';
+        } else if (theme === 'light') {
+          themeIcon.textContent = '☀️';
+          themeLabel.textContent = 'Luz';
+        } else {
+          // auto
+          themeIcon.textContent = '🌗';
+          themeLabel.textContent = 'Auto';
+        }
+        // Marcar activo en el menú
+        themeOptions.forEach((opt) => {
+          opt.classList.toggle('active', opt.getAttribute('data-theme') === theme);
+        });
+      }
+      // Inicializar tema al cargar
+      (() => {
+        let saved = localStorage.getItem('nexus-theme');
+        // Si no hay valor guardado, detectar preferencia del sistema
+        if (!saved) {
+          saved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        applyTheme(saved);
+      })();
+      // Abrir/cerrar menú de tema
+      themeTrigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = themeMenu.style.display === 'block';
+        themeMenu.style.display = isOpen ? 'none' : 'block';
+        themeTrigger.setAttribute('aria-expanded', (!isOpen).toString());
+      });
+      // Seleccionar tema
+      themeOptions.forEach((opt) => {
+        opt.addEventListener('click', (e) => {
+          const selected = opt.getAttribute('data-theme');
+          applyTheme(selected);
+          themeMenu.style.display = 'none';
+          themeTrigger.setAttribute('aria-expanded', 'false');
+        });
+      });
+      // Cerrar menú al hacer clic fuera
+      document.addEventListener('click', (e) => {
+        if (!themeSelectorContains(e.target)) {
+          themeMenu.style.display = 'none';
+          themeTrigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+      function themeSelectorContains(target) {
+        return themeTrigger.contains(target) || themeMenu.contains(target);
+      }
+
+      // Acción del botón principal: informar de disponibilidad próxima de forma profesional
+      const ctaButton = document.getElementById('cta-button');
+      ctaButton?.addEventListener('click', (e) => {
+        e.preventDefault();
+        /*
+          Basándonos en las mejores prácticas para páginas "coming soon",
+          es recomendable informar al visitante de forma clara, honesta y
+          orientada a generar confianza en que el producto está en desarrollo.
+          Evitamos mensajes genéricos; en su lugar, transmitimos que el equipo
+          está trabajando activamente y que la aplicación estará disponible pronto.
+          Ver Unicorn Platform sobre mejores prácticas: un mensaje efectivo debe
+          establecer expectativas sobre el lanzamiento y animar a los usuarios a
+          mantenerse al tanto【420224439311807†L31-L52】.
+        */
+        alert('Estamos trabajando para poder ofrecerle acceso a la aplicación lo antes posible. Gracias por su interés en Anclora Nexus.');
+      });
+    </script>
+  </body>
+</html>
