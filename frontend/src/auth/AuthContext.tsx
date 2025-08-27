@@ -221,7 +221,7 @@ export const LoginForm: React.FC = () => {
             {isLogin ? 'Iniciar Sesión' : 'Crear Cuenta'}
           </h2>
           <p className="text-gray-300">
-            {isLogin ? 'Accede a tu cuenta de Anclora Metaform' : 'Únete a Anclora Metaform'}
+            {isLogin ? 'Accede a tu cuenta de Anclora Nexus' : 'Únete a Anclora Nexus'}
           </p>
         </div>
 

@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import Link from 'next/link';
 import { ChevronLeft, ChevronRight, Home, FileText, Settings, User, CreditCard, History } from 'lucide-react';
 import AccessibleIcon from '../AccessibleIcon';
 
@@ -12,9 +11,9 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed, setIsCollapsed }) => {
   // Ahora useRef está correctamente importado
-  const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLAnchorElement>, index: number) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>, index: number) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       const nextIndex = (index + 1) % itemRefs.current.length;
@@ -63,12 +62,13 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
         <ul className="space-y-2">
           {menuItems.map((item, index) => (
             <li key={item.path}>
-              <Link
-                href={item.path}
-                ref={(el) => { itemRefs.current[index] = el; }}
-                onKeyDown={(e) => handleKeyDown(e, index)}
+              <button
+                ref={(el: HTMLButtonElement | null) => { itemRefs.current[index] = el; }}
+                onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => handleKeyDown(e, index)}
                 onClick={() => setActiveTab(item.label)}
                 className={`flex items-center w-full px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors ${
+                  activeTab === item.label ? 'bg-blue-100 text-blue-600' : ''
+                } ${
                   isCollapsed ? 'justify-center' : 'justify-start'
                 }`}
               >
@@ -76,7 +76,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
                   <item.icon size={20} />
                 </AccessibleIcon>
                 {!isCollapsed && <span className="ml-3">{item.label}</span>}
-              </Link>
+              </button>
             </li>
           ))}
         </ul>

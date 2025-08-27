@@ -12,7 +12,7 @@ export const resources = {
       },
       landing: {
         skipLink: 'Skip to main content',
-        heroTitle: 'Anclora Metaform',
+        heroTitle: 'Anclora Nexus',
         heroSubtitle: 'Your Content, Reinvented',
         featuresTitle: 'Features',
         features: {
@@ -65,7 +65,7 @@ export const resources = {
       },
       landing: {
         skipLink: 'Ir al contenido principal',
-        heroTitle: 'Anclora Metaform',
+        heroTitle: 'Anclora Nexus',
         heroSubtitle: 'Tu Contenido, Reinventado',
         featuresTitle: 'Características',
         features: {

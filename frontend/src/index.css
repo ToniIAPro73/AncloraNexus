@@ -1,14 +1,7 @@
-@import './styles/anclora-animations.css';
+@import './styles/brand-styles.css';
 
-/* Variables de color y tipografía con contraste accesible */
+/* Tipografías personalizadas adicionales */
 :root {
-  --color-primary: #004aad;
-  --color-secondary: #0066cc;
-  --color-neutral-100: #ffffff;
-  --color-neutral-900: #111827;
-
-  /* Tipografías */
-  --font-primary: 'Inter', system-ui, sans-serif;
   --font-secondary: 'Merriweather', serif;
 }
 

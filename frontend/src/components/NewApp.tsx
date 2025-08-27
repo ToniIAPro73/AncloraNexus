@@ -7,7 +7,11 @@ import { NewConversorInteligente } from './NewConversorInteligente';
 import { ConversionHistory } from './ConversionHistory';
 import { CreditPurchase } from './CreditPurchase';
 import { ThemeProvider } from '../theme/ThemeProvider';
-import './styles/anclora-animations.css';
+import '../styles/anclora-animations.css';
+
+interface NewAppProps {
+  onBackToLanding?: () => void;
+}
 
 // Componente placeholder para las secciones que aún no están implementadas
 const PlaceholderSection: React.FC<{ title: string; icon: string; description: string }> = ({ 
@@ -31,7 +35,7 @@ const PlaceholderSection: React.FC<{ title: string; icon: string; description: s
 );
 
 // Componente principal de la aplicación autenticada
-const AuthenticatedApp: React.FC = () => {
+const AuthenticatedApp: React.FC<NewAppProps> = ({ onBackToLanding }) => {
   const [activeTab, setActiveTab] = useState('converter');
 
   const renderContent = () => {
@@ -77,7 +81,7 @@ const AuthenticatedApp: React.FC = () => {
           <PlaceholderSection
             title="Valoraciones"
             icon="⭐"
-            description="Comparte tu experiencia y lee las valoraciones de otros usuarios de Anclora Metaform."
+            description="Comparte tu experiencia y lee las valoraciones de otros usuarios de Anclora Nexus."
           />
         );
       
@@ -86,7 +90,7 @@ const AuthenticatedApp: React.FC = () => {
           <PlaceholderSection
             title="Configuración"
             icon="⚙️"
-            description="Personaliza tu experiencia con Anclora Metaform según tus preferencias."
+            description="Personaliza tu experiencia con Anclora Nexus según tus preferencias."
           />
         );
       
@@ -115,13 +119,13 @@ const AuthenticatedApp: React.FC = () => {
 };
 
 // Componente principal de la aplicación
-const NewApp: React.FC = () => {
+const NewApp: React.FC<NewAppProps> = ({ onBackToLanding }) => {
   return (
     <ThemeProvider>
       <AuthProvider>
         <CreditProvider>
           <ProtectedRoute>
-            <AuthenticatedApp />
+            <AuthenticatedApp onBackToLanding={onBackToLanding} />
           </ProtectedRoute>
         </CreditProvider>
       </AuthProvider>

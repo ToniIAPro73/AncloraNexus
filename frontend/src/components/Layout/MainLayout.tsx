@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Sidebar from './Sidebar';
 import { Header } from './Header';
-import { CreditProvider, CreditBalance, CreditHistory } from '@/components/CreditSystem';
-import { InteractiveConversions } from '@/components/InteractiveConversions';
+import { CreditProvider, CreditBalance, CreditHistory } from '../CreditSystem';
+import { InteractiveConversions } from '../InteractiveConversions';
 
 interface MainLayoutProps {
   children: React.ReactNode;
