@@ -1,6 +1,5 @@
 // frontend/src/auth/AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { apiService, LoginData, RegisterData } from '../services/api';
 import type { User } from '../types/User';
 
