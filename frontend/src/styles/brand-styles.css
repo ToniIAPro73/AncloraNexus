@@ -1,3 +1,6 @@
+/* Importar animaciones personalizadas */
+@import './anclora-animations.css';
+
 /* tailwindcss */
 
 @tailwind base;
@@ -444,7 +447,4 @@ body {
   background: var(--color-primary);
   color: var(--color-neutral-100);
 }
-
-/* Importar animaciones personalizadas */
-@import './anclora-animations.css';
 
