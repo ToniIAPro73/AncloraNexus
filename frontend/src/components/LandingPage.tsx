@@ -244,7 +244,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
           <div className="flex justify-between items-center h-16">
             {/* Logo - Extremo izquierdo */}
             <div className="flex items-center space-x-3 flex-shrink-0">
-              <img src="/logo-anclora-nexus.png" alt="Anclora Nexus" className="h-8 w-auto" />
+              <img src="/images/logos/logo-anclora-nexus.png" alt="Anclora Nexus" className="h-8 w-auto" />
               <div className="hidden sm:block">
                 <span className="text-xl font-bold text-gray-900 dark:text-white">Anclora Nexus</span>
                 <p className="text-xs text-gray-600 dark:text-gray-300">Tu Productividad, bien anclada</p>
@@ -345,7 +345,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
       <section id="inicio" className="relative pt-16 min-h-screen flex items-center justify-center overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/bg4.png)' }}
+          style={{ backgroundImage: 'url(/images/backgrounds/bg4.png)' }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/60 to-teal-900/60 dark:from-emerald-900/80 dark:to-teal-900/80" />
         
@@ -382,7 +382,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
       {/* Rest of landing con bg3.png */}
       <div 
         className="relative bg-cover bg-center bg-fixed"
-        style={{ backgroundImage: 'url(/bg3.png)' }}
+        style={{ backgroundImage: 'url(/images/backgrounds/bg3.png)' }}
       >
         <div className={`absolute inset-0 transition-colors duration-300 ${
           isDark ? 'bg-gray-900/85' : 'bg-white/85'
@@ -396,7 +396,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
                 isDark ? 'opacity-20' : 'opacity-40'
               }`}
               style={{
-                backgroundImage: `url('/bg3.png')`
+                backgroundImage: `url('/images/backgrounds/bg3.png')`
               }}
             />
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -690,7 +690,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="md:col-span-2">
               <div className="flex items-center space-x-3 mb-4">
-                <img src="/logo-anclora.png" alt="Anclora" className="h-8 w-auto" />
+                <img src="/images/logos/logo-anclora.png" alt="Anclora" className="h-8 w-auto" />
                 <div>
                   <span className="text-xl font-bold">Anclora</span>
                   <p className="text-sm text-gray-400">Empresa matriz</p>
