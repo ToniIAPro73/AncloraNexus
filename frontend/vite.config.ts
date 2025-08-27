@@ -10,17 +10,17 @@ export default defineConfig(({ mode }) => {
       react(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['icono-metaform.png', 'anclora_metaform_logo.png'],
+        includeAssets: ['images/logos/logo-anclora-nexus.png', 'images/logos/logo-anclora.png'],
         manifest: {
           name: 'Anclora Nexus',
-          short_name: 'Metaform',
+          short_name: 'Anclora',
           start_url: '/',
           display: 'standalone',
           background_color: '#ffffff',
-          theme_color: '#1a73e8',
+          theme_color: '#059669',
           icons: [
-            { src: 'icono-metaform.png', sizes: '192x192', type: 'image/png' },
-            { src: 'anclora_metaform_logo.png', sizes: '512x512', type: 'image/png' }
+            { src: 'images/logos/logo-anclora-nexus.png', sizes: '192x192', type: 'image/png' },
+            { src: 'images/logos/logo-anclora.png', sizes: '512x512', type: 'image/png' }
           ]
         }
       })
@@ -34,13 +34,11 @@ export default defineConfig(({ mode }) => {
     },
     test: { setupFiles: 'src/setupTests.ts' },
 
-    // 👇 clave para evitar saltos de puerto/IPv6
+    // Configuración simplificada del servidor
     appType: 'spa',
     server: {
-      host: '127.0.0.1',   // fuerza IPv4
       port: 5173,
-      strictPort: true,    // si 5173 está ocupado, falla (mejor que saltar a 5174)
-      open: true           // abre el puerto correcto, no dependas de open-cli
+      open: true
     }
   };
 });

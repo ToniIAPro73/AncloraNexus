@@ -363,17 +363,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button className="group px-8 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl flex items-center space-x-3">
-              <Upload className="w-6 h-6 group-hover:animate-bounce" />
-              <span>Comenzar conversión</span>
-            </button>
-            
             <button 
               onClick={onEnterApp}
-              className="group px-8 py-4 bg-white/10 hover:bg-white/20 text-white border-2 border-white/30 hover:border-white/50 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 backdrop-blur-sm flex items-center space-x-3"
+              className="group px-8 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl flex items-center space-x-3"
             >
-              <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-              <span>Probar la app</span>
+              <Upload className="w-6 h-6 group-hover:animate-bounce" />
+              <span>Comienza a convertir</span>
             </button>
           </div>
         </div>

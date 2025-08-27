@@ -65,7 +65,8 @@ export default function LandingPage() {
               {t('landing.features.multiplatformSupport.desc')}
             </p>
           </div>
-        </section>
+        </div>
+      </section>
       {/* Pricing Section */}
       <section className="bg-[#f8fafc] py-16 px-4">
         <h2 className="text-h2 font-semibold text-center text-[#1e40af] mb-12">
