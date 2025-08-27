@@ -163,6 +163,12 @@ cd backend
 pip install -r requirements.txt
 ```
 
+Desde la raíz del proyecto, copia el archivo de variables de entorno:
+
+```bash
+cp .env.example backend/.env
+```
+
 Define el nivel de logging con la variable de entorno `LOG_LEVEL` y consulta las métricas en `http://localhost:${PORT:-8000}/metrics`.
 El puerto puede configurarse mediante la variable de entorno `PORT` (por defecto `8000`).
 
