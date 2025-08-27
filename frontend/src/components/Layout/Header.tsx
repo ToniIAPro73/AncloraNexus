@@ -10,23 +10,30 @@ export const Header: React.FC = () => {
     <header
       role="banner"
       aria-label="Header principal"
-      className="h-16 bg-gradient-to-br from-primary to-secondary backdrop-blur-md shadow-md z-30 border-b border-white/10"
+      className="h-16 bg-gradient-to-br from-emerald-600 to-teal-600 backdrop-blur-md shadow-md z-30 border-b border-white/10"
     >
       <div className="flex items-center justify-between h-full px-6">
-        {/* Título de la página actual */}
-        <div className="flex flex-col justify-center">
-          <h1 className="text-h1 font-bold text-white leading-snug">
-            Anclora Nexus
-          </h1>
-          <p className="text-sm text-blue-100 -mt-1">
-            Tu Contenido, Reinventado
-          </p>
+        {/* Logo y título de la aplicación */}
+        <div className="flex items-center gap-4">
+          <img 
+            src="/images/logos/logo-anclora-nexus.png" 
+            alt="Anclora Nexus Logo" 
+            className="h-10 w-auto"
+          />
+          <div className="flex flex-col justify-center">
+            <h1 className="text-h1 font-bold text-white leading-snug">
+              Anclora Nexus
+            </h1>
+            <p className="text-sm text-emerald-100 -mt-1">
+              Tu Contenido, Reinventado
+            </p>
+          </div>
         </div>
 
         {/* Área de usuario y créditos */}
         <div className="flex items-center space-x-4">
           {/* Contador de créditos */}
-          <div className="flex items-center gap-2 bg-blue-700/60 px-3 py-1 rounded-full text-white shadow-sm">
+          <div className="flex items-center gap-2 bg-emerald-700/60 px-3 py-1 rounded-full text-white shadow-sm">
             <div className="w-2 h-2 bg-green-400 rounded-full"></div>
             <span className="text-sm font-medium">50 créditos</span>
           </div>

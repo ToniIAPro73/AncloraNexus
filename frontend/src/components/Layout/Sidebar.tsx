@@ -40,7 +40,21 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
     }`}>
       <div className="flex items-center justify-between p-4 border-b border-gray-200">
         {!isCollapsed && (
-          <h1 className="text-h1 font-bold text-blue-600">Anclora</h1>
+          <div className="flex items-center gap-3">
+            <img 
+              src="/images/logos/logo-anclora-nexus.png" 
+              alt="Anclora Nexus" 
+              className="h-8 w-auto"
+            />
+            <h1 className="text-h1 font-bold text-emerald-600">Anclora Nexus</h1>
+          </div>
+        )}
+        {isCollapsed && (
+          <img 
+            src="/images/logos/logo-anclora-nexus.png" 
+            alt="Anclora Nexus" 
+            className="h-8 w-auto mx-auto"
+          />
         )}
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}

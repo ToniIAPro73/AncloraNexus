@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import LandingPage from './LandingPage';
-import NewApp from './NewApp';
+import AppPage from '../pages/app';
 
 type AppView = 'landing' | 'app';
 
@@ -11,15 +11,12 @@ const MainApp: React.FC = () => {
     setCurrentView('app');
   };
 
-  const handleBackToLanding = () => {
-    setCurrentView('landing');
-  };
-
   if (currentView === 'landing') {
     return <LandingPage onEnterApp={handleEnterApp} />;
   }
 
-  return <NewApp onBackToLanding={handleBackToLanding} />;
+  // Ya no necesitamos el botón de volver, la app es independiente
+  return <AppPage />;
 };
 
 export default MainApp;

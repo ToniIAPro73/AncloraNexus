@@ -35,15 +35,15 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // Comentado temporalmente para evitar conflictos
 
   const isAuthenticated = !!user;
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/app');
-    }
-  }, [isAuthenticated, navigate]);
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     navigate('/app');
+  //   }
+  // }, [isAuthenticated, navigate]); // Comentado temporalmente
 
   // Verificar autenticación al cargar la aplicación
   useEffect(() => {
