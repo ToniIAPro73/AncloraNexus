@@ -151,9 +151,9 @@ python src\main.py
 **¿Qué verás?**
 ```
 Iniciando Anclora Nexus API...
-API disponible en: http://localhost:8000/api
-Información del API: http://localhost:8000/api/info
-Verificación de salud: http://localhost:8000/api/health
+API disponible en: http://localhost:${PORT:-8000}/api
+Información del API: http://localhost:${PORT:-8000}/api/info
+Verificación de salud: http://localhost:${PORT:-8000}/api/health
 ==================================================
  * Serving Flask app 'main'
  * Debug mode: on
@@ -194,7 +194,7 @@ npm run dev
 
 ```powershell
 # Probar el endpoint de salud
-curl "http://localhost:8000/api/health"
+curl "http://localhost:${PORT:-8000}/api/health"
 ```
 
 **Respuesta esperada**:
@@ -235,7 +235,7 @@ Para probar una conversión desde la terminal:
 "Hola mundo. Esta es una prueba de conversión." | Out-File -FilePath "prueba.txt" -Encoding utf8
 
 # Probar conversión TXT a PDF
-curl -X POST "http://localhost:8000/api/convert" `
+curl -X POST "http://localhost:${PORT:-8000}/api/convert" `
   -H "Content-Type: application/json" `
   -d '{"input_format": "txt", "output_format": "pdf", "content": "Texto de prueba para conversión a PDF"}'
 ```
@@ -291,8 +291,8 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ### Problema: "Puerto ya está en uso"
 **Solución**:
 ```powershell
-# Verificar qué proceso usa el puerto 8000
-netstat -ano | findstr :8000
+# Verificar qué proceso usa el puerto configurado (por defecto 8000)
+netstat -ano | findstr :${PORT:-8000}
 # Matar el proceso si es necesario
 taskkill /PID [número_de_proceso] /F
 ```
@@ -343,7 +343,7 @@ Los mensajes aparecen en la terminal donde ejecutas `npm run dev`.
 ### Verificar Estado de los Servicios:
 ```powershell
 # Backend
-curl "http://localhost:8000/api/health"
+curl "http://localhost:${PORT:-8000}/api/health"
 
 # Frontend (en navegador)
 # http://localhost:5173
@@ -367,7 +367,7 @@ node --version
 npm --version
 
 # Verificar procesos
-netstat -ano | findstr :8000
+netstat -ano | findstr :${PORT:-8000}
 netstat -ano | findstr :5173
 
 # Verificar entorno virtual
@@ -385,7 +385,7 @@ Antes de usar la aplicación, verifica que:
 - [ ] Node.js 18+ está instalado  
 - [ ] VS Code está abierto con el proyecto
 - [ ] Entorno virtual está activo (ves `(.venv)` en la terminal)
-- [ ] Backend ejecutándose en puerto 8000
+- [ ] Backend ejecutándose en el puerto configurado (PORT, por defecto 8000)
 - [ ] Frontend ejecutándose en puerto 5173
 - [ ] Ambos servicios responden correctamente
 - [ ] Puedes acceder a http://localhost:5173 en el navegador

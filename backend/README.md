@@ -20,7 +20,8 @@ pip install -r requirements.txt
 ```bash
 python src/main.py
 ```
-El servicio quedará disponible en `http://localhost:8000/api` con métricas en `http://localhost:8000/metrics`.
+El servicio quedará disponible en `http://localhost:${PORT:-8000}/api` con métricas en `http://localhost:${PORT:-8000}/metrics`.
+Puedes cambiar el puerto estableciendo la variable de entorno `PORT` antes de iniciar el servicio.
 
 ## Pruebas
 ```bash

@@ -163,7 +163,8 @@ cd backend
 pip install -r requirements.txt
 ```
 
-Define el nivel de logging con la variable de entorno `LOG_LEVEL` y consulta las métricas en `http://localhost:8000/metrics`.
+Define el nivel de logging con la variable de entorno `LOG_LEVEL` y consulta las métricas en `http://localhost:${PORT:-8000}/metrics`.
+El puerto puede configurarse mediante la variable de entorno `PORT` (por defecto `8000`).
 
 ## 🎉 ¡Listo!
 

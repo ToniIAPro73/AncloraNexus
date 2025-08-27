@@ -40,7 +40,7 @@ VITE v7.1.2 ready
 ➜ Local: http://127.0.0.1:5173/
 ```
 
-### ✅ **Backend (Puerto 8000)**
+### ✅ **Backend (Puerto configurable, por defecto 8000)**
 ```json
 {
   "message": "API funcionando correctamente",
