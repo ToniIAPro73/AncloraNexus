@@ -83,3 +83,4 @@ node_modules/
 .ci-rebuild-trigger
 .coverage
 temp_ci_fix.txt
+.venv/ 
