@@ -45,7 +45,6 @@ frontend/test-results/
 
 # Archivos generados por agentes
 pytest.ini
-requirements.txt
 package.json
 package-lock.json
 
