@@ -19,11 +19,7 @@ from src.models.user import db
 from src.routes.auth import auth_bp
 from src.routes.conversion import conversion_bp
 from src.routes.credits import credits_bp
-<<<<<<< HEAD
-from datetime import timedelta # type: ignore
-=======
 from src.routes.user import user_bp
->>>>>>> 43582ad5a028c4800272a24231e28d97db6bab87
 from src.ws import socketio
 
 # Cargar variables de entorno tanto desde la raíz del proyecto como desde backend/
