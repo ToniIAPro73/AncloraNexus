@@ -1,5 +1,8 @@
-import React, { useRef } from 'react';
-import { ChevronLeft, ChevronRight, Home, FileText, Settings, User, CreditCard, History } from 'lucide-react';
+import React, { useRef, useState, useEffect } from 'react';
+import { 
+  ChevronLeft, ChevronRight, Home, FileText, Settings, User, CreditCard, History,
+  BarChart2, HelpCircle, Star, Clock, FileIcon, MessageCircle, Zap, Book
+} from 'lucide-react';
 import AccessibleIcon from '../AccessibleIcon';
 
 interface SidebarProps {
@@ -9,9 +12,39 @@ interface SidebarProps {
   setIsCollapsed: (collapsed: boolean) => void;
 }
 
+interface MenuItem {
+  icon: React.ElementType;
+  label: string;
+  path: string;
+  badge?: {
+    count: string | number;
+    color: string;
+  };
+  isNew?: boolean;
+  submenu?: { label: string; path: string }[];
+}
+
 const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed, setIsCollapsed }) => {
-  // Ahora useRef está correctamente importado
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [showSubmenu, setShowSubmenu] = useState<string | null>(null);
+  const [userActivity, setUserActivity] = useState({
+    conversionsToday: 4,
+    creditsUsed: 7,
+    lastConversion: '12:45'
+  });
+
+  // Detecta si se debe cambiar a modo móvil
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>, index: number) => {
     if (e.key === 'ArrowDown') {
@@ -25,13 +58,65 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
     }
   };
 
-  const menuItems = [
-    { icon: Home, label: 'Dashboard', path: '/' },
-    { icon: FileText, label: 'Conversiones', path: '/conversions' },
-    { icon: History, label: 'Historial', path: '/history' },
-    { icon: CreditCard, label: 'Créditos', path: '/credits' },
-    { icon: User, label: 'Perfil', path: '/profile' },
-    { icon: Settings, label: 'Configuración', path: '/settings' }
+  const menuItems: MenuItem[] = [
+    { 
+      icon: Home, 
+      label: 'Inicio', 
+      path: '/' 
+    },
+    { 
+      icon: Zap, 
+      label: 'Conversor', 
+      path: '/conversor',
+      badge: { count: 'AI', color: 'bg-gradient-to-r from-blue-500 to-purple-600' },
+      isNew: true
+    },
+    { 
+      icon: FileIcon, 
+      label: 'Formatos', 
+      path: '/formats',
+      badge: { count: '45+', color: 'bg-blue-600' } 
+    },
+    { 
+      icon: History, 
+      label: 'Historial', 
+      path: '/history' 
+    },
+    { 
+      icon: CreditCard, 
+      label: 'Créditos', 
+      path: '/credits' 
+    },
+    { 
+      icon: BarChart2, 
+      label: 'Planes', 
+      path: '/plans',
+      submenu: [
+        { label: 'Comparativa', path: '/plans/compare' },
+        { label: 'Empresas', path: '/plans/business' },
+      ]
+    },
+    { 
+      icon: HelpCircle, 
+      label: 'Ayuda', 
+      path: '/help' 
+    },
+    { 
+      icon: Star, 
+      label: 'Valoraciones', 
+      path: '/ratings',
+      badge: { count: 'Nuevo', color: 'bg-green-600' } 
+    },
+    { 
+      icon: Settings, 
+      label: 'Configuración', 
+      path: '/settings' 
+    },
+    {
+      icon: BarChart2,
+      label: 'Estadísticas',
+      path: '/stats'
+    }
   ];
 
   return (
