@@ -34,10 +34,10 @@ app.config.from_object(get_config())
 
 ## 🧪 Verificación de Funcionamiento
 
-### ✅ Backend (Puerto 8000)
+### ✅ Backend (Puerto configurable)
 ```bash
 # Estado: FUNCIONANDO ✅
-- API Health Check: http://localhost:8000/api/health
+- API Health Check: http://localhost:${PORT:-8000}/api/health
 - Respuesta: {"status": "healthy", "service": "Anclora Nexus API"}
 - Configuración centralizada: ACTIVA
 - Flask Debug Mode: ACTIVO

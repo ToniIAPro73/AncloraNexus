@@ -80,7 +80,7 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 python main.py
 
-La API expondrá un endpoint de métricas en `http://localhost:8000/metrics` y mostrará logs según el nivel definido.
+La API expondrá un endpoint de métricas en `http://localhost:${PORT:-8000}/metrics` y mostrará logs según el nivel definido. El puerto puede configurarse mediante la variable de entorno `PORT` (por defecto `8000`).
 ```
 
 ### Variables de entorno (Backend)
