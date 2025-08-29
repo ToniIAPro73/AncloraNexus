@@ -13,7 +13,7 @@ from src.routes.user import user_bp
 from src.routes.auth import auth_bp
 from src.routes.conversion import conversion_bp
 from src.routes.credits import credits_bp
-from datetime import timedelta
+from datetime import timedelta # type: ignore
 from src.ws import socketio
 from src.config import get_config
 from dotenv import load_dotenv

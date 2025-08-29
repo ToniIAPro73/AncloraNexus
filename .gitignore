@@ -1,5 +1,6 @@
 # Entornos Virtuales de Python
 venv/
+backend/.venv_py312/
 
 # Archivos compilados y caché de Python
 **/__pycache__/
@@ -83,4 +84,4 @@ node_modules/
 .ci-rebuild-trigger
 .coverage
 temp_ci_fix.txt
-.venv/ 
+.venv/

@@ -1,0 +1,24 @@
+{
+    "include": [
+        "backend",
+        "backend/src"
+    ],
+    "exclude": [
+        "**/node_modules",
+        "**/__pycache__",
+        ".git",
+        "frontend"
+    ],
+    "ignore": [
+        "backend/.venv_py312"
+    ],
+    "typingsPath": "backend/.venv_py312/Lib/site-packages",
+    "venvPath": "backend/.venv_py312",
+    "pythonVersion": "3.12",
+    "typeCheckingMode": "basic",
+    "reportMissingImports": "warning",
+    "reportMissingTypeStubs": "none",
+    "reportUnusedImport": "warning",
+    "reportGeneralTypeIssues": "information",
+    "reportUndefinedVariable": "warning"
+}

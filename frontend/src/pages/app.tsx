@@ -1,5 +1,5 @@
 import { MainLayout } from "../components/Layout/MainLayout";
-import ConversorInteligente from "../components/ConversorInteligente";
+import { NewConversorInteligente } from "../components/NewConversorInteligente";
 import { useState } from "react";
 
 export default function AppPage() {
@@ -7,7 +7,7 @@ export default function AppPage() {
 
   return (
     <MainLayout activeTab={activeTab} setActiveTab={setActiveTab}>
-      <ConversorInteligente />
+      <NewConversorInteligente />
     </MainLayout>
   );
 }
