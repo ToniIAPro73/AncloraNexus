@@ -13,6 +13,38 @@
   }
 }
 
+@keyframes wave-slow {
+  0% {
+    transform: translate(0%, 0%) rotate(0deg);
+  }
+  50% {
+    transform: translate(10%, 5%) rotate(180deg);
+  }
+  100% {
+    transform: translate(0%, 0%) rotate(360deg);
+  }
+}
+
+@keyframes wave-slow-reverse {
+  0% {
+    transform: translate(0%, 0%) rotate(360deg);
+  }
+  50% {
+    transform: translate(-10%, -5%) rotate(180deg);
+  }
+  100% {
+    transform: translate(0%, 0%) rotate(0deg);
+  }
+}
+
+.animate-wave-slow {
+  animation: wave-slow 30s ease-in-out infinite;
+}
+
+.animate-wave-slow-reverse {
+  animation: wave-slow-reverse 25s ease-in-out infinite;
+}
+
 .wave-bg {
   position: relative;
   overflow: hidden;
@@ -92,6 +124,13 @@
     rgba(0, 184, 217, 0.1));
   background-size: 400% 400%;
   animation: gradient-shift 15s ease infinite;
+}
+
+/* Texto con gradiente */
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 /* Respeto a las preferencias de movimiento reducido */

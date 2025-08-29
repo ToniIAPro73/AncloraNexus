@@ -19,6 +19,18 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   const [isMobile, setIsMobile] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
 
+  // Obtener título dinámico basado en activeTab
+  const getPageTitle = () => {
+    switch (activeTab) {
+      case 'Conversor':
+        return 'Conversor Inteligente';
+      case 'Créditos':
+        return 'Gestión de Créditos';
+      default:
+        return activeTab || 'Bienvenido';
+    }
+  };
+
   useEffect(() => {
     const checkMobile = () => {
       const mobile = window.innerWidth < 768;
@@ -36,12 +48,21 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   }, [activeTab]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-white relative overflow-hidden">
-      {/* Fondo animado sutil */}
-      <div className="absolute inset-0 opacity-20 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-100/30 via-white/10 to-blue-100/30" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-100/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-200/20 rounded-full blur-3xl animate-pulse delay-1000" />
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 relative overflow-hidden">
+      {/* Fondo animado con ondas */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Gradiente de fondo */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-slate-900 to-secondary/5 opacity-80" />
+        
+        {/* Ondas animadas */}
+        <div className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] bg-gradient-to-br from-primary/20 to-transparent rounded-full blur-3xl animate-wave-slow opacity-20" />
+        <div className="absolute bottom-1/4 -right-1/4 w-[600px] h-[600px] bg-gradient-to-br from-secondary/20 to-transparent rounded-full blur-3xl animate-wave-slow-reverse opacity-20" />
+        
+        {/* Efectos de luz */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-primary/5 to-secondary/5 rounded-full blur-3xl opacity-10" />
+        
+        {/* Líneas decorativas */}
+        <div className="absolute inset-0 bg-[url('/images/grid-pattern.png')] bg-repeat opacity-5"></div>
       </div>
 
       {/* Sidebar */}
@@ -53,40 +74,48 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
       />
 
       {/* Header */}
-      <Header />
+      <Header 
+        pageTitle={getPageTitle()}
+        sidebarCollapsed={sidebarCollapsed}
+        setSidebarCollapsed={setSidebarCollapsed}
+        isMobile={isMobile}
+      />
 
       {/* Capa negra en móvil al abrir menú */}
       {isMobile && !sidebarCollapsed && (
         <div
-          className="fixed inset-0 bg-black/50 z-30"
+          className="fixed inset-0 bg-black/70 z-30 backdrop-blur-sm"
           onClick={() => setSidebarCollapsed(true)}
         />
       )}
 
       {/* Contenido principal */}
-        <main
-          ref={mainRef}
-          tabIndex={-1}
-          role="main"
-          aria-label="Contenido principal"
-          className={`
-            pt-16 min-h-screen relative z-10 transition-all duration-300 ease-in-out
-            ml-0 ${sidebarCollapsed ? 'md:ml-16' : 'md:ml-72'}
-          `}
-        >
-        {activeTab === 'Créditos' ? (
-          <CreditProvider>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
-              <CreditBalance />
-              <CreditHistory />
+      <main
+        ref={mainRef}
+        tabIndex={-1}
+        role="main"
+        aria-label="Contenido principal"
+        className={`
+          pt-20 min-h-screen relative z-10 transition-all duration-300 ease-in-out
+          ${sidebarCollapsed ? 'ml-0 md:ml-16' : 'ml-0 md:ml-72'}
+          px-4 md:px-6 pb-16
+        `}
+      >
+        <div className="max-w-7xl mx-auto">
+          {activeTab === 'Créditos' ? (
+            <CreditProvider>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <CreditBalance />
+                <CreditHistory />
+              </div>
+            </CreditProvider>
+          ) : (
+            <div className="space-y-8">
+              {children}
+              <InteractiveConversions />
             </div>
-          </CreditProvider>
-        ) : (
-          <div className="p-6 space-y-8">
-            {children}
-            <InteractiveConversions />
-          </div>
-        )}
+          )}
+        </div>
       </main>
     </div>
   );
