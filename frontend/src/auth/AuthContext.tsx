@@ -363,10 +363,14 @@ export const LoginForm: React.FC = () => {
                 setError('');
                 
                 // Llamada directa al contexto de autenticación
+                console.log('Intentando iniciar sesión con cuenta de prueba...');
                 authContext.login({
                   email: 'ancloratest@dominio.com',
                   password: 'Alcloratest123'
-                }).catch(() => {
+                }).then(result => {
+                  console.log('Resultado del login:', result);
+                }).catch((error) => {
+                  console.error('Error detallado al iniciar sesión con cuenta de prueba:', error);
                   setError('Error al iniciar sesión con cuenta de prueba');
                   setIsSubmitting(false);
                 });

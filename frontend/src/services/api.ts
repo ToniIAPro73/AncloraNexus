@@ -16,8 +16,8 @@ export interface RegisterData {
 // --- LÓGICA DEL SERVICIO DE API ---
 
 // URL base de la API configurable mediante variable de entorno
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
-const WS_BASE_URL = import.meta.env.VITE_WS_BASE_URL || 'http://localhost:8000';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api';
+const WS_BASE_URL = import.meta.env.VITE_WS_BASE_URL || 'http://localhost:3001';
 
 // --- Funciones de Ayuda para el Token ---
 const setAuthToken = (token: string) => {
@@ -43,17 +43,30 @@ const clearToken = () => {
 export const apiService = {
   // --- Funciones de Autenticación ---
   login: async (data: LoginData): Promise<{ user: User; token: string }> => {
-    const response = await fetch(`${API_BASE_URL}/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
-    const responseData = await response.json();
-    if (!response.ok) {
-      throw new Error(responseData.error || 'Error en el inicio de sesión');
+    console.log('Iniciando login con:', API_BASE_URL, data.email);
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      console.log('Respuesta de login:', response.status);
+      
+      const responseData = await response.json();
+      console.log('Datos de respuesta:', responseData);
+      
+      if (!response.ok) {
+        console.error('Error en login:', responseData);
+        throw new Error(responseData.error || 'Error en el inicio de sesión');
+      }
+      
+      setAuthToken(responseData.access_token);
+      console.log('Login exitoso, token guardado');
+      return { token: responseData.access_token, user: responseData.user };
+    } catch (error) {
+      console.error('Error durante el login:', error);
+      throw error;
     }
-    setAuthToken(responseData.access_token);
-    return { token: responseData.access_token, user: responseData.user };
   },
 
   register: async (data: RegisterData): Promise<{ user: User; token: string }> => {
