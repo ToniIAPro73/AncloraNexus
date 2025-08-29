@@ -91,12 +91,6 @@ export const IconButton: React.FC<ButtonProps & {
   className = '',
   ...props
 }) => {
-  const sizeStyles = {
-    sm: 'p-1',
-    md: 'p-2',
-    lg: 'p-3',
-  };
-  
   return (
     <Button
       variant={variant}
