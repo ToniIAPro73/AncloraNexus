@@ -98,6 +98,22 @@ export const Login: React.FC<LoginProps> = ({
         {/* Header */}
         <div className="login-header">
           <h2 className="login-title text-h2">Iniciar Sesión</h2>
+          {/* Etiqueta de entorno de desarrollo - Será eliminada en producción */}
+          <div 
+            style={{
+              position: 'absolute',
+              top: '10px',
+              right: '10px',
+              background: '#E9D5FF',
+              color: '#7E22CE',
+              padding: '4px 8px',
+              borderRadius: '4px',
+              fontSize: '0.7rem',
+              fontWeight: 'bold'
+            }}
+          >
+            ENTORNO DE DESARROLLO
+          </div>
           <p className="login-subtitle">
             Accede a tu cuenta de Anclora Converter
           </p>
@@ -210,6 +226,52 @@ export const Login: React.FC<LoginProps> = ({
             ) : (
               'Iniciar Sesión'
             )}
+          </button>
+
+          {/* Botón de acceso de prueba - Será eliminado en producción */}
+          <button
+            type="button"
+            onClick={() => {
+              // Establecer las credenciales de prueba
+              setFormData({
+                email: 'ancloratest@dominio.com',
+                password: 'Alcloratest123'
+              });
+              
+              // Iniciar sesión directamente sin usar el timeout
+              setTimeout(() => {
+                authService.signIn('ancloratest@dominio.com', 'Alcloratest123')
+                  .then(result => {
+                    if (result.success) {
+                      onSuccess?.();
+                    } else {
+                      setError(result.error || 'Error al iniciar sesión con cuenta de prueba');
+                    }
+                  })
+                  .catch(() => {
+                    setError('Error inesperado con la cuenta de prueba');
+                  });
+              }, 100);
+            }}
+            className="test-login-btn"
+            style={{
+              marginTop: '12px',
+              backgroundColor: '#6366F1',
+              color: 'white',
+              border: 'none',
+              padding: '10px 16px',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              fontSize: '0.9rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+              position: 'relative',
+              fontWeight: 'bold'
+            }}
+          >
+            🧪 Usar Cuenta de Prueba
           </button>
         </form>
 

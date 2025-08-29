@@ -177,6 +177,9 @@ export const LoginForm: React.FC = () => {
   });
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Referencia al contexto de autenticación
+  const authContext = useAuth();
 
   const { login, register } = useAuth();
 
@@ -325,12 +328,72 @@ export const LoginForm: React.FC = () => {
           </div>
         </form>
 
-        {/* Usuario de prueba */}
-        <div className="bg-gray-800/30 backdrop-blur-sm rounded-lg border border-gray-700/50 p-4">
-          <h3 className="text-h3 text-gray-300 font-medium mb-2">Usuario de Prueba:</h3>
+        {/* Usuario de prueba - SOLO PARA DESARROLLO */}
+        <div className="bg-gray-800/30 backdrop-blur-sm rounded-lg border border-gray-700/50 p-4 mt-6 relative">
+          <div 
+            style={{
+              position: 'absolute',
+              top: '-10px',
+              right: '10px',
+              background: '#E9D5FF',
+              color: '#7E22CE',
+              padding: '4px 8px',
+              borderRadius: '4px',
+              fontSize: '0.7rem',
+              fontWeight: 'bold'
+            }}
+          >
+            ENTORNO DE DESARROLLO
+          </div>
+          <h3 className="text-h3 text-gray-300 font-medium mb-3">Acceso Rápido:</h3>
+          
+          <button
+            type="button"
+            onClick={() => {
+              if (isLogin) {
+                // Establecer las credenciales y enviar el formulario
+                setFormData({
+                  email: 'ancloratest@dominio.com',
+                  password: 'Alcloratest123',
+                  full_name: ''
+                });
+                
+                // Iniciar sesión automáticamente
+                setIsSubmitting(true);
+                setError('');
+                
+                // Llamada directa al contexto de autenticación
+                authContext.login({
+                  email: 'ancloratest@dominio.com',
+                  password: 'Alcloratest123'
+                }).catch(() => {
+                  setError('Error al iniciar sesión con cuenta de prueba');
+                  setIsSubmitting(false);
+                });
+              }
+            }}
+            style={{
+              backgroundColor: '#6366F1',
+              color: 'white',
+              border: 'none',
+              padding: '10px 16px',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              fontSize: '0.9rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+              fontWeight: 'bold',
+              marginBottom: '10px'
+            }}
+          >
+            🧪 Usar Cuenta de Prueba
+          </button>
+          
           <p className="text-gray-400 text-sm">
-            Email: ancoratest@dominio.com<br />
-            Contraseña: Ancoratest123
+            Email: ancloratest@dominio.com<br />
+            Contraseña: Alcloratest123
           </p>
         </div>
       </div>
