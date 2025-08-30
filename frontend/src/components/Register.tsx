@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AuthService } from '../services/authService';
+import { apiService } from '../services/api';
 
 interface RegisterProps {
   onSuccess?: () => void;
@@ -69,28 +70,12 @@ export const Register: React.FC<RegisterProps> = ({
     }
 
     try {
-      // Obtener información de UTM y referral si está disponible
-      const urlParams = new URLSearchParams(window.location.search);
-      const metadata = {
-        full_name: formData.fullName,
-        company: formData.company,
-        signup_source: 'web',
-        utm_source: urlParams.get('utm_source') || undefined,
-        utm_medium: urlParams.get('utm_medium') || undefined,
-        utm_campaign: urlParams.get('utm_campaign') || undefined,
-        referral_code: urlParams.get('ref') || undefined
-      };
-
-      const result = await authService.signUp(
-        formData.email, 
-        formData.password,
-        metadata
-      );
+      const result = await apiService.register({ full_name: formData.fullName, email: formData.email, password: formData.password });
       
-      if (result.success) {
+      if (result && result.user) {
         onSuccess?.();
       } else {
-        setError(result.error || 'Error al crear la cuenta');
+        setError('Error al crear la cuenta');
       }
     } catch (error) {
       setError('Error inesperado. Intenta de nuevo.');

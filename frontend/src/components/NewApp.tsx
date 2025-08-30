@@ -43,6 +43,14 @@ const AuthenticatedApp: React.FC<NewAppProps> = ({ onBackToLanding: _onBackToLan
       case 'converter':
         return <NewConversorInteligente />;
       
+      case 'components':
+        const ComponentsDemo = React.lazy(() => import('../pages/ComponentsDemo'));
+        return (
+          <React.Suspense fallback={<div>Cargando...</div>}>
+            <ComponentsDemo />
+          </React.Suspense>
+        );
+      
       case 'formats':
         return (
           <PlaceholderSection

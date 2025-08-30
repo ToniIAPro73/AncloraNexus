@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { apiService, formatFileSize } from '../services/api';
-import { useAuth } from '../auth/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 
 interface Conversion {
   id: number;
@@ -40,7 +40,6 @@ export const ConversionHistory: React.FC = () => {
 
   useEffect(() => {
     loadConversions(page);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   const loadConversions = async (pageParam = page) => {

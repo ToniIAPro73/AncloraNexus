@@ -186,7 +186,7 @@ export const EbookConverter: React.FC<EbookConverterProps> = ({
       {/* Header con tokens de diseño Anclora */}
       <div className="text-center" style={{ marginBottom: 'var(--space-4)' }}>
         <div className="flex justify-center" style={{ marginBottom: 'var(--space-2)' }}>
-          <IconEbook className="w-16 h-16" style={{ color: 'var(--color-primary)' }} />
+          <IconEbook className="w-16 h-16 text-primary" />
         </div>
         <h1
           className="text-h1 font-bold"
@@ -246,14 +246,11 @@ export const EbookConverter: React.FC<EbookConverterProps> = ({
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
         >
-          <IconUpload 
-            className="w-12 h-12 mx-auto mb-4" 
-            style={{ color: 'var(--color-neutral-900)', opacity: '0.4' }}
-          />
+          <IconUpload className="w-12 h-12 mx-auto mb-4 text-neutral-900/40" />
           
           {state.isValidating ? (
             <div className="space-y-2">
-              <IconRefresh className="w-6 h-6 mx-auto animate-spin" style={{ color: 'var(--color-primary)' }} />
+              <IconRefresh className="w-6 h-6 mx-auto animate-spin text-primary" />
               <p style={{ color: 'var(--color-neutral-900)', fontSize: '16px' }}>
                 Validando archivo...
               </p>
@@ -423,7 +420,7 @@ export const EbookConverter: React.FC<EbookConverterProps> = ({
               >
                 <div className="flex-1">
                   <div className="flex items-center" style={{ gap: 'var(--space-2)' }}>
-                    <IconEbook className="w-5 h-5" style={{ color: 'var(--color-neutral-900)', opacity: '0.5' }} />
+                    <IconEbook className="w-5 h-5 text-neutral-900/50" />
                     <div>
                       <p 
                         className="font-medium"

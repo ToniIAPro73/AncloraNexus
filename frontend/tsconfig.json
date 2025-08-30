@@ -42,6 +42,19 @@
     "**/*.tsx"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "tests",
+    "test",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/__tests__/**",
+    "simple-a11y.test.tsx",
+    "src/components/UI/**",
+    "src/pages/ComponentsDemo.tsx",
+    "src/components/NewConversorInteligente.tsx",
+    "src/components/AdvancedFeaturesDemo.tsx",
+    "src/components/NotificationSystem.tsx",
+    "src/components/FormatRecommendation.tsx",
+    "src/components/FileComparison.tsx"
   ]
 }

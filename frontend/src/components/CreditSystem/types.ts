@@ -2,28 +2,31 @@
 
 export interface CreditBalance {
   current: number;
-  total: number;
-  lastUpdated: string;
+  total_purchased: number;
+  total_consumed: number;
+  plan_credits: number;
+  bonus_credits: number;
 }
 
 export interface CreditTransaction {
   id: string;
-  type: 'conversion' | 'purchase' | 'refund';
+  type: 'conversion' | 'purchase' | 'refund' | 'bonus' | 'consumption';
   amount: number;
   description: string;
-  timestamp: string;
-}
-
-export interface CreditHistoryEntry {
-  date: string;
-  description: string;
-  amount: number;
+  timestamp: Date;
+  conversion_id?: string;
 }
 
 export type CreditContextType = {
-  creditBalance: number;
-  creditHistory: CreditHistoryEntry[];
-  calculateCost: (fileType: string, fileSize: number, quality: string) => number;
+  balance: CreditBalance;
+  transactions: CreditTransaction[];
+  currency: 'eur' | 'usd';
+  calculateConversionCost: (conversionType: string, fileSize: number, quality?: keyof typeof QUALITY_MULTIPLIERS) => number;
+  canAffordConversion: (cost: number) => boolean;
+  consumeCredits: (cost: number, description: string, conversionId?: string) => boolean;
+  addCredits: (amount: number, type: 'purchase' | 'bonus', description: string) => void;
+  setCurrency: (currency: 'eur' | 'usd') => void;
+  getTransactionHistory: () => CreditTransaction[];
 };
 
 // Costos de conversión por tipo de archivo
@@ -53,5 +56,6 @@ export const QUALITY_MULTIPLIERS = {
   low: 0.8,
   medium: 1,
   high: 1.5,
-  ultra: 2
+  ultra: 2,
+  standard: 1,
 };

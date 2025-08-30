@@ -9,8 +9,8 @@ interface Props {
 }
 
 const ConversionCost: React.FC<Props> = ({ fileType, fileSize, quality }) => {
-  const { calculateCost } = useCreditSystem();
-  const cost = calculateCost(fileType, fileSize, quality);
+  const { calculateConversionCost } = useCreditSystem();
+  const cost = calculateConversionCost(fileType, fileSize, quality as any);
 
   return (
     <div className="text-sm text-gray-300">

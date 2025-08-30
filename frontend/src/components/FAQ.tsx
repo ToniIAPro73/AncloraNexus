@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IconPlus, IconMinus, IconEnvelope, IconChatBubble } from './Icons';
+import { IconPlus, IconMinus } from './Icons';
 
 type FAQItemProps = {
   question: string;

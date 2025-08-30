@@ -62,7 +62,12 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
 
       {/* Header */}
       <div style={{ gridArea: 'header' }} className="relative z-20">
-        <Header />
+        <Header 
+          pageTitle={activeTab || 'Inicio'}
+          sidebarCollapsed={sidebarCollapsed}
+          setSidebarCollapsed={setSidebarCollapsed}
+          isMobile={isMobile}
+        />
       </div>
 
       {/* Capa negra en móvil al abrir menú */}

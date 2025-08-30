@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { apiService } from '../services/api';
-import { useAuth } from '../auth/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 
 interface CreditPackage {
   credits: number;
@@ -21,7 +21,7 @@ interface Plan {
 export const CreditPurchase: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
-  const { user, refreshUser } = useAuth();
+  const { user } = useAuth();
 
   const creditPackages: CreditPackage[] = [
     { credits: 50, price: 4.99, bonus: 0 },
@@ -65,7 +65,7 @@ export const CreditPurchase: React.FC = () => {
       setMessage(`¡Compra exitosa! Nuevo saldo: ${response.new_balance} créditos`);
       
       // Actualizar información del usuario
-      await refreshUser();
+      // TODO: refrescar perfil si se implementa
     } catch (error: any) {
       setMessage(`Error: ${error.message}`);
     } finally {
@@ -82,7 +82,7 @@ export const CreditPurchase: React.FC = () => {
       setMessage(`¡Plan actualizado exitosamente! ${response.message}`);
       
       // Actualizar información del usuario
-      await refreshUser();
+      // TODO: refrescar perfil si se implementa
     } catch (error: any) {
       setMessage(`Error: ${error.message}`);
     } finally {
@@ -112,7 +112,7 @@ export const CreditPurchase: React.FC = () => {
             <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
               <div>
                 <span className="text-slate-400">Plan actual: </span>
-                <span className="text-blue-400 font-medium">{user.plan_info.name}</span>
+                <span className="text-blue-400 font-medium">{user.plan_info?.name || 'free'}</span>
               </div>
               <div>
                 <span className="text-slate-400">Usados hoy: </span>

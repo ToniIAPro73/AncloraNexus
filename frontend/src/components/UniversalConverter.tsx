@@ -2,24 +2,18 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 import { FileUploader } from './FileUploader';
 
-interface PhaseProgress {
-  preprocess: number;
-  convert: number;
-  postprocess: number;
-}
-
 interface QueueItem {
   id: string;
   file: File;
   progress: number;
-  status: 'pending' | 'processing' | 'completed';
+  status: 'pending' | 'processing' | 'completed' | 'cancelled';
   classification: 'valid' | 'salvageable' | 'unsalvageable';
 }
 
 export const UniversalConverter: React.FC = () => {
   const [queue, setQueue] = useState<QueueItem[]>([]);
   const [processing, setProcessing] = useState(false);
-  const [liveMessage, setLiveMessage] = useState('');
+  const timersRef = useRef<Record<string, { interval: any; timeout: any }>>({});
   const classifyFile = useCallback(async (file: File) => {
     try {
       const text = await file.text();
@@ -48,29 +42,7 @@ export const UniversalConverter: React.FC = () => {
     setQueue(prev => [...prev, ...items]);
   }, [classifyFile]);
 
-  useEffect(() => {
-    const socket = apiService.connectProgress();
-    socket.on('conversion_progress', ({ conversion_id, phase, percent }) => {
-      setQueue(prev =>
-        prev.map(item =>
-          item.id === String(conversion_id)
-            ? {
-                ...item,
-                progress: { ...item.progress, [phase]: percent },
-                status:
-                  phase === 'postprocess' && percent === 100
-                    ? 'completed'
-                    : item.status,
-              }
-            : item
-        )
-      );
-    });
-    socketRef.current = socket;
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
+  // Socket-based progress removed for simplified local simulation
 
   useEffect(() => {
     if (!processing) {
@@ -83,13 +55,7 @@ export const UniversalConverter: React.FC = () => {
 
   const startConversion = (item: QueueItem) => {
     setProcessing(true);
-    setQueue(prev =>
-      prev.map(q =>
-        q.id === item.id
-          ? { ...q, status: 'processing', progress: { preprocess: 0, convert: 0, postprocess: 0 } }
-          : q
-      )
-    );
+    setQueue(prev => prev.map(q => (q.id === item.id ? { ...q, status: 'processing', progress: 0 } : q)));
 
     const interval = setInterval(() => {
       setQueue(prev =>
@@ -112,7 +78,7 @@ export const UniversalConverter: React.FC = () => {
       );
       delete timersRef.current[item.id];
       setProcessing(false);
-      setLiveMessage(`Conversión completada para ${item.file.name}`);
+      // message omitted
     }, 2000);
 
     timersRef.current[item.id] = { interval, timeout };
@@ -133,7 +99,7 @@ export const UniversalConverter: React.FC = () => {
     if (wasProcessing) {
       setProcessing(false);
     }
-    setLiveMessage(`Conversión cancelada para ${cancelledItem?.file.name || 'archivo'}`);
+    // message omitted
   };
 
   const moveItem = (id: string, direction: 'up' | 'down') => {

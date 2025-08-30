@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { EbookConverter } from './EbookConverter';
 import { EbookFormatSelector } from './EbookFormatSelector';
 import { EbookMetadataViewer } from './EbookMetadataViewer';
-import { IconEbook, IconArrowLeft } from '../../components/Icons';
+import { IconEbook, IconArrowLeft } from './Icons';
 import { EbookFile, EbookMetadata, EbookValidationResult } from '../types/ebook';
 
 interface EbookConverterPageProps {
@@ -66,7 +66,7 @@ export const EbookConverterPage: React.FC<EbookConverterPageProps> = ({
               )}
               
               <div className="flex items-center" style={{ gap: 'var(--space-2)' }}>
-                <IconEbook className="w-8 h-8" style={{ color: 'var(--color-primary)' }} />
+                <IconEbook className="w-8 h-8 text-primary" />
                 <div>
                   <h1
                     className="text-h1 font-bold"
@@ -128,11 +128,9 @@ export const EbookConverterPage: React.FC<EbookConverterPageProps> = ({
                 }}
               >
                 <EbookFormatSelector
-                  sourceFormat={selectedFile.format}
                   selectedFormat={selectedFormat}
                   onFormatChange={setSelectedFormat}
                   targetDevice="universal"
-                  showAdvanced={showAdvancedOptions}
                 />
               </div>
             )}
@@ -167,10 +165,7 @@ export const EbookConverterPage: React.FC<EbookConverterPageProps> = ({
                   borderColor: 'var(--color-neutral-200)'
                 }}
               >
-                <IconEbook 
-                  className="w-12 h-12 mx-auto mb-4" 
-                  style={{ color: 'var(--color-neutral-900)', opacity: '0.3' }}
-                />
+                <IconEbook className="w-12 h-12 mx-auto mb-4 text-neutral-900/30" />
                 <p 
                   style={{ 
                     color: 'var(--color-neutral-900)', 

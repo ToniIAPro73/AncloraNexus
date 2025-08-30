@@ -1,7 +1,10 @@
 export const EbookValidationService = {
   getInstance() {
     return {
-      validateEbook: async () => ({ isValid: true, quality: 'good', issues: [], metadata: {} })
+      validateEbook: async (_file: File) => {
+        // Minimal mock validation
+        return { valid: true, errors: [] };
+      }
     };
   }
 };

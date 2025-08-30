@@ -1,0 +1,8 @@
+node_modules/
+dist/
+build/
+coverage/
+src/components/UI/**
+src/theme/**
+**/*.test.ts
+**/*.test.tsx

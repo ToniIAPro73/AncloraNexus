@@ -1,5 +1,14 @@
 export * from './Badge';
-export * from './ButtonComponent';
+export * from './Accordion';
+export * from './Avatar';
+export { Button } from './button';
+export type { ButtonProps } from './button';
 export * from './Card';
-export * from './Progress';
+export * from './Dropdown';
 export * from './FileUpload';
+export * from './Modal';
+export * from './Progress';
+export * from './Tabs';
+export * from './Toast';
+export * from './Tooltip';
+export * from './Select';
