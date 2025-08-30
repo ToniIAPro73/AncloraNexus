@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Card, CardHeader, CardContent, CardTitle } from './ui';
-import { Button } from './ui';
+import { Card, CardHeader, CardContent, CardTitle } from './ui/Card';
+import { Button } from './ui-components';
 import { MessageCircle, Send, Bot, Sparkles, Trash, Copy, User, ChevronDown, ChevronRight } from 'lucide-react';
 
 interface Message {
@@ -324,22 +324,22 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
             <div className="flex items-center">
               <Bot className="mr-2 text-primary" />
               <CardTitle>Asistente de Conversión</CardTitle>
-            </div>
-            <div className="flex">
-              <Button
-                className="bg-transparent text-sm px-2 py-1"
-                onClick={() => setShowConversationHistory(!showConversationHistory)}
-                title="Ver historial"
-              >
-                <MessageCircle size={18} />
-              </Button>
-              <Button
-                className="bg-transparent text-sm px-2 py-1"
-                onClick={clearConversation}
-                title="Nueva conversación"
-              >
-                <Trash size={18} />
-              </Button>
+              <div className="flex">
+                <Button
+                  className="bg-transparent text-sm px-2 py-1"
+                  onClick={() => setShowConversationHistory(!showConversationHistory)}
+                  title="Ver historial"
+                >
+                  <MessageCircle size={18} />
+                </Button>
+                <Button
+                  className="bg-transparent text-sm px-2 py-1"
+                  onClick={clearConversation}
+                  title="Nueva conversación"
+                >
+                  <Trash size={18} />
+                </Button>
+              </div>
             </div>
           </div>
         </CardHeader>
@@ -416,8 +416,6 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
                       
                       {!message.isUser && (
                         <Button
-                          variant="ghost"
-                          size="sm"
                           className="h-6 w-6 p-0 ml-2"
                           onClick={() => handleCopyMessage(message.text)}
                         >
@@ -425,6 +423,7 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
                         </Button>
                       )}
                     </div>
+
                     <div className="whitespace-pre-wrap text-sm">
                       {message.text}
                     </div>
@@ -454,8 +453,6 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
                   {currentSuggestions.map((suggestion) => (
                     <Button
                       key={suggestion.id}
-                      variant="outline"
-                      size="sm"
                       onClick={suggestion.action}
                       className="text-xs"
                     >
@@ -500,7 +497,6 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
                   disabled={isTyping}
                 />
                 <Button
-                  variant={inputText.trim() ? 'primary' : 'ghost'}
                   className="rounded-l-none"
                   onClick={() => handleSendMessage()}
                   disabled={isTyping || !inputText.trim()}

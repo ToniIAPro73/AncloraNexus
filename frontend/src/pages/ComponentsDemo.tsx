@@ -13,9 +13,14 @@ import {
   useToast,
   Accordion,
   Badge,
-  Select,
-  ConfirmModal
+  Select
 } from '../components/ui';
+// Update the path below to the correct location and filename for ConfirmModal
+// For example, if the file is named confirm-modal.tsx, use the correct casing and path:
+// import { ConfirmModal } from '../components/ui/confirm-modal';
+// Update the path below to the correct location of ConfirmModal:
+import { ConfirmModal } from '../components/ui/ConfirmModal';
+// If the file is in a different folder or has a different name, adjust accordingly.
 import { 
   Settings, 
   Bell, 
@@ -31,7 +36,10 @@ import {
   Image,
   Download
 } from 'lucide-react';
-import { MainLayout } from '../layouts';
+// Update the import path below to the correct location of MainLayout if needed
+import { MainLayout } from '../layouts/MainLayout';
+// If your MainLayout is in a different file, adjust the path accordingly, e.g.:
+// import { MainLayout } from '../components/layouts/MainLayout';
 
 // Demo component to showcase all the interactive UI components
 const ComponentsDemo = () => {

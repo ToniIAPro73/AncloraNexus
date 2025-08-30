@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Header } from '../components/Header';
-import { Card } from '../components/ui';
+import { Card } from '../components/ui-components';
 import { useAuth } from '../hooks/useAuth';
 import { useFileConversions } from '../hooks/useFileConversions';
-import { ToastProvider } from '../components/ui';
+import { ToastProvider } from '../components/ui/Toast';
 import { ConversionOptions } from '../services/ConversionService';
 
 // Componente para la página principal de conversión
@@ -17,10 +17,6 @@ export function ConversionDashboard() {
   });
   
   const { user } = useAuth();
-  const userPlan: 'free' | 'premium' | 'business' =
-    user?.plan === 'premium' || user?.plan === 'business' || user?.plan === 'free'
-      ? user.plan
-      : 'free';
   const { 
     files, 
     batches, 
@@ -80,7 +76,10 @@ export function ConversionDashboard() {
   return (
     <ToastProvider>
       <div className="flex flex-col min-h-screen bg-background">
-        <Header onMenuToggle={() => {}} userPlan={userPlan} />
+        <Header 
+          onMenuToggle={() => {}} 
+          userPlan={user?.plan || 'free'}
+        />
         
         <main className="flex-1 p-4 md:p-6">
           <div className="max-w-7xl mx-auto">
@@ -304,17 +303,17 @@ export function ConversionDashboard() {
                 <h2 className="text-xl font-semibold mb-4">Lotes de conversión</h2>
                 
                 <div className="space-y-6">
-                  {Object.values(batches).map((batch) => (
-                    <div key={batch.batchId} className="border border-border rounded-md p-4">
+                  {Object.entries(batches).map(([batchId, batch]) => (
+                    <div key={batchId} className="border border-border rounded-md p-4">
                       <div className="flex justify-between items-center mb-2">
-                        <h3 className="font-medium">Lote #{batch.batchId.split('_')[1]}</h3>
+                        <h3 className="font-medium">Lote #{batchId.split('_')[1]}</h3>
                         <span className="text-sm bg-accent/50 px-2 py-0.5 rounded">
-                          {batch.overallProgress === 100 ? 'Completado' : 'En progreso'}
+                          {((batch.completed + batch.failed + batch.inProgress) === batch.total && batch.total > 0 ? 'Completado' : 'En progreso')}
                         </span>
                       </div>
                       
                       <div className="flex gap-4 text-sm mb-2">
-                        <span>{batch.totalFiles} archivos</span>
+                        <span>{batch.total} archivos</span>
                         <span>•</span>
                         <span>{batch.completed} completados</span>
                         <span>•</span>
@@ -323,15 +322,24 @@ export function ConversionDashboard() {
                         <span>{batch.inProgress} en proceso</span>
                       </div>
                       
-                      <div className="h-1.5 w-full bg-accent/50 rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-primary"
-                          style={{ width: `${batch.overallProgress}%` }}
-                        />
-                      </div>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        {batch.overallProgress}% completado
-                      </p>
+                      {(() => {
+                        const percent = batch.total > 0
+                          ? Math.round(((batch.completed + batch.failed) / batch.total) * 100)
+                          : 0;
+                        return (
+                          <>
+                            <div className="h-1.5 w-full bg-accent/50 rounded-full overflow-hidden">
+                              <div 
+                                className="h-full bg-primary"
+                                style={{ width: `${percent}%` }}
+                              />
+                            </div>
+                            <p className="text-xs text-muted-foreground mt-1">
+                              {percent}% completado
+                            </p>
+                          </>
+                        );
+                      })()}
                     </div>
                   ))}
                 </div>

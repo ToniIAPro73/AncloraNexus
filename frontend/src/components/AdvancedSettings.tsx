@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Card, CardHeader, CardContent, CardTitle } from './ui';
-import { Button, Badge } from './ui';
+import { Card, CardHeader, CardContent, CardTitle } from './ui/Card';
+import { Button, Badge } from './ui-components';
 import { Settings, Sliders, RotateCw, Lock, Unlock, Info, Save, RefreshCw, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface ConversionSetting {
@@ -27,7 +27,6 @@ interface AdvancedSettingsProps {
   presets: { id: string; name: string; settings: Record<string, any> }[];
   onSelectPreset: (presetId: string) => void;
   className?: string;
-  onApplySettings?: (settings: Record<string, unknown>) => void;
 }
 
 export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
@@ -42,12 +41,13 @@ export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
   className = '',
 }) => {
   const [currentSettings, setCurrentSettings] = useState<Record<string, any>>(() => {
+    // Initialize with default settings
     return settings.reduce((acc, setting) => {
       acc[setting.id] = setting.default;
       return acc;
     }, {} as Record<string, any>);
   });
-
+  
   const [presetName, setPresetName] = useState('');
   const [showSavePreset, setShowSavePreset] = useState(false);
   const [expandedSections, setExpandedSections] = useState<string[]>(['basic']);
@@ -73,28 +73,44 @@ export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
       acc[setting.id] = setting.default;
       return acc;
     }, {} as Record<string, any>);
+    
     setCurrentSettings(defaultSettings);
     onChange(defaultSettings);
   };
 
   const toggleSection = (section: string) => {
-    setExpandedSections(prev =>
-      prev.includes(section) ? prev.filter(s => s !== section) : [...prev, section]
+    setExpandedSections(prev => 
+      prev.includes(section) 
+        ? prev.filter(s => s !== section) 
+        : [...prev, section]
     );
   };
 
-  const basicSettings = settings.filter(s => !s.isPremium && ['quality', 'size', 'format', 'compression'].includes(s.id));
-  const advancedSettings = settings.filter(s => !s.isPremium && !['quality', 'size', 'format', 'compression'].includes(s.id));
-  const premiumSettings = settings.filter(s => s.isPremium);
+  // Group settings by category
+  const basicSettings = settings.filter(setting => 
+    !setting.isPremium && 
+    ['quality', 'size', 'format', 'compression'].includes(setting.id)
+  );
+  
+  const advancedSettings = settings.filter(setting => 
+    !setting.isPremium && 
+    !['quality', 'size', 'format', 'compression'].includes(setting.id)
+  );
+  
+  const premiumSettings = settings.filter(setting => setting.isPremium);
 
+  // Render a setting control based on its type
   const renderSettingControl = (setting: ConversionSetting) => {
     const isDisabled = setting.isPremium && !isPremiumUser;
+    
     switch (setting.type) {
       case 'slider':
         return (
           <div>
             <div className="flex items-center justify-between mb-1">
-              <span className="text-sm text-slate-300">{currentSettings[setting.id]}{setting.unit}</span>
+              <span className="text-sm text-slate-300">
+                {currentSettings[setting.id]}{setting.unit}
+              </span>
               {setting.isPremium && !isPremiumUser && (
                 <Badge className="bg-yellow-400 text-xs ml-2 px-2 py-1 rounded">Premium</Badge>
               )}
@@ -115,6 +131,7 @@ export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
             </div>
           </div>
         );
+      
       case 'toggle':
         return (
           <div className="flex items-center justify-between">
@@ -123,18 +140,23 @@ export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
               {setting.isPremium && !isPremiumUser && (
                 <Badge className="bg-yellow-400 text-xs mr-2 px-2 py-1 rounded">Premium</Badge>
               )}
-              <button
-                className={`w-10 h-5 rounded-full relative ${currentSettings[setting.id] ? 'bg-primary' : 'bg-slate-700'} ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+              <button 
+                className={`w-10 h-5 rounded-full relative ${
+                  currentSettings[setting.id] ? 'bg-primary' : 'bg-slate-700'
+                } ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
                 onClick={() => !isDisabled && handleSettingChange(setting.id, !currentSettings[setting.id])}
                 disabled={isDisabled}
               >
-                <span
-                  className={`absolute w-4 h-4 bg-white rounded-full top-0.5 transition-transform ${currentSettings[setting.id] ? 'translate-x-5' : 'translate-x-0.5'}`}
+                <span 
+                  className={`absolute w-4 h-4 bg-white rounded-full top-0.5 transition-transform ${
+                    currentSettings[setting.id] ? 'translate-x-5' : 'translate-x-0.5'
+                  }`} 
                 />
               </button>
             </div>
           </div>
         );
+      
       case 'select':
         return (
           <div>
@@ -151,11 +173,14 @@ export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
               disabled={isDisabled}
             >
               {setting.options?.map(option => (
-                <option key={option.value} value={option.value}>{option.label}</option>
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
               ))}
             </select>
           </div>
         );
+      
       case 'number':
         return (
           <div>
@@ -178,6 +203,7 @@ export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
             />
           </div>
         );
+      
       default:
         return null;
     }
@@ -198,11 +224,13 @@ export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
           </div>
         </CardHeader>
         <CardContent>
+          {/* Preset selection */}
           {presets.length > 0 && (
             <div className="mb-4">
               <div className="flex items-center justify-between mb-2">
                 <label className="text-sm text-slate-300">Usar un preset</label>
-                <Button variant="outline" size="sm" onClick={() => setShowSavePreset(!showSavePreset)}>
+                <Button 
+                  onClick={() => setShowSavePreset(!showSavePreset)}>
                   <Save size={14} className="mr-2" />
                   Guardar Preset
                 </Button>
@@ -227,7 +255,10 @@ export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
                     placeholder="Nombre del preset"
                     className="flex-1 bg-slate-800 border border-slate-700 rounded p-2 text-sm text-slate-300"
                   />
-                  <Button variant="primary" size="sm" onClick={handleSavePreset} disabled={!presetName.trim()}>
+                  <Button 
+                    color="primary" 
+                    onClick={handleSavePreset}
+                    disabled={!presetName.trim()}>
                     Guardar
                   </Button>
                 </div>
@@ -235,8 +266,9 @@ export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
             </div>
           )}
 
+          {/* Basic Settings Section */}
           <div className="mb-4">
-            <button
+            <button 
               className="flex items-center justify-between w-full bg-slate-800/70 p-3 rounded-lg mb-3 border border-slate-700"
               onClick={() => toggleSection('basic')}
             >
@@ -246,6 +278,7 @@ export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
               </div>
               {expandedSections.includes('basic') ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
             </button>
+            
             {expandedSections.includes('basic') && (
               <div className="space-y-4 p-3">
                 {basicSettings.map(setting => (
@@ -263,9 +296,10 @@ export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
             )}
           </div>
 
+          {/* Advanced Settings Section */}
           {advancedSettings.length > 0 && (
             <div className="mb-4">
-              <button
+              <button 
                 className="flex items-center justify-between w-full bg-slate-800/70 p-3 rounded-lg mb-3 border border-slate-700"
                 onClick={() => toggleSection('advanced')}
               >
@@ -275,6 +309,7 @@ export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
                 </div>
                 {expandedSections.includes('advanced') ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
               </button>
+              
               {expandedSections.includes('advanced') && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-3">
                   {advancedSettings.map(setting => (
@@ -293,9 +328,10 @@ export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
             </div>
           )}
 
+          {/* Premium Settings Section */}
           {premiumSettings.length > 0 && (
             <div className="mb-4">
-              <button
+              <button 
                 className="flex items-center justify-between w-full bg-slate-800/70 p-3 rounded-lg mb-3 border border-slate-700"
                 onClick={() => toggleSection('premium')}
               >
@@ -306,10 +342,13 @@ export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
                     <Lock size={16} className="text-slate-400 mr-2" />
                   )}
                   <span className="text-white font-medium">Ajustes Premium</span>
-                  {!isPremiumUser && <Badge variant="warning" className="ml-2">Requiere Premium</Badge>}
+                  {!isPremiumUser && (
+                    <Badge variant="warning" className="ml-2">Requiere Premium</Badge>
+                  )}
                 </div>
                 {expandedSections.includes('premium') ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
               </button>
+              
               {expandedSections.includes('premium') && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-3">
                   {!isPremiumUser && (
@@ -318,8 +357,23 @@ export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
                         <Info size={20} className="text-amber-500 mr-2 mt-0.5" />
                         <div>
                           <h4 className="font-medium text-white">Desbloquea opciones premium</h4>
-                          <p className="text-sm text-slate-300 mt-1">Actualiza a una cuenta Premium para acceder a opciones avanzadas.</p>
-                          <Button variant="outline" size="sm" className="mt-2 bg-gradient-to-r from-amber-500/20 to-amber-600/20 border-amber-500/30 text-amber-500 hover:bg-amber-500/30">Actualizar a Premium</Button>
+                          <p className="text-sm text-slate-300 mt-1">
+                            Actualiza a una cuenta Premium para acceder a opciones avanzadas de conversión, mayor calidad y más funcionalidades.
+                          </p>
+                          <Button 
+                            color="outline"
+                            className="mt-2 bg-gradient-to-r from-amber-500/20 to-amber-600/20 border-amber-500/30 text-amber-500 hover:bg-amber-500/30"
+                          >
+                            Actualizar a Premium
+                          </Button>
+                          <Button 
+                            color="outline"
+                            onClick={handleResetToDefaults}
+                            className="mt-2 ml-2"
+                          >
+                            <RefreshCw size={14} className="mr-2" />
+                            Restablecer valores
+                          </Button>
                         </div>
                       </div>
                     </div>
@@ -331,7 +385,6 @@ export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
                           <h4 className="text-sm font-medium text-white">{setting.name}</h4>
                           <p className="text-xs text-slate-400">{setting.description}</p>
                         </div>
-                        {!isPremiumUser && <Badge variant="warning" className="ml-2">Requiere Premium</Badge>}
                       </div>
                       {renderSettingControl(setting)}
                     </div>
@@ -341,9 +394,18 @@ export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
             </div>
           )}
 
+          {/* Action Buttons */}
           <div className="flex justify-between mt-6">
-            <Button variant="outline" size="sm" iconLeft={<RefreshCw size={14} />} onClick={handleResetToDefaults}>Restablecer valores</Button>
-            <Button variant="primary" size="sm" onClick={() => onChange(currentSettings)}>
+            <Button 
+              color="outline" 
+              onClick={handleResetToDefaults}
+            >
+              <RefreshCw size={14} className="mr-2" />
+              Restablecer valores
+            </Button>
+            <Button 
+              color="primary"
+              onClick={() => onChange(currentSettings)}>
               <RotateCw size={14} className="mr-2" />
               Aplicar cambios
             </Button>

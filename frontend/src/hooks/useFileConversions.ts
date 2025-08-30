@@ -1,11 +1,11 @@
 import { useState, useCallback } from 'react';
 import { useNotifications } from '../components/NotificationSystem';
-import ConversionService, {
-  ConversionOptions,
-  ConversionResult,
+import ConversionService, { 
+  ConversionOptions, 
+  ConversionResult, 
   ConversionError,
-  BatchConversionStatus,
-} from '../services/ConversionService';
+  BatchConversionStatus
+} from './ConversionService';
 
 interface FileConversionStatus {
   id: string;
@@ -84,7 +84,7 @@ export const useFileConversions = (): UseFileConversionsReturn => {
         file,
         targetFormat,
         options,
-        (progress) => {
+        (progress: { progress: number }) => {
           // Actualizar progreso en la lista de archivos
           setFiles(prev => 
             prev.map(f => 
@@ -152,6 +152,12 @@ export const useFileConversions = (): UseFileConversionsReturn => {
   }, [notifyFileConversion, updateNotification, notifyError]);
   
   // Convierte múltiples archivos como lote
+  interface FileProgressInfo {
+    fileId: string;
+    fileName: string;
+    progress: number;
+  }
+
   const convertBatch = useCallback(async (
     filesToConvert: File[], 
     targetFormat: string,
@@ -183,13 +189,12 @@ export const useFileConversions = (): UseFileConversionsReturn => {
         `Procesando ${filesToConvert.length} archivos`
       );
       
-      // Iniciar conversión por lotes
-      await ConversionService.startBatchConversion(
+      const serviceBatchId = await ConversionService.startBatchConversion(
         filesToConvert,
         targetFormat,
         options,
         // Seguimiento de progreso por archivo
-        (fileProgress) => {
+        (fileProgress: FileProgressInfo) => {
           // Actualizar archivos del lote
           setBatches(prev => {
             const batch = prev[batchId];
@@ -243,7 +248,7 @@ export const useFileConversions = (): UseFileConversionsReturn => {
           });
         },
         // Seguimiento de progreso del lote completo
-        (batchStatus) => {
+        (batchStatus: BatchConversionStatus) => {
           setBatches(prev => {
             const batch = prev[batchId];
             if (!batch) return prev;
@@ -267,7 +272,7 @@ export const useFileConversions = (): UseFileConversionsReturn => {
         }
       );
       
-      return batchId;
+      return serviceBatchId;
     } catch (error) {
       console.error('Error al iniciar conversión por lotes:', error);
       

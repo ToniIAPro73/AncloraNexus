@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, TabsComposition } from './ui';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
+import { Card, CardContent, CardHeader, CardTitle } from './ui/Card';
 import { 
   FileUp, Settings, BarChart, FileStack, MessagesSquare, 
   FileSearch, Sliders
@@ -7,6 +8,9 @@ import {
 
 // Import our new components (corrected imports)
 // Note: These components should be updated to import from './ui' instead of './UI'
+// import { BatchConversion } from './BatchConversion';
+// import { BatchConversion } from './ui/BatchConversion';
+// import { BatchConversion } from './ui/BatchConversion';
 import { BatchConversion } from './BatchConversion';
 import { AdvancedSettings } from './AdvancedSettings';
 import { UsageAnalytics } from './UsageAnalytics';
@@ -143,13 +147,41 @@ export const AdvancedFeaturesDemo = () => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <TabsComposition value={activeTab} onChange={setActiveTab} variant="pills" className="w-full">
-            <TabsComposition.Tab value="batch" label={<span className="flex items-center"><FileStack className="h-5 w-5 mr-2" />Lote</span>}>
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid grid-cols-3 md:grid-cols-6 mb-6">
+              <TabsTrigger value="batch" className="flex flex-col items-center py-2">
+                <FileStack className="h-5 w-5 mb-1" />
+                <span>Lote</span>
+              </TabsTrigger>
+              <TabsTrigger value="settings" className="flex flex-col items-center py-2">
+                <Settings className="h-5 w-5 mb-1" />
+                <span>Configuración</span>
+              </TabsTrigger>
+              <TabsTrigger value="analytics" className="flex flex-col items-center py-2">
+                <BarChart className="h-5 w-5 mb-1" />
+                <span>Analítica</span>
+              </TabsTrigger>
+              <TabsTrigger value="formats" className="flex flex-col items-center py-2">
+                <FileSearch className="h-5 w-5 mb-1" />
+                <span>Formatos</span>
+              </TabsTrigger>
+              <TabsTrigger value="assistant" className="flex flex-col items-center py-2">
+                <MessagesSquare className="h-5 w-5 mb-1" />
+                <span>Asistente</span>
+              </TabsTrigger>
+              <TabsTrigger value="optimization" className="flex flex-col items-center py-2">
+                <Sliders className="h-5 w-5 mb-1" />
+                <span>Optimización</span>
+              </TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="batch" className="mt-4">
               <div className="max-w-5xl mx-auto">
                 <BatchConversion />
               </div>
-            </TabsComposition.Tab>
-            <TabsComposition.Tab value="settings" label={<span className="flex items-center"><Settings className="h-5 w-5 mr-2" />Configuración</span>}>
+            </TabsContent>
+            
+            <TabsContent value="settings" className="mt-4">
               <div className="max-w-5xl mx-auto">
                 <AdvancedSettings 
                   formatFrom="PDF"
@@ -162,14 +194,21 @@ export const AdvancedFeaturesDemo = () => {
                   onSelectPreset={handleSelectPreset}
                 />
               </div>
-            </TabsComposition.Tab>
-            <TabsComposition.Tab value="analytics" label={<span className="flex items-center"><BarChart className="h-5 w-5 mr-2" />Analítica</span>}>
-              <UsageAnalytics userId={demoUser.id} isPremiumUser={demoUser.isPremium} />
-            </TabsComposition.Tab>
-            <TabsComposition.Tab value="formats" label={<span className="flex items-center"><FileSearch className="h-5 w-5 mr-2" />Formatos</span>}>
-              <FormatComparison onSelectFormat={(formatId) => console.log(`Selected format: ${formatId}`)} />
-            </TabsComposition.Tab>
-            <TabsComposition.Tab value="assistant" label={<span className="flex items-center"><MessagesSquare className="h-5 w-5 mr-2" />Asistente</span>}>
+            </TabsContent>
+            
+            <TabsContent value="analytics" className="mt-4">
+              <UsageAnalytics 
+                isPremiumUser={demoUser.isPremium}
+              />
+            </TabsContent>
+            
+            <TabsContent value="formats" className="mt-4">
+              <FormatComparison 
+                onSelectFormat={(formatId) => console.log(`Selected format: ${formatId}`)}
+              />
+            </TabsContent>
+            
+            <TabsContent value="assistant" className="mt-4">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="md:col-span-2">
                   <Card className="h-full">
@@ -193,8 +232,9 @@ export const AdvancedFeaturesDemo = () => {
                   />
                 </div>
               </div>
-            </TabsComposition.Tab>
-            <TabsComposition.Tab value="optimization" label={<span className="flex items-center"><Sliders className="h-5 w-5 mr-2" />Optimización</span>}>
+            </TabsContent>
+            
+            <TabsContent value="optimization" className="mt-4">
               <ConversionOptimization 
                 fileName="informe_anual_2023.pdf"
                 fileSize={4500000}
@@ -203,8 +243,8 @@ export const AdvancedFeaturesDemo = () => {
                 onApplyOptimizations={(settings) => console.log('Applied optimizations:', settings)}
                 onDownload={() => console.log('Download optimized file')}
               />
-            </TabsComposition.Tab>
-          </TabsComposition>
+            </TabsContent>
+          </Tabs>
         </CardContent>
       </Card>
       
@@ -218,5 +258,3 @@ export const AdvancedFeaturesDemo = () => {
 };
 
 export default AdvancedFeaturesDemo;
-
-

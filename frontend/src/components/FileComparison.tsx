@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardHeader, CardContent, CardTitle, Badge, Button } from './ui';
+import { Card, CardHeader, CardContent, CardTitle, Badge, Button } from './ui-components';
 import { FileIcon, Eye, ArrowRight, Download, CheckCircle, RotateCcw } from 'lucide-react';
 
 interface FilePreview {
@@ -271,14 +271,14 @@ export const FileComparison: React.FC<FileComparisonProps> = ({
       {/* Actions */}
       <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-end space-y-3 sm:space-y-0 sm:space-x-3">
         <Button 
-          variant="outline" 
+          color="outline" 
           onClick={onNewConversion}
           iconLeft={<RotateCcw size={16} />}
         >
           Nueva Conversión
         </Button>
         <Button 
-          variant="primary" 
+          color="primary" 
           onClick={onDownload}
           iconLeft={<Download size={16} />}
         >

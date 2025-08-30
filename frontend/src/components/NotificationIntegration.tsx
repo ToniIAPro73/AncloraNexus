@@ -14,7 +14,6 @@ import { useNotifications, BatchOperationNotification, PremiumFeatureNotificatio
 export function useFileConversionNotifications() {
   const { 
     notifySuccess, 
-    notifyError: _notifyError,
     notifyInfo,
     notifyFileConversion,
     updateNotification

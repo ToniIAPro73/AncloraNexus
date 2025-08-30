@@ -1,6 +1,12 @@
 // src/hooks/useAuth.ts
 import { useState, useEffect, useCallback } from 'react';
-import type { User } from '../types/User';
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  plan: 'free' | 'premium' | 'business';
+}
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -39,16 +45,16 @@ export const useAuth = () => {
   }, []);
 
   // Función para iniciar sesión
-  const login = useCallback(async (email: string, _password: string) => {
+  const login = useCallback(async (email: string) => {
     try {
       setIsLoading(true);
       // En un caso real, esto sería una llamada a una API
       // Simulamos una respuesta exitosa
-      const mockUser: User = {
+      const mockUser = {
         id: Math.random().toString(36).substr(2, 9),
         name: email.split('@')[0],
         email,
-        plan: 'free'
+        plan: 'free' as const
       };
       
       setUser(mockUser);
