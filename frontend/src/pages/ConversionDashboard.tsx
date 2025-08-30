@@ -301,19 +301,19 @@ export function ConversionDashboard() {
             {Object.keys(batches).length > 0 && (
               <Card className="p-6">
                 <h2 className="text-xl font-semibold mb-4">Lotes de conversión</h2>
-                
+
                 <div className="space-y-6">
                   {Object.entries(batches).map(([batchId, batch]) => (
                     <div key={batchId} className="border border-border rounded-md p-4">
                       <div className="flex justify-between items-center mb-2">
                         <h3 className="font-medium">Lote #{batchId.split('_')[1]}</h3>
                         <span className="text-sm bg-accent/50 px-2 py-0.5 rounded">
-                          {((batch.completed + batch.failed + batch.inProgress) === batch.total && batch.total > 0 ? 'Completado' : 'En progreso')}
+                          {((batch.completed + batch.failed + batch.inProgress) === batch.totalFiles && batch.totalFiles > 0 ? 'Completado' : 'En progreso')}
                         </span>
                       </div>
                       
                       <div className="flex gap-4 text-sm mb-2">
-                        <span>{batch.total} archivos</span>
+                        <span>{batch.totalFiles} archivos</span>
                         <span>•</span>
                         <span>{batch.completed} completados</span>
                         <span>•</span>
@@ -321,15 +321,15 @@ export function ConversionDashboard() {
                         <span>•</span>
                         <span>{batch.inProgress} en proceso</span>
                       </div>
-                      
+
                       {(() => {
-                        const percent = batch.total > 0
-                          ? Math.round(((batch.completed + batch.failed) / batch.total) * 100)
+                        const percent = batch.totalFiles > 0
+                          ? Math.round(((batch.completed + batch.failed) / batch.totalFiles) * 100)
                           : 0;
                         return (
                           <>
                             <div className="h-1.5 w-full bg-accent/50 rounded-full overflow-hidden">
-                              <div 
+                              <div
                                 className="h-full bg-primary"
                                 style={{ width: `${percent}%` }}
                               />

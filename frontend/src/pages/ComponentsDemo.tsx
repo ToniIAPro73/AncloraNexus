@@ -1,26 +1,21 @@
 import { useState } from 'react';
-import { 
-  Button, 
-  Card, 
-  CardHeader, 
-  CardContent, 
-  CardTitle, 
-  Tabs, 
-  Modal, 
-  Dropdown, 
-  Tooltip, 
-  ToastProvider, 
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardContent,
+  CardTitle,
+  Tabs,
+  Modal,
+  ConfirmModal,
+  Dropdown,
+  Tooltip,
+  ToastProvider,
   useToast,
   Accordion,
   Badge,
   Select
 } from '../components/ui';
-// Update the path below to the correct location and filename for ConfirmModal
-// For example, if the file is named confirm-modal.tsx, use the correct casing and path:
-// import { ConfirmModal } from '../components/ui/confirm-modal';
-// Update the path below to the correct location of ConfirmModal:
-import { ConfirmModal } from '../components/ui/ConfirmModal';
-// If the file is in a different folder or has a different name, adjust accordingly.
 import { 
   Settings, 
   Bell, 
@@ -71,8 +66,9 @@ const ComponentsDemo = () => {
       label: 'Diálogos',
       badge: <Badge variant="primary" size="sm">Nuevo</Badge>,
       content: (
-        <DialogsSection 
+        <DialogsSection
           onOpenConfirmModal={() => setIsConfirmModalOpen(true)}
+          onShowToast={showToast}
         />
       )
     },
@@ -334,7 +330,7 @@ const ButtonsSection = ({ onShowToast, onOpenModal }: {
   </div>
 );
 
-const DialogsSection = ({ onOpenConfirmModal }: { onOpenConfirmModal: () => void }) => (
+const DialogsSection = ({ onOpenConfirmModal, onShowToast }: { onOpenConfirmModal: () => void; onShowToast: (options: any) => void }) => (
   <div className="space-y-6">
     <div>
       <h3 className="text-lg font-medium text-white mb-3">Tipos de diálogos</h3>
@@ -360,12 +356,11 @@ const DialogsSection = ({ onOpenConfirmModal }: { onOpenConfirmModal: () => void
               Notificaciones temporales no intrusivas
             </p>
             <div className="flex flex-wrap gap-2">
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 size="sm"
                 onClick={() => {
-                  const { showToast } = useToast();
-                  showToast({
+                  onShowToast({
                     title: 'Información',
                     message: 'Esta es una notificación informativa',
                     type: 'info'
@@ -374,12 +369,11 @@ const DialogsSection = ({ onOpenConfirmModal }: { onOpenConfirmModal: () => void
               >
                 Info
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 size="sm"
                 onClick={() => {
-                  const { showToast } = useToast();
-                  showToast({
+                  onShowToast({
                     title: 'Éxito',
                     message: 'Operación completada correctamente',
                     type: 'success'
@@ -388,12 +382,11 @@ const DialogsSection = ({ onOpenConfirmModal }: { onOpenConfirmModal: () => void
               >
                 Éxito
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 size="sm"
                 onClick={() => {
-                  const { showToast } = useToast();
-                  showToast({
+                  onShowToast({
                     title: 'Advertencia',
                     message: 'Debes revisar esta información',
                     type: 'warning'
@@ -402,12 +395,11 @@ const DialogsSection = ({ onOpenConfirmModal }: { onOpenConfirmModal: () => void
               >
                 Advertencia
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 size="sm"
                 onClick={() => {
-                  const { showToast } = useToast();
-                  showToast({
+                  onShowToast({
                     title: 'Error',
                     message: 'Ha ocurrido un problema al procesar la solicitud',
                     type: 'error',

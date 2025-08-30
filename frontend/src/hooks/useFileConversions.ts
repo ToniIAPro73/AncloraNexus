@@ -1,11 +1,11 @@
 import { useState, useCallback } from 'react';
 import { useNotifications } from '../components/NotificationSystem';
-import ConversionService, { 
-  ConversionOptions, 
-  ConversionResult, 
+import ConversionService, {
+  ConversionOptions,
+  ConversionResult,
   ConversionError,
   BatchConversionStatus
-} from './ConversionService';
+} from '../services/ConversionService';
 
 interface FileConversionStatus {
   id: string;

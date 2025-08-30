@@ -1,7 +1,7 @@
 // This file centralizes UI component imports to avoid case-sensitivity issues
 // Import components from the ui folder with proper casing
 
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from './ui/Card';
 import { Button } from './ui/button';
 import { Badge } from './ui/Badge';
 import { Tabs } from './ui/Tabs';
@@ -23,6 +23,7 @@ export {
   // Input,
   Progress,
   FileUpload,
-  Toast,
   ToastProvider
 };
+
+export type { Toast };
