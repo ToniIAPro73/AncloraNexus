@@ -1,29 +1,29 @@
-# 🎨 Guía de Branding - Anclora Metaform
+﻿# ðŸŽ¨ GuÃ­a de Branding - Anclora Nexus
 
-![Anclora Metaform Logo](./assets/anclora_metaform_logo.png)
+![Anclora Nexus Logo](./assets/anclora_Nexus_logo.png)
 
 ## Tu Contenido, Reinventado
 
-## 📋 Identidad de Marca
+## ðŸ“‹ Identidad de Marca
 
 ### **Nombre de la Marca**
 
 - **Empresa Matriz:** Anclora
-- **Producto:** Anclora Metaform
+- **Producto:** Anclora Nexus
 - **Tagline:** "Tu Contenido, Reinventado"
 
-### **Filosofía de Marca**
+### **FilosofÃ­a de Marca**
 
-Anclora Metaform representa la transformación inteligente del contenido. Nuestro enfoque es reinventar la manera en que los usuarios interactúan con sus archivos, ofreciendo conversiones potenciadas por IA que van más allá de la simple transformación de formatos.
+Anclora Nexus representa la transformaciÃ³n inteligente del contenido. Nuestro enfoque es reinventar la manera en que los usuarios interactÃºan con sus archivos, ofreciendo conversiones potenciadas por IA que van mÃ¡s allÃ¡ de la simple transformaciÃ³n de formatos.
 
-## 🎨 Elementos Visuales
+## ðŸŽ¨ Elementos Visuales
 
 ### **Logo**
 
-- **Archivo:** `anclora_metaform_logo.png`
-- **Diseño:** Formas fluidas entrelazadas en azul y azul marino
-- **Simbolismo:** Transformación, fluidez, conexión
-- **Uso:** Siempre acompañado del nombre "Anclora Metaform"
+- **Archivo:** `anclora_Nexus_logo.png`
+- **DiseÃ±o:** Formas fluidas entrelazadas en azul y azul marino
+- **Simbolismo:** TransformaciÃ³n, fluidez, conexiÃ³n
+- **Uso:** Siempre acompaÃ±ado del nombre "Anclora Nexus"
 
 ### **Paleta de Colores**
 
@@ -52,54 +52,54 @@ Anclora Metaform representa la transformación inteligente del contenido. Nuestr
 }
 ```
 
-### **Tipografía**
+### **TipografÃ­a**
 
 - **Fuente Principal:** System fonts (San Francisco, Segoe UI, Roboto)
-- **Títulos:** Font-weight 700, color azul oscuro
-- **Subtítulos:** Font-weight 500, color azul primario
+- **TÃ­tulos:** Font-weight 700, color azul oscuro
+- **SubtÃ­tulos:** Font-weight 500, color azul primario
 - **Texto:** Font-weight 400, color gris
 - **Tagline:** Font-style italic, font-weight 500
 
-## 🖼️ Uso del Logo
+## ðŸ–¼ï¸ Uso del Logo
 
-### **Tamaños Recomendados**
+### **TamaÃ±os Recomendados**
 
-- **Desktop Header:** 60px × 60px
-- **Mobile Header:** 50px × 50px
-- **Favicon:** 32px × 32px
-- **Documentación:** 120px × 120px
+- **Desktop Header:** 60px Ã— 60px
+- **Mobile Header:** 50px Ã— 50px
+- **Favicon:** 32px Ã— 32px
+- **DocumentaciÃ³n:** 120px Ã— 120px
 
 ### **Espaciado**
 
-- **Margen mínimo:** 1rem alrededor del logo
-- **Alineación:** Centro o izquierda según contexto
-- **Acompañamiento:** Siempre con texto de marca
+- **Margen mÃ­nimo:** 1rem alrededor del logo
+- **AlineaciÃ³n:** Centro o izquierda segÃºn contexto
+- **AcompaÃ±amiento:** Siempre con texto de marca
 
 ### **Efectos Visuales**
 
 - **Sombra:** `filter: drop-shadow(0 4px 8px rgba(59, 130, 246, 0.3))`
 - **Hover:** Ligero aumento de escala (1.05x)
-- **Transición:** `transition: all 0.3s ease`
+- **TransiciÃ³n:** `transition: all 0.3s ease`
 
-## 📱 Aplicación en Componentes
+## ðŸ“± AplicaciÃ³n en Componentes
 
-### **Header de Aplicación**
+### **Header de AplicaciÃ³n**
 
 ```jsx
 <div className="brand-header">
-  <img src={ancloraLogo} alt="Anclora Metaform" className="brand-logo" />
+  <img src={ancloraLogo} alt="Anclora Nexus" className="brand-logo" />
   <div className="brand-text">
-    <h1>Anclora Metaform</h1>
+    <h1>Anclora Nexus</h1>
     <p className="brand-tagline">Tu Contenido, Reinventado</p>
   </div>
 </div>
 ```
 
-### **Footer de Aplicación**
+### **Footer de AplicaciÃ³n**
 
 ```jsx
 <div className="converter-footer">
-  Powered by Anclora Metaform - Tu Contenido, Reinventado
+  Powered by Anclora Nexus - Tu Contenido, Reinventado
 </div>
 ```
 
@@ -107,37 +107,37 @@ Anclora Metaform representa la transformación inteligente del contenido. Nuestr
 
 ```javascript
 constructor() {
-  this.name = 'Anclora Metaform - [Tipo] Converter';
-  this.brand = 'Anclora Metaform';
+  this.name = 'Anclora Nexus - [Tipo] Converter';
+  this.brand = 'Anclora Nexus';
   this.tagline = 'Tu Contenido, Reinventado';
 }
 ```
 
-## 📄 Aplicación en Documentación
+## ðŸ“„ AplicaciÃ³n en DocumentaciÃ³n
 
 ### **Encabezados de Documentos**
 
 ```markdown
-# 🚀 [Título] - Anclora Metaform
+# ðŸš€ [TÃ­tulo] - Anclora Nexus
 
-![Anclora Metaform Logo](./assets/anclora_metaform_logo.png)
+![Anclora Nexus Logo](./assets/anclora_Nexus_logo.png)
 
 **Tu Contenido, Reinventado**
 ```
 
 ### **Referencias de Marca**
 
-- Siempre usar "Anclora Metaform" (no "Anclora" solo)
+- Siempre usar "Anclora Nexus" (no "Anclora" solo)
 - Incluir tagline en contextos promocionales
-- Mantener consistencia en toda la documentación
+- Mantener consistencia en toda la documentaciÃ³n
 
 ### **Estructura de Tests**
 
 - Documentar la nueva estructura de tests en `backend/tests/` y `frontend/tests/`
-- Incluir ejemplos de ejecución de tests en la documentación
+- Incluir ejemplos de ejecuciÃ³n de tests en la documentaciÃ³n
 - Mantener referencias consistentes a la nueva estructura
 
-## 🎯 Principios de Diseño
+## ðŸŽ¯ Principios de DiseÃ±o
 
 ### **Consistencia Visual**
 
@@ -147,21 +147,21 @@ constructor() {
 
 ### **Experiencia de Usuario**
 
-- Diseño limpio y profesional
-- Navegación intuitiva
+- DiseÃ±o limpio y profesional
+- NavegaciÃ³n intuitiva
 - Feedback visual claro
 
 ### **Accesibilidad**
 
 - Contraste adecuado para legibilidad
-- Tamaños de fuente apropiados
-- Soporte para dispositivos móviles
+- TamaÃ±os de fuente apropiados
+- Soporte para dispositivos mÃ³viles
 
-## 🔧 Implementación Técnica
+## ðŸ”§ ImplementaciÃ³n TÃ©cnica
 
 ### **Archivos Requeridos**
 
-- `anclora_metaform_logo.png` - Logo principal
+- `anclora_Nexus_logo.png` - Logo principal
 - `brand-styles.css` - Estilos de marca
 - Variables CSS definidas
 
@@ -169,7 +169,7 @@ constructor() {
 
 - `UniversalConverter.tsx` - Header con branding
 - Todos los conversores - Metadatos de marca
-- Documentación - Referencias consistentes
+- DocumentaciÃ³n - Referencias consistentes
 
 ### **Responsive Design**
 
@@ -189,8 +189,8 @@ constructor() {
 
 ### **Utilidades de Layout Responsivo**
 
-- `AppLayout` emplea **CSS Grid** con áreas nombradas `sidebar`, `header` y `main` para organizar la aplicación.
-- Se habilitó el plugin `@tailwindcss/container-queries` para usar `@container` y adaptar las columnas según el ancho del contenedor.
+- `AppLayout` emplea **CSS Grid** con Ã¡reas nombradas `sidebar`, `header` y `main` para organizar la aplicaciÃ³n.
+- Se habilitÃ³ el plugin `@tailwindcss/container-queries` para usar `@container` y adaptar las columnas segÃºn el ancho del contenedor.
 - Ejemplo:
 
 ```jsx
@@ -201,7 +201,7 @@ constructor() {
 </section>
 ```
 
-## ✅ Checklist de Implementación
+## âœ… Checklist de ImplementaciÃ³n
 
 ### **Componentes React**
 
@@ -216,12 +216,12 @@ constructor() {
 - [ ] Metadatos de marca
 - [ ] Comentarios actualizados
 
-### **Documentación**
+### **DocumentaciÃ³n**
 
 - [ ] README con logo
 - [ ] Instrucciones con branding
 - [ ] Referencias consistentes
-- [ ] Guía de branding incluida
+- [ ] GuÃ­a de branding incluida
 - [ ] Estructura de tests documentada
 
 ### **Assets**
@@ -236,15 +236,16 @@ constructor() {
 - [ ] Estructura de tests frontend actualizada
 - [ ] Referencias a tests actualizadas
 
-## 🚀 Resultado Final
+## ðŸš€ Resultado Final
 
-Con esta implementación, **Anclora Metaform** tiene una identidad visual homogénea y profesional que:
+Con esta implementaciÃ³n, **Anclora Nexus** tiene una identidad visual homogÃ©nea y profesional que:
 
 - **Refuerza la marca** en todos los puntos de contacto
-- **Mejora la percepción** de calidad y profesionalismo
+- **Mejora la percepciÃ³n** de calidad y profesionalismo
 - **Facilita el reconocimiento** de marca
 - **Mantiene consistencia** en toda la experiencia
 
 ---
 
-*Esta guía asegura que todos los elementos de Anclora Metaform mantengan una identidad visual coherente y profesional.*
+*Esta guÃ­a asegura que todos los elementos de Anclora Nexus mantengan una identidad visual coherente y profesional.*
+

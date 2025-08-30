@@ -1,4 +1,4 @@
-export * from './Badge';
+﻿export * from './Badge';
 export * from './Accordion';
 export * from './Avatar';
 export { Button } from './button';
@@ -12,3 +12,4 @@ export * from './Tabs';
 export * from './Toast';
 export * from './Tooltip';
 export * from './Select';
+

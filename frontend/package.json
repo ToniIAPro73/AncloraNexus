@@ -1,9 +1,9 @@
-{
-  "name": "anclora-metaform-frontend",
+﻿{
+  "name": "anclora-Nexus-frontend",
   "private": true,
   "version": "1.2.0",
   "type": "module",
-  "description": "Tu Contenido, Reinventado - Frontend para conversión inteligente de archivos",
+  "description": "Tu Contenido, Reinventado - Frontend para conversiÃ³n inteligente de archivos",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -71,7 +71,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ToniIAPro73/AncloraMetaform.git"
+    "url": "https://github.com/ToniIAPro73/AncloraNexus.git"
   },
   "keywords": [
     "file-conversion",
@@ -82,3 +82,4 @@
     "accessibility"
   ]
 }
+

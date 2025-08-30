@@ -1,4 +1,4 @@
-/* Estilos especÌficos para el Conversor Inteligente */
+Ôªø/* Estilos espec√≠ficos para el Conversor Inteligente */
 
 /* Colores principales */
 :root {
@@ -154,7 +154,7 @@
   margin-left: auto;
 }
 
-/* ¡rea de subida de archivos */
+/* √Årea de subida de archivos */
 .file-upload-area {
   border: 2px dashed rgba(255, 255, 255, 0.3);
   border-radius: 8px;
@@ -309,3 +309,4 @@
     width: 50px;
   }
 }
+

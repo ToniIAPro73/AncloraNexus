@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { Header } from './components/Header';
 import { AdvancedFeaturesWithNotifications } from './components/AdvancedFeaturesWithNotifications';
 import { ToastProvider } from './components/ui';
@@ -33,7 +33,7 @@ function App() {
                     <>
                       <h1 className="text-3xl font-bold mb-6">Anclora Nexus - Conversiones Avanzadas</h1>
                       <p className="mb-8 text-muted-foreground">
-                        Bienvenido a la plataforma de conversión de archivos más avanzada. Utiliza nuestras herramientas para convertir tus archivos con precisión y eficiencia.
+                        Bienvenido a la plataforma de conversiÃ³n de archivos mÃ¡s avanzada. Utiliza nuestras herramientas para convertir tus archivos con precisiÃ³n y eficiencia.
                       </p>
                       <AdvancedFeaturesWithNotifications />
                     </>
@@ -54,12 +54,12 @@ function App() {
               <div className="fixed inset-y-0 left-0 w-64 bg-background border-r border-border z-50 p-4 transform transition-transform md:hidden">
                 <div className="flex flex-col space-y-6">
                   <div className="flex items-center justify-between">
-                    <h2 className="text-lg font-semibold">Menú</h2>
+                    <h2 className="text-lg font-semibold">MenÃº</h2>
                     <button
                       className="p-1 rounded-sm hover:bg-accent/50"
                       onClick={() => setSidebarOpen(false)}
                     >
-                      ✕
+                      âœ•
                     </button>
                   </div>
                   <nav className="flex flex-col space-y-1">
@@ -79,19 +79,19 @@ function App() {
                       href="/analytics"
                       className="px-2 py-3 rounded-md hover:bg-accent/50"
                     >
-                      Analíticas
+                      AnalÃ­ticas
                     </a>
                     <a
                       href="/docs"
                       className="px-2 py-3 rounded-md hover:bg-accent/50"
                     >
-                      Documentación
+                      DocumentaciÃ³n
                     </a>
                     <a
                       href="/settings"
                       className="px-2 py-3 rounded-md hover:bg-accent/50"
                     >
-                      Configuración
+                      ConfiguraciÃ³n
                     </a>
                     <a
                       href="/help"
@@ -111,3 +111,4 @@ function App() {
 }
 
 export default App;
+

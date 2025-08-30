@@ -1,43 +1,44 @@
-Archivo con caracteres especiales problemáticos:
+﻿Archivo con caracteres especiales problemÃ¡ticos:
 
 Caracteres de control:
-	- Tabulación
+	- TabulaciÃ³n
 - Retorno de carro
-- Salto de línea
+- Salto de lÃ­nea
 
-Caracteres Unicode problemáticos:
-- Espacio de ancho cero: ​
-- Marca de orden de bytes: ﻿
-- Caracteres de dirección: ‎‏
-- Espacios especiales:   　
+Caracteres Unicode problemÃ¡ticos:
+- Espacio de ancho cero: â€‹
+- Marca de orden de bytes: ï»¿
+- Caracteres de direcciÃ³n: â€Žâ€
+- Espacios especiales:   ã€€
 
-Caracteres que pueden causar problemas en conversión:
-- Comillas tipográficas: " " ' '
-- Guiones especiales: – — ―
-- Puntos suspensivos: …
-- Símbolos de moneda: € £ ¥ ₹ ₽
-- Fracciones: ½ ⅓ ¼ ¾ ⅛
-- Superíndices: ¹ ² ³ ⁴ ⁵
-- Subíndices: ₁ ₂ ₃ ₄ ₅
+Caracteres que pueden causar problemas en conversiÃ³n:
+- Comillas tipogrÃ¡ficas: " " ' '
+- Guiones especiales: â€“ â€” â€•
+- Puntos suspensivos: â€¦
+- SÃ­mbolos de moneda: â‚¬ Â£ Â¥ â‚¹ â‚½
+- Fracciones: Â½ â…“ Â¼ Â¾ â…›
+- SuperÃ­ndices: Â¹ Â² Â³ â´ âµ
+- SubÃ­ndices: â‚ â‚‚ â‚ƒ â‚„ â‚…
 
 Caracteres de diferentes idiomas:
-- Árabe: العربية
-- Hebreo: עברית
-- Chino: 中文
-- Japonés: 日本語
-- Coreano: 한국어
-- Tailandés: ไทย
-- Hindi: हिन्दी
-- Ruso: Русский
+- Ãrabe: Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©
+- Hebreo: ×¢×‘×¨×™×ª
+- Chino: ä¸­æ–‡
+- JaponÃ©s: æ—¥æœ¬èªž
+- Coreano: í•œêµ­ì–´
+- TailandÃ©s: à¹„à¸—à¸¢
+- Hindi: à¤¹à¤¿à¤¨à¥à¤¦à¥€
+- Ruso: Ð ÑƒÑÑÐºÐ¸Ð¹
 
-Símbolos especiales:
-- Matemáticos: ∑ ∏ ∫ ∂ ∇ ∞ ≈ ≠ ≤ ≥
-- Flechas: ← → ↑ ↓ ↔ ↕ ↖ ↗ ↘ ↙
-- Formas: ■ □ ▲ △ ● ○ ★ ☆
-- Varios: ♠ ♣ ♥ ♦ ♪ ♫ ☀ ☁ ☂ ☃
+SÃ­mbolos especiales:
+- MatemÃ¡ticos: âˆ‘ âˆ âˆ« âˆ‚ âˆ‡ âˆž â‰ˆ â‰  â‰¤ â‰¥
+- Flechas: â† â†’ â†‘ â†“ â†” â†• â†– â†— â†˜ â†™
+- Formas: â–  â–¡ â–² â–³ â— â—‹ â˜… â˜†
+- Varios: â™  â™£ â™¥ â™¦ â™ª â™« â˜€ â˜ â˜‚ â˜ƒ
 
 Texto con formato invisible:
-Texto normal seguido de caracteres invisibles​‎‏﻿ y más texto.
+Texto normal seguido de caracteres invisiblesâ€‹â€Žâ€ï»¿ y mÃ¡s texto.
 
 Final del archivo con caracteres especiales.
+
 

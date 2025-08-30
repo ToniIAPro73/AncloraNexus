@@ -1,4 +1,4 @@
-export class AncloraMetaform {
+﻿export class AncloraNexus {
   webOptimizeBatch(_arg0: { inputs: string[]; formats: string[]; sizes: { width: number; suffix: string; }[]; quality: { webp: number; jpg: number; }; }) {
     throw new Error('Method not implemented.');
   }
@@ -19,7 +19,7 @@ export class AncloraMetaform {
     if (options && options.targetFormat === 'rar' && options.options && options.options.password === 'wrongpassword') {
       return Promise.resolve({
         success: false,
-        error: 'contraseña incorrecta'
+        error: 'contraseÃ±a incorrecta'
       });
     }
     
@@ -35,7 +35,7 @@ export class AncloraMetaform {
         options && options.inputPath && options.inputPath.includes('huge-archive.zip')) {
       return Promise.resolve({
         success: false,
-        error: 'excede tamaño máximo'
+        error: 'excede tamaÃ±o mÃ¡ximo'
       });
     }
     
@@ -53,7 +53,7 @@ export class AncloraMetaform {
     // Check if sequence length exceeds max allowed
     if (this.config && this.config.maxSequenceLength && 
         options && options.sequence && options.sequence.length > this.config.maxSequenceLength) {
-      throw new Error('La secuencia excede el máximo permitido');
+      throw new Error('La secuencia excede el mÃ¡ximo permitido');
     }
 
     const result: any = {
@@ -261,7 +261,7 @@ export class AncloraMetaform {
     if (options && options.inputPath && options.inputPath.includes('potential-bomb.zip')) {
       return Promise.resolve({
         success: false,
-        error: 'ratio de compresión excesivo'
+        error: 'ratio de compresiÃ³n excesivo'
       });
     }
     
@@ -281,7 +281,7 @@ export class AncloraMetaform {
         options && options.inputPath && options.inputPath.includes('huge-archive.zip')) {
       return Promise.resolve({
         success: false,
-        error: 'excede tamaño máximo'
+        error: 'excede tamaÃ±o mÃ¡ximo'
       });
     }
     

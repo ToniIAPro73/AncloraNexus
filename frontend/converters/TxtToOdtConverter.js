@@ -1,5 +1,5 @@
-/**
- * Conversor TxtToOdtConverter - Anclora Metaform
+﻿/**
+ * Conversor TxtToOdtConverter - Anclora Nexus
  * Tu Contenido, Reinventado
  */
 
@@ -8,27 +8,27 @@ const JSZip = (typeof require !== 'undefined') ? require('jszip') : window.JSZip
 
 class TxtToOdtConverter {
   constructor() {
-    this.name = 'Anclora Metaform - TxtToOdtConverter';
+    this.name = 'Anclora Nexus - TxtToOdtConverter';
     this.version = '1.0.0';
-    this.brand = 'Anclora Metaform';
+    this.brand = 'Anclora Nexus';
     this.tagline = 'Tu Contenido, Reinventado';
   }
 
   /**
    * Convierte contenido de texto a ODT
    * @param {string} textContent - Contenido del archivo TXT
-   * @param {Object} options - Opciones de conversión
-   * @returns {Object} - Resultado de la conversión
+   * @param {Object} options - Opciones de conversiÃ³n
+   * @returns {Object} - Resultado de la conversiÃ³n
    */
   async convert(textContent, options = {}) {
     try {
       // Validar entrada
       if (!textContent || typeof textContent !== 'string') {
-        throw new Error('Contenido de texto inválido');
+        throw new Error('Contenido de texto invÃ¡lido');
       }
 
       if (textContent.trim() === '') {
-        throw new Error('El archivo está vacío');
+        throw new Error('El archivo estÃ¡ vacÃ­o');
       }
 
       // Opciones por defecto
@@ -69,7 +69,7 @@ class TxtToOdtConverter {
   /**
    * Crea el archivo ODT completo
    * @param {string} textContent - Contenido original
-   * @param {Object} config - Configuración
+   * @param {Object} config - ConfiguraciÃ³n
    * @returns {Blob} - Archivo ODT como Blob
    */
   async createOdtFile(textContent, config) {
@@ -110,7 +110,7 @@ class TxtToOdtConverter {
 
   /**
    * Crea el archivo meta.xml
-   * @param {Object} config - Configuración
+   * @param {Object} config - ConfiguraciÃ³n
    * @returns {string} - Contenido de metadatos
    */
   createMeta(config) {
@@ -123,7 +123,7 @@ class TxtToOdtConverter {
                      office:version="1.2">
   <office:meta>
     <meta:generator>Anclora Converter v${this.version}</meta:generator>
-    this.brand = 'Anclora Metaform';
+    this.brand = 'Anclora Nexus';
     this.tagline = 'Tu Contenido, Reinventado';
     <dc:title>${this.escapeXml(config.title)}</dc:title>
     <dc:creator>${this.escapeXml(config.author)}</dc:creator>
@@ -137,7 +137,7 @@ class TxtToOdtConverter {
 
   /**
    * Crea el archivo styles.xml
-   * @param {Object} config - Configuración
+   * @param {Object} config - ConfiguraciÃ³n
    * @returns {string} - Contenido de estilos
    */
   createStyles(config) {
@@ -147,7 +147,7 @@ class TxtToOdtConverter {
                        xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" 
                        office:version="1.2">
   <office:styles>
-    <!-- Estilo de página por defecto -->
+    <!-- Estilo de pÃ¡gina por defecto -->
     <style:default-style style:family="paragraph">
       <style:paragraph-properties fo:text-align="justify"/>
       <style:text-properties style:font-name="${config.fontFamily}" 
@@ -156,12 +156,12 @@ class TxtToOdtConverter {
                             fo:country="${config.language.split('-')[1]}"/>
     </style:default-style>
     
-    <!-- Estilo de párrafo normal -->
+    <!-- Estilo de pÃ¡rrafo normal -->
     <style:style style:name="Standard" style:family="paragraph" style:class="text">
       <style:paragraph-properties fo:margin-bottom="0.212cm"/>
     </style:style>
     
-    <!-- Estilo de título principal -->
+    <!-- Estilo de tÃ­tulo principal -->
     <style:style style:name="Title" style:family="paragraph" style:class="title">
       <style:paragraph-properties fo:text-align="center" fo:margin-bottom="0.423cm"/>
       <style:text-properties fo:font-size="18pt" fo:font-weight="bold"/>
@@ -190,7 +190,7 @@ class TxtToOdtConverter {
       <style:text-properties fo:font-style="italic" fo:color="#666666"/>
     </style:style>
     
-    <!-- Estilo de código -->
+    <!-- Estilo de cÃ³digo -->
     <style:style style:name="Code" style:family="paragraph" style:class="text">
       <style:paragraph-properties fo:margin-left="0.635cm" fo:background-color="#f5f5f5" fo:padding="0.176cm"/>
       <style:text-properties style:font-name="Liberation Mono" fo:font-size="10pt"/>
@@ -215,7 +215,7 @@ class TxtToOdtConverter {
   /**
    * Crea el archivo content.xml
    * @param {string} textContent - Contenido original
-   * @param {Object} config - Configuración
+   * @param {Object} config - ConfiguraciÃ³n
    * @returns {string} - Contenido principal del documento
    */
   createContent(textContent, config) {
@@ -239,20 +239,20 @@ class TxtToOdtConverter {
   /**
    * Procesa el contenido de texto y lo convierte a formato ODT
    * @param {string} textContent - Contenido original
-   * @param {Object} config - Configuración
+   * @param {Object} config - ConfiguraciÃ³n
    * @returns {string} - Contenido procesado en XML ODT
    */
   processTextToOdt(textContent, config) {
     const lines = textContent.split('\n');
     let odtContent = [];
 
-    // Agregar título principal si está habilitado
+    // Agregar tÃ­tulo principal si estÃ¡ habilitado
     if (config.addMetadata) {
       odtContent.push(`<text:p text:style-name="Title">${this.escapeXml(config.title)}</text:p>`);
-      odtContent.push('<text:p text:style-name="Standard"/>'); // Línea vacía
+      odtContent.push('<text:p text:style-name="Standard"/>'); // LÃ­nea vacÃ­a
     }
 
-    // Procesar cada línea
+    // Procesar cada lÃ­nea
     let inList = false;
     let listLevel = 0;
 
@@ -262,7 +262,7 @@ class TxtToOdtConverter {
       const nextLine = i < lines.length - 1 ? lines[i + 1] : '';
       const prevLine = i > 0 ? lines[i - 1] : '';
 
-      // Líneas vacías
+      // LÃ­neas vacÃ­as
       if (trimmedLine === '') {
         if (inList) {
           odtContent.push('</text:list>');
@@ -272,7 +272,7 @@ class TxtToOdtConverter {
         continue;
       }
 
-      // Detectar títulos
+      // Detectar tÃ­tulos
       if (config.detectTitles) {
         const headerLevel = this.detectHeaderLevel(line, nextLine, prevLine, i);
         if (headerLevel > 0) {
@@ -304,13 +304,13 @@ class TxtToOdtConverter {
         inList = false;
       }
 
-      // Detectar texto con indentación (citas)
+      // Detectar texto con indentaciÃ³n (citas)
       if (this.isIndentedText(line)) {
         odtContent.push(`<text:p text:style-name="Quote">${this.escapeXml(trimmedLine)}</text:p>`);
         continue;
       }
 
-      // Detectar código
+      // Detectar cÃ³digo
       if (this.looksLikeCode(line)) {
         odtContent.push(`<text:p text:style-name="Code">${this.escapeXml(line)}</text:p>`);
         continue;
@@ -321,12 +321,12 @@ class TxtToOdtConverter {
       odtContent.push(`<text:p text:style-name="Standard">${formattedText}</text:p>`);
     }
 
-    // Cerrar lista si quedó abierta
+    // Cerrar lista si quedÃ³ abierta
     if (inList) {
       odtContent.push('</text:list>');
     }
 
-    // Agregar pie de página
+    // Agregar pie de pÃ¡gina
     if (config.addMetadata) {
       odtContent.push('<text:p text:style-name="Standard"/>');
       odtContent.push('<text:p text:style-name="Standard">___________________________</text:p>');
@@ -339,11 +339,11 @@ class TxtToOdtConverter {
   }
 
   /**
-   * Detecta el nivel de encabezado de una línea
-   * @param {string} line - Línea actual
-   * @param {string} nextLine - Línea siguiente
-   * @param {string} prevLine - Línea anterior
-   * @param {number} index - Índice de la línea
+   * Detecta el nivel de encabezado de una lÃ­nea
+   * @param {string} line - LÃ­nea actual
+   * @param {string} nextLine - LÃ­nea siguiente
+   * @param {string} prevLine - LÃ­nea anterior
+   * @param {number} index - Ãndice de la lÃ­nea
    * @returns {number} - Nivel de encabezado (0 si no es encabezado)
    */
   detectHeaderLevel(line, nextLine, prevLine, index) {
@@ -351,17 +351,17 @@ class TxtToOdtConverter {
     
     if (!trimmed) return 0;
     
-    // Títulos al inicio del documento
+    // TÃ­tulos al inicio del documento
     if (index < 3 && trimmed.length < 60 && !trimmed.includes('.') && !trimmed.includes(',')) {
       return 1;
     }
     
-    // Líneas que terminan con ':'
+    // LÃ­neas que terminan con ':'
     if (trimmed.endsWith(':') && trimmed.length < 80 && !trimmed.includes(',')) {
       return 2;
     }
     
-    // Líneas en mayúsculas
+    // LÃ­neas en mayÃºsculas
     if (trimmed === trimmed.toUpperCase() && 
         trimmed.length > 3 && 
         trimmed.length < 60 && 
@@ -369,8 +369,8 @@ class TxtToOdtConverter {
       return 2;
     }
     
-    // Títulos de sección
-    if (trimmed.match(/^(capítulo|chapter|sección|section|parte|part)\s+\d+/i)) {
+    // TÃ­tulos de secciÃ³n
+    if (trimmed.match(/^(capÃ­tulo|chapter|secciÃ³n|section|parte|part)\s+\d+/i)) {
       return 1;
     }
     
@@ -378,12 +378,12 @@ class TxtToOdtConverter {
   }
 
   /**
-   * Detecta si una línea es parte de una lista
-   * @param {string} line - Línea a evaluar
-   * @returns {Object} - Información de la lista
+   * Detecta si una lÃ­nea es parte de una lista
+   * @param {string} line - LÃ­nea a evaluar
+   * @returns {Object} - InformaciÃ³n de la lista
    */
   detectListItem(line) {
-    const match = line.match(/^(\s*)([-*+•]|\d+\.)\s+(.+)$/);
+    const match = line.match(/^(\s*)([-*+â€¢]|\d+\.)\s+(.+)$/);
     if (match) {
       const indent = match[1];
       const marker = match[2];
@@ -402,18 +402,18 @@ class TxtToOdtConverter {
   }
 
   /**
-   * Detecta si una línea tiene indentación significativa
-   * @param {string} line - Línea a evaluar
-   * @returns {boolean} - Tiene indentación
+   * Detecta si una lÃ­nea tiene indentaciÃ³n significativa
+   * @param {string} line - LÃ­nea a evaluar
+   * @returns {boolean} - Tiene indentaciÃ³n
    */
   isIndentedText(line) {
     return line.match(/^    /) && !this.detectListItem(line).isList && !this.looksLikeCode(line);
   }
 
   /**
-   * Determina si una línea parece código
-   * @param {string} line - Línea a evaluar
-   * @returns {boolean} - Parece código
+   * Determina si una lÃ­nea parece cÃ³digo
+   * @param {string} line - LÃ­nea a evaluar
+   * @returns {boolean} - Parece cÃ³digo
    */
   looksLikeCode(line) {
     const codePatterns = [
@@ -436,10 +436,10 @@ class TxtToOdtConverter {
   applyInlineFormatting(text) {
     let formatted = this.escapeXml(text);
 
-    // Detectar texto en mayúsculas como énfasis
+    // Detectar texto en mayÃºsculas como Ã©nfasis
     formatted = formatted.replace(/\b[A-Z]{3,}\b/g, '<text:span text:style-name="Strong">$&</text:span>');
 
-    // Detectar texto entre comillas como código inline
+    // Detectar texto entre comillas como cÃ³digo inline
     formatted = formatted.replace(/"([^"]+)"/g, '<text:span text:style-name="Code_20_Inline">$1</text:span>');
 
     // Detectar URLs
@@ -467,19 +467,19 @@ class TxtToOdtConverter {
   /**
    * Valida el archivo de entrada
    * @param {File} file - Archivo a validar
-   * @returns {Object} - Resultado de validación
+   * @returns {Object} - Resultado de validaciÃ³n
    */
   validateInput(file) {
     if (!file) {
-      return { valid: false, error: 'No se proporcionó archivo' };
+      return { valid: false, error: 'No se proporcionÃ³ archivo' };
     }
 
     if (file.size === 0) {
-      return { valid: false, error: 'El archivo está vacío' };
+      return { valid: false, error: 'El archivo estÃ¡ vacÃ­o' };
     }
 
     if (file.size > 10 * 1024 * 1024) { // 10MB
-      return { valid: false, error: 'El archivo es demasiado grande (máximo 10MB)' };
+      return { valid: false, error: 'El archivo es demasiado grande (mÃ¡ximo 10MB)' };
     }
 
     const allowedTypes = ['text/plain', 'text/txt', ''];
@@ -494,7 +494,7 @@ class TxtToOdtConverter {
    * Procesa un archivo completo
    * @param {File} file - Archivo a procesar
    * @param {Object} options - Opciones
-   * @returns {Promise<Object>} - Resultado de la conversión
+   * @returns {Promise<Object>} - Resultado de la conversiÃ³n
    */
   async processFile(file, options = {}) {
     try {
@@ -548,4 +548,5 @@ if (typeof module !== 'undefined' && module.exports) {
 } else if (typeof window !== 'undefined') {
   window.TxtToOdtConverter = TxtToOdtConverter;
 }
+
 

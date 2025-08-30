@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+﻿import React, { createContext, useContext, useState } from 'react';
 
 export type ToastType = 'success' | 'error' | 'info' | 'warning';
 export interface Toast { id: string; type?: ToastType; title: string; message?: string; action?: { label: string; onClick: () => void }; duration?: number }
@@ -35,3 +35,4 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     </ToastCtx.Provider>
   );
 };
+

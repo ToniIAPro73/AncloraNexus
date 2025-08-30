@@ -1,4 +1,4 @@
-import json
+﻿import json
 from pathlib import Path
 
 import pytest
@@ -11,18 +11,18 @@ from src.encoding_normalizer import (
 
 
 def test_detect_encoding():
-    data = "áéíóú".encode("utf-16")
+    data = "Ã¡Ã©Ã­Ã³Ãº".encode("utf-16")
     assert detect_encoding(data).lower().startswith("utf-16")
 
 
 def test_repair_mojibake():
-    bad = "España".encode("utf-8").decode("latin1")  # -> 'EspaÃ±a'
-    assert repair_mojibake(bad) == "España"
+    bad = "EspaÃ±a".encode("utf-8").decode("latin1")  # -> 'EspaÃƒÂ±a'
+    assert repair_mojibake(bad) == "EspaÃ±a"
 
 
 def test_normalize_to_utf8(tmp_path):
     file_path = tmp_path / "sample.txt"
-    file_path.write_bytes("áéíóú".encode("utf-16"))
+    file_path.write_bytes("Ã¡Ã©Ã­Ã³Ãº".encode("utf-16"))
 
     # ensure log clean
     log_file = Path(__file__).resolve().parents[2] / "logs/encoding/encoding_normalizer.log"
@@ -30,7 +30,7 @@ def test_normalize_to_utf8(tmp_path):
         log_file.unlink()
 
     entry = normalize_to_utf8(file_path)
-    assert file_path.read_text(encoding="utf-8") == "áéíóú"
+    assert file_path.read_text(encoding="utf-8") == "Ã¡Ã©Ã­Ã³Ãº"
     assert Path(entry["backup"]).exists()
 
 
@@ -42,8 +42,8 @@ def test_normalize_to_utf8(tmp_path):
 @pytest.mark.parametrize(
     "encoding,text,expected_substring",
     [
-        ("utf-16", "áéíóú", "utf-16"),
-        ("latin1", "canción número", "iso-8859"),
+        ("utf-16", "Ã¡Ã©Ã­Ã³Ãº", "utf-16"),
+        ("latin1", "canciÃ³n nÃºmero", "iso-8859"),
         ("utf-8-sig", "hola", "utf-8"),
     ],
 )
@@ -57,8 +57,8 @@ def test_detect_encoding_multiple(encoding, text, expected_substring):
 @pytest.mark.parametrize(
     "encoding,text",
     [
-        ("utf-16", "áéíóú"),
-        ("latin1", "canción número"),
+        ("utf-16", "Ã¡Ã©Ã­Ã³Ãº"),
+        ("latin1", "canciÃ³n nÃºmero"),
         ("utf-8-sig", "hola"),
     ],
 )
@@ -70,4 +70,5 @@ def test_normalize_to_utf8_multiple(tmp_path, encoding, text):
     entry = normalize_to_utf8(file_path)
     assert file_path.read_text(encoding="utf-8") == text
     assert Path(entry["backup"]).exists()
+
 

@@ -1,4 +1,4 @@
-// frontend/src/components/CreditSystem/index.tsx
+﻿// frontend/src/components/CreditSystem/index.tsx
 import React, { createContext, useContext, useState, ReactNode, useMemo } from "react";
 import { 
   CreditBalance as CreditBalanceType, 
@@ -29,7 +29,7 @@ export const CreditProvider: React.FC<CreditProviderProps> = ({
   initialBalance = {} 
 }) => {
   const [balance, setBalance] = useState<CreditBalanceType>({
-    current: 50, // Plan gratuito: 50 cr�ditos
+    current: 50, // Plan gratuito: 50 crï¿½ditos
     total_purchased: 0,
     total_consumed: 0,
     plan_credits: 50,
@@ -42,14 +42,14 @@ export const CreditProvider: React.FC<CreditProviderProps> = ({
       id: "1",
       type: "bonus",
       amount: 50,
-      description: "Cr�ditos gratuitos del plan Explorador Plus",
+      description: "Crï¿½ditos gratuitos del plan Explorador Plus",
       timestamp: new Date()
     }
   ]);
 
   const [currency, setCurrency] = useState<"eur" | "usd">("eur");
 
-  // Memoizar esta funci�n para evitar rec�lculos innecesarios
+  // Memoizar esta funciï¿½n para evitar recï¿½lculos innecesarios
   const getSizeMultiplier = useMemo(() => (fileSize: number): number => {
     if (fileSize < 10 * 1024 * 1024) return SIZE_MULTIPLIERS.small;
     if (fileSize < 100 * 1024 * 1024) return SIZE_MULTIPLIERS.medium;
@@ -62,7 +62,7 @@ export const CreditProvider: React.FC<CreditProviderProps> = ({
     fileSize: number,
     quality: keyof typeof QUALITY_MULTIPLIERS = "standard"
   ): number => {
-    // Verificar si el tipo de conversi�n existe
+    // Verificar si el tipo de conversiï¿½n existe
     const baseCost = CONVERSION_COSTS[conversionType as keyof typeof CONVERSION_COSTS];
     
     // Si no existe, usar un valor predeterminado y registrar una advertencia
@@ -115,7 +115,7 @@ export const CreditProvider: React.FC<CreditProviderProps> = ({
     description: string
   ): void => {
     if (amount <= 0) {
-      console.warn("Intentando a�adir una cantidad no v�lida de cr�ditos:", amount);
+      console.warn("Intentando aï¿½adir una cantidad no vï¿½lida de crï¿½ditos:", amount);
       return;
     }
 
@@ -168,4 +168,5 @@ export { CONVERSION_COSTS, SIZE_MULTIPLIERS, QUALITY_MULTIPLIERS };
 export { default as CreditBalance } from "./CreditBalance";
 export { default as CreditHistory } from "./CreditHistory";
 export { default as ConversionCost } from "./ConversionCost";
+
 

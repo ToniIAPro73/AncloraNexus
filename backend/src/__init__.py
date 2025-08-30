@@ -1,4 +1,4 @@
-from flask import Flask
+﻿from flask import Flask
 from flask_jwt_extended import JWTManager
 
 from src.models.user import db
@@ -29,3 +29,4 @@ def create_app(config=None):
     app.register_blueprint(credits_bp, url_prefix="/api/credits")
 
     return app
+

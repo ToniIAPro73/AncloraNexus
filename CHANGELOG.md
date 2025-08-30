@@ -1,113 +1,114 @@
-# Changelog
+﻿# Changelog
 
-Todos los cambios notables de este proyecto serán documentados en este archivo.
+Todos los cambios notables de este proyecto serÃ¡n documentados en este archivo.
 
-El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
+El formato estÃ¡ basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [1.0.1] - 2025-08-25
 
-### 📚 Documentación
-- Añadidas guías de dependencias e instalación para frontend y backend
+### ðŸ“š DocumentaciÃ³n
+- AÃ±adidas guÃ­as de dependencias e instalaciÃ³n para frontend y backend
 - README actualizado para frontend y nuevo README para backend
 
 ## [1.0.0] - 2024-07-16
 
-### 🎉 Lanzamiento Inicial
+### ðŸŽ‰ Lanzamiento Inicial
 
-#### ✨ Añadido
+#### âœ¨ AÃ±adido
 
-- **Conversores Universales**: Implementación completa de 6 conversores de archivos
-  - TXT → HTML: Conversión a páginas web con estilos CSS profesionales
-  - TXT → DOC: Generación de documentos Word (.docx) compatibles
-  - TXT → MD: Conversión a Markdown con detección automática de estructura
-  - TXT → RTF: Formato de texto enriquecido con compatibilidad universal
-  - TXT → ODT: Documentos OpenDocument estándar
-  - TXT → TEX: Conversión a LaTeX para documentos académicos
+- **Conversores Universales**: ImplementaciÃ³n completa de 6 conversores de archivos
+  - TXT â†’ HTML: ConversiÃ³n a pÃ¡ginas web con estilos CSS profesionales
+  - TXT â†’ DOC: GeneraciÃ³n de documentos Word (.docx) compatibles
+  - TXT â†’ MD: ConversiÃ³n a Markdown con detecciÃ³n automÃ¡tica de estructura
+  - TXT â†’ RTF: Formato de texto enriquecido con compatibilidad universal
+  - TXT â†’ ODT: Documentos OpenDocument estÃ¡ndar
+  - TXT â†’ TEX: ConversiÃ³n a LaTeX para documentos acadÃ©micos
 
-- **Branding Completo**: Identidad visual Anclora Metaform integrada
+- **Branding Completo**: Identidad visual Anclora Nexus integrada
   - Logo oficial en alta calidad
   - Paleta de colores corporativa (azules)
   - Estilos CSS unificados con variables de marca
   - Tagline "Tu Contenido, Reinventado"
 
-- **Sistema de Testing Robusto**: Batería de pruebas exhaustiva con Vitest
+- **Sistema de Testing Robusto**: BaterÃ­a de pruebas exhaustiva con Vitest
   - 37+ casos de prueba automatizados
-  - Pruebas unitarias y de integración
-  - Validación con archivos reales
-  - Cobertura de código completa
+  - Pruebas unitarias y de integraciÃ³n
+  - ValidaciÃ³n con archivos reales
+  - Cobertura de cÃ³digo completa
   - Helpers de testing especializados
 
-- **Análisis de Competencia**: Investigación de mercado completa
-  - Análisis de empresas líderes mundiales
+- **AnÃ¡lisis de Competencia**: InvestigaciÃ³n de mercado completa
+  - AnÃ¡lisis de empresas lÃ­deres mundiales
   - Matrices de conversiones detalladas
-  - Comparativas de precios y políticas
-  - Casos de uso y secuencias de conversión
+  - Comparativas de precios y polÃ­ticas
+  - Casos de uso y secuencias de conversiÃ³n
 
 - **Arquitectura Escalable**: Estructura de proyecto profesional
-  - Separación frontend/backend clara
+  - SeparaciÃ³n frontend/backend clara
   - Componentes React reutilizables
   - Sistema de tipos TypeScript
-  - Configuración de desarrollo completa
+  - ConfiguraciÃ³n de desarrollo completa
 
-#### 🔧 Técnico
+#### ðŸ”§ TÃ©cnico
 
 - **Frontend**: React 18 + Next.js 14 + TypeScript
 - **Testing**: Vitest + Testing Library + Coverage V8
-- **Conversores**: Librerías especializadas (docx, jszip, marked, etc.)
+- **Conversores**: LibrerÃ­as especializadas (docx, jszip, marked, etc.)
 - **Calidad**: ESLint + Prettier + Husky + Lint-staged
-- **CI/CD**: Configuración para GitHub Actions
+- **CI/CD**: ConfiguraciÃ³n para GitHub Actions
 
-#### 📊 Métricas de Calidad
+#### ðŸ“Š MÃ©tricas de Calidad
 
-- **Tasa de éxito conversiones**: 100% en pruebas automatizadas
-- **Cobertura de código**: 85%+ en componentes críticos
-- **Tiempo de conversión**: <2s para archivos estándar
-- **Compatibilidad**: Todos los formatos validados técnicamente
+- **Tasa de Ã©xito conversiones**: 100% en pruebas automatizadas
+- **Cobertura de cÃ³digo**: 85%+ en componentes crÃ­ticos
+- **Tiempo de conversiÃ³n**: <2s para archivos estÃ¡ndar
+- **Compatibilidad**: Todos los formatos validados tÃ©cnicamente
 
-#### 🎯 Paridad Competitiva
+#### ðŸŽ¯ Paridad Competitiva
 
 - **Formatos soportados**: 10 conversiones (vs 11 de Online-File-Converter)
 - **Ventaja adicional**: Formato GIF que competencia no ofrece
 - **Calidad**: Nivel profesional en todas las conversiones
-- **Velocidad**: Optimizada para conversiones rápidas
+- **Velocidad**: Optimizada para conversiones rÃ¡pidas
 
-### 🚀 Próximas Versiones
+### ðŸš€ PrÃ³ximas Versiones
 
 #### [1.1.0] - Planificado
 
-- Motor de conversión avanzado con rutas multi-paso
-- Conversiones de imágenes (PNG, JPG, GIF)
+- Motor de conversiÃ³n avanzado con rutas multi-paso
+- Conversiones de imÃ¡genes (PNG, JPG, GIF)
 - API REST para integraciones
 - Dashboard de usuario mejorado
 
 #### [1.2.0] - Planificado  
 
 - Conversiones multimedia (video/audio)
-- Sistema de barajas y gamificación
-- Integración con servicios cloud
-- Modo batch para conversiones múltiples
+- Sistema de barajas y gamificaciÃ³n
+- IntegraciÃ³n con servicios cloud
+- Modo batch para conversiones mÃºltiples
 
 #### [2.0.0] - Futuro
 
 - Conversiones de e-books (EPUB, MOBI, AZW)
-- IA avanzada para optimización automática
+- IA avanzada para optimizaciÃ³n automÃ¡tica
 - Plantillas personalizables
-- API pública para desarrolladores
+- API pÃºblica para desarrolladores
 
 ---
 
 ## Formato de Versiones
 
 - **MAJOR**: Cambios incompatibles en la API
-- **MINOR**: Funcionalidades nuevas compatibles hacia atrás  
+- **MINOR**: Funcionalidades nuevas compatibles hacia atrÃ¡s  
 - **PATCH**: Correcciones de bugs compatibles
 
 ## Tipos de Cambios
 
-- **✨ Añadido**: Nuevas funcionalidades
-- **🔧 Cambiado**: Cambios en funcionalidades existentes
-- **❌ Deprecado**: Funcionalidades que serán removidas
-- **🗑️ Removido**: Funcionalidades removidas
-- **🐛 Corregido**: Corrección de bugs
-- **🔒 Seguridad**: Vulnerabilidades corregidas
+- **âœ¨ AÃ±adido**: Nuevas funcionalidades
+- **ðŸ”§ Cambiado**: Cambios en funcionalidades existentes
+- **âŒ Deprecado**: Funcionalidades que serÃ¡n removidas
+- **ðŸ—‘ï¸ Removido**: Funcionalidades removidas
+- **ðŸ› Corregido**: CorrecciÃ³n de bugs
+- **ðŸ”’ Seguridad**: Vulnerabilidades corregidas
+

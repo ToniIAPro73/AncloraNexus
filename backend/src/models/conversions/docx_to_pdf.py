@@ -1,4 +1,4 @@
-import os, shutil, tempfile, uuid
+﻿import os, shutil, tempfile, uuid
 from fpdf import FPDF
 from PIL import Image, ImageDraw
 from docx import Document
@@ -21,6 +21,7 @@ def convert(input_path, output_path):
         pdf.set_font("Arial", size=12)
         pdf.multi_cell(0, 10, text)
         pdf.output(output_path)
-        return True, "Conversión exitosa"
+        return True, "ConversiÃ³n exitosa"
     except Exception as e:
-        return False, f"Error en conversión DOCX→PDF: {str(e)}"
+        return False, f"Error en conversiÃ³n DOCXâ†’PDF: {str(e)}"
+

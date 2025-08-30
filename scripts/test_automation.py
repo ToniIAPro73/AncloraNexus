@@ -1,17 +1,17 @@
-import json
+﻿import json
 import time
 import os
 from datetime import datetime
 
-# Cargar configuración de archivos de prueba
+# Cargar configuraciÃ³n de archivos de prueba
 try:
     with open('/home/ubuntu/test_results.json', 'r') as f:
         test_config = json.load(f)
 except FileNotFoundError:
-    # Fallback vacío para evitar errores durante la importación en entornos de prueba
+    # Fallback vacÃ­o para evitar errores durante la importaciÃ³n en entornos de prueba
     test_config = {"test_files": []}
 
-# Configuración de pruebas
+# ConfiguraciÃ³n de pruebas
 test_conversions = [
     {"from": "txt", "to": "pdf", "expected_cost": 1},
     {"from": "txt", "to": "html", "expected_cost": 1},
@@ -39,7 +39,7 @@ def log_test_result(file_name, conversion, status, error_msg=None, duration=None
     """Registrar resultado de una prueba"""
     result = {
         "file": file_name,
-        "conversion": f"{conversion['from']} → {conversion['to']}",
+        "conversion": f"{conversion['from']} â†’ {conversion['to']}",
         "expected_cost": conversion['expected_cost'],
         "status": status,
         "timestamp": datetime.now().isoformat(),
@@ -57,12 +57,12 @@ def log_test_result(file_name, conversion, status, error_msg=None, duration=None
     else:
         test_results["error_tests"] += 1
     
-    print(f"[{status.upper()}] {file_name} ({conversion['from']} → {conversion['to']})")
+    print(f"[{status.upper()}] {file_name} ({conversion['from']} â†’ {conversion['to']})")
     if error_msg:
         print(f"  Error: {error_msg}")
 
 def simulate_conversion_test(file_info, conversion):
-    """Simular una prueba de conversión"""
+    """Simular una prueba de conversiÃ³n"""
     start_time = time.time()
     
     try:
@@ -71,17 +71,17 @@ def simulate_conversion_test(file_info, conversion):
             log_test_result(file_info['name'], conversion, "error", "Archivo no encontrado")
             return
         
-        # Verificar tamaño del archivo
+        # Verificar tamaÃ±o del archivo
         file_size = os.path.getsize(file_info['path'])
         if file_size > 100 * 1024 * 1024:  # 100MB
             log_test_result(file_info['name'], conversion, "failed", "Archivo demasiado grande")
             return
         
-        # Simular tiempo de conversión basado en tamaño
+        # Simular tiempo de conversiÃ³n basado en tamaÃ±o
         conversion_time = min(0.5 + (file_size / 1024 / 1024) * 0.1, 5.0)
         time.sleep(conversion_time)
         
-        # Verificar si es un archivo problemático
+        # Verificar si es un archivo problemÃ¡tico
         if file_info['category'] == 'corrupted':
             if 'malformed' in file_info['name']:
                 log_test_result(file_info['name'], conversion, "failed", "Archivo malformado")
@@ -90,18 +90,18 @@ def simulate_conversion_test(file_info, conversion):
                 log_test_result(file_info['name'], conversion, "failed", "Datos binarios en archivo de texto")
                 return
         
-        # Verificar si es un archivo vacío
+        # Verificar si es un archivo vacÃ­o
         if file_size == 0 or file_size <= 2:
-            log_test_result(file_info['name'], conversion, "failed", "Archivo vacío")
+            log_test_result(file_info['name'], conversion, "failed", "Archivo vacÃ­o")
             return
         
-        # Verificar compatibilidad de conversión
+        # Verificar compatibilidad de conversiÃ³n
         file_ext = file_info['name'].split('.')[-1].lower()
         if file_ext != conversion['from']:
-            log_test_result(file_info['name'], conversion, "error", f"Extensión {file_ext} no coincide con {conversion['from']}")
+            log_test_result(file_info['name'], conversion, "error", f"ExtensiÃ³n {file_ext} no coincide con {conversion['from']}")
             return
         
-        # Conversiones que deberían fallar
+        # Conversiones que deberÃ­an fallar
         problematic_conversions = [
             ("txt", "jpg"),  # Texto a imagen
             ("png", "csv"),  # Imagen a datos
@@ -109,10 +109,10 @@ def simulate_conversion_test(file_info, conversion):
         ]
         
         if (conversion['from'], conversion['to']) in problematic_conversions:
-            log_test_result(file_info['name'], conversion, "failed", "Conversión no compatible")
+            log_test_result(file_info['name'], conversion, "failed", "ConversiÃ³n no compatible")
             return
         
-        # Simular éxito
+        # Simular Ã©xito
         duration = time.time() - start_time
         log_test_result(file_info['name'], conversion, "success", duration=duration)
         
@@ -121,16 +121,16 @@ def simulate_conversion_test(file_info, conversion):
         log_test_result(file_info['name'], conversion, "error", str(e), duration)
 
 def run_comprehensive_tests():
-    """Ejecutar batería completa de pruebas"""
-    print("🚀 Iniciando batería de pruebas de conversión...")
-    print(f"📁 Archivos de prueba: {len(test_config['test_files'])}")
-    print(f"🔄 Conversiones a probar: {len(test_conversions)}")
+    """Ejecutar baterÃ­a completa de pruebas"""
+    print("ðŸš€ Iniciando baterÃ­a de pruebas de conversiÃ³n...")
+    print(f"ðŸ“ Archivos de prueba: {len(test_config['test_files'])}")
+    print(f"ðŸ”„ Conversiones a probar: {len(test_conversions)}")
     print("-" * 60)
     
     for file_info in test_config['test_files']:
-        print(f"\n📄 Probando archivo: {file_info['name']} ({file_info['size']})")
+        print(f"\nðŸ“„ Probando archivo: {file_info['name']} ({file_info['size']})")
         
-        # Determinar qué conversiones probar para este archivo
+        # Determinar quÃ© conversiones probar para este archivo
         file_ext = file_info['name'].split('.')[-1].lower()
         
         applicable_conversions = [
@@ -139,7 +139,7 @@ def run_comprehensive_tests():
         ]
         
         if not applicable_conversions:
-            print(f"  ⚠️  No hay conversiones aplicables para .{file_ext}")
+            print(f"  âš ï¸  No hay conversiones aplicables para .{file_ext}")
             continue
         
         for conversion in applicable_conversions:
@@ -151,7 +151,7 @@ def run_comprehensive_tests():
     
     # Mostrar resumen
     print("\n" + "="*60)
-    print("📊 RESUMEN DE PRUEBAS")
+    print("ðŸ“Š RESUMEN DE PRUEBAS")
     print("="*60)
     print(f"Total de pruebas: {test_results['total_tests']}")
     print(f"Exitosas: {test_results['successful_tests']}")
@@ -160,9 +160,10 @@ def run_comprehensive_tests():
     
     if test_results['total_tests'] > 0:
         success_rate = (test_results['successful_tests'] / test_results['total_tests']) * 100
-        print(f"Tasa de éxito: {success_rate:.1f}%")
+        print(f"Tasa de Ã©xito: {success_rate:.1f}%")
     
-    print(f"\n📄 Resultados detallados guardados en: test_results_detailed.json")
+    print(f"\nðŸ“„ Resultados detallados guardados en: test_results_detailed.json")
 
 if __name__ == "__main__":
     run_comprehensive_tests()
+

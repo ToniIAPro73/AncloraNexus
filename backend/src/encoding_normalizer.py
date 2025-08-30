@@ -1,11 +1,11 @@
-import json
+﻿import json
 import re
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timezone
 
 import chardet
 
-MOJIBAKE_RE = re.compile(r"Ã|Â|â€")
+MOJIBAKE_RE = re.compile(r"Ãƒ|Ã‚|Ã¢â‚¬")
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 LOG_DIR = BASE_DIR / "logs" / "encoding"
@@ -52,7 +52,7 @@ def normalize_to_utf8(path, bom: bool = False) -> dict:
     file_path = Path(path)
     raw = file_path.read_bytes()
     detected = detect_encoding(raw)
-    text = raw.decode(detected or "utf-8", errors="ignore")
+    text = raw.decode(detected or "utf-8", errors="replace")
     repaired = repair_mojibake(text)
     encoded = repaired.encode("utf-8-sig" if bom else "utf-8")
 
@@ -65,7 +65,7 @@ def normalize_to_utf8(path, bom: bool = False) -> dict:
         "backup": str(backup_path),
         "from": detected,
         "to": "utf-8-sig" if bom else "utf-8",
-        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "timestamp": datetime.now(timezone.utc).isoformat() + "Z",
     }
     _log_entry(entry)
     return entry
@@ -83,7 +83,8 @@ def undo_normalization(path) -> bool:
     entry = {
         "path": str(file_path),
         "action": "undo",
-        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "timestamp": datetime.now(timezone.utc).isoformat() + "Z",
     }
     _log_entry(entry)
     return True
+

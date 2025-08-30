@@ -1,4 +1,4 @@
-export interface ConversionPath {
+﻿export interface ConversionPath {
   path: string[];
   steps: number;
   quality: number;
@@ -19,3 +19,4 @@ export const getBestPaths = (): ConversionPath[] => [
     description: 'Direct conversion',
   },
 ];
+

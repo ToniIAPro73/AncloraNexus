@@ -1,5 +1,5 @@
-# ================================
-# ANCLORA METAFORM - CENTRALIZED CONFIGURATION
+﻿# ================================
+# ANCLORA Nexus - CENTRALIZED CONFIGURATION
 # Fase 3: Arquitectura optimizada
 # ================================
 
@@ -77,3 +77,4 @@ def get_config():
     """Get configuration based on environment"""
     env = os.environ.get('FLASK_ENV', 'development')
     return config.get(env, config['default'])
+

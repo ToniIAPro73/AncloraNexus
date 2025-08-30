@@ -1,4 +1,4 @@
-module.exports = {
+﻿module.exports = {
   root: true,
   env: {
     browser: true,
@@ -23,7 +23,7 @@ module.exports = {
     'coverage/',
     'src/components/UI/**',
     'tests/**',
-    'src/AncloraMetaform.ts',
+    'src/AncloraNexus.ts',
     '**/*.test.ts',
     '**/*.test.tsx',
   ],
@@ -48,3 +48,4 @@ module.exports = {
     ],
   },
 };
+

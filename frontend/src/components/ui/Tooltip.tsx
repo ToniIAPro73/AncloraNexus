@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+﻿import React, { useEffect, useRef, useState } from 'react';
 
 export const Tooltip: React.FC<{ content: React.ReactNode; children: React.ReactNode; position?: 'top'|'right'|'bottom'|'left'; maxWidth?: string }>=({ content, children, position='top', maxWidth })=>{
   const [open,setOpen]=useState(false); const ref=useRef<HTMLDivElement>(null);
@@ -13,3 +13,4 @@ export const Tooltip: React.FC<{ content: React.ReactNode; children: React.React
     </div>
   );
 };
+

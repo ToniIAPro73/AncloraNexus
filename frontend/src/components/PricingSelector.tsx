@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 
 interface PricingPlan {
   id: string;
@@ -16,16 +16,16 @@ const pricingPlans: PricingPlan[] = [
   {
     id: 'free',
     name: 'Explorador Plus',
-    description: 'Gateway de Adquisición Gratuito',
+    description: 'Gateway de AdquisiciÃ³n Gratuito',
     monthlyPrice: { eur: 0, usd: 0 },
     annualPrice: { eur: 0, usd: 0 },
     credits: 50,
     features: [
-      '50 créditos mensuales',
-      'Conversiones básicas',
+      '50 crÃ©ditos mensuales',
+      'Conversiones bÃ¡sicas',
       'Archivos hasta 25MB',
-      '5 consultas IA básicas',
-      'Certificaciones básicas'
+      '5 consultas IA bÃ¡sicas',
+      'Certificaciones bÃ¡sicas'
     ]
   },
   {
@@ -36,8 +36,8 @@ const pricingPlans: PricingPlan[] = [
     annualPrice: { eur: 29.99, usd: 32.49 },
     credits: 500,
     features: [
-      '500 créditos mensuales',
-      'Catálogo completo 150+ formatos',
+      '500 crÃ©ditos mensuales',
+      'CatÃ¡logo completo 150+ formatos',
       'Archivos hasta 1GB',
       'Agente IA avanzado ilimitado',
       'Conversiones multi-paso',
@@ -55,9 +55,9 @@ const pricingPlans: PricingPlan[] = [
     annualPrice: { eur: 67.99, usd: 73.99 },
     credits: 1500,
     features: [
-      '1,500 créditos mensuales',
+      '1,500 crÃ©ditos mensuales',
       'Todas las funcionalidades Pro',
-      'Archivos sin límite de tamaño',
+      'Archivos sin lÃ­mite de tamaÃ±o',
       'Agente IA personalizable',
       'API 100,000 llamadas/mes',
       'Integraciones directas',
@@ -75,14 +75,14 @@ const pricingPlans: PricingPlan[] = [
     annualPrice: { eur: 229.99, usd: 249.99 },
     credits: 5000,
     features: [
-      '5,000 créditos mensuales',
+      '5,000 crÃ©ditos mensuales',
       'Todas las funcionalidades Business',
       'Agente IA entrenado personalizado',
-      'API dedicada sin límites',
-      'Implementación on-premise',
+      'API dedicada sin lÃ­mites',
+      'ImplementaciÃ³n on-premise',
       'Certificaciones personalizadas',
       'Cumplimiento regulatorio',
-      'Consultoría técnica 20h/mes',
+      'ConsultorÃ­a tÃ©cnica 20h/mes',
       'Gerente de cuenta dedicado',
       'SLA 99.9% garantizado'
     ],
@@ -107,7 +107,7 @@ export const PricingSelector: React.FC = () => {
   const [showCredits, setShowCredits] = useState(false);
 
   const formatPrice = (price: number, curr: Currency) => {
-    const symbol = curr === 'eur' ? '€' : '$';
+    const symbol = curr === 'eur' ? 'â‚¬' : '$';
     return `${symbol}${price.toFixed(2)}`;
   };
 
@@ -131,7 +131,7 @@ export const PricingSelector: React.FC = () => {
           Elige tu Plan Anclora
         </h2>
         <p className="text-xl text-unified-secondary mb-8">
-          Transparencia total, flexibilidad máxima, precios justos
+          Transparencia total, flexibilidad mÃ¡xima, precios justos
         </p>
 
         {/* Currency and Billing Toggle */}
@@ -148,7 +148,7 @@ export const PricingSelector: React.FC = () => {
                     : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
-                EUR (€)
+                EUR (â‚¬)
               </button>
               <button
                 onClick={() => setCurrency('usd')}
@@ -165,7 +165,7 @@ export const PricingSelector: React.FC = () => {
 
           {/* Billing Cycle Toggle */}
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-gray-700">Facturación:</span>
+            <span className="text-sm font-medium text-gray-700">FacturaciÃ³n:</span>
             <div className="flex bg-gray-100 rounded-lg p-1">
               <button
                 onClick={() => setBillingCycle('monthly')}
@@ -205,7 +205,7 @@ export const PricingSelector: React.FC = () => {
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              Planes de Suscripción
+              Planes de SuscripciÃ³n
             </button>
             <button
               onClick={() => setShowCredits(true)}
@@ -215,7 +215,7 @@ export const PricingSelector: React.FC = () => {
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              Paquetes de Créditos
+              Paquetes de CrÃ©ditos
             </button>
           </div>
         </div>
@@ -236,7 +236,7 @@ export const PricingSelector: React.FC = () => {
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                   <span className="bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-medium">
-                    Más Popular
+                    MÃ¡s Popular
                   </span>
                 </div>
               )}
@@ -266,7 +266,7 @@ export const PricingSelector: React.FC = () => {
 
                   <div className="text-center mb-4">
                     <span className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm font-medium">
-                      {plan.credits.toLocaleString()} créditos/mes
+                      {plan.credits.toLocaleString()} crÃ©ditos/mes
                     </span>
                   </div>
                 </div>
@@ -318,14 +318,14 @@ export const PricingSelector: React.FC = () => {
                 <div className="text-2xl font-bold text-unified-primary mb-2">
                   {pkg.credits.toLocaleString()}
                 </div>
-                <div className="text-unified-secondary text-sm mb-4">créditos</div>
+                <div className="text-unified-secondary text-sm mb-4">crÃ©ditos</div>
                 
                 <div className="text-3xl font-bold text-blue-400 mb-2">
                   {formatPrice(currency === 'eur' ? pkg.eur : pkg.usd, currency)}
                 </div>
                 
                 <div className="text-gray-500 text-sm mb-4">
-                  {formatPrice((currency === 'eur' ? pkg.eur : pkg.usd) / pkg.credits, currency)}/crédito
+                  {formatPrice((currency === 'eur' ? pkg.eur : pkg.usd) / pkg.credits, currency)}/crÃ©dito
                 </div>
 
                 {pkg.discount > 0 && (
@@ -335,7 +335,7 @@ export const PricingSelector: React.FC = () => {
                 )}
 
                 <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors">
-                  Comprar Créditos
+                  Comprar CrÃ©ditos
                 </button>
               </div>
             </div>
@@ -346,7 +346,7 @@ export const PricingSelector: React.FC = () => {
       {/* Features Comparison */}
       <div className="mt-16 text-center">
         <h3 className="text-h3 font-bold text-gray-900 mb-4">
-          Características de los Créditos
+          CaracterÃ­sticas de los CrÃ©ditos
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="flex flex-col items-center p-4">
@@ -355,8 +355,8 @@ export const PricingSelector: React.FC = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h4 className="text-h4 font-semibold text-gray-900 mb-2">Sin Expiración</h4>
-            <p className="text-gray-600 text-sm text-center">Los créditos nunca caducan</p>
+            <h4 className="text-h4 font-semibold text-gray-900 mb-2">Sin ExpiraciÃ³n</h4>
+            <p className="text-gray-600 text-sm text-center">Los crÃ©ditos nunca caducan</p>
           </div>
           
           <div className="flex flex-col items-center p-4">
@@ -376,7 +376,7 @@ export const PricingSelector: React.FC = () => {
               </svg>
             </div>
             <h4 className="text-h4 font-semibold text-gray-900 mb-2">Transparentes</h4>
-            <p className="text-gray-600 text-sm text-center">Coste exacto mostrado antes de conversión</p>
+            <p className="text-gray-600 text-sm text-center">Coste exacto mostrado antes de conversiÃ³n</p>
           </div>
           
           <div className="flex flex-col items-center p-4">
@@ -398,24 +398,25 @@ export const PricingSelector: React.FC = () => {
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <h4 className="text-h4 font-semibold text-gray-900 mb-2">¿Puedo cambiar de plan en cualquier momento?</h4>
-            <p className="text-gray-600 text-sm">Sí, puedes actualizar o degradar tu plan en cualquier momento. Los cambios se aplican inmediatamente.</p>
+            <h4 className="text-h4 font-semibold text-gray-900 mb-2">Â¿Puedo cambiar de plan en cualquier momento?</h4>
+            <p className="text-gray-600 text-sm">SÃ­, puedes actualizar o degradar tu plan en cualquier momento. Los cambios se aplican inmediatamente.</p>
           </div>
           <div>
-            <h4 className="text-h4 font-semibold text-gray-900 mb-2">¿Qué sucede si no uso todos mis créditos?</h4>
-            <p className="text-gray-600 text-sm">Los créditos no utilizados se acumulan al mes siguiente. Nunca pierdes créditos pagados.</p>
+            <h4 className="text-h4 font-semibold text-gray-900 mb-2">Â¿QuÃ© sucede si no uso todos mis crÃ©ditos?</h4>
+            <p className="text-gray-600 text-sm">Los crÃ©ditos no utilizados se acumulan al mes siguiente. Nunca pierdes crÃ©ditos pagados.</p>
           </div>
           <div>
-            <h4 className="text-h4 font-semibold text-gray-900 mb-2">¿Puedo comprar créditos adicionales?</h4>
-            <p className="text-gray-600 text-sm">Sí, puedes comprar paquetes de créditos adicionales en cualquier momento con descuentos por volumen.</p>
+            <h4 className="text-h4 font-semibold text-gray-900 mb-2">Â¿Puedo comprar crÃ©ditos adicionales?</h4>
+            <p className="text-gray-600 text-sm">SÃ­, puedes comprar paquetes de crÃ©ditos adicionales en cualquier momento con descuentos por volumen.</p>
           </div>
           <div>
-            <h4 className="text-h4 font-semibold text-gray-900 mb-2">¿Hay descuentos para facturación anual?</h4>
-            <p className="text-gray-600 text-sm">Sí, obtienes hasta 15% de descuento al pagar anualmente en lugar de mensualmente.</p>
+            <h4 className="text-h4 font-semibold text-gray-900 mb-2">Â¿Hay descuentos para facturaciÃ³n anual?</h4>
+            <p className="text-gray-600 text-sm">SÃ­, obtienes hasta 15% de descuento al pagar anualmente en lugar de mensualmente.</p>
           </div>
         </div>
       </div>
     </div>
   );
 };
+
 

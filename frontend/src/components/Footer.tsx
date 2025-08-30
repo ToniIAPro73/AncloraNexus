@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { IconConverterLogo, IconEnvelope, IconChatBubble, IconVisa, IconMastercard, IconChevronDown } from './Icons';
 
 const FooterLink: React.FC<{ href: string; children: React.ReactNode }> = ({ href, children }) => (
@@ -15,8 +15,8 @@ export const Footer: React.FC = () => {
             <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="py-12 grid grid-cols-1 md:grid-cols-2 gap-12 border-b-2 border-slate-700">
                     <div>
-                        <h3 className="text-h3 font-bold mb-4">¿Todavía tienes una pregunta?</h3>
-                        <p className="text-slate-400">Póngase en contacto con nuestro amable equipo de soporte.</p>
+                        <h3 className="text-h3 font-bold mb-4">Â¿TodavÃ­a tienes una pregunta?</h3>
+                        <p className="text-slate-400">PÃ³ngase en contacto con nuestro amable equipo de soporte.</p>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                         <div className="flex items-start space-x-4">
@@ -40,7 +40,7 @@ export const Footer: React.FC = () => {
                     <div className="col-span-2 md:col-span-1">
                         <IconConverterLogo className="w-12 h-12 text-green-400 mb-4" />
                         <button className="w-full sm:w-auto flex items-center justify-between px-4 py-2 bg-slate-700 rounded-md text-left">
-                            <span>Español</span>
+                            <span>EspaÃ±ol</span>
                             <IconChevronDown className="w-5 h-5" />
                         </button>
                     </div>
@@ -52,9 +52,9 @@ export const Footer: React.FC = () => {
                             <FooterLink href="#">Documento</FooterLink>
                             <FooterLink href="#">Audio</FooterLink>
                             <FooterLink href="#">Video</FooterLink>
-                            <FooterLink href="#">Presentación</FooterLink>
+                            <FooterLink href="#">PresentaciÃ³n</FooterLink>
                             <FooterLink href="#">Fuente</FooterLink>
-                            <FooterLink href="#">Libro Electrónico</FooterLink>
+                            <FooterLink href="#">Libro ElectrÃ³nico</FooterLink>
                             <FooterLink href="#">Archivo</FooterLink>
                         </ul>
                     </div>
@@ -81,7 +81,7 @@ export const Footer: React.FC = () => {
                             <FooterLink href="#">FAQ</FooterLink>
                         </ul>
                         <a href="#" className="mt-6 inline-block w-full text-center px-4 py-2 border border-white rounded-md hover:bg-white hover:text-slate-800 font-semibold transition-colors">
-                            Iniciar sesión
+                            Iniciar sesiÃ³n
                         </a>
                     </div>
                 </div>
@@ -89,8 +89,8 @@ export const Footer: React.FC = () => {
                 <div className="py-8 flex flex-col md:flex-row justify-between items-center border-t-2 border-slate-700">
                     <div className="flex space-x-6">
                         <FooterLink href="#">Aviso legal</FooterLink>
-                        <FooterLink href="#">Política de privacidad</FooterLink>
-                        <FooterLink href="#">Términos y condiciones generales</FooterLink>
+                        <FooterLink href="#">PolÃ­tica de privacidad</FooterLink>
+                        <FooterLink href="#">TÃ©rminos y condiciones generales</FooterLink>
                         <FooterLink href="#">Darse de baja</FooterLink>
                     </div>
                     <div className="flex items-center space-x-4 mt-6 md:mt-0">
@@ -104,3 +104,4 @@ export const Footer: React.FC = () => {
         </footer>
     );
 };
+

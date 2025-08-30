@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { Card, TabsComposition } from './ui';
 // ensure TabsComposition import through barrel
 import { useNotifications, BatchOperationNotification, PremiumFeatureNotification } from './NotificationSystem';
@@ -52,7 +52,7 @@ export const AdvancedFeaturesWithNotifications = () => {
     }));
 
     setFiles((prev) => [...prev, ...processedFiles]);
-    notifySuccess(`${newFiles.length} archivos añadidos`, `Se han añadido ${newFiles.length} archivos a la cola de conversión`);
+    notifySuccess(`${newFiles.length} archivos aÃ±adidos`, `Se han aÃ±adido ${newFiles.length} archivos a la cola de conversiÃ³n`);
     return processedFiles;
   };
 
@@ -82,8 +82,8 @@ export const AdvancedFeaturesWithNotifications = () => {
               notifyFileConversion({ status: 'completed', fileName: file.name, fileType: file.type, targetType: targetFormat });
             } else {
               failedCount++;
-              setFiles((prev) => prev.map((f) => (f.id === file.id ? { ...f, status: 'failed', progress: 100, error: 'Error en la conversión del archivo' } : f)));
-              notifyFileConversion({ status: 'error', fileName: file.name, fileType: file.type, targetType: targetFormat, errorMessage: 'Error en la conversión del archivo' });
+              setFiles((prev) => prev.map((f) => (f.id === file.id ? { ...f, status: 'failed', progress: 100, error: 'Error en la conversiÃ³n del archivo' } : f)));
+              notifyFileConversion({ status: 'error', fileName: file.name, fileType: file.type, targetType: targetFormat, errorMessage: 'Error en la conversiÃ³n del archivo' });
             }
 
             const totalProgress = Math.floor(((completedCount + failedCount) / batchFiles.length) * 100);
@@ -99,7 +99,7 @@ export const AdvancedFeaturesWithNotifications = () => {
 
   const handlePremiumFeature = (featureName: string) => {
     if (!isPremium) {
-      notifyInfo('Función Premium', `La función ${featureName} requiere una cuenta premium`, {
+      notifyInfo('FunciÃ³n Premium', `La funciÃ³n ${featureName} requiere una cuenta premium`, {
         actions: [
           {
             label: 'Actualizar',
@@ -116,7 +116,7 @@ export const AdvancedFeaturesWithNotifications = () => {
     <div className="flex flex-col gap-6">
       <Card className="overflow-hidden">
         <TabsComposition value={activeTab} onChange={setActiveTab} className="w-full">
-          <TabsComposition.Tab value="batch" label={<span className="flex items-center"><FileUp className="mr-2 h-4 w-4" />Conversión por Lotes</span>}>
+          <TabsComposition.Tab value="batch" label={<span className="flex items-center"><FileUp className="mr-2 h-4 w-4" />ConversiÃ³n por Lotes</span>}>
             <div className="p-6">
               <BatchConversion
                 onFilesAdded={handleFilesAdded}
@@ -134,7 +134,7 @@ export const AdvancedFeaturesWithNotifications = () => {
                 formatFrom="PDF"
                 formatTo="DOCX"
                 settings={[{ id: 'quality', name: 'Calidad', description: 'Calidad de salida', type: 'slider', default: 80, min: 0, max: 100, step: 1, unit: '%' }]}
-                onChange={() => notifySuccess('Ajustes aplicados', 'Los ajustes de conversión han sido actualizados')}
+                onChange={() => notifySuccess('Ajustes aplicados', 'Los ajustes de conversiÃ³n han sido actualizados')}
                 isPremiumUser={isPremium}
                 onSavePreset={() => {}}
                 presets={[]}
@@ -143,14 +143,14 @@ export const AdvancedFeaturesWithNotifications = () => {
             </div>
           </TabsComposition.Tab>
 
-          <TabsComposition.Tab value="analytics" label={<span className="flex items-center"><BarChart2 className="mr-2 h-4 w-4" />Analíticas</span>}>
+          <TabsComposition.Tab value="analytics" label={<span className="flex items-center"><BarChart2 className="mr-2 h-4 w-4" />AnalÃ­ticas</span>}>
             <div className="p-6">
-              {handlePremiumFeature('Analíticas de uso') && <UsageAnalytics isPremiumUser={isPremium} />}
+              {handlePremiumFeature('AnalÃ­ticas de uso') && <UsageAnalytics isPremiumUser={isPremium} />}
               {!isPremium && (
                 <div className="mt-4">
                   <PremiumFeatureNotification
-                    featureName="Analíticas de uso"
-                    description="Accede a estadísticas detalladas sobre tus conversiones y optimiza tu flujo de trabajo."
+                    featureName="AnalÃ­ticas de uso"
+                    description="Accede a estadÃ­sticas detalladas sobre tus conversiones y optimiza tu flujo de trabajo."
                     onUpgrade={() => setIsPremium(true)}
                     onDismiss={() => setActiveTab('batch')}
                   />
@@ -167,12 +167,12 @@ export const AdvancedFeaturesWithNotifications = () => {
 
           <TabsComposition.Tab value="assistant" label={<span className="flex items-center"><MessageSquare className="mr-2 h-4 w-4" />Asistente</span>}>
             <div className="p-6">
-              {handlePremiumFeature('Asistente de conversión') && <ConversionAssistant />}
+              {handlePremiumFeature('Asistente de conversiÃ³n') && <ConversionAssistant />}
               {!isPremium && (
                 <div className="mt-4">
                   <PremiumFeatureNotification
-                    featureName="Asistente de conversión"
-                    description="Obtén recomendaciones inteligentes para optimizar tus conversiones."
+                    featureName="Asistente de conversiÃ³n"
+                    description="ObtÃ©n recomendaciones inteligentes para optimizar tus conversiones."
                     onUpgrade={() => setIsPremium(true)}
                     onDismiss={() => setActiveTab('batch')}
                   />
@@ -181,11 +181,11 @@ export const AdvancedFeaturesWithNotifications = () => {
             </div>
           </TabsComposition.Tab>
 
-          <TabsComposition.Tab value="optimization" label={<span className="flex items-center"><Zap className="mr-2 h-4 w-4" />Optimización</span>}>
+          <TabsComposition.Tab value="optimization" label={<span className="flex items-center"><Zap className="mr-2 h-4 w-4" />OptimizaciÃ³n</span>}>
             <div className="p-6">
               <ConversionOptimization
                 onApplyOptimizations={(options: OptimizationOptions) => {
-                  notifyInfo('Optimización iniciada', `Optimizando archivo según configuración: ${options.quality}% calidad, ${options.compress ? 'con' : 'sin'} compresión`);
+                  notifyInfo('OptimizaciÃ³n iniciada', `Optimizando archivo segÃºn configuraciÃ³n: ${options.quality}% calidad, ${options.compress ? 'con' : 'sin'} compresiÃ³n`);
                   const file = files.find((f) => f.status === 'completed');
                   if (file) {
                     const optNotifId = notifyProgress(`Optimizando ${file.name}`, 0);
@@ -194,7 +194,7 @@ export const AdvancedFeaturesWithNotifications = () => {
                       progress += 10;
                       if (progress > 100) {
                         clearInterval(interval);
-                        notifySuccess('Optimización completada', `${file.name} ha sido optimizado con éxito`);
+                        notifySuccess('OptimizaciÃ³n completada', `${file.name} ha sido optimizado con Ã©xito`);
                         return;
                       }
                       updateNotification(optNotifId, { title: `Optimizando ${file.name}`, message: `${progress}% completado`, progress });
@@ -210,7 +210,7 @@ export const AdvancedFeaturesWithNotifications = () => {
       {files.length > 0 && activeTab !== 'batch' && (
         <div className="fixed bottom-4 right-4 w-80">
           <BatchOperationNotification
-            title={`Conversión de ${files.length} archivos`}
+            title={`ConversiÃ³n de ${files.length} archivos`}
             totalItems={files.length}
             completedItems={files.filter((f) => f.status === 'completed').length}
             failedItems={files.filter((f) => f.status === 'failed').length}
@@ -224,3 +224,4 @@ export const AdvancedFeaturesWithNotifications = () => {
 };
 
 export default AdvancedFeaturesWithNotifications;
+

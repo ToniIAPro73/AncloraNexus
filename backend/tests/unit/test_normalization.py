@@ -1,4 +1,4 @@
-import os
+﻿import os
 import tempfile
 from src.models.conversion import conversion_engine
 
@@ -26,3 +26,4 @@ def test_convert_file_invokes_normalizer(monkeypatch):
         assert success
         assert calls and calls[0] == input_path
         assert "normalized:latin-1->utf-8" in msg
+

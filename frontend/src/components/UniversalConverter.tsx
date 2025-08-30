@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+﻿import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 import { FileUploader } from './FileUploader';
 
@@ -119,7 +119,7 @@ export const UniversalConverter: React.FC = () => {
       <h1 className="text-h1 font-bold text-center">Conversor Inteligente</h1>
       <FileUploader onFileSelect={handleFileSelect} isLoading={processing} multiple>
         <div className="p-6 border-2 border-dashed rounded-md text-center">
-          <p className="text-sm mb-2">Haz clic o arrastra archivos aquí</p>
+          <p className="text-sm mb-2">Haz clic o arrastra archivos aquÃ­</p>
           <button className="bg-primary text-white px-4 py-2 rounded">
             Seleccionar archivos
           </button>
@@ -133,11 +133,11 @@ export const UniversalConverter: React.FC = () => {
                 <span className="truncate">{item.file.name}</span>
                 <span className="text-sm">{item.progress}%</span>
               </div>
-              <p className="text-xs mb-1">Clasificación: {item.classification}</p>
+              <p className="text-xs mb-1">ClasificaciÃ³n: {item.classification}</p>
                 <div
                   className="w-full bg-gray-200 h-2 rounded"
                   role="progressbar"
-                  aria-label={`Progreso de conversión de ${item.file.name}`}
+                  aria-label={`Progreso de conversiÃ³n de ${item.file.name}`}
                   aria-valuenow={item.progress}
                   aria-valuemin={0}
                   aria-valuemax={100}
@@ -160,14 +160,14 @@ export const UniversalConverter: React.FC = () => {
                   disabled={index === 0 || item.status !== 'pending'}
                   className="px-2 py-1 border rounded"
                 >
-                  ↑
+                  â†‘
                 </button>
                 <button
                   onClick={() => moveItem(item.id, 'down')}
                   disabled={index === queue.length - 1 || item.status !== 'pending'}
                   className="px-2 py-1 border rounded"
                 >
-                  ↓
+                  â†“
                 </button>
               </div>
             </div>
@@ -177,3 +177,4 @@ export const UniversalConverter: React.FC = () => {
     </div>
   );
 };
+

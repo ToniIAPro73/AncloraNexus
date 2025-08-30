@@ -1,4 +1,4 @@
-// NotificationIntegration.tsx
+﻿// NotificationIntegration.tsx
 // This file demonstrates how to integrate the NotificationSystem with existing components
 
 import { useNotifications, BatchOperationNotification, PremiumFeatureNotification } from './NotificationSystem';
@@ -120,8 +120,8 @@ export function useFileConversionNotifications() {
   // Notify premium feature requirement
   const notifyPremiumRequired = (featureName: string, onUpgrade?: () => void) => {
     notifyInfo(
-      'Función Premium',
-      `La función "${featureName}" requiere una cuenta premium`,
+      'FunciÃ³n Premium',
+      `La funciÃ³n "${featureName}" requiere una cuenta premium`,
       {
         actions: onUpgrade ? [
           {
@@ -251,3 +251,4 @@ export function PremiumFeaturePromotion({
  *      onDismiss={() => {}}
  *    />
  */
+

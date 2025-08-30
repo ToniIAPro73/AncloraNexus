@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { IconCheck, IconDownload, IconRefresh } from './Icons';
 
 interface ConversionSuccessProps {
@@ -37,9 +37,9 @@ export const ConversionSuccess: React.FC<ConversionSuccessProps> = ({ fromFile, 
         <IconCheck className="w-10 h-10 text-success" />
       </div>
       <div>
-        <h2 className="text-h2 text-success">¡Conversión completada!</h2>
+        <h2 className="text-h2 text-success">Â¡ConversiÃ³n completada!</h2>
         <p className="text-body mt-1">
-          Tu archivo <span className="font-semibold">{fromFile}</span> se convirtió a <span className="font-semibold text-primary">{toFormat}</span>.
+          Tu archivo <span className="font-semibold">{fromFile}</span> se convirtiÃ³ a <span className="font-semibold text-primary">{toFormat}</span>.
         </p>
       </div>
 

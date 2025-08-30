@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 /**
  * Basic placeholder component for video conversion features.
@@ -11,3 +11,4 @@ export const VideoConverter: React.FC = () => (
 );
 
 export default VideoConverter;
+

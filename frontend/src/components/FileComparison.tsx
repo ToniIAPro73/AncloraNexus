@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Card, CardHeader, CardContent, CardTitle, Badge, Button } from './ui-components';
 import { FileIcon, Eye, ArrowRight, Download, CheckCircle, RotateCcw } from 'lucide-react';
 
@@ -115,7 +115,7 @@ export const FileComparison: React.FC<FileComparisonProps> = ({
           <span className="text-slate-400">Tipo:</span>
           <span className="text-slate-200">{file.type}</span>
           
-          <span className="text-slate-400">Tamaño:</span>
+          <span className="text-slate-400">TamaÃ±o:</span>
           <span className="text-slate-200">{formatFileSize(file.size)}</span>
           
           {file.metadata && Object.entries(file.metadata).map(([key, value]) => (
@@ -131,11 +131,11 @@ export const FileComparison: React.FC<FileComparisonProps> = ({
 
   return (
     <div className={`space-y-6 ${className}`}>
-      {/* Información de conversión */}
+      {/* InformaciÃ³n de conversiÃ³n */}
       <Card variant="default" className="animate-in fade-in-0 slide-in-from-bottom-5 duration-700">
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle>Resultados de la Conversión</CardTitle>
+            <CardTitle>Resultados de la ConversiÃ³n</CardTitle>
             <Badge variant="success" className="bg-gradient-to-r from-green-500 to-emerald-600">
               <CheckCircle size={14} className="mr-1" /> Completado
             </Badge>
@@ -146,7 +146,7 @@ export const FileComparison: React.FC<FileComparisonProps> = ({
             <div className="p-4 bg-slate-800/50 rounded-lg border border-slate-700">
               <div className="text-sm text-slate-400 mb-1">Formato</div>
               <div className="font-medium text-white">
-                {originalFile.type.split('/')[1].toUpperCase()} → {convertedFile.type.split('/')[1].toUpperCase()}
+                {originalFile.type.split('/')[1].toUpperCase()} â†’ {convertedFile.type.split('/')[1].toUpperCase()}
               </div>
             </div>
             
@@ -161,7 +161,7 @@ export const FileComparison: React.FC<FileComparisonProps> = ({
             </div>
             
             <div className="p-4 bg-slate-800/50 rounded-lg border border-slate-700">
-              <div className="text-sm text-slate-400 mb-1">Reducción</div>
+              <div className="text-sm text-slate-400 mb-1">ReducciÃ³n</div>
               <div className="flex items-center">
                 <span className={`font-medium ${isReductionPositive ? 'text-green-400' : 'text-red-400'}`}>
                   {isReductionPositive ? '-' : '+'}{Math.abs(sizeReductionPercentage)}%
@@ -173,11 +173,11 @@ export const FileComparison: React.FC<FileComparisonProps> = ({
         </CardContent>
       </Card>
 
-      {/* Comparación de archivos */}
+      {/* ComparaciÃ³n de archivos */}
       <Card variant="default" className="animate-in fade-in-0 slide-in-from-bottom-5 duration-700 delay-150">
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle>Comparación de Archivos</CardTitle>
+            <CardTitle>ComparaciÃ³n de Archivos</CardTitle>
             <div className="flex items-center space-x-2">
               <div className="flex rounded-md overflow-hidden border border-slate-700">
                 <button 
@@ -197,7 +197,7 @@ export const FileComparison: React.FC<FileComparisonProps> = ({
                 <button 
                   className={`p-1 rounded-md text-xs ${showBeforeAfter ? 'bg-primary text-white' : 'bg-slate-800 text-slate-300 border border-slate-700'}`}
                   onClick={() => setShowBeforeAfter(!showBeforeAfter)}
-                  title={showBeforeAfter ? "Mostrar lado a lado" : "Mostrar antes y después"}
+                  title={showBeforeAfter ? "Mostrar lado a lado" : "Mostrar antes y despuÃ©s"}
                 >
                   {showBeforeAfter ? 'A/B' : '||}'}
                 </button>
@@ -275,7 +275,7 @@ export const FileComparison: React.FC<FileComparisonProps> = ({
           onClick={onNewConversion}
           iconLeft={<RotateCcw size={16} />}
         >
-          Nueva Conversión
+          Nueva ConversiÃ³n
         </Button>
         <Button 
           color="primary" 
@@ -290,3 +290,4 @@ export const FileComparison: React.FC<FileComparisonProps> = ({
 };
 
 export default FileComparison;
+

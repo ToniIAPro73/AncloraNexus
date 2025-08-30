@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Card, CardHeader, CardContent, CardTitle } from './ui';
 import { Button, Badge } from './ui';
 import { ArrowRight, Check, Info, HelpCircle, Star, Download, FileSearch, FileQuestion } from 'lucide-react';
@@ -42,12 +42,12 @@ export const FormatComparison: React.FC<FormatComparisonProps> = ({
   // Common features across formats for comparison
   const commonFeatures: FormatFeature[] = [
     { name: 'Editable Text', description: 'Texto puede ser editado directamente' },
-    { name: 'Vector Graphics', description: 'Soporta gráficos vectoriales que mantienen calidad al ampliar' },
-    { name: 'Compression', description: 'Formato comprimido para reducir tamaño de archivo' },
+    { name: 'Vector Graphics', description: 'Soporta grÃ¡ficos vectoriales que mantienen calidad al ampliar' },
+    { name: 'Compression', description: 'Formato comprimido para reducir tamaÃ±o de archivo' },
     { name: 'Metadata', description: 'Permite almacenamiento de metadatos como autor, fecha, etc.' },
-    { name: 'Password Protection', description: 'Puede ser protegido con contraseña' },
+    { name: 'Password Protection', description: 'Puede ser protegido con contraseÃ±a' },
     { name: 'Web Compatible', description: 'Compatible con navegadores web modernos' },
-    { name: 'Mobile Support', description: 'Buen soporte en dispositivos móviles' }
+    { name: 'Mobile Support', description: 'Buen soporte en dispositivos mÃ³viles' }
   ];
 
   // Filter formats by type and search query
@@ -116,7 +116,7 @@ export const FormatComparison: React.FC<FormatComparisonProps> = ({
       name: 'PDF',
       extension: '.pdf',
       icon: <FileSearch className="h-6 w-6 text-red-500" />,
-      description: 'Formato de documento portátil, ideal para compartir documentos que mantendrán su formato en diferentes dispositivos y plataformas.',
+      description: 'Formato de documento portÃ¡til, ideal para compartir documentos que mantendrÃ¡n su formato en diferentes dispositivos y plataformas.',
       pros: [
         'Mantiene formato exacto en cualquier dispositivo',
         'Ampliamente soportado en todas las plataformas',
@@ -124,15 +124,15 @@ export const FormatComparison: React.FC<FormatComparisonProps> = ({
         'Puede incluir elementos interactivos'
       ],
       cons: [
-        'Difícil de editar sin software especializado',
+        'DifÃ­cil de editar sin software especializado',
         'Puede resultar en archivos grandes',
-        'No ideal para contenido que requiere edición frecuente'
+        'No ideal para contenido que requiere ediciÃ³n frecuente'
       ],
       bestFor: [
         'Documentos oficiales',
         'Manuales',
         'Formularios',
-        'Documentos para impresión'
+        'Documentos para impresiÃ³n'
       ],
       features: {
         'Editable Text': false,
@@ -152,23 +152,23 @@ export const FormatComparison: React.FC<FormatComparisonProps> = ({
       name: 'Word Document',
       extension: '.docx',
       icon: <FileSearch className="h-6 w-6 text-blue-500" />,
-      description: 'Formato estándar de Microsoft Word para documentos editables con formato enriquecido, tablas e imágenes.',
+      description: 'Formato estÃ¡ndar de Microsoft Word para documentos editables con formato enriquecido, tablas e imÃ¡genes.',
       pros: [
         'Totalmente editable',
-        'Compatible con la mayoría de procesadores de texto',
-        'Soporta elementos complejos como tablas y gráficos',
-        'Corrector ortográfico y herramientas de revisión'
+        'Compatible con la mayorÃ­a de procesadores de texto',
+        'Soporta elementos complejos como tablas y grÃ¡ficos',
+        'Corrector ortogrÃ¡fico y herramientas de revisiÃ³n'
       ],
       cons: [
         'Puede tener problemas de compatibilidad entre versiones',
         'No garantiza formato exacto en todas las plataformas',
-        'Requiere software compatible para visualización óptima'
+        'Requiere software compatible para visualizaciÃ³n Ã³ptima'
       ],
       bestFor: [
         'Documentos de trabajo',
         'Reportes editables',
         'Documentos colaborativos',
-        'Currículums'
+        'CurrÃ­culums'
       ],
       features: {
         'Editable Text': true,
@@ -188,22 +188,22 @@ export const FormatComparison: React.FC<FormatComparisonProps> = ({
       name: 'JPEG Image',
       extension: '.jpg',
       icon: <FileSearch className="h-6 w-6 text-green-500" />,
-      description: 'Formato de imagen con compresión que equilibra calidad visual y tamaño de archivo, ideal para fotografías.',
+      description: 'Formato de imagen con compresiÃ³n que equilibra calidad visual y tamaÃ±o de archivo, ideal para fotografÃ­as.',
       pros: [
         'Universalmente soportado en dispositivos y plataformas',
-        'Buena compresión para reducir tamaño de archivo',
-        'Ideal para fotografías y imágenes complejas'
+        'Buena compresiÃ³n para reducir tamaÃ±o de archivo',
+        'Ideal para fotografÃ­as y imÃ¡genes complejas'
       ],
       cons: [
-        'Compresión con pérdida de calidad',
+        'CompresiÃ³n con pÃ©rdida de calidad',
         'No soporta transparencia',
-        'No adecuado para gráficos con texto o líneas finas'
+        'No adecuado para grÃ¡ficos con texto o lÃ­neas finas'
       ],
       bestFor: [
-        'Fotografías',
+        'FotografÃ­as',
         'Contenido web',
         'Compartir en redes sociales',
-        'Impresión de fotos'
+        'ImpresiÃ³n de fotos'
       ],
       features: {
         'Editable Text': false,
@@ -223,20 +223,20 @@ export const FormatComparison: React.FC<FormatComparisonProps> = ({
       name: 'PNG Image',
       extension: '.png',
       icon: <FileSearch className="h-6 w-6 text-yellow-500" />,
-      description: 'Formato de imagen sin pérdida de calidad que soporta transparencia, ideal para gráficos con áreas transparentes.',
+      description: 'Formato de imagen sin pÃ©rdida de calidad que soporta transparencia, ideal para grÃ¡ficos con Ã¡reas transparentes.',
       pros: [
-        'Compresión sin pérdida de calidad',
+        'CompresiÃ³n sin pÃ©rdida de calidad',
         'Soporta transparencia',
-        'Ideal para gráficos, logos e ilustraciones'
+        'Ideal para grÃ¡ficos, logos e ilustraciones'
       ],
       cons: [
-        'Archivos más grandes que JPEG para fotos',
-        'No ideal para fotografías complejas por tamaño',
-        'Menos eficiente para imágenes fotográficas'
+        'Archivos mÃ¡s grandes que JPEG para fotos',
+        'No ideal para fotografÃ­as complejas por tamaÃ±o',
+        'Menos eficiente para imÃ¡genes fotogrÃ¡ficas'
       ],
       bestFor: [
         'Logos',
-        'Gráficos con transparencia',
+        'GrÃ¡ficos con transparencia',
         'Capturas de pantalla',
         'Ilustraciones'
       ],
@@ -258,23 +258,23 @@ export const FormatComparison: React.FC<FormatComparisonProps> = ({
       name: 'SVG Vector',
       extension: '.svg',
       icon: <FileSearch className="h-6 w-6 text-purple-500" />,
-      description: 'Formato de gráficos vectoriales escalables que mantiene la calidad a cualquier tamaño, ideal para gráficos e ilustraciones.',
+      description: 'Formato de grÃ¡ficos vectoriales escalables que mantiene la calidad a cualquier tamaÃ±o, ideal para grÃ¡ficos e ilustraciones.',
       pros: [
-        'Escalable sin pérdida de calidad',
-        'Archivos pequeños para gráficos simples',
+        'Escalable sin pÃ©rdida de calidad',
+        'Archivos pequeÃ±os para grÃ¡ficos simples',
         'Editable con editores vectoriales',
         'Animable con CSS o JavaScript'
       ],
       cons: [
-        'No adecuado para fotografías',
+        'No adecuado para fotografÃ­as',
         'Requiere soporte de navegador para web',
-        'Puede ser complejo para diseños muy detallados'
+        'Puede ser complejo para diseÃ±os muy detallados'
       ],
       bestFor: [
         'Iconos',
         'Logos',
         'Ilustraciones',
-        'Gráficos para web'
+        'GrÃ¡ficos para web'
       ],
       features: {
         'Editable Text': true,
@@ -301,7 +301,7 @@ export const FormatComparison: React.FC<FormatComparisonProps> = ({
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <FileQuestion className="mr-2 text-primary h-5 w-5" />
-              <CardTitle>Comparación de Formatos</CardTitle>
+              <CardTitle>ComparaciÃ³n de Formatos</CardTitle>
             </div>
             <Badge variant="secondary" className="text-xs">
               {displayFormats.length} formatos disponibles
@@ -329,7 +329,7 @@ export const FormatComparison: React.FC<FormatComparisonProps> = ({
               >
                 <option value="all">Todos los tipos</option>
                 <option value="document">Documentos</option>
-                <option value="image">Imágenes</option>
+                <option value="image">ImÃ¡genes</option>
                 <option value="audio">Audio</option>
                 <option value="video">Video</option>
                 <option value="ebook">E-books</option>
@@ -341,7 +341,7 @@ export const FormatComparison: React.FC<FormatComparisonProps> = ({
                 onClick={() => setSelectedFormats([])}
                 disabled={selectedFormats.length === 0}
               >
-                Limpiar selección
+                Limpiar selecciÃ³n
               </Button>
             </div>
           </div>
@@ -349,13 +349,13 @@ export const FormatComparison: React.FC<FormatComparisonProps> = ({
           {/* Selected formats comparison section */}
           {selectedFormats.length > 0 && (
             <div className="mb-6 bg-slate-800/50 rounded-lg p-4 border border-slate-700">
-              <h3 className="font-medium text-white mb-3">Comparación de Formatos Seleccionados</h3>
+              <h3 className="font-medium text-white mb-3">ComparaciÃ³n de Formatos Seleccionados</h3>
               
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
                     <tr className="text-sm text-slate-400 border-b border-slate-700">
-                      <th className="text-left pb-2 w-1/4">Característica</th>
+                      <th className="text-left pb-2 w-1/4">CaracterÃ­stica</th>
                       {selectedFormatsData.map(format => (
                         <th key={format.id} className="text-center pb-2">
                           <div className="flex flex-col items-center justify-center">
@@ -477,7 +477,7 @@ export const FormatComparison: React.FC<FormatComparisonProps> = ({
                         toggleExpandFormat(format.id);
                       }}
                     >
-                      {expandedFormat === format.id ? 'Menos info' : 'Más info'}
+                      {expandedFormat === format.id ? 'Menos info' : 'MÃ¡s info'}
                     </Button>
                   </div>
                 </div>
@@ -541,7 +541,7 @@ export const FormatComparison: React.FC<FormatComparisonProps> = ({
               <FileQuestion className="h-10 w-10 text-slate-500 mx-auto mb-4" />
               <h3 className="text-xl font-medium text-white mb-2">No se encontraron formatos</h3>
               <p className="text-slate-400">
-                No hay formatos que coincidan con tu búsqueda. Intenta con otros términos o elimina los filtros.
+                No hay formatos que coincidan con tu bÃºsqueda. Intenta con otros tÃ©rminos o elimina los filtros.
               </p>
             </div>
           )}
@@ -552,3 +552,4 @@ export const FormatComparison: React.FC<FormatComparisonProps> = ({
 };
 
 export default FormatComparison;
+

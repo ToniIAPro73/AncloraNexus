@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import LandingPage from './LandingPage';
 import AppPage from '../pages/app';
 
@@ -15,8 +15,9 @@ const MainApp: React.FC = () => {
     return <LandingPage onEnterApp={handleEnterApp} />;
   }
 
-  // Ya no necesitamos el botón de volver, la app es independiente
+  // Ya no necesitamos el botÃ³n de volver, la app es independiente
   return <AppPage />;
 };
 
 export default MainApp;
+

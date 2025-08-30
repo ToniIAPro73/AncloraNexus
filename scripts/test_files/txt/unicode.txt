@@ -1,23 +1,24 @@
-Archivo de prueba con caracteres Unicode complejos:
+﻿Archivo de prueba con caracteres Unicode complejos:
 
-Emojis: 🚀 🎯 💎 📊 🔧 ⚡ 🌟 🎨 📱 💻
-Símbolos matemáticos: ∑ ∆ π ∞ ≤ ≥ ≠ ± √ ∫
-Caracteres griegos: α β γ δ ε ζ η θ ι κ λ μ ν ξ ο π ρ σ τ υ φ χ ψ ω
-Caracteres cirílicos: А Б В Г Д Е Ё Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ъ Ы Ь Э Ю Я
-Caracteres chinos: 你好世界 测试文件 转换系统
-Caracteres japoneses: こんにちは テストファイル 変換システム
-Caracteres árabes: مرحبا بالعالم ملف اختبار نظام التحويل
+Emojis: ðŸš€ ðŸŽ¯ ðŸ’Ž ðŸ“Š ðŸ”§ âš¡ ðŸŒŸ ðŸŽ¨ ðŸ“± ðŸ’»
+SÃ­mbolos matemÃ¡ticos: âˆ‘ âˆ† Ï€ âˆž â‰¤ â‰¥ â‰  Â± âˆš âˆ«
+Caracteres griegos: Î± Î² Î³ Î´ Îµ Î¶ Î· Î¸ Î¹ Îº Î» Î¼ Î½ Î¾ Î¿ Ï€ Ï Ïƒ Ï„ Ï… Ï† Ï‡ Ïˆ Ï‰
+Caracteres cirÃ­licos: Ð Ð‘ Ð’ Ð“ Ð” Ð• Ð Ð– Ð— Ð˜ Ð™ Ðš Ð› Ðœ Ð Ðž ÐŸ Ð  Ð¡ Ð¢ Ð£ Ð¤ Ð¥ Ð¦ Ð§ Ð¨ Ð© Ðª Ð« Ð¬ Ð­ Ð® Ð¯
+Caracteres chinos: ä½ å¥½ä¸–ç•Œ æµ‹è¯•æ–‡ä»¶ è½¬æ¢ç³»ç»Ÿ
+Caracteres japoneses: ã“ã‚“ã«ã¡ã¯ ãƒ†ã‚¹ãƒˆãƒ•ã‚¡ã‚¤ãƒ« å¤‰æ›ã‚·ã‚¹ãƒ†ãƒ 
+Caracteres Ã¡rabes: Ù…Ø±Ø­Ø¨Ø§ Ø¨Ø§Ù„Ø¹Ø§Ù„Ù… Ù…Ù„Ù Ø§Ø®ØªØ¨Ø§Ø± Ù†Ø¸Ø§Ù… Ø§Ù„ØªØ­ÙˆÙŠÙ„
 
 Texto con formato especial:
-- Línea con tabulaciones	separadas	por	tabs
-- Línea con espacios múltiples     separados     por     espacios
-- Línea\ncon\nsaltos\nde\nlínea\nembebidos
+- LÃ­nea con tabulaciones	separadas	por	tabs
+- LÃ­nea con espacios mÃºltiples     separados     por     espacios
+- LÃ­nea\ncon\nsaltos\nde\nlÃ­nea\nembebidos
 
 Caracteres de control y especiales:
 "Comillas dobles" y 'comillas simples'
-Paréntesis (redondos) [cuadrados] {llaves}
-Guiones - y rayas —
+ParÃ©ntesis (redondos) [cuadrados] {llaves}
+Guiones - y rayas â€”
 Puntos suspensivos...
 
 Final del archivo Unicode.
+
 

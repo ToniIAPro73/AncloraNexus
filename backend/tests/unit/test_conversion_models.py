@@ -1,4 +1,4 @@
-import pytest
+﻿import pytest
 from src.models.user import User, Conversion, CreditTransaction, db
 
 
@@ -6,7 +6,7 @@ class TestConversionModel:
     """Pruebas para el modelo Conversion"""
 
     def test_to_dict_and_defaults(self, app):
-        """Conversion.to_dict debe incluir campos básicos y estado por defecto"""
+        """Conversion.to_dict debe incluir campos bÃ¡sicos y estado por defecto"""
         with app.app_context():
             user = User(email='conv@example.com', full_name='Conv Test')
             user.set_password('pass')
@@ -64,7 +64,7 @@ class TestCreditTransactionModel:
                 user_id=user.id,
                 amount=-5,
                 transaction_type='conversion',
-                description='Uso de créditos',
+                description='Uso de crÃ©ditos',
             )
             db.session.add(trans)
             db.session.commit()
@@ -72,7 +72,7 @@ class TestCreditTransactionModel:
             data = trans.to_dict()
             assert data['amount'] == -5
             assert data['transaction_type'] == 'conversion'
-            assert data['description'] == 'Uso de créditos'
+            assert data['description'] == 'Uso de crÃ©ditos'
 
     def test_repr(self, app):
         with app.app_context():

@@ -1,4 +1,4 @@
-import os, shutil, tempfile, uuid
+﻿import os, shutil, tempfile, uuid
 from fpdf import FPDF
 from PIL import Image, ImageDraw
 from docx import Document
@@ -15,6 +15,7 @@ def convert(input_path, output_path):
         draw = ImageDraw.Draw(img)
         draw.text((10, 40), 'SVG', fill='black')
         img.save(output_path, 'PNG')
-        return True, "Conversión exitosa"
+        return True, "ConversiÃ³n exitosa"
     except Exception as e:
-        return False, f"Error en conversión SVG→PNG: {str(e)}"
+        return False, f"Error en conversiÃ³n SVGâ†’PNG: {str(e)}"
+

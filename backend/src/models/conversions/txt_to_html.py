@@ -1,4 +1,4 @@
-import os, shutil, tempfile, uuid
+﻿import os, shutil, tempfile, uuid
 from datetime import datetime
 from fpdf import FPDF
 from PIL import Image, ImageDraw
@@ -16,7 +16,7 @@ def convert(input_path, output_path):
         # Escapar caracteres HTML
         content = content.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
         
-        # Convertir saltos de línea
+        # Convertir saltos de lÃ­nea
         content = content.replace('\n\n', '</p><p>').replace('\n', '<br>')
         content = f'<p>{content}</p>'
         
@@ -26,8 +26,8 @@ def convert(input_path, output_path):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Documento Convertido - Anclora Metaform</title>
-<meta name="generator" content="Anclora Metaform">
+<title>Documento Convertido - Anclora Nexus</title>
+<meta name="generator" content="Anclora Nexus">
 <style>
     body {{ 
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -58,14 +58,14 @@ def convert(input_path, output_path):
 </head>
 <body>
 <div class="header">
-    <h1>Anclora Metaform</h1>
+    <h1>Anclora Nexus</h1>
     <p>Tu Contenido, Reinventado</p>
 </div>
 <div class="content">
     {content}
 </div>
 <div class="footer">
-    <p>Convertido con Anclora Metaform - {datetime.now().strftime('%d/%m/%Y')}</p>
+    <p>Convertido con Anclora Nexus - {datetime.now().strftime('%d/%m/%Y')}</p>
 </div>
 </body>
 </html>"""
@@ -73,7 +73,8 @@ def convert(input_path, output_path):
         with open(output_path, 'w', encoding='utf-8') as f:
             f.write(html_content)
         
-        return True, "Conversión exitosa"
+        return True, "ConversiÃ³n exitosa"
         
     except Exception as e:
-        return False, f"Error en conversión TXT→HTML: {str(e)}"
+        return False, f"Error en conversiÃ³n TXTâ†’HTML: {str(e)}"
+

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { 
   Menu, 
@@ -37,15 +37,15 @@ export function Header({ onMenuToggle, userPlan = 'free' }: HeaderProps) {
   const [unreadNotifications, setUnreadNotifications] = useState(0);
   const { notifySuccess } = useNotifications();
 
-  // Simulación de notificaciones no leídas
+  // SimulaciÃ³n de notificaciones no leÃ­das
   useEffect(() => {
-    // En un caso real, esto vendría de un servicio de backend
+    // En un caso real, esto vendrÃ­a de un servicio de backend
     setUnreadNotifications(Math.floor(Math.random() * 5));
   }, []);
 
   const handleLogout = async () => {
     await logout();
-    notifySuccess('Sesión cerrada', 'Has cerrado sesión correctamente');
+    notifySuccess('SesiÃ³n cerrada', 'Has cerrado sesiÃ³n correctamente');
     navigate('/login');
   };
 
@@ -106,13 +106,13 @@ export function Header({ onMenuToggle, userPlan = 'free' }: HeaderProps) {
             to="/analytics" 
             className="text-sm font-medium hover:text-primary transition-colors"
           >
-            Analíticas
+            AnalÃ­ticas
           </Link>
           <Link 
             to="/docs" 
             className="text-sm font-medium hover:text-primary transition-colors"
           >
-            Documentación
+            DocumentaciÃ³n
           </Link>
           <Link 
             to="/ui" 
@@ -166,7 +166,7 @@ export function Header({ onMenuToggle, userPlan = 'free' }: HeaderProps) {
                         key={i} 
                         className="p-3 border-b border-border hover:bg-accent/50 cursor-pointer"
                       >
-                        <p className="text-sm font-medium">Conversión completada</p>
+                        <p className="text-sm font-medium">ConversiÃ³n completada</p>
                         <p className="text-xs text-muted-foreground">
                           Tu archivo ha sido convertido exitosamente
                         </p>
@@ -234,7 +234,7 @@ export function Header({ onMenuToggle, userPlan = 'free' }: HeaderProps) {
                     onClick={() => setShowUserMenu(false)}
                   >
                     <Settings className="h-4 w-4" />
-                    <span>Configuración</span>
+                    <span>ConfiguraciÃ³n</span>
                   </Link>
                   <Link 
                     to="/my-documents" 
@@ -267,7 +267,7 @@ export function Header({ onMenuToggle, userPlan = 'free' }: HeaderProps) {
                     onClick={handleLogout}
                   >
                     <LogOut className="h-4 w-4" />
-                    <span>Cerrar Sesión</span>
+                    <span>Cerrar SesiÃ³n</span>
                   </button>
                 </div>
               </div>
@@ -278,3 +278,4 @@ export function Header({ onMenuToggle, userPlan = 'free' }: HeaderProps) {
     </header>
   );
 }
+

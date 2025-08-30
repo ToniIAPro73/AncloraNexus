@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { render, screen, fireEvent, waitFor, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
 import { describe, it, expect, afterEach } from 'vitest';
@@ -55,3 +55,4 @@ describe('Modal accessibility', () => {
     expect(screen.getByLabelText('Cerrar')).toBeInTheDocument();
   });
 });
+

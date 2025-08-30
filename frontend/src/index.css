@@ -1,18 +1,18 @@
-@import './styles/brand-styles.css';
+﻿@import './styles/brand-styles.css';
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import './styles/landing-theme.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Reset básico */
+/* Reset bÃ¡sico */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Tipografías personalizadas adicionales */
+/* TipografÃ­as personalizadas adicionales */
 :root {
   --font-secondary: 'Merriweather', serif;
 }
@@ -79,3 +79,4 @@ button {
 .skip-link:focus {
   top: 0;
 }
+

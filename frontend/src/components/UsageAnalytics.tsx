@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { Card, CardHeader, CardContent, CardTitle } from './ui';
 import { Badge, Button } from './ui';
 import { 
@@ -186,7 +186,7 @@ export const UsageAnalytics: React.FC<UsageAnalyticsProps> = ({
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <BarChartIcon className="mr-2 text-primary h-5 w-5" />
-              <CardTitle>Analítica de Uso</CardTitle>
+              <CardTitle>AnalÃ­tica de Uso</CardTitle>
             </div>
             <div className="flex gap-2">
               <Button 
@@ -224,7 +224,7 @@ export const UsageAnalytics: React.FC<UsageAnalyticsProps> = ({
                     </div>
                     <div className="mt-2 text-xs text-slate-400">
                       <span className={statsCards.averageConversions > 5 ? "text-green-400" : "text-slate-400"}>
-                        {statsCards.averageConversions} media por {selectedPeriod === 'daily' ? 'hora' : selectedPeriod === 'weekly' ? 'día' : selectedPeriod === 'monthly' ? 'día' : 'mes'}
+                        {statsCards.averageConversions} media por {selectedPeriod === 'daily' ? 'hora' : selectedPeriod === 'weekly' ? 'dÃ­a' : selectedPeriod === 'monthly' ? 'dÃ­a' : 'mes'}
                       </span>
                     </div>
                   </CardContent>
@@ -243,7 +243,7 @@ export const UsageAnalytics: React.FC<UsageAnalyticsProps> = ({
                     </div>
                     <div className="mt-2 text-xs text-slate-400">
                       <span>
-                        {formatBytes(statsCards.totalBytes / (selectedPeriod === 'daily' ? 24 : selectedPeriod === 'weekly' ? 7 : selectedPeriod === 'monthly' ? 30 : 12))} por {selectedPeriod === 'daily' ? 'hora' : selectedPeriod === 'weekly' ? 'día' : selectedPeriod === 'monthly' ? 'día' : 'mes'}
+                        {formatBytes(statsCards.totalBytes / (selectedPeriod === 'daily' ? 24 : selectedPeriod === 'weekly' ? 7 : selectedPeriod === 'monthly' ? 30 : 12))} por {selectedPeriod === 'daily' ? 'hora' : selectedPeriod === 'weekly' ? 'dÃ­a' : selectedPeriod === 'monthly' ? 'dÃ­a' : 'mes'}
                       </span>
                     </div>
                   </CardContent>
@@ -253,7 +253,7 @@ export const UsageAnalytics: React.FC<UsageAnalyticsProps> = ({
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-slate-400">Límite de Uso</p>
+                        <p className="text-sm text-slate-400">LÃ­mite de Uso</p>
                         <h3 className="text-2xl font-bold text-white mt-1">
                           {statsCards.remainingConversions} / {statsCards.conversionLimit}
                         </h3>
@@ -264,7 +264,7 @@ export const UsageAnalytics: React.FC<UsageAnalyticsProps> = ({
                     </div>
                     <div className="mt-2 text-xs">
                       {statsCards.remainingConversions < 5 ? (
-                        <span className="text-red-400">Casi alcanzando el límite</span>
+                        <span className="text-red-400">Casi alcanzando el lÃ­mite</span>
                       ) : (
                         <span className="text-slate-400">Conversiones restantes</span>
                       )}
@@ -293,7 +293,7 @@ export const UsageAnalytics: React.FC<UsageAnalyticsProps> = ({
                           Actualizar a Premium
                         </Button>
                       ) : (
-                        <span className="text-xs text-slate-400">Renovación: 15/10/2023</span>
+                        <span className="text-xs text-slate-400">RenovaciÃ³n: 15/10/2023</span>
                       )}
                     </div>
                   </CardContent>
@@ -315,7 +315,7 @@ export const UsageAnalytics: React.FC<UsageAnalyticsProps> = ({
                           onClick={() => handlePeriodChange('daily')}
                           className="text-xs"
                         >
-                          Día
+                          DÃ­a
                         </Button>
                         <Button
                           size="sm"
@@ -339,7 +339,7 @@ export const UsageAnalytics: React.FC<UsageAnalyticsProps> = ({
                           onClick={() => handlePeriodChange('yearly')}
                           className="text-xs"
                         >
-                          Año
+                          AÃ±o
                         </Button>
                       </div>
                     </div>
@@ -370,7 +370,7 @@ export const UsageAnalytics: React.FC<UsageAnalyticsProps> = ({
                   <CardHeader className="flex flex-col space-y-1.5 pb-2">
                     <div className="flex items-center">
                       <PieChart className="mr-2 text-primary h-5 w-5" />
-                      <CardTitle>Tipos de conversión</CardTitle>
+                      <CardTitle>Tipos de conversiÃ³n</CardTitle>
                     </div>
                   </CardHeader>
                   <CardContent>
@@ -439,7 +439,7 @@ export const UsageAnalytics: React.FC<UsageAnalyticsProps> = ({
                           <th className="text-left py-3 px-4 font-medium">Nombre</th>
                           <th className="text-left py-3 px-4 font-medium">De</th>
                           <th className="text-left py-3 px-4 font-medium">A</th>
-                          <th className="text-left py-3 px-4 font-medium">Tamaño</th>
+                          <th className="text-left py-3 px-4 font-medium">TamaÃ±o</th>
                           <th className="text-right py-3 px-4 font-medium">Estado</th>
                         </tr>
                       </thead>
@@ -506,3 +506,4 @@ export const UsageAnalytics: React.FC<UsageAnalyticsProps> = ({
 };
 
 export default UsageAnalytics;
+

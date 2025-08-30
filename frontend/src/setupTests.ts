@@ -1,4 +1,4 @@
-import { vi } from 'vitest';
+﻿import { vi } from 'vitest';
 
 const mockSocket = {
   on: vi.fn(),
@@ -10,3 +10,4 @@ const apiService = {
 };
 
 vi.stubGlobal('apiService', apiService);
+

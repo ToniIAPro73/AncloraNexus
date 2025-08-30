@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import Sidebar from './Sidebar';
 import { Header } from './Header';
 import { CreditProvider, CreditBalance, CreditHistory } from '@/components/CreditSystem';
@@ -70,7 +70,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         />
       </div>
 
-      {/* Capa negra en móvil al abrir menú */}
+      {/* Capa negra en mÃ³vil al abrir menÃº */}
       {isMobile && !sidebarCollapsed && (
         <div
           className="fixed inset-0 bg-black/50 z-10"
@@ -87,7 +87,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         style={{ gridArea: 'main' }}
         className="pt-16 min-h-screen relative z-10 transition-all duration-300 ease-in-out p-6"
       >
-        {activeTab === 'Créditos' ? (
+        {activeTab === 'CrÃ©ditos' ? (
           <CreditProvider>
             <div className="grid grid-cols-1 @[50rem]:grid-cols-2 gap-6">
               <CreditBalance />
@@ -101,3 +101,4 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
     </div>
   );
 };
+

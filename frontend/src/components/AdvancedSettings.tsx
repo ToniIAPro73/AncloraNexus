@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Card, CardHeader, CardContent, CardTitle } from './ui/Card';
 import { Button, Badge } from './ui-components';
 import { Settings, Sliders, RotateCw, Lock, Unlock, Info, Save, RefreshCw, ChevronDown, ChevronUp } from 'lucide-react';
@@ -216,10 +216,10 @@ export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <Settings className="mr-2 text-primary" size={18} />
-              <CardTitle>Configuración Avanzada</CardTitle>
+              <CardTitle>ConfiguraciÃ³n Avanzada</CardTitle>
             </div>
             <Badge variant="secondary">
-              <Badge className="bg-gray-200 text-xs px-2 py-1 rounded">{formatFrom} → {formatTo}</Badge>
+              <Badge className="bg-gray-200 text-xs px-2 py-1 rounded">{formatFrom} â†’ {formatTo}</Badge>
             </Badge>
           </div>
         </CardHeader>
@@ -274,7 +274,7 @@ export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
             >
               <div className="flex items-center">
                 <Sliders size={16} className="text-primary mr-2" />
-                <span className="text-white font-medium">Ajustes Básicos</span>
+                <span className="text-white font-medium">Ajustes BÃ¡sicos</span>
               </div>
               {expandedSections.includes('basic') ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
             </button>
@@ -358,7 +358,7 @@ export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
                         <div>
                           <h4 className="font-medium text-white">Desbloquea opciones premium</h4>
                           <p className="text-sm text-slate-300 mt-1">
-                            Actualiza a una cuenta Premium para acceder a opciones avanzadas de conversión, mayor calidad y más funcionalidades.
+                            Actualiza a una cuenta Premium para acceder a opciones avanzadas de conversiÃ³n, mayor calidad y mÃ¡s funcionalidades.
                           </p>
                           <Button 
                             color="outline"
@@ -417,3 +417,4 @@ export const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
 };
 
 export default AdvancedSettings;
+

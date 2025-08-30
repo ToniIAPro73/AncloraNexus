@@ -1,4 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
+﻿from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import bcrypt
 
@@ -12,11 +12,11 @@ class User(db.Model):
     password_hash = db.Column(db.String(128), nullable=False)
     full_name = db.Column(db.String(100), nullable=False)
     
-    # Plan y créditos
+    # Plan y crÃ©ditos
     plan = db.Column(db.String(20), default='FREE', nullable=False)  # FREE, BASIC, PRO, ENTERPRISE
     credits = db.Column(db.Integer, default=10, nullable=False)
     
-    # Estadísticas de uso
+    # EstadÃ­sticas de uso
     total_conversions = db.Column(db.Integer, default=0, nullable=False)
     credits_used_today = db.Column(db.Integer, default=0, nullable=False)
     credits_used_this_month = db.Column(db.Integer, default=0, nullable=False)
@@ -37,15 +37,15 @@ class User(db.Model):
         return f'<User {self.email}>'
 
     def set_password(self, password):
-        """Hash y guarda la contraseña"""
+        """Hash y guarda la contraseÃ±a"""
         self.password_hash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
     def check_password(self, password):
-        """Verifica la contraseña"""
+        """Verifica la contraseÃ±a"""
         return bcrypt.checkpw(password.encode('utf-8'), self.password_hash.encode('utf-8'))
 
     def consume_credits(self, amount):
-        """Consume créditos si hay suficientes disponibles"""
+        """Consume crÃ©ditos si hay suficientes disponibles"""
         if self.credits >= amount:
             self.credits -= amount
             self.credits_used_today += amount
@@ -55,25 +55,25 @@ class User(db.Model):
         return False
 
     def add_credits(self, amount):
-        """Añade créditos al usuario"""
+        """AÃ±ade crÃ©ditos al usuario"""
         self.credits += amount
 
     def reset_daily_usage(self):
-        """Resetea el uso diario de créditos"""
+        """Resetea el uso diario de crÃ©ditos"""
         self.credits_used_today = 0
         self.last_reset_date = datetime.utcnow().date()
 
     def get_plan_info(self):
-        """Retorna información del plan actual"""
+        """Retorna informaciÃ³n del plan actual"""
         plans = {
             'FREE': {
                 'name': 'Gratuito',
                 'monthly_credits': 10,
                 'daily_limit': 5,
-                'features': ['Conversiones básicas', 'Soporte por email']
+                'features': ['Conversiones bÃ¡sicas', 'Soporte por email']
             },
             'BASIC': {
-                'name': 'Básico',
+                'name': 'BÃ¡sico',
                 'price': 9.99,
                 'monthly_credits': 100,
                 'daily_limit': 50,
@@ -91,7 +91,7 @@ class User(db.Model):
                 'price': 99.99,
                 'monthly_credits': 2000,
                 'daily_limit': 1000,
-                'features': ['Todo incluido', 'Soporte dedicado', 'Integración personalizada']
+                'features': ['Todo incluido', 'Soporte dedicado', 'IntegraciÃ³n personalizada']
             }
         }
         return plans.get(self.plan, plans['FREE'])
@@ -125,13 +125,13 @@ class Conversion(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     
-    # Información del archivo
+    # InformaciÃ³n del archivo
     original_filename = db.Column(db.String(255), nullable=False)
     original_format = db.Column(db.String(10), nullable=False)
     target_format = db.Column(db.String(10), nullable=False)
     file_size = db.Column(db.Integer, nullable=False)  # en bytes
     
-    # Información de la conversión
+    # InformaciÃ³n de la conversiÃ³n
     conversion_type = db.Column(db.String(50), nullable=False)  # ej: "txt-html"
     credits_used = db.Column(db.Integer, nullable=False)
     processing_time = db.Column(db.Float)  # en segundos
@@ -173,12 +173,12 @@ class CreditTransaction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     
-    # Información de la transacción
-    amount = db.Column(db.Integer, nullable=False)  # positivo para añadir, negativo para consumir
+    # InformaciÃ³n de la transacciÃ³n
+    amount = db.Column(db.Integer, nullable=False)  # positivo para aÃ±adir, negativo para consumir
     transaction_type = db.Column(db.String(20), nullable=False)  # purchase, conversion, bonus, refund
     description = db.Column(db.String(255))
     
-    # Referencia a conversión si aplica
+    # Referencia a conversiÃ³n si aplica
     conversion_id = db.Column(db.Integer, db.ForeignKey('conversions.id'))
     
     # Metadatos
@@ -197,4 +197,5 @@ class CreditTransaction(db.Model):
             'conversion_id': self.conversion_id,
             'created_at': self.created_at.isoformat() if self.created_at else None
         }
+
 

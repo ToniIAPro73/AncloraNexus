@@ -1,4 +1,4 @@
-import fs from 'fs/promises';
+﻿import fs from 'fs/promises';
 import path from 'path';
 import crypto from 'crypto';
 import { fileTypeFromBuffer } from 'file-type';
@@ -53,7 +53,7 @@ export async function getActualMimeType(filePath: string): Promise<string | unde
 }
 
 /**
- * Valida la estructura básica de diferentes tipos de archivo
+ * Valida la estructura bÃ¡sica de diferentes tipos de archivo
  */
 export async function validateFileStructure(filePath: string, expectedFormat: string): Promise<ValidationResult> {
   const result: ValidationResult = {
@@ -67,14 +67,14 @@ export async function validateFileStructure(filePath: string, expectedFormat: st
   try {
     const exists = await fileExists(filePath);
     if (!exists) {
-      result.errors.push('El archivo no existe o está vacío');
+      result.errors.push('El archivo no existe o estÃ¡ vacÃ­o');
       return result;
     }
 
     const stats = await fs.stat(filePath);
     result.metadata.fileSize = stats.size;
 
-    // Validación específica por formato
+    // ValidaciÃ³n especÃ­fica por formato
     switch (expectedFormat.toLowerCase()) {
       case 'pdf':
         result.isValid = await validatePDF(filePath, result);
@@ -114,11 +114,11 @@ export async function validateFileStructure(filePath: string, expectedFormat: st
         result.isValid = await validateArchive(filePath, result);
         break;
       default:
-        result.warnings.push(`Formato ${expectedFormat} no tiene validación específica`);
+        result.warnings.push(`Formato ${expectedFormat} no tiene validaciÃ³n especÃ­fica`);
         result.isValid = true;
     }
   } catch (error) {
-    result.errors.push(`Error durante validación: ${error}`);
+    result.errors.push(`Error durante validaciÃ³n: ${error}`);
   }
 
   return result;
@@ -129,13 +129,13 @@ async function validatePDF(filePath: string, result: ValidationResult): Promise<
   
   // Verificar cabecera PDF
   if (!buffer.startsWith('%PDF-')) {
-    result.errors.push('No tiene cabecera PDF válida');
+    result.errors.push('No tiene cabecera PDF vÃ¡lida');
     return false;
   }
   
   // Verificar final de archivo
   if (!buffer.includes('%%EOF')) {
-    result.warnings.push('No tiene marcador EOF estándar');
+    result.warnings.push('No tiene marcador EOF estÃ¡ndar');
   }
   
   result.metadata.version = buffer.substring(5, 8);
@@ -147,7 +147,7 @@ async function validateOfficeXML(filePath: string, result: ValidationResult): Pr
   
   // Los archivos Office modernos son ZIP con estructura XML
   if (buffer[0] !== 0x50 || buffer[1] !== 0x4B) {
-    result.errors.push('No es un archivo ZIP válido (Office XML)');
+    result.errors.push('No es un archivo ZIP vÃ¡lido (Office XML)');
     return false;
   }
   
@@ -158,7 +158,7 @@ async function validateImage(filePath: string, result: ValidationResult): Promis
   const mimeType = await getActualMimeType(filePath);
   
   if (!mimeType || !mimeType.startsWith('image/')) {
-    result.errors.push('No es una imagen válida');
+    result.errors.push('No es una imagen vÃ¡lida');
     return false;
   }
   
@@ -170,7 +170,7 @@ async function validateVideo(filePath: string, result: ValidationResult): Promis
   const mimeType = await getActualMimeType(filePath);
   
   if (!mimeType || !mimeType.startsWith('video/')) {
-    result.errors.push('No es un video válido');
+    result.errors.push('No es un video vÃ¡lido');
     return false;
   }
   
@@ -182,7 +182,7 @@ async function validateAudio(filePath: string, result: ValidationResult): Promis
   const mimeType = await getActualMimeType(filePath);
   
   if (!mimeType || !mimeType.startsWith('audio/')) {
-    result.errors.push('No es un archivo de audio válido');
+    result.errors.push('No es un archivo de audio vÃ¡lido');
     return false;
   }
   
@@ -206,12 +206,12 @@ async function validateArchive(filePath: string, result: ValidationResult): Prom
     }
   }
   
-  result.errors.push('No se reconoce como archivo comprimido válido');
+  result.errors.push('No se reconoce como archivo comprimido vÃ¡lido');
   return false;
 }
 
 /**
- * Genera un archivo temporal con nombre único
+ * Genera un archivo temporal con nombre Ãºnico
  */
 export async function createTempFile(extension: string): Promise<string> {
   const tempDir = path.join(process.cwd(), 'temp', 'test');
@@ -222,7 +222,7 @@ export async function createTempFile(extension: string): Promise<string> {
 }
 
 /**
- * Limpia archivos temporales después de las pruebas
+ * Limpia archivos temporales despuÃ©s de las pruebas
  */
 export async function cleanupTempFiles(files: string[]): Promise<void> {
   for (const file of files) {
@@ -235,7 +235,7 @@ export async function cleanupTempFiles(files: string[]): Promise<void> {
 }
 
 /**
- * Mide el tiempo de ejecución de una conversión
+ * Mide el tiempo de ejecuciÃ³n de una conversiÃ³n
  */
 export async function measureConversionTime<T>(
   operation: () => Promise<T>
@@ -255,7 +255,7 @@ export async function verifyContentIntegrity(
   convertedPath: string,
   conversionType: string
 ): Promise<boolean> {
-  // Esta función necesitaría implementación específica según el tipo de conversión
+  // Esta funciÃ³n necesitarÃ­a implementaciÃ³n especÃ­fica segÃºn el tipo de conversiÃ³n
   // Por ahora retorna true si ambos archivos existen y tienen contenido
   const [originalExists, convertedExists] = await Promise.all([
     fileExists(originalPath),
@@ -286,11 +286,11 @@ export function createTestReport(
   report += `Total de pruebas: ${totalTests}\n`;
   report += `Exitosas: ${successfulTests}\n`;
   report += `Fallidas: ${failedTests}\n`;
-  report += `Tasa de éxito: ${successRate}%\n\n`;
+  report += `Tasa de Ã©xito: ${successRate}%\n\n`;
   
   report += 'Detalles:\n';
   results.forEach((result, index) => {
-    const status = result.success ? '✓' : '✗';
+    const status = result.success ? 'âœ“' : 'âœ—';
     const duration = result.duration ? ` (${result.duration.toFixed(2)}ms)` : '';
     const error = result.error ? ` - Error: ${result.error}` : '';
     report += `  ${status} ${result.conversion}${duration}${error}\n`;

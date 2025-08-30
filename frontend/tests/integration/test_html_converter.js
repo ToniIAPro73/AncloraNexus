@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Script de pruebas para TxtToHtmlConverter
  * Prueba con documentos reales y casos edge
  */
@@ -16,7 +16,7 @@ class TxtToHtmlConverter {
   convert(textContent, options = {}) {
     try {
       if (!textContent || typeof textContent !== 'string') {
-        throw new Error('Contenido de texto inválido');
+        throw new Error('Contenido de texto invÃ¡lido');
       }
 
       const defaultOptions = {
@@ -212,9 +212,9 @@ class TxtToHtmlConverter {
   }
 }
 
-// Función de pruebas
+// FunciÃ³n de pruebas
 async function runTests() {
-  console.log('🧪 Iniciando pruebas del conversor TXT → HTML\n');
+  console.log('ðŸ§ª Iniciando pruebas del conversor TXT â†’ HTML\n');
   
   const converter = new TxtToHtmlConverter();
   let passedTests = 0;
@@ -227,10 +227,10 @@ async function runTests() {
   const result1 = converter.convert(simpleText, { title: 'Prueba Simple' });
   
   if (result1.success && result1.content.includes('Hola mundo')) {
-    console.log('✅ PASADO');
+    console.log('âœ… PASADO');
     passedTests++;
   } else {
-    console.log('❌ FALLIDO:', result1.error || 'Contenido incorrecto');
+    console.log('âŒ FALLIDO:', result1.error || 'Contenido incorrecto');
   }
 
   // Test 2: Caracteres especiales
@@ -240,74 +240,74 @@ async function runTests() {
   const result2 = converter.convert(specialText);
   
   if (result2.success && result2.content.includes('&lt;&gt;&amp;&quot;&#39;')) {
-    console.log('✅ PASADO');
+    console.log('âœ… PASADO');
     passedTests++;
   } else {
-    console.log('❌ FALLIDO:', result2.error || 'Escape incorrecto');
+    console.log('âŒ FALLIDO:', result2.error || 'Escape incorrecto');
   }
 
   // Test 3: Texto con formato
   totalTests++;
   console.log('\nTest 3: Texto con formato (espacios y tabs)');
-  const formattedText = 'Línea 1\n  Línea indentada\n\tLínea con tab';
+  const formattedText = 'LÃ­nea 1\n  LÃ­nea indentada\n\tLÃ­nea con tab';
   const result3 = converter.convert(formattedText, { preserveWhitespace: true });
   
   if (result3.success && result3.content.includes('&nbsp;&nbsp;') && result3.content.includes('<br>')) {
-    console.log('✅ PASADO');
+    console.log('âœ… PASADO');
     passedTests++;
   } else {
-    console.log('❌ FALLIDO:', result3.error || 'Formato incorrecto');
+    console.log('âŒ FALLIDO:', result3.error || 'Formato incorrecto');
   }
 
-  // Test 4: Números de línea
+  // Test 4: NÃºmeros de lÃ­nea
   totalTests++;
-  console.log('\nTest 4: Números de línea');
-  const lineText = 'Línea 1\nLínea 2\nLínea 3';
+  console.log('\nTest 4: NÃºmeros de lÃ­nea');
+  const lineText = 'LÃ­nea 1\nLÃ­nea 2\nLÃ­nea 3';
   const result4 = converter.convert(lineText, { addLineNumbers: true });
   
   if (result4.success && result4.content.includes('line-number') && result4.content.includes('001')) {
-    console.log('✅ PASADO');
+    console.log('âœ… PASADO');
     passedTests++;
   } else {
-    console.log('❌ FALLIDO:', result4.error || 'Números de línea incorrectos');
+    console.log('âŒ FALLIDO:', result4.error || 'NÃºmeros de lÃ­nea incorrectos');
   }
 
-  // Test 5: Texto vacío
+  // Test 5: Texto vacÃ­o
   totalTests++;
-  console.log('\nTest 5: Texto vacío');
+  console.log('\nTest 5: Texto vacÃ­o');
   const result5 = converter.convert('');
   
   if (!result5.success) {
-    console.log('✅ PASADO (correctamente rechazado)');
+    console.log('âœ… PASADO (correctamente rechazado)');
     passedTests++;
   } else {
-    console.log('❌ FALLIDO: Debería rechazar texto vacío');
+    console.log('âŒ FALLIDO: DeberÃ­a rechazar texto vacÃ­o');
   }
 
   // Test 6: Texto muy largo
   totalTests++;
   console.log('\nTest 6: Texto largo');
-  const longText = 'Línea repetida\n'.repeat(1000);
+  const longText = 'LÃ­nea repetida\n'.repeat(1000);
   const result6 = converter.convert(longText);
   
   if (result6.success && result6.content.length > 10000) {
-    console.log('✅ PASADO');
+    console.log('âœ… PASADO');
     passedTests++;
   } else {
-    console.log('❌ FALLIDO:', result6.error || 'No maneja texto largo');
+    console.log('âŒ FALLIDO:', result6.error || 'No maneja texto largo');
   }
 
   // Test 7: Caracteres Unicode
   totalTests++;
   console.log('\nTest 7: Caracteres Unicode');
-  const unicodeText = 'Texto con emojis: 🚀 🎯 ✅\nAcentos: áéíóú ñ\nSímbolos: €£¥';
+  const unicodeText = 'Texto con emojis: ðŸš€ ðŸŽ¯ âœ…\nAcentos: Ã¡Ã©Ã­Ã³Ãº Ã±\nSÃ­mbolos: â‚¬Â£Â¥';
   const result7 = converter.convert(unicodeText);
   
-  if (result7.success && result7.content.includes('🚀') && result7.content.includes('áéíóú')) {
-    console.log('✅ PASADO');
+  if (result7.success && result7.content.includes('ðŸš€') && result7.content.includes('Ã¡Ã©Ã­Ã³Ãº')) {
+    console.log('âœ… PASADO');
     passedTests++;
   } else {
-    console.log('❌ FALLIDO:', result7.error || 'Unicode incorrecto');
+    console.log('âŒ FALLIDO:', result7.error || 'Unicode incorrecto');
   }
 
   // Guardar resultados de prueba
@@ -322,15 +322,15 @@ async function runTests() {
   }
 
   // Resumen
-  console.log('\n📊 RESUMEN DE PRUEBAS:');
-  console.log(`✅ Pasadas: ${passedTests}/${totalTests}`);
-  console.log(`❌ Fallidas: ${totalTests - passedTests}/${totalTests}`);
-  console.log(`📈 Tasa de éxito: ${((passedTests/totalTests)*100).toFixed(1)}%`);
+  console.log('\nðŸ“Š RESUMEN DE PRUEBAS:');
+  console.log(`âœ… Pasadas: ${passedTests}/${totalTests}`);
+  console.log(`âŒ Fallidas: ${totalTests - passedTests}/${totalTests}`);
+  console.log(`ðŸ“ˆ Tasa de Ã©xito: ${((passedTests/totalTests)*100).toFixed(1)}%`);
 
   if (passedTests === totalTests) {
-    console.log('\n🎉 ¡TODAS LAS PRUEBAS PASARON! El conversor está listo.');
+    console.log('\nðŸŽ‰ Â¡TODAS LAS PRUEBAS PASARON! El conversor estÃ¡ listo.');
   } else {
-    console.log('\n⚠️  Algunas pruebas fallaron. Revisar implementación.');
+    console.log('\nâš ï¸  Algunas pruebas fallaron. Revisar implementaciÃ³n.');
   }
 
   return passedTests === totalTests;
@@ -343,4 +343,5 @@ runTests().then(success => {
   console.error('Error en las pruebas:', error);
   process.exit(1);
 });
+
 

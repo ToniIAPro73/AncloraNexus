@@ -1,12 +1,12 @@
-# Anclora Metaform - Componentes Avanzados
+﻿# Anclora Nexus - Componentes Avanzados
 
-Este repositorio contiene los nuevos componentes avanzados desarrollados para Anclora Metaform, nuestra plataforma de conversión de archivos.
+Este repositorio contiene los nuevos componentes avanzados desarrollados para Anclora Nexus, nuestra plataforma de conversiÃ³n de archivos.
 
 ## Nuevos Componentes
 
 ### 1. BatchConversion
 
-Convierte múltiples archivos simultáneamente con seguimiento individual de progreso y resultados.
+Convierte mÃºltiples archivos simultÃ¡neamente con seguimiento individual de progreso y resultados.
 
 ```jsx
 <BatchConversion />
@@ -14,7 +14,7 @@ Convierte múltiples archivos simultáneamente con seguimiento individual de pro
 
 ### 2. AdvancedSettings
 
-Personaliza el proceso de conversión con opciones detalladas y presets guardables.
+Personaliza el proceso de conversiÃ³n con opciones detalladas y presets guardables.
 
 ```jsx
 <AdvancedSettings
@@ -31,7 +31,7 @@ Personaliza el proceso de conversión con opciones detalladas y presets guardabl
 
 ### 3. UsageAnalytics
 
-Visualiza estadísticas de uso de la plataforma con gráficos y datos detallados.
+Visualiza estadÃ­sticas de uso de la plataforma con grÃ¡ficos y datos detallados.
 
 ```jsx
 <UsageAnalytics
@@ -44,7 +44,7 @@ Visualiza estadísticas de uso de la plataforma con gráficos y datos detallados
 
 ### 4. FormatComparison
 
-Compara diferentes formatos de archivo para elegir el más adecuado para cada necesidad.
+Compara diferentes formatos de archivo para elegir el mÃ¡s adecuado para cada necesidad.
 
 ```jsx
 <FormatComparison
@@ -54,11 +54,11 @@ Compara diferentes formatos de archivo para elegir el más adecuado para cada ne
 
 ### 5. ConversionAssistant
 
-Asistente interactivo basado en chat para guiar el proceso de conversión y responder dudas.
+Asistente interactivo basado en chat para guiar el proceso de conversiÃ³n y responder dudas.
 
 ```jsx
 <ConversionAssistant
-  userName="Ana García"
+  userName="Ana GarcÃ­a"
   onRequestConversion={handleRequestConversion}
   onRequestFormatInfo={handleRequestFormatInfo}
   isPremium={true}
@@ -67,7 +67,7 @@ Asistente interactivo basado en chat para guiar el proceso de conversión y resp
 
 ### 6. ConversionOptimization
 
-Optimiza archivos durante la conversión con recomendaciones inteligentes.
+Optimiza archivos durante la conversiÃ³n con recomendaciones inteligentes.
 
 ```jsx
 <ConversionOptimization
@@ -80,9 +80,9 @@ Optimiza archivos durante la conversión con recomendaciones inteligentes.
 />
 ```
 
-## Demo de Integración
+## Demo de IntegraciÃ³n
 
-El componente `AdvancedFeaturesDemo` muestra la integración de todos estos componentes en una interfaz unificada:
+El componente `AdvancedFeaturesDemo` muestra la integraciÃ³n de todos estos componentes en una interfaz unificada:
 
 ```jsx
 <AdvancedFeaturesDemo />
@@ -93,17 +93,17 @@ El componente `AdvancedFeaturesDemo` muestra la integración de todos estos comp
 - React 17 o superior
 - TypeScript 4.5 o superior
 - Lucide React (para iconos)
-- @tremor/react (para gráficos en UsageAnalytics)
+- @tremor/react (para grÃ¡ficos en UsageAnalytics)
 
-## Instalación
+## InstalaciÃ³n
 
 1. Clona este repositorio
 2. Instala las dependencias con `npm install`
 3. Ejecuta el proyecto con `npm start`
 
-## Documentación
+## DocumentaciÃ³n
 
-Para una documentación detallada, consulta [docs/advanced_components.md](docs/advanced_components.md).
+Para una documentaciÃ³n detallada, consulta [docs/advanced_components.md](docs/advanced_components.md).
 
 ## Problemas conocidos
 
@@ -112,8 +112,9 @@ Para una documentación detallada, consulta [docs/advanced_components.md](docs/a
 
 ## Contribuciones
 
-Las contribuciones son bienvenidas. Por favor, lee [CONTRIBUTING.md](CONTRIBUTING.md) para más detalles.
+Las contribuciones son bienvenidas. Por favor, lee [CONTRIBUTING.md](CONTRIBUTING.md) para mÃ¡s detalles.
 
 ## Licencia
 
-Este proyecto está bajo la Licencia MIT.
+Este proyecto estÃ¡ bajo la Licencia MIT.
+

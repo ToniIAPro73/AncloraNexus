@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+﻿import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import path from 'path';
 import fs from 'fs/promises';
 import {
@@ -8,16 +8,16 @@ import {
   cleanupTempFiles,
   createTestReport
 } from '@test/utils/test-helpers';
-import { AncloraMetaform } from '@/AncloraMetaform';
+import { AncloraNexus } from '@/AncloraNexus';
 
 describe('Conversiones de Archivos Comprimidos', () => {
-  let converter: AncloraMetaform;
+  let converter: AncloraNexus;
   let tempFiles: string[] = [];
   let tempDirs: string[] = [];
   let testResults: any[] = [];
 
   beforeAll(async () => {
-    converter = new AncloraMetaform({
+    converter = new AncloraNexus({
       maxArchiveSize: 500 * 1024 * 1024, // 500MB
       maxExtractionSize: 2 * 1024 * 1024 * 1024, // 2GB
       supportEncryption: true,
@@ -64,7 +64,7 @@ describe('Conversiones de Archivos Comprimidos', () => {
         expect(await fileExists(outputPath)).toBe(true);
 
         testResults.push({
-          conversion: 'ZIP → RAR',
+          conversion: 'ZIP â†’ RAR',
           success: true,
           duration
         });
@@ -88,7 +88,7 @@ describe('Conversiones de Archivos Comprimidos', () => {
 
         expect(result.success).toBe(true);
         
-        // 7Z debe lograr mejor compresión
+        // 7Z debe lograr mejor compresiÃ³n
         const [zipSize, sevenZipSize] = await Promise.all([
           fs.stat(zipPath).then(s => s.size),
           fs.stat(outputPath).then(s => s.size)
@@ -241,7 +241,7 @@ describe('Conversiones de Archivos Comprimidos', () => {
           outputPath,
           targetFormat: 'tar',
           options: {
-            noCompression: true // TAR sin comprimir para acceso rápido
+            noCompression: true // TAR sin comprimir para acceso rÃ¡pido
           }
         });
 
@@ -281,7 +281,7 @@ describe('Conversiones de Archivos Comprimidos', () => {
 
         expect(result.success).toBe(true);
         
-        // Verificar compresión
+        // Verificar compresiÃ³n
         const [tarSize, gzSize] = await Promise.all([
           fs.stat(tarPath).then(s => s.size),
           fs.stat(outputPath).then(s => s.size)
@@ -368,7 +368,7 @@ describe('Conversiones de Archivos Comprimidos', () => {
     });
   });
 
-  describe('Operaciones de extracción', () => {
+  describe('Operaciones de extracciÃ³n', () => {
     it('debe extraer contenido de ZIP', async () => {
       const zipPath = path.join(__dirname, '../../fixtures/archives/valid/test-archive.zip');
       const extractDir = path.join(process.cwd(), 'temp', 'extract-zip');
@@ -389,12 +389,12 @@ describe('Conversiones de Archivos Comprimidos', () => {
       expect(result.success).toBe(true);
       expect(result.filesExtracted).toBeGreaterThan(0);
       
-      // Verificar archivos extraídos
+      // Verificar archivos extraÃ­dos
       const files = await fs.readdir(extractDir, { recursive: true });
       expect(files.some(f => f.endsWith('.txt'))).toBe(true);
     });
 
-    it('debe extraer con preservación de permisos', async () => {
+    it('debe extraer con preservaciÃ³n de permisos', async () => {
       const tarPath = path.join(__dirname, '../../fixtures/archives/valid/test-archive-permissions.tar');
       const extractDir = path.join(process.cwd(), 'temp', 'extract-perms');
       tempDirs.push(extractDir);
@@ -418,7 +418,7 @@ describe('Conversiones de Archivos Comprimidos', () => {
       }
     });
 
-    it('debe manejar enlaces simbólicos', async () => {
+    it('debe manejar enlaces simbÃ³licos', async () => {
       const tarPath = path.join(__dirname, '../../fixtures/archives/valid/test-archive-links.tar.gz');
       const extractDir = path.join(process.cwd(), 'temp', 'extract-links');
       tempDirs.push(extractDir);
@@ -436,7 +436,7 @@ describe('Conversiones de Archivos Comprimidos', () => {
       expect(result.metadata?.symlinksProcessed).toBeGreaterThan(0);
     });
 
-    it('debe extraer archivos específicos', async () => {
+    it('debe extraer archivos especÃ­ficos', async () => {
       const zipPath = path.join(__dirname, '../../fixtures/archives/valid/test-archive.zip');
       const extractDir = path.join(process.cwd(), 'temp', 'extract-specific');
       tempDirs.push(extractDir);
@@ -457,7 +457,7 @@ describe('Conversiones de Archivos Comprimidos', () => {
     });
   });
 
-  describe('Operaciones de compresión', () => {
+  describe('Operaciones de compresiÃ³n', () => {
     it('debe crear archivo desde directorio', async () => {
       const sourceDir = path.join(__dirname, '../../fixtures/test-files');
       const outputPath = await createTempFile('zip');
@@ -586,7 +586,7 @@ describe('Conversiones de Archivos Comprimidos', () => {
       expect(result.metadata?.encrypted).toBe(true);
     });
 
-    it('debe fallar con contraseña incorrecta', async () => {
+    it('debe fallar con contraseÃ±a incorrecta', async () => {
       const encryptedZip = path.join(__dirname, '../../fixtures/archives/valid/test-archive-encrypted.zip');
       const outputPath = await createTempFile('rar');
       tempFiles.push(outputPath);
@@ -601,7 +601,7 @@ describe('Conversiones de Archivos Comprimidos', () => {
       });
 
       expect(result.success).toBe(false);
-      expect(result.error).toContain('contraseña');
+      expect(result.error).toContain('contraseÃ±a');
     });
   });
 
@@ -690,8 +690,8 @@ describe('Conversiones de Archivos Comprimidos', () => {
       
       // Verificar nombres preservados
       const files = await fs.readdir(extractDir, { recursive: true });
-      expect(files.some(f => f.includes('ñ'))).toBe(true);
-      expect(files.some(f => f.includes('中文'))).toBe(true);
+      expect(files.some(f => f.includes('Ã±'))).toBe(true);
+      expect(files.some(f => f.includes('ä¸­æ–‡'))).toBe(true);
     });
 
     it('debe extraer archivos anidados recursivamente', async () => {
@@ -750,7 +750,7 @@ describe('Conversiones de Archivos Comprimidos', () => {
     });
   });
 
-  describe('Conversiones con optimización', () => {
+  describe('Conversiones con optimizaciÃ³n', () => {
     it('debe recomprimir para mejor ratio', async () => {
       const zipPath = path.join(__dirname, '../../fixtures/archives/valid/test-archive.zip');
       const outputPath = await createTempFile('7z');
@@ -772,7 +772,7 @@ describe('Conversiones de Archivos Comprimidos', () => {
       expect(result.compressionImprovement).toBeGreaterThan(10); // >10% mejora
     });
 
-    it('debe optimizar para acceso rápido', async () => {
+    it('debe optimizar para acceso rÃ¡pido', async () => {
       const sevenZipPath = path.join(__dirname, '../../fixtures/archives/valid/test-archive-solid.7z');
       const outputPath = await createTempFile('zip');
       tempFiles.push(outputPath);
@@ -812,7 +812,7 @@ describe('Conversiones de Archivos Comprimidos', () => {
 
         expect(result.success).toBe(true);
         expect(result.filesRecovered).toBeGreaterThan(0);
-        expect(result.dataLoss).toBeLessThan(10); // <10% pérdida
+        expect(result.dataLoss).toBeLessThan(10); // <10% pÃ©rdida
       });
 
       it('debe recuperar RAR con recovery record', async () => {
@@ -886,7 +886,7 @@ describe('Conversiones de Archivos Comprimidos', () => {
   });
 
   describe('Operaciones por lotes', () => {
-    it('debe convertir múltiples archivos', async () => {
+    it('debe convertir mÃºltiples archivos', async () => {
       const archives = [
         path.join(__dirname, '../../fixtures/archives/valid/archive1.zip'),
         path.join(__dirname, '../../fixtures/archives/valid/archive2.rar'),
@@ -914,7 +914,7 @@ describe('Conversiones de Archivos Comprimidos', () => {
       expect(files.filter(f => f.endsWith('.zip'))).toHaveLength(3);
     });
 
-    it('debe extraer múltiples archivos', async () => {
+    it('debe extraer mÃºltiples archivos', async () => {
       const archives = [
         path.join(__dirname, '../../fixtures/archives/valid/test1.zip'),
         path.join(__dirname, '../../fixtures/archives/valid/test2.zip')
@@ -937,7 +937,7 @@ describe('Conversiones de Archivos Comprimidos', () => {
     });
   });
 
-  describe('Información y metadatos', () => {
+  describe('InformaciÃ³n y metadatos', () => {
     it('debe listar contenido de archivo', async () => {
       const zipPath = path.join(__dirname, '../../fixtures/archives/valid/test-archive.zip');
 
@@ -957,7 +957,7 @@ describe('Conversiones de Archivos Comprimidos', () => {
       expect(result.totalCompressedSize).toBeGreaterThan(0);
     });
 
-    it('debe obtener información detallada de archivo', async () => {
+    it('debe obtener informaciÃ³n detallada de archivo', async () => {
       const rarPath = path.join(__dirname, '../../fixtures/archives/valid/test-archive.rar');
 
       const info = await converter.getArchiveInfo({
@@ -997,13 +997,13 @@ describe('Conversiones de Archivos Comprimidos', () => {
     });
   });
 
-  describe('Validaciones y límites', () => {
-    it('debe rechazar archivos que excedan tamaño máximo', async () => {
+  describe('Validaciones y lÃ­mites', () => {
+    it('debe rechazar archivos que excedan tamaÃ±o mÃ¡ximo', async () => {
       const largeArchive = path.join(__dirname, '../../fixtures/archives/valid/huge-archive.zip');
       const outputPath = await createTempFile('7z');
       tempFiles.push(outputPath);
 
-      const converterWithLimit = new AncloraMetaform({
+      const converterWithLimit = new AncloraNexus({
         maxArchiveSize: 100 * 1024 * 1024 // 100MB
       });
 
@@ -1014,7 +1014,7 @@ describe('Conversiones de Archivos Comprimidos', () => {
       });
 
       expect(result.success).toBe(false);
-      expect(result.error).toContain('tamaño máximo');
+      expect(result.error).toContain('tamaÃ±o mÃ¡ximo');
     });
 
     it('debe prevenir zip bombs', async () => {
@@ -1026,13 +1026,13 @@ describe('Conversiones de Archivos Comprimidos', () => {
         inputPath: zipBomb,
         outputDirectory: extractDir,
         options: {
-          maxExtractionRatio: 100, // Máximo 100:1
+          maxExtractionRatio: 100, // MÃ¡ximo 100:1
           maxExtractedSize: 1024 * 1024 * 1024 // 1GB
         }
       });
 
       expect(result.success).toBe(false);
-      expect(result.error).toContain('ratio de compresión');
+      expect(result.error).toContain('ratio de compresiÃ³n');
     });
 
     it('debe limitar profundidad de archivos anidados', async () => {

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 /**
  * Placeholder component for converting plain text into a document format.
@@ -11,3 +11,4 @@ export const TextToDocConverter: React.FC = () => (
 );
 
 export default TextToDocConverter;
+

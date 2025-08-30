@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import '@testing-library/jest-dom/vitest';
@@ -11,3 +11,4 @@ describe('InteractiveConversions', () => {
     expect(link).toHaveAttribute('href', '/app?category=document');
   });
 });
+

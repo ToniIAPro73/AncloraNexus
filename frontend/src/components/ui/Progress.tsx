@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 export const Progress: React.FC<{ value: number; className?: string }>=({ value, className='' })=> (
   <div className={`w-full bg-slate-700 h-2 rounded ${className}`}><div className="bg-primary h-2 rounded" style={{ width: `${Math.max(0, Math.min(100, value))}%` }} /></div>
 );
@@ -16,3 +16,4 @@ export const StepProgress: React.FC<{ steps: number; currentStep: number; labels
     </div>
   );
 };
+

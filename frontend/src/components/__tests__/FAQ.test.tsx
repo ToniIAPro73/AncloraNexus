@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import '@testing-library/jest-dom/vitest';
@@ -11,26 +11,26 @@ describe('FAQ Component', () => {
     expect(conversionsTab).toHaveClass('border-green-500');
 
     // Check that the first question is open by checking for its answer
-    expect(screen.getByText(/En, estamos orgullosos de ofrecer una plataforma versátil/i)).toBeInTheDocument();
+    expect(screen.getByText(/En, estamos orgullosos de ofrecer una plataforma versÃ¡til/i)).toBeInTheDocument();
     
     // Check that the second question is closed
-    expect(screen.queryByText(/Sí, el límite de tamaño depende de tu plan de suscripción/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/SÃ­, el lÃ­mite de tamaÃ±o depende de tu plan de suscripciÃ³n/i)).not.toBeInTheDocument();
   });
 
   it('opens and closes questions on click', () => {
     render(<FAQ />);
-    const secondQuestionButton = screen.getByRole('button', { name: /¿Hay un límite de tamaño máximo para los archivos que se pueden convertir?/i });
+    const secondQuestionButton = screen.getByRole('button', { name: /Â¿Hay un lÃ­mite de tamaÃ±o mÃ¡ximo para los archivos que se pueden convertir?/i });
 
     // Answer should not be visible initially
-    expect(screen.queryByText(/Sí, el límite de tamaño depende de tu plan de suscripción/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/SÃ­, el lÃ­mite de tamaÃ±o depende de tu plan de suscripciÃ³n/i)).not.toBeInTheDocument();
 
     // Click to open
     fireEvent.click(secondQuestionButton);
-    expect(screen.getByText(/Sí, el límite de tamaño depende de tu plan de suscripción/i)).toBeInTheDocument();
+    expect(screen.getByText(/SÃ­, el lÃ­mite de tamaÃ±o depende de tu plan de suscripciÃ³n/i)).toBeInTheDocument();
 
     // Click again to close
     fireEvent.click(secondQuestionButton);
-    expect(screen.queryByText(/Sí, el límite de tamaño depende de tu plan de suscripción/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/SÃ­, el lÃ­mite de tamaÃ±o depende de tu plan de suscripciÃ³n/i)).not.toBeInTheDocument();
   });
 
   it('switches tabs and content on tab click', () => {
@@ -38,7 +38,7 @@ describe('FAQ Component', () => {
     const accountTabButton = screen.getByRole('button', { name: 'Cuenta' });
     
     // Default tab content is visible
-    expect(screen.getByText(/¿Qué tipos de archivos puedo convertir con?/i)).toBeInTheDocument();
+    expect(screen.getByText(/Â¿QuÃ© tipos de archivos puedo convertir con?/i)).toBeInTheDocument();
 
     // Click on 'Account' tab
     fireEvent.click(accountTabButton);
@@ -47,10 +47,11 @@ describe('FAQ Component', () => {
     expect(accountTabButton).toHaveClass('border-green-500');
     
     // Default tab content should be gone
-    expect(screen.queryByText(/¿Qué tipos de archivos puedo convertir con?/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/Â¿QuÃ© tipos de archivos puedo convertir con?/i)).not.toBeInTheDocument();
     
     // New tab's first question should be visible and open
-    expect(screen.getByText(/¿Cómo puedo crear una cuenta?/i)).toBeInTheDocument();
+    expect(screen.getByText(/Â¿CÃ³mo puedo crear una cuenta?/i)).toBeInTheDocument();
     expect(screen.getByText(/Crear una cuenta es un proceso sin complicaciones./i)).toBeInTheDocument();
   });
 });
+

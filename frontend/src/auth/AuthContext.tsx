@@ -1,4 +1,4 @@
-// frontend/src/auth/AuthContext.tsx
+﻿// frontend/src/auth/AuthContext.tsx
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { apiService, LoginData, RegisterData } from '../services/api';
 import type { User } from '../types/User';
@@ -44,7 +44,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   //   }
   // }, [isAuthenticated, navigate]); // Comentado temporalmente
 
-  // Verificar autenticación al cargar la aplicación
+  // Verificar autenticaciÃ³n al cargar la aplicaciÃ³n
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -58,7 +58,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           }
         }
       } catch (error) {
-        console.error('Error verificando autenticación:', error);
+        console.error('Error verificando autenticaciÃ³n:', error);
         apiService.clearToken();
       } finally {
         setIsLoading(false);
@@ -108,7 +108,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const refreshUser = async () => {
   try {
     const response = await apiService.getProfile();
-    setUser(response); // ✅ Aquí va el objeto de usuario completo
+    setUser(response); // âœ… AquÃ­ va el objeto de usuario completo
   } catch (error) {
     console.error('Error refrescando usuario:', error);
     logout();
@@ -144,7 +144,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   );
 };
 
-// Componente para proteger rutas que requieren autenticación
+// Componente para proteger rutas que requieren autenticaciÃ³n
 interface ProtectedRouteProps {
   children: ReactNode;
   fallback?: ReactNode;
@@ -167,7 +167,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   return isAuthenticated ? <>{children}</> : <>{fallback}</>;
 };
 
-// Componente de formulario de login optimizado según la guía
+// Componente de formulario de login optimizado segÃºn la guÃ­a
 export const LoginForm: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
@@ -178,7 +178,7 @@ export const LoginForm: React.FC = () => {
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   
-  // Referencia al contexto de autenticación
+  // Referencia al contexto de autenticaciÃ³n
   const authContext = useAuth();
 
   const { login, register } = useAuth();
@@ -202,7 +202,7 @@ export const LoginForm: React.FC = () => {
         });
       }
     } catch (error: any) {
-      setError(error.message || 'Error en la autenticación');
+      setError(error.message || 'Error en la autenticaciÃ³n');
     } finally {
       setIsSubmitting(false);
     }
@@ -220,10 +220,10 @@ export const LoginForm: React.FC = () => {
       <div className="max-w-md w-full space-y-8 p-8">
         <div className="text-center">
           <h2 className="text-h2 font-bold text-white mb-2">
-            {isLogin ? 'Iniciar Sesión' : 'Crear Cuenta'}
+            {isLogin ? 'Iniciar SesiÃ³n' : 'Crear Cuenta'}
           </h2>
           <p className="text-gray-300">
-            {isLogin ? 'Accede a tu cuenta de Anclora Nexus' : 'Únete a Anclora Nexus'}
+            {isLogin ? 'Accede a tu cuenta de Anclora Nexus' : 'Ãšnete a Anclora Nexus'}
           </p>
         </div>
 
@@ -267,7 +267,7 @@ export const LoginForm: React.FC = () => {
 
             <div className="input-group">
               <label htmlFor="password" className="input-label">
-                Contraseña
+                ContraseÃ±a
               </label>
               <input
                 id="password"
@@ -277,7 +277,7 @@ export const LoginForm: React.FC = () => {
                 value={formData.password}
                 onChange={handleChange}
                 className="input"
-                placeholder="••••••••"
+                placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                 aria-describedby={error ? 'auth-error' : undefined}
               />
             </div>
@@ -302,10 +302,10 @@ export const LoginForm: React.FC = () => {
               {isSubmitting ? (
                 <div className="flex items-center justify-center">
                   <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2"></div>
-                  {isLogin ? 'Iniciando sesión...' : 'Creando cuenta...'}
+                  {isLogin ? 'Iniciando sesiÃ³n...' : 'Creando cuenta...'}
                 </div>
               ) : (
-                isLogin ? 'Iniciar Sesión' : 'Crear Cuenta'
+                isLogin ? 'Iniciar SesiÃ³n' : 'Crear Cuenta'
               )}
             </button>
           </div>
@@ -321,8 +321,8 @@ export const LoginForm: React.FC = () => {
               className="text-primary hover:text-primary-dark transition-colors"
             >
               {isLogin 
-                ? '¿No tienes cuenta? Crear una nueva' 
-                : '¿Ya tienes cuenta? Iniciar sesión'
+                ? 'Â¿No tienes cuenta? Crear una nueva' 
+                : 'Â¿Ya tienes cuenta? Iniciar sesiÃ³n'
               }
             </button>
           </div>
@@ -345,7 +345,7 @@ export const LoginForm: React.FC = () => {
           >
             ENTORNO DE DESARROLLO
           </div>
-          <h3 className="text-h3 text-gray-300 font-medium mb-3">Acceso Rápido:</h3>
+          <h3 className="text-h3 text-gray-300 font-medium mb-3">Acceso RÃ¡pido:</h3>
           
           <button
             type="button"
@@ -358,20 +358,20 @@ export const LoginForm: React.FC = () => {
                   full_name: ''
                 });
                 
-                // Iniciar sesión automáticamente
+                // Iniciar sesiÃ³n automÃ¡ticamente
                 setIsSubmitting(true);
                 setError('');
                 
-                // Llamada directa al contexto de autenticación
-                console.log('Intentando iniciar sesión con cuenta de prueba...');
+                // Llamada directa al contexto de autenticaciÃ³n
+                console.log('Intentando iniciar sesiÃ³n con cuenta de prueba...');
                 authContext.login({
                   email: 'ancloratest@dominio.com',
                   password: 'Alcloratest123'
                 }).then(result => {
                   console.log('Resultado del login:', result);
                 }).catch((error) => {
-                  console.error('Error detallado al iniciar sesión con cuenta de prueba:', error);
-                  setError('Error al iniciar sesión con cuenta de prueba');
+                  console.error('Error detallado al iniciar sesiÃ³n con cuenta de prueba:', error);
+                  setError('Error al iniciar sesiÃ³n con cuenta de prueba');
                   setIsSubmitting(false);
                 });
               }
@@ -392,12 +392,12 @@ export const LoginForm: React.FC = () => {
               marginBottom: '10px'
             }}
           >
-            🧪 Usar Cuenta de Prueba
+            ðŸ§ª Usar Cuenta de Prueba
           </button>
           
           <p className="text-gray-400 text-sm">
             Email: ancloratest@dominio.com<br />
-            Contraseña: Alcloratest123
+            ContraseÃ±a: Alcloratest123
           </p>
         </div>
       </div>
@@ -405,7 +405,7 @@ export const LoginForm: React.FC = () => {
   );
 };
 
-// Componente para mostrar información del usuario
+// Componente para mostrar informaciÃ³n del usuario
 export const UserProfile: React.FC = () => {
   const { user, logout } = useAuth();
 
@@ -419,7 +419,7 @@ export const UserProfile: React.FC = () => {
           onClick={logout}
           className="btn btn-danger"
         >
-          Cerrar Sesión
+          Cerrar SesiÃ³n
         </button>
       </div>
 
@@ -439,7 +439,7 @@ export const UserProfile: React.FC = () => {
               <span className="text-primary font-medium">{user.plan_info?.name ?? 'Sin plan asignado'}</span>
             </div>
             <div>
-              <span className="text-gray-400 block text-sm">Créditos:</span>
+              <span className="text-gray-400 block text-sm">CrÃ©ditos:</span>
               <span className="text-success font-bold">{user.credits}</span>
             </div>
             <div>
@@ -453,7 +453,7 @@ export const UserProfile: React.FC = () => {
           <h3 className="text-h3 text-white mb-4">Actividad Reciente</h3>
           <div className="bg-gray-800/30 rounded-lg overflow-hidden">
             <div className="p-4 text-center text-gray-400">
-              <p>Historial de actividad disponible próximamente</p>
+              <p>Historial de actividad disponible prÃ³ximamente</p>
             </div>
           </div>
         </div>
@@ -462,7 +462,7 @@ export const UserProfile: React.FC = () => {
   );
 };
 
-// Formulario para solicitar recuperación de contraseña
+// Formulario para solicitar recuperaciÃ³n de contraseÃ±a
 export const ForgotPasswordForm: React.FC = () => {
   const { requestPasswordReset } = useAuth();
   const [email, setEmail] = useState('');
@@ -498,7 +498,7 @@ export const ForgotPasswordForm: React.FC = () => {
   );
 };
 
-// Formulario para restablecer la contraseña con un token
+// Formulario para restablecer la contraseÃ±a con un token
 interface ResetPasswordFormProps {
   token: string;
 }
@@ -513,16 +513,16 @@ export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({ token }) =
     setMessage('');
     try {
       await resetPassword(token, password);
-      setMessage('Contraseña actualizada correctamente');
+      setMessage('ContraseÃ±a actualizada correctamente');
     } catch (err) {
-      setMessage('No se pudo actualizar la contraseña');
+      setMessage('No se pudo actualizar la contraseÃ±a');
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="input-group">
-        <label htmlFor="new-password" className="input-label">Nueva Contraseña</label>
+        <label htmlFor="new-password" className="input-label">Nueva ContraseÃ±a</label>
         <input
           id="new-password"
           type="password"
@@ -532,8 +532,9 @@ export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({ token }) =
           required
         />
       </div>
-      <button type="submit" className="btn btn-primary w-full">Restablecer contraseña</button>
+      <button type="submit" className="btn btn-primary w-full">Restablecer contraseÃ±a</button>
       {message && <p className="text-center text-sm text-gray-300">{message}</p>}
     </form>
   );
 };
+

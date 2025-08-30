@@ -1,10 +1,10 @@
-const CACHE_NAME = 'metaform-cache-v1';
+﻿const CACHE_NAME = 'Nexus-cache-v1';
 const ASSETS = [
   '/',
   '/index.html',
   '/index.css',
-  '/icono-metaform.png',
-  '/anclora_metaform_logo.png',
+  '/icono-Nexus.png',
+  '/anclora_Nexus_logo.png',
   '/manifest.json'
 ];
 
@@ -90,3 +90,4 @@ function openDb() {
     request.onerror = () => reject(request.error);
   });
 }
+

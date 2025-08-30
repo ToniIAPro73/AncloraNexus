@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+﻿import React, { useState, useRef, useEffect } from 'react';
 import { AuthService } from '../services/authService';
 import { apiService } from '../services/api';
 
@@ -39,7 +39,7 @@ export const Login: React.FC<LoginProps> = ({
       if (result.success) {
         onSuccess?.();
       } else {
-        setError(result.error || 'Error al iniciar sesión');
+        setError(result.error || 'Error al iniciar sesiÃ³n');
       }
     } catch (error) {
       setError('Error inesperado. Intenta de nuevo.');
@@ -56,7 +56,7 @@ export const Login: React.FC<LoginProps> = ({
       const result = await authService.signInWithGoogle();
       
       if (result.success) {
-        // Google OAuth redirige automáticamente
+        // Google OAuth redirige automÃ¡ticamente
       } else {
         setError(result.error || 'Error con Google Sign-In');
         setIsLoading(false);
@@ -79,14 +79,14 @@ export const Login: React.FC<LoginProps> = ({
 
   const handleForgotPassword = async () => {
     if (!formData.email) {
-      setError('Por favor ingresa tu correo electrónico');
+      setError('Por favor ingresa tu correo electrÃ³nico');
       return;
     }
     try {
       await apiService.requestPasswordReset(formData.email);
-      alert('Se ha enviado un enlace de recuperación a tu correo.');
+      alert('Se ha enviado un enlace de recuperaciÃ³n a tu correo.');
     } catch (e) {
-      setError('No se pudo iniciar la recuperación de contraseña');
+      setError('No se pudo iniciar la recuperaciÃ³n de contraseÃ±a');
     }
   };
 
@@ -94,11 +94,11 @@ export const Login: React.FC<LoginProps> = ({
       <div className="login-container" onKeyDown={(e) => {
         if (e.key === 'Escape') onClose?.();
       }}>
-        <div className="login-modal" role="dialog" aria-modal="true" aria-label="Formulario de inicio de sesión">
+        <div className="login-modal" role="dialog" aria-modal="true" aria-label="Formulario de inicio de sesiÃ³n">
         {/* Header */}
         <div className="login-header">
-          <h2 className="login-title text-h2">Iniciar Sesión</h2>
-          {/* Etiqueta de entorno de desarrollo - Será eliminada en producción */}
+          <h2 className="login-title text-h2">Iniciar SesiÃ³n</h2>
+          {/* Etiqueta de entorno de desarrollo - SerÃ¡ eliminada en producciÃ³n */}
           <div 
             style={{
               position: 'absolute',
@@ -123,7 +123,7 @@ export const Login: React.FC<LoginProps> = ({
               className="login-close-btn"
               aria-label="Cerrar"
             >
-              ×
+              Ã—
             </button>
           )}
         </div>
@@ -136,7 +136,7 @@ export const Login: React.FC<LoginProps> = ({
             aria-live="polite"
             className="login-error"
           >
-            <span className="error-icon">⚠️</span>
+            <span className="error-icon">âš ï¸</span>
             {error}
           </div>
         )}
@@ -185,7 +185,7 @@ export const Login: React.FC<LoginProps> = ({
 
           <div className="form-group">
             <label htmlFor="password" className="form-label">
-              Contraseña
+              ContraseÃ±a
             </label>
             <div className="password-input-container">
               <input
@@ -197,7 +197,7 @@ export const Login: React.FC<LoginProps> = ({
                 required
                 disabled={isLoading}
                 className="form-input"
-                placeholder="••••••••"
+                placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                 autoComplete="current-password"
                 minLength={6}
                 aria-describedby={error ? 'login-error' : undefined}
@@ -206,9 +206,9 @@ export const Login: React.FC<LoginProps> = ({
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="password-toggle"
-                aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                aria-label={showPassword ? 'Ocultar contraseÃ±a' : 'Mostrar contraseÃ±a'}
               >
-                {showPassword ? '👁️' : '👁️‍🗨️'}
+                {showPassword ? 'ðŸ‘ï¸' : 'ðŸ‘ï¸â€ðŸ—¨ï¸'}
               </button>
             </div>
           </div>
@@ -221,14 +221,14 @@ export const Login: React.FC<LoginProps> = ({
             {isLoading ? (
               <>
                 <span className="loading-spinner"></span>
-                Iniciando sesión...
+                Iniciando sesiÃ³n...
               </>
             ) : (
-              'Iniciar Sesión'
+              'Iniciar SesiÃ³n'
             )}
           </button>
 
-          {/* Botón de acceso de prueba - Será eliminado en producción */}
+          {/* BotÃ³n de acceso de prueba - SerÃ¡ eliminado en producciÃ³n */}
           <button
             type="button"
             onClick={() => {
@@ -238,14 +238,14 @@ export const Login: React.FC<LoginProps> = ({
                 password: 'Alcloratest123'
               });
               
-              // Iniciar sesión directamente sin usar el timeout
+              // Iniciar sesiÃ³n directamente sin usar el timeout
               setTimeout(() => {
                 authService.signIn('ancloratest@dominio.com', 'Alcloratest123')
                   .then(result => {
                     if (result.success) {
                       onSuccess?.();
                     } else {
-                      setError(result.error || 'Error al iniciar sesión con cuenta de prueba');
+                      setError(result.error || 'Error al iniciar sesiÃ³n con cuenta de prueba');
                     }
                   })
                   .catch(() => {
@@ -271,7 +271,7 @@ export const Login: React.FC<LoginProps> = ({
               fontWeight: 'bold'
             }}
           >
-            🧪 Usar Cuenta de Prueba
+            ðŸ§ª Usar Cuenta de Prueba
           </button>
         </form>
 
@@ -281,17 +281,17 @@ export const Login: React.FC<LoginProps> = ({
             onClick={handleForgotPassword}
             className="link-button"
           >
-            ¿Olvidaste tu contraseña?
+            Â¿Olvidaste tu contraseÃ±a?
           </button>
           
           {onSwitchToRegister && (
             <p className="switch-auth">
-              ¿No tienes cuenta?{' '}
+              Â¿No tienes cuenta?{' '}
               <button 
                 onClick={onSwitchToRegister}
                 className="link-button primary"
               >
-                Regístrate gratis
+                RegÃ­strate gratis
               </button>
             </p>
           )}
@@ -592,4 +592,5 @@ export const Login: React.FC<LoginProps> = ({
 
 
 export default Login;
+
 

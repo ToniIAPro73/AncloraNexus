@@ -1,4 +1,4 @@
-// frontend/src/components/CreditSystem/ConversionCost.tsx
+﻿// frontend/src/components/CreditSystem/ConversionCost.tsx
 import React from 'react';
 import { useCreditSystem } from './index';
 
@@ -14,9 +14,10 @@ const ConversionCost: React.FC<Props> = ({ fileType, fileSize, quality }) => {
 
   return (
     <div className="text-sm text-gray-300">
-      Costo estimado de conversión: <span className="font-semibold text-white">{cost} créditos</span>
+      Costo estimado de conversiÃ³n: <span className="font-semibold text-white">{cost} crÃ©ditos</span>
     </div>
   );
 };
 
 export default ConversionCost;
+

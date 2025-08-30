@@ -1,4 +1,4 @@
-import path from 'path';
+﻿import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -34,7 +34,7 @@ export default defineConfig(({ mode }) => {
     },
     test: { setupFiles: 'src/setupTests.ts' },
 
-    // Configuración simplificada del servidor
+    // ConfiguraciÃ³n simplificada del servidor
     appType: 'spa',
     server: {
       port: 5173,
@@ -42,3 +42,4 @@ export default defineConfig(({ mode }) => {
     }
   };
 });
+

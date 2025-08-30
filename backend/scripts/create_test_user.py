@@ -1,4 +1,4 @@
-import os
+﻿import os
 import sys
 import logging
 
@@ -6,7 +6,7 @@ import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-# Añadir la ruta del proyecto al path de Python
+# AÃ±adir la ruta del proyecto al path de Python
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.insert(0, parent_dir)
@@ -14,9 +14,9 @@ sys.path.insert(0, parent_dir)
 try:
     from src.models.user import db, User
     from src.main import app
-    logger.info("Módulos importados correctamente")
+    logger.info("MÃ³dulos importados correctamente")
 except Exception as e:
-    logger.error(f"Error al importar módulos: {e}")
+    logger.error(f"Error al importar mÃ³dulos: {e}")
     sys.exit(1)
 
 def create_test_user():
@@ -29,10 +29,10 @@ def create_test_user():
                 
                 if user:
                     logger.info("El usuario de prueba ya existe")
-                    # Actualizar la contraseña
+                    # Actualizar la contraseÃ±a
                     user.set_password('Alcloratest123')
                     db.session.commit()
-                    logger.info("Contraseña actualizada")
+                    logger.info("ContraseÃ±a actualizada")
                 else:
                     # Crear el usuario
                     new_user = User(
@@ -51,8 +51,9 @@ def create_test_user():
                 logger.error(f"Error al crear/actualizar usuario: {e}")
                 raise
     except Exception as e:
-        logger.error(f"Error con el contexto de la aplicación: {e}")
+        logger.error(f"Error con el contexto de la aplicaciÃ³n: {e}")
         raise
 
 if __name__ == "__main__":
     create_test_user()
+

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import '@testing-library/jest-dom/vitest';
@@ -7,7 +7,7 @@ import { PopularConversions } from '../PopularConversions';
 describe('PopularConversions Component', () => {
     it('renders the component with the default category (ebook) active', () => {
         render(<PopularConversions />);
-        expect(screen.getByRole('heading', { name: /Accede rápidamente a nuestras solicitudes de conversión más populares/i })).toBeInTheDocument();
+        expect(screen.getByRole('heading', { name: /Accede rÃ¡pidamente a nuestras solicitudes de conversiÃ³n mÃ¡s populares/i })).toBeInTheDocument();
         
         // Check if 'Ebook' is the active category
         const ebookButton = screen.getByRole('button', { name: /Ebook/i });
@@ -45,3 +45,4 @@ describe('PopularConversions Component', () => {
         expect(icon).toHaveAttribute('title', 'Ir');
     });
 });
+

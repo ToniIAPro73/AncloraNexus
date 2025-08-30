@@ -1,8 +1,8 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 
 """
 A self-contained **pure-Python 3.9+** utility for applying human-readable
-“pseudo-diff” patch files to a collection of text files.
+â€œpseudo-diffâ€ patch files to a collection of text files.
 """
 
 from __future__ import annotations
@@ -355,7 +355,7 @@ def peek_next_section(
 
 
 # --------------------------------------------------------------------------- #
-#  Patch → Commit and Commit application
+#  Patch â†’ Commit and Commit application
 # --------------------------------------------------------------------------- #
 def _get_updated_file(text: str, action: PatchAction, path: str) -> str:
     if action.type is not ActionType.UPDATE:
@@ -530,3 +530,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

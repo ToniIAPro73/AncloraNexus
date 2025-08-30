@@ -1,4 +1,4 @@
-from datetime import datetime
+﻿from datetime import datetime
 from .user import db
 
 class ConversionHistory(db.Model):
@@ -42,3 +42,4 @@ class ConversionHistory(db.Model):
             'created_at': self.created_at.isoformat() if self.created_at else None,
             'completed_at': self.completed_at.isoformat() if self.completed_at else None,
         }
+

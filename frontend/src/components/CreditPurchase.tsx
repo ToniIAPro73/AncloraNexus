@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { apiService } from '../services/api';
 import { useAuth } from '../hooks/useAuth';
 
@@ -34,17 +34,17 @@ export const CreditPurchase: React.FC = () => {
   const plans: Plan[] = [
     {
       id: 'BASIC',
-      name: 'Básico',
+      name: 'BÃ¡sico',
       price: 9.99,
       credits: 100,
-      features: ['100 créditos mensuales', 'Todas las conversiones', 'Soporte prioritario', 'Sin marca de agua'],
+      features: ['100 crÃ©ditos mensuales', 'Todas las conversiones', 'Soporte prioritario', 'Sin marca de agua'],
     },
     {
       id: 'PRO',
       name: 'Profesional',
       price: 29.99,
       credits: 500,
-      features: ['500 créditos mensuales', 'Conversiones ilimitadas', 'API access', 'Workflows personalizados'],
+      features: ['500 crÃ©ditos mensuales', 'Conversiones ilimitadas', 'API access', 'Workflows personalizados'],
       popular: true,
     },
     {
@@ -52,7 +52,7 @@ export const CreditPurchase: React.FC = () => {
       name: 'Empresarial',
       price: 99.99,
       credits: 2000,
-      features: ['2000 créditos mensuales', 'Todo incluido', 'Soporte dedicado', 'Integración personalizada'],
+      features: ['2000 crÃ©ditos mensuales', 'Todo incluido', 'Soporte dedicado', 'IntegraciÃ³n personalizada'],
     },
   ];
 
@@ -62,9 +62,9 @@ export const CreditPurchase: React.FC = () => {
       setMessage('');
       
       const response = await apiService.purchaseCredits(amount);
-      setMessage(`¡Compra exitosa! Nuevo saldo: ${response.new_balance} créditos`);
+      setMessage(`Â¡Compra exitosa! Nuevo saldo: ${response.new_balance} crÃ©ditos`);
       
-      // Actualizar información del usuario
+      // Actualizar informaciÃ³n del usuario
       // TODO: refrescar perfil si se implementa
     } catch (error: any) {
       setMessage(`Error: ${error.message}`);
@@ -79,9 +79,9 @@ export const CreditPurchase: React.FC = () => {
       setMessage('');
       
       const response = await apiService.upgradePlan(planId);
-      setMessage(`¡Plan actualizado exitosamente! ${response.message}`);
+      setMessage(`Â¡Plan actualizado exitosamente! ${response.message}`);
       
-      // Actualizar información del usuario
+      // Actualizar informaciÃ³n del usuario
       // TODO: refrescar perfil si se implementa
     } catch (error: any) {
       setMessage(`Error: ${error.message}`);
@@ -95,10 +95,10 @@ export const CreditPurchase: React.FC = () => {
       {/* Header */}
       <div className="text-center">
         <h1 className="text-h1 text-white mb-2">
-          💳 Gestión de Créditos
+          ðŸ’³ GestiÃ³n de CrÃ©ditos
         </h1>
         <p className="text-slate-300">
-          Compra créditos o actualiza tu plan de suscripción
+          Compra crÃ©ditos o actualiza tu plan de suscripciÃ³n
         </p>
       </div>
 
@@ -108,7 +108,7 @@ export const CreditPurchase: React.FC = () => {
           <div className="text-center">
             <h2 className="text-h2 font-bold text-white mb-2">Saldo Actual</h2>
             <div className="text-4xl font-bold text-blue-400 mb-2">{user.credits}</div>
-            <p className="text-slate-300">créditos disponibles</p>
+            <p className="text-slate-300">crÃ©ditos disponibles</p>
             <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
               <div>
                 <span className="text-slate-400">Plan actual: </span>
@@ -138,10 +138,10 @@ export const CreditPurchase: React.FC = () => {
         </div>
       )}
 
-      {/* Paquetes de créditos */}
+      {/* Paquetes de crÃ©ditos */}
       <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
         <h2 className="text-h2 text-white mb-6 text-center">
-          🎯 Paquetes de Créditos
+          ðŸŽ¯ Paquetes de CrÃ©ditos
         </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -150,7 +150,7 @@ export const CreditPurchase: React.FC = () => {
             key={index}
             tabIndex={0}
             role="button"
-            aria-label={`Comprar ${pkg.credits} créditos por €${pkg.price}`}
+            aria-label={`Comprar ${pkg.credits} crÃ©ditos por â‚¬${pkg.price}`}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -173,7 +173,7 @@ export const CreditPurchase: React.FC = () => {
                 <div className="text-2xl font-bold text-white mb-1">
                   {pkg.credits + pkg.bonus}
                 </div>
-                <div className="text-slate-400 text-sm mb-2">créditos</div>
+                <div className="text-slate-400 text-sm mb-2">crÃ©ditos</div>
                 
                 {pkg.bonus > 0 && (
                   <div className="text-green-400 text-xs mb-2">
@@ -182,7 +182,7 @@ export const CreditPurchase: React.FC = () => {
                 )}
                 
                 <div className="text-lg font-bold text-blue-400 mb-3">
-                  €{pkg.price}
+                  â‚¬{pkg.price}
                 </div>
                 
                 <button
@@ -198,10 +198,10 @@ export const CreditPurchase: React.FC = () => {
         </div>
       </div>
 
-      {/* Planes de suscripción */}
+      {/* Planes de suscripciÃ³n */}
       <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
         <h2 className="text-h2 text-white mb-6 text-center">
-          🚀 Planes de Suscripción
+          ðŸš€ Planes de SuscripciÃ³n
         </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -210,7 +210,7 @@ export const CreditPurchase: React.FC = () => {
             key={plan.id}
             tabIndex={0}
             role="button"
-            aria-label={`Seleccionar plan ${plan.name} por €${plan.price}`}
+            aria-label={`Seleccionar plan ${plan.name} por â‚¬${plan.price}`}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -224,7 +224,7 @@ export const CreditPurchase: React.FC = () => {
               {plan.popular && (
                 <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                   <span className="bg-gradient-to-r from-blue-500 to-purple-500 text-white text-sm px-3 py-1 rounded-full">
-                    Más Popular
+                    MÃ¡s Popular
                   </span>
                 </div>
               )}
@@ -233,7 +233,7 @@ export const CreditPurchase: React.FC = () => {
                 <div className="text-center mb-4">
                   <h3 className="text-h3 font-bold text-white mb-2">{plan.name}</h3>
                   <div className="text-3xl font-bold text-blue-400 mb-1">
-                    €{plan.price}
+                    â‚¬{plan.price}
                   </div>
                   <div className="text-slate-400 text-sm">por mes</div>
                 </div>
@@ -241,13 +241,13 @@ export const CreditPurchase: React.FC = () => {
                 <div className="mb-6">
                   <div className="text-center mb-4">
                     <span className="text-lg font-bold text-green-400">{plan.credits}</span>
-                    <span className="text-slate-400 text-sm ml-1">créditos/mes</span>
+                    <span className="text-slate-400 text-sm ml-1">crÃ©ditos/mes</span>
                   </div>
                 
                 <ul className="space-y-2">
                   {plan.features.map((feature, index) => (
                     <li key={index} className="flex items-center text-sm text-slate-300">
-                      <span className="text-green-400 mr-2">✓</span>
+                      <span className="text-green-400 mr-2">âœ“</span>
                       {feature}
                     </li>
                   ))}
@@ -276,26 +276,26 @@ export const CreditPurchase: React.FC = () => {
         </div>
       </div>
 
-      {/* Información adicional */}
+      {/* InformaciÃ³n adicional */}
       <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
-        <h3 className="text-h3 font-bold text-white mb-4">ℹ️ Información sobre Créditos</h3>
+        <h3 className="text-h3 font-bold text-white mb-4">â„¹ï¸ InformaciÃ³n sobre CrÃ©ditos</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
           <div>
-            <h4 className="text-h4 font-medium text-white mb-2">¿Cómo funcionan los créditos?</h4>
+            <h4 className="text-h4 font-medium text-white mb-2">Â¿CÃ³mo funcionan los crÃ©ditos?</h4>
             <ul className="space-y-1">
-              <li>• Cada conversión consume créditos según la complejidad</li>
-              <li>• Los créditos no expiran</li>
-              <li>• Conversiones básicas: 1-2 créditos</li>
-              <li>• Conversiones avanzadas: 3-10 créditos</li>
+              <li>â€¢ Cada conversiÃ³n consume crÃ©ditos segÃºn la complejidad</li>
+              <li>â€¢ Los crÃ©ditos no expiran</li>
+              <li>â€¢ Conversiones bÃ¡sicas: 1-2 crÃ©ditos</li>
+              <li>â€¢ Conversiones avanzadas: 3-10 crÃ©ditos</li>
             </ul>
           </div>
           <div>
             <h4 className="text-h4 font-medium text-white mb-2">Ventajas de los planes</h4>
             <ul className="space-y-1">
-              <li>• Créditos mensuales automáticos</li>
-              <li>• Descuentos en créditos adicionales</li>
-              <li>• Funciones exclusivas</li>
-              <li>• Soporte prioritario</li>
+              <li>â€¢ CrÃ©ditos mensuales automÃ¡ticos</li>
+              <li>â€¢ Descuentos en crÃ©ditos adicionales</li>
+              <li>â€¢ Funciones exclusivas</li>
+              <li>â€¢ Soporte prioritario</li>
             </ul>
           </div>
         </div>
@@ -303,4 +303,5 @@ export const CreditPurchase: React.FC = () => {
     </div>
   );
 };
+
 

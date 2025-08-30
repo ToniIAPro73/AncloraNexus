@@ -1,4 +1,4 @@
-import importlib.util
+﻿import importlib.util
 from pathlib import Path
 
 
@@ -22,3 +22,4 @@ def test_emit_progress_emits_correct_event(monkeypatch):
 
     assert emitted['event'] == 'conversion_progress'
     assert emitted['data'] == {'conversion_id': 1, 'phase': 'convert', 'percent': 50}
+

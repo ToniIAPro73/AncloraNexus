@@ -1,4 +1,4 @@
-// src/types/User.ts
+﻿// src/types/User.ts
 
 export interface User {
   id?: string;
@@ -16,5 +16,6 @@ export interface User {
   };
   avatar?: string;
 }
+
 
 

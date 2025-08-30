@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest';
+﻿import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest';
 import path from 'path';
 import fs from 'fs/promises';
 import {
@@ -9,7 +9,7 @@ import {
   cleanupTempFiles,
   createTestReport
 } from '@test/utils/test-helpers';
-import { AncloraMetaform } from '@/AncloraMetaform';
+import { AncloraNexus } from '@/AncloraNexus';
 
 // Helper function to create temporary test paths
 const createTempPath = (...segments: string[]) => {
@@ -25,12 +25,12 @@ const createTempFilePath = (extension: string) => {
 export { createTempPath, createTempFilePath };
 
 describe('Conversiones de Documentos', () => {
-  let converter: AncloraMetaform;
+  let converter: AncloraNexus;
   let tempFiles: string[] = [];
   let testResults: any[] = [];
 
   beforeAll(async () => {
-    converter = new AncloraMetaform({
+    converter = new AncloraNexus({
       maxFileSize: 100 * 1024 * 1024, // 100MB
       timeout: 60000,
       enableLogging: true
@@ -70,7 +70,7 @@ describe('Conversiones de Documentos', () => {
         expect(validation.isValid).toBe(true);
 
         testResults.push({
-          conversion: 'PDF → DOCX',
+          conversion: 'PDF â†’ DOCX',
           success: true,
           duration
         });
@@ -96,7 +96,7 @@ describe('Conversiones de Documentos', () => {
         expect(await fileExists(outputPath)).toBe(true);
 
         testResults.push({
-          conversion: 'PDF → XLSX',
+          conversion: 'PDF â†’ XLSX',
           success: result.success,
           duration
         });
@@ -641,7 +641,7 @@ describe('Conversiones de Documentos', () => {
         expect(result.success).toBe(true);
       });
 
-      it('debe convertir PPTX a imágenes (PNG)', async () => {
+      it('debe convertir PPTX a imÃ¡genes (PNG)', async () => {
         const outputPath = await createTempFile('png');
         tempFiles.push(outputPath);
 
@@ -766,7 +766,7 @@ describe('Conversiones de Documentos', () => {
         expect(result.success).toBe(true);
       });
 
-      it('debe corregir problemas de codificación', async () => {
+      it('debe corregir problemas de codificaciÃ³n', async () => {
         const inputPath = path.join(__dirname, '../../fixtures/documents/corrupted-fixable/encoding-issue.txt');
         const outputPath = await createTempFile('pdf');
         tempFiles.push(outputPath);
@@ -832,7 +832,7 @@ describe('Conversiones de Documentos', () => {
   });
 
   describe('Conversiones por lotes (batch)', () => {
-    it('debe convertir múltiples documentos PDF a DOCX', async () => {
+    it('debe convertir mÃºltiples documentos PDF a DOCX', async () => {
       const inputFiles = [
         path.join(__dirname, '../../fixtures/documents/valid/test-document-1.pdf'),
         path.join(__dirname, '../../fixtures/documents/valid/test-document-2.pdf'),
@@ -871,8 +871,8 @@ describe('Conversiones de Documentos', () => {
     });
   });
 
-  describe('Validaciones de límites', () => {
-    it('debe rechazar archivos que excedan el tamaño máximo', async () => {
+  describe('Validaciones de lÃ­mites', () => {
+    it('debe rechazar archivos que excedan el tamaÃ±o mÃ¡ximo', async () => {
       const largeFilePath = path.join(__dirname, '../../fixtures/documents/valid/large-file.pdf');
       const outputPath = await createTempFile('docx');
       tempFiles.push(outputPath);
@@ -884,7 +884,7 @@ describe('Conversiones de Documentos', () => {
       });
 
       expect(result.success).toBe(false);
-      expect(result.error).toContain('tamaño máximo');
+      expect(result.error).toContain('tamaÃ±o mÃ¡ximo');
     });
 
     it('debe manejar timeouts en conversiones lentas', async () => {
@@ -892,7 +892,7 @@ describe('Conversiones de Documentos', () => {
       const outputPath = await createTempFile('docx');
       tempFiles.push(outputPath);
 
-      const converterWithShortTimeout = new AncloraMetaform({
+      const converterWithShortTimeout = new AncloraNexus({
         timeout: 100 // 100ms timeout muy corto
       });
 

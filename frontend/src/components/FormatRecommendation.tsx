@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Card, CardHeader, CardContent, CardTitle, Badge, Button } from './ui';
 import { Info, CheckCircle, Zap, FileIcon, HelpCircle } from 'lucide-react';
 
@@ -35,11 +35,11 @@ export const FormatRecommendation: React.FC<FormatRecommendationProps> = ({
     {
       id: 'png',
       name: 'PNG',
-      description: 'Formato sin pérdida ideal para imágenes con transparencias y gráficos con bordes definidos.',
+      description: 'Formato sin pÃ©rdida ideal para imÃ¡genes con transparencias y grÃ¡ficos con bordes definidos.',
       icon: <FileIcon className="text-blue-400" />,
-      bestFor: ['Capturas de pantalla', 'Ilustraciones', 'Gráficos con texto'],
+      bestFor: ['Capturas de pantalla', 'Ilustraciones', 'GrÃ¡ficos con texto'],
       compatibleWith: ['Web', 'Todas las plataformas', 'Redes sociales'],
-      features: ['Transparencia', 'Sin pérdida de calidad', 'Mayor tamaño'],
+      features: ['Transparencia', 'Sin pÃ©rdida de calidad', 'Mayor tamaÃ±o'],
       popularity: 9,
       fileSize: 'Large',
       qualityLoss: 'None'
@@ -47,11 +47,11 @@ export const FormatRecommendation: React.FC<FormatRecommendationProps> = ({
     {
       id: 'jpg',
       name: 'JPG/JPEG',
-      description: 'Formato con compresión eficiente para fotografías con gran variedad de colores.',
+      description: 'Formato con compresiÃ³n eficiente para fotografÃ­as con gran variedad de colores.',
       icon: <FileIcon className="text-green-400" />,
-      bestFor: ['Fotografías', 'Imágenes para web'],
+      bestFor: ['FotografÃ­as', 'ImÃ¡genes para web'],
       compatibleWith: ['Web', 'Todas las plataformas', 'Redes sociales'],
-      features: ['Compresión ajustable', 'Tamaño reducido', 'Sin transparencia'],
+      features: ['CompresiÃ³n ajustable', 'TamaÃ±o reducido', 'Sin transparencia'],
       popularity: 10,
       fileSize: 'Medium',
       qualityLoss: 'Low'
@@ -59,11 +59,11 @@ export const FormatRecommendation: React.FC<FormatRecommendationProps> = ({
     {
       id: 'webp',
       name: 'WebP',
-      description: 'Formato moderno con excelente compresión y soporte para transparencias.',
+      description: 'Formato moderno con excelente compresiÃ³n y soporte para transparencias.',
       icon: <FileIcon className="text-purple-400" />,
-      bestFor: ['Imágenes web', 'Apps móviles'],
+      bestFor: ['ImÃ¡genes web', 'Apps mÃ³viles'],
       compatibleWith: ['Navegadores modernos', 'Android'],
-      features: ['Alta compresión', 'Transparencia', 'Animaciones'],
+      features: ['Alta compresiÃ³n', 'Transparencia', 'Animaciones'],
       popularity: 7,
       fileSize: 'Small',
       qualityLoss: 'Low'
@@ -74,8 +74,8 @@ export const FormatRecommendation: React.FC<FormatRecommendationProps> = ({
       description: 'Formato vectorial escalable perfecto para logos e iconos.',
       icon: <FileIcon className="text-orange-400" />,
       bestFor: ['Logos', 'Iconos', 'Ilustraciones'],
-      compatibleWith: ['Web', 'Software de diseño'],
-      features: ['Escalable sin pérdida', 'Editable', 'Animable'],
+      compatibleWith: ['Web', 'Software de diseÃ±o'],
+      features: ['Escalable sin pÃ©rdida', 'Editable', 'Animable'],
       popularity: 8,
       fileSize: 'Small',
       qualityLoss: 'None'
@@ -86,11 +86,11 @@ export const FormatRecommendation: React.FC<FormatRecommendationProps> = ({
     {
       id: 'pdf',
       name: 'PDF',
-      description: 'Formato universal para documentos que preserva diseño en cualquier plataforma.',
+      description: 'Formato universal para documentos que preserva diseÃ±o en cualquier plataforma.',
       icon: <FileIcon className="text-red-400" />,
       bestFor: ['Documentos finales', 'Formularios', 'Manuales'],
       compatibleWith: ['Todas las plataformas'],
-      features: ['Preservación exacta del formato', 'Seguridad', 'Compresión'],
+      features: ['PreservaciÃ³n exacta del formato', 'Seguridad', 'CompresiÃ³n'],
       popularity: 10,
       fileSize: 'Medium',
       qualityLoss: 'None'
@@ -100,9 +100,9 @@ export const FormatRecommendation: React.FC<FormatRecommendationProps> = ({
       name: 'DOCX',
       description: 'Formato editable de Microsoft Word para documentos de texto.',
       icon: <FileIcon className="text-blue-500" />,
-      bestFor: ['Documentos de trabajo', 'Colaboración'],
+      bestFor: ['Documentos de trabajo', 'ColaboraciÃ³n'],
       compatibleWith: ['Microsoft Office', 'Google Docs', 'LibreOffice'],
-      features: ['Fácil edición', 'Seguimiento de cambios', 'Compatibilidad Office'],
+      features: ['FÃ¡cil ediciÃ³n', 'Seguimiento de cambios', 'Compatibilidad Office'],
       popularity: 9,
       fileSize: 'Medium',
       qualityLoss: 'None'
@@ -114,7 +114,7 @@ export const FormatRecommendation: React.FC<FormatRecommendationProps> = ({
       icon: <FileIcon className="text-slate-400" />,
       bestFor: ['Texto simple', 'Compatibilidad universal'],
       compatibleWith: ['Todas las plataformas'],
-      features: ['Máxima compatibilidad', 'Tamaño mínimo', 'Sin formato'],
+      features: ['MÃ¡xima compatibilidad', 'TamaÃ±o mÃ­nimo', 'Sin formato'],
       popularity: 7,
       fileSize: 'Small',
       qualityLoss: 'Medium'
@@ -200,7 +200,7 @@ export const FormatRecommendation: React.FC<FormatRecommendationProps> = ({
       <Card variant="default" className="animate-in fade-in slide-in-from-bottom duration-500">
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle>Recomendación de Formato</CardTitle>
+            <CardTitle>RecomendaciÃ³n de Formato</CardTitle>
             <div className="flex items-center">
               <Info size={14} className="text-slate-400 mr-1" />
               <span className="text-xs text-slate-400">Desde: {sourceFormat}</span>
@@ -223,7 +223,7 @@ export const FormatRecommendation: React.FC<FormatRecommendationProps> = ({
                 size="sm" 
                 onClick={() => setFocusOn('size')}
               >
-                Tamaño de archivo
+                TamaÃ±o de archivo
               </Button>
               <Button 
                 variant={focusOn === 'compatibility' ? 'primary' : 'outline'} 
@@ -260,17 +260,17 @@ export const FormatRecommendation: React.FC<FormatRecommendationProps> = ({
 
           {/* Format Comparison */}
           <div className="space-y-4">
-            <h3 className="text-sm font-medium text-slate-300">Comparación de formatos:</h3>
+            <h3 className="text-sm font-medium text-slate-300">ComparaciÃ³n de formatos:</h3>
             
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-slate-700">
                     <th className="px-3 py-2 text-left text-slate-300">Formato</th>
-                    <th className="px-3 py-2 text-left text-slate-300">Pérdida de calidad</th>
-                    <th className="px-3 py-2 text-left text-slate-300">Tamaño</th>
+                    <th className="px-3 py-2 text-left text-slate-300">PÃ©rdida de calidad</th>
+                    <th className="px-3 py-2 text-left text-slate-300">TamaÃ±o</th>
                     <th className="px-3 py-2 text-left text-slate-300">Compatibilidad</th>
-                    <th className="px-3 py-2 text-center text-slate-300">Acción</th>
+                    <th className="px-3 py-2 text-center text-slate-300">AcciÃ³n</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -284,12 +284,12 @@ export const FormatRecommendation: React.FC<FormatRecommendationProps> = ({
                       </td>
                       <td className="px-3 py-2">
                         <span className={getQualityColor(format.qualityLoss)}>
-                          {format.qualityLoss === 'None' ? 'Sin pérdida' : format.qualityLoss === 'Low' ? 'Baja' : format.qualityLoss === 'Medium' ? 'Media' : 'Alta'}
+                          {format.qualityLoss === 'None' ? 'Sin pÃ©rdida' : format.qualityLoss === 'Low' ? 'Baja' : format.qualityLoss === 'Medium' ? 'Media' : 'Alta'}
                         </span>
                       </td>
                       <td className="px-3 py-2">
                         <span className={getSizeColor(format.fileSize)}>
-                          {format.fileSize === 'Small' ? 'Pequeño' : format.fileSize === 'Medium' ? 'Medio' : 'Grande'}
+                          {format.fileSize === 'Small' ? 'PequeÃ±o' : format.fileSize === 'Medium' ? 'Medio' : 'Grande'}
                         </span>
                       </td>
                       <td className="px-3 py-2">
@@ -322,7 +322,7 @@ export const FormatRecommendation: React.FC<FormatRecommendationProps> = ({
             <div className="mt-6 bg-slate-800/50 rounded-lg border border-slate-700 p-4">
               <div className="flex items-center mb-2">
                 <HelpCircle size={14} className="text-primary mr-1" />
-                <h3 className="text-sm font-medium text-white">¿Para qué usar {recommendedFormat.name}?</h3>
+                <h3 className="text-sm font-medium text-white">Â¿Para quÃ© usar {recommendedFormat.name}?</h3>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
@@ -351,7 +351,7 @@ export const FormatRecommendation: React.FC<FormatRecommendationProps> = ({
                 </div>
                 
                 <div>
-                  <h4 className="text-xs text-slate-400 mb-1">Características</h4>
+                  <h4 className="text-xs text-slate-400 mb-1">CaracterÃ­sticas</h4>
                   <ul className="text-sm space-y-1">
                     {recommendedFormat.features.map((item, index) => (
                       <li key={index} className="flex items-center">
@@ -371,3 +371,4 @@ export const FormatRecommendation: React.FC<FormatRecommendationProps> = ({
 };
 
 export default FormatRecommendation;
+

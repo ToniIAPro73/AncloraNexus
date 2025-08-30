@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { apiService } from '../services/api';
 
 type SupportedResponse = {
@@ -47,3 +47,4 @@ const FormatsView: React.FC = () => {
 };
 
 export default FormatsView;
+

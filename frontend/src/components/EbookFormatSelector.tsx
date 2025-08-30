@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { IconEbook, IconCheck, IconSettings } from './Icons';
 
 interface EbookFormatSelectorProps {
@@ -16,7 +16,7 @@ export const EbookFormatSelector: React.FC<EbookFormatSelectorProps> = ({
 }) => {
   const availableFormats = [
     { format: 'epub', name: 'EPUB', description: 'Formato abierto' },
-    { format: 'pdf', name: 'PDF', description: 'Diseño fijo' },
+    { format: 'pdf', name: 'PDF', description: 'DiseÃ±o fijo' },
     { format: 'mobi', name: 'MOBI', description: 'Kindle antiguo' },
     { format: 'azw3', name: 'AZW3', description: 'Kindle moderno' },
     { format: 'txt', name: 'TXT', description: 'Texto plano' },
@@ -67,4 +67,5 @@ export const EbookFormatSelector: React.FC<EbookFormatSelectorProps> = ({
     </div>
   );
 };
+
 

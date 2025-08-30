@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+﻿import React, { useState, useCallback } from 'react';
 import { IconEbook, IconUpload, IconDownload, IconRefresh, IconSparkles, IconCheck, IconX } from './Icons';
 import { EbookConversionService } from '../services/ebookConversionService';
 import { EbookValidationService } from '../services/ebookValidationService';
@@ -57,7 +57,7 @@ export const EbookConverter: React.FC<EbookConverterProps> = ({
           isValidating: false
         }));
         
-        // Llamar callback si está disponible
+        // Llamar callback si estÃ¡ disponible
         if (onFileValidated) {
           onFileValidated(conversionResult.data, validationResult);
         }
@@ -137,14 +137,14 @@ export const EbookConverter: React.FC<EbookConverterProps> = ({
       } else {
         setState(prev => ({
           ...prev,
-          error: conversionResult.error || 'Error iniciando conversión',
+          error: conversionResult.error || 'Error iniciando conversiÃ³n',
           isConverting: false
         }));
       }
     } catch (error) {
       setState(prev => ({
         ...prev,
-        error: 'Error durante la conversión',
+        error: 'Error durante la conversiÃ³n',
         isConverting: false
       }));
     }
@@ -183,7 +183,7 @@ export const EbookConverter: React.FC<EbookConverterProps> = ({
 
   return (
     <div className={`max-w-4xl mx-auto ${className}`} style={{ padding: 'var(--space-3)' }}>
-      {/* Header con tokens de diseño Anclora */}
+      {/* Header con tokens de diseÃ±o Anclora */}
       <div className="text-center" style={{ marginBottom: 'var(--space-4)' }}>
         <div className="flex justify-center" style={{ marginBottom: 'var(--space-2)' }}>
           <IconEbook className="w-16 h-16 text-primary" />
@@ -207,7 +207,7 @@ export const EbookConverter: React.FC<EbookConverterProps> = ({
             fontFamily: 'var(--font-body)'
           }}
         >
-          Convierte tus libros electrónicos entre diferentes formatos de manera rápida y sencilla
+          Convierte tus libros electrÃ³nicos entre diferentes formatos de manera rÃ¡pida y sencilla
         </p>
       </div>
 
@@ -267,11 +267,11 @@ export const EbookConverter: React.FC<EbookConverterProps> = ({
                 {state.selectedFile.name}
               </p>
               <p style={{ fontSize: '14px', color: 'var(--color-neutral-900)', opacity: '0.6' }}>
-                Tamaño: {(state.selectedFile.size / 1024 / 1024).toFixed(2)} MB
+                TamaÃ±o: {(state.selectedFile.size / 1024 / 1024).toFixed(2)} MB
               </p>
               {state.ebookFile?.metadata && (
                 <div style={{ fontSize: '14px', color: 'var(--color-neutral-900)', opacity: '0.6' }}>
-                  {state.ebookFile.metadata.title && <p>Título: {state.ebookFile.metadata.title}</p>}
+                  {state.ebookFile.metadata.title && <p>TÃ­tulo: {state.ebookFile.metadata.title}</p>}
                   {state.ebookFile.metadata.author && <p>Autor: {state.ebookFile.metadata.author}</p>}
                 </div>
               )}
@@ -297,7 +297,7 @@ export const EbookConverter: React.FC<EbookConverterProps> = ({
                   color: 'var(--color-neutral-900)'
                 }}
               >
-                Arrastra tu e-book aquí o haz clic para seleccionar
+                Arrastra tu e-book aquÃ­ o haz clic para seleccionar
               </p>
               <p style={{ fontSize: '14px', color: 'var(--color-neutral-900)', opacity: '0.6' }}>
                 Formatos soportados: {supportedFormats.input.join(', ').toUpperCase()}
@@ -429,7 +429,7 @@ export const EbookConverter: React.FC<EbookConverterProps> = ({
                         {job.inputFile.name}
                       </p>
                       <p style={{ fontSize: '14px', color: 'var(--color-neutral-900)', opacity: '0.6' }}>
-                        {job.inputFile.format.toUpperCase()} → {job.outputFormat.toUpperCase()}
+                        {job.inputFile.format.toUpperCase()} â†’ {job.outputFormat.toUpperCase()}
                       </p>
                     </div>
                   </div>
@@ -492,4 +492,5 @@ export const EbookConverter: React.FC<EbookConverterProps> = ({
     </div>
   );
 };
+
 

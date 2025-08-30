@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+﻿import React, { useState, useRef, useEffect } from 'react';
 import { Card, CardHeader, CardContent, CardTitle } from './ui/Card';
 import { Button } from './ui-components';
 import { MessageCircle, Send, Bot, Sparkles, Trash, Copy, User, ChevronDown, ChevronRight } from 'lucide-react';
@@ -35,7 +35,7 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: `¡Hola ${userName}! Soy tu asistente de conversión de Anclora Metaform. Puedo ayudarte a elegir el mejor formato para tus archivos o resolver dudas sobre conversiones. ¿En qué puedo ayudarte hoy?`,
+      text: `Â¡Hola ${userName}! Soy tu asistente de conversiÃ³n de Anclora Nexus. Puedo ayudarte a elegir el mejor formato para tus archivos o resolver dudas sobre conversiones. Â¿En quÃ© puedo ayudarte hoy?`,
       isUser: false,
       timestamp: new Date(),
     }
@@ -52,18 +52,18 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
   const initialSuggestions: Suggestion[] = [
     {
       id: 'suggest-1',
-      text: '¿Qué formato es mejor para compartir documentos?',
-      action: () => handleSendMessage('¿Qué formato es mejor para compartir documentos?')
+      text: 'Â¿QuÃ© formato es mejor para compartir documentos?',
+      action: () => handleSendMessage('Â¿QuÃ© formato es mejor para compartir documentos?')
     },
     {
       id: 'suggest-2',
-      text: '¿Cómo puedo convertir varios archivos a la vez?',
-      action: () => handleSendMessage('¿Cómo puedo convertir varios archivos a la vez?')
+      text: 'Â¿CÃ³mo puedo convertir varios archivos a la vez?',
+      action: () => handleSendMessage('Â¿CÃ³mo puedo convertir varios archivos a la vez?')
     },
     {
       id: 'suggest-3',
-      text: '¿Cuál es la diferencia entre JPG y PNG?',
-      action: () => handleSendMessage('¿Cuál es la diferencia entre JPG y PNG?')
+      text: 'Â¿CuÃ¡l es la diferencia entre JPG y PNG?',
+      action: () => handleSendMessage('Â¿CuÃ¡l es la diferencia entre JPG y PNG?')
     }
   ];
 
@@ -73,11 +73,11 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
       category: 'Conversiones Recientes',
       conversations: [
         {
-          title: 'Conversión de PDF a Word',
+          title: 'ConversiÃ³n de PDF a Word',
           timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
           messages: [
-            { id: 'h1-1', text: '¿Cómo puedo convertir un PDF a Word?', isUser: true, timestamp: new Date() },
-            { id: 'h1-2', text: 'Para convertir un PDF a Word, sube tu archivo PDF y selecciona DOCX como formato de salida. Esta conversión es ideal para cuando necesitas editar el contenido de un PDF.', isUser: false, timestamp: new Date() }
+            { id: 'h1-1', text: 'Â¿CÃ³mo puedo convertir un PDF a Word?', isUser: true, timestamp: new Date() },
+            { id: 'h1-2', text: 'Para convertir un PDF a Word, sube tu archivo PDF y selecciona DOCX como formato de salida. Esta conversiÃ³n es ideal para cuando necesitas editar el contenido de un PDF.', isUser: false, timestamp: new Date() }
           ]
         },
         {
@@ -85,7 +85,7 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
           timestamp: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000), // 4 days ago
           messages: [
             { id: 'h2-1', text: 'No puedo abrir un archivo SVG que he convertido', isUser: true, timestamp: new Date() },
-            { id: 'h2-2', text: 'Los archivos SVG son gráficos vectoriales que se pueden abrir con navegadores web modernos o programas de diseño como Adobe Illustrator o Inkscape. ¿Qué programa estás usando para intentar abrirlo?', isUser: false, timestamp: new Date() }
+            { id: 'h2-2', text: 'Los archivos SVG son grÃ¡ficos vectoriales que se pueden abrir con navegadores web modernos o programas de diseÃ±o como Adobe Illustrator o Inkscape. Â¿QuÃ© programa estÃ¡s usando para intentar abrirlo?', isUser: false, timestamp: new Date() }
           ]
         }
       ]
@@ -97,8 +97,8 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
           title: 'Diferencias entre formatos',
           timestamp: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 7 days ago
           messages: [
-            { id: 'h3-1', text: '¿Cuál es mejor para fotografías, JPG o PNG?', isUser: true, timestamp: new Date() },
-            { id: 'h3-2', text: 'Para fotografías, JPG suele ser mejor porque ofrece buena calidad con tamaños de archivo más pequeños. PNG es preferible para imágenes con texto, gráficos o transparencias, pero los archivos son más grandes.', isUser: false, timestamp: new Date() }
+            { id: 'h3-1', text: 'Â¿CuÃ¡l es mejor para fotografÃ­as, JPG o PNG?', isUser: true, timestamp: new Date() },
+            { id: 'h3-2', text: 'Para fotografÃ­as, JPG suele ser mejor porque ofrece buena calidad con tamaÃ±os de archivo mÃ¡s pequeÃ±os. PNG es preferible para imÃ¡genes con texto, grÃ¡ficos o transparencias, pero los archivos son mÃ¡s grandes.', isUser: false, timestamp: new Date() }
           ]
         }
       ]
@@ -157,7 +157,7 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
             });
           }
         } else {
-          botResponse = 'Para convertir un archivo, necesito saber el formato de origen y el formato de destino. ¿Qué tipo de archivo quieres convertir y a qué formato?';
+          botResponse = 'Para convertir un archivo, necesito saber el formato de origen y el formato de destino. Â¿QuÃ© tipo de archivo quieres convertir y a quÃ© formato?';
           
           newSuggestions = [
             { id: 'format-1', text: 'PDF a Word', action: () => onRequestConversion ? onRequestConversion('pdf', 'docx') : null },
@@ -176,58 +176,58 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
             if (onRequestFormatInfo) {
               newSuggestions.push({
                 id: `info-${format}-${Date.now()}`,
-                text: `Más sobre ${format.toUpperCase()}`,
+                text: `MÃ¡s sobre ${format.toUpperCase()}`,
                 action: () => onRequestFormatInfo(format)
               });
             }
           });
         } else if (lowerText.includes('compartir') || lowerText.includes('enviar')) {
-          botResponse = 'Para compartir documentos, el formato PDF es generalmente la mejor opción porque mantiene el formato exacto y puede ser visualizado en prácticamente cualquier dispositivo. Si necesitas que el destinatario pueda editar el documento, considera usar DOCX (Word) o una alternativa como Google Docs con permisos de edición.';
+          botResponse = 'Para compartir documentos, el formato PDF es generalmente la mejor opciÃ³n porque mantiene el formato exacto y puede ser visualizado en prÃ¡cticamente cualquier dispositivo. Si necesitas que el destinatario pueda editar el documento, considera usar DOCX (Word) o una alternativa como Google Docs con permisos de ediciÃ³n.';
           
           newSuggestions = [
             { id: 'share-1', text: 'Convertir a PDF', action: () => onRequestConversion ? onRequestConversion('', 'pdf') : null },
-            { id: 'share-2', text: 'Más sobre PDF', action: () => onRequestFormatInfo ? onRequestFormatInfo('pdf') : null },
-            { id: 'share-3', text: 'Comparar PDF y DOCX', action: () => handleSendMessage('¿Cuál es la diferencia entre PDF y DOCX?') }
+            { id: 'share-2', text: 'MÃ¡s sobre PDF', action: () => onRequestFormatInfo ? onRequestFormatInfo('pdf') : null },
+            { id: 'share-3', text: 'Comparar PDF y DOCX', action: () => handleSendMessage('Â¿CuÃ¡l es la diferencia entre PDF y DOCX?') }
           ];
         } else if (lowerText.includes('imagen') || lowerText.includes('foto')) {
-          botResponse = 'Para imágenes, el mejor formato depende del uso:\n\n• JPG: Ideal para fotografías y imágenes con muchos colores\n• PNG: Mejor para gráficos, capturas de pantalla o imágenes con transparencia\n• SVG: Perfecto para logos e iconos que necesitan escalarse a diferentes tamaños\n• WebP: Formato moderno con buena compresión para web';
+          botResponse = 'Para imÃ¡genes, el mejor formato depende del uso:\n\nâ€¢ JPG: Ideal para fotografÃ­as y imÃ¡genes con muchos colores\nâ€¢ PNG: Mejor para grÃ¡ficos, capturas de pantalla o imÃ¡genes con transparencia\nâ€¢ SVG: Perfecto para logos e iconos que necesitan escalarse a diferentes tamaÃ±os\nâ€¢ WebP: Formato moderno con buena compresiÃ³n para web';
           
           newSuggestions = [
-            { id: 'img-1', text: 'Más sobre JPG', action: () => onRequestFormatInfo ? onRequestFormatInfo('jpg') : null },
-            { id: 'img-2', text: 'Más sobre PNG', action: () => onRequestFormatInfo ? onRequestFormatInfo('png') : null },
+            { id: 'img-1', text: 'MÃ¡s sobre JPG', action: () => onRequestFormatInfo ? onRequestFormatInfo('jpg') : null },
+            { id: 'img-2', text: 'MÃ¡s sobre PNG', action: () => onRequestFormatInfo ? onRequestFormatInfo('png') : null },
             { id: 'img-3', text: 'Convertir una imagen', action: () => handleSendMessage('Quiero convertir una imagen') }
           ];
         } else {
-          botResponse = 'La elección del mejor formato depende de tus necesidades específicas. ¿Puedes decirme qué tipo de archivo estás manejando (documento, imagen, audio, etc.) y cómo planeas utilizarlo?';
+          botResponse = 'La elecciÃ³n del mejor formato depende de tus necesidades especÃ­ficas. Â¿Puedes decirme quÃ© tipo de archivo estÃ¡s manejando (documento, imagen, audio, etc.) y cÃ³mo planeas utilizarlo?';
         }
-      } else if (lowerText.includes('varios archivos') || lowerText.includes('múltiples') || lowerText.includes('lote')) {
-        botResponse = 'Para convertir varios archivos a la vez, puedes usar nuestra función de conversión por lotes. Simplemente:\n\n1. Selecciona la opción "Conversión por lotes"\n2. Sube múltiples archivos (hasta 20 en la versión gratuita)\n3. Elige el formato de salida para todos\n4. Inicia la conversión\n\nLos archivos se procesarán uno tras otro y podrás descargarlos individualmente o como un archivo ZIP.';
+      } else if (lowerText.includes('varios archivos') || lowerText.includes('mÃºltiples') || lowerText.includes('lote')) {
+        botResponse = 'Para convertir varios archivos a la vez, puedes usar nuestra funciÃ³n de conversiÃ³n por lotes. Simplemente:\n\n1. Selecciona la opciÃ³n "ConversiÃ³n por lotes"\n2. Sube mÃºltiples archivos (hasta 20 en la versiÃ³n gratuita)\n3. Elige el formato de salida para todos\n4. Inicia la conversiÃ³n\n\nLos archivos se procesarÃ¡n uno tras otro y podrÃ¡s descargarlos individualmente o como un archivo ZIP.';
         
         if (!isPremium) {
-          botResponse += '\n\nLa versión gratuita permite convertir hasta 20 archivos simultáneamente. Con una cuenta Premium, puedes convertir hasta 100 archivos por lote.';
+          botResponse += '\n\nLa versiÃ³n gratuita permite convertir hasta 20 archivos simultÃ¡neamente. Con una cuenta Premium, puedes convertir hasta 100 archivos por lote.';
         }
         
         newSuggestions = [
-          { id: 'batch-1', text: 'Ir a conversión por lotes', action: () => window.location.href = '/batch' }
+          { id: 'batch-1', text: 'Ir a conversiÃ³n por lotes', action: () => window.location.href = '/batch' }
         ];
       } else if (lowerText.includes('calidad') || lowerText.includes('compress')) {
-        botResponse = 'La calidad y el tamaño del archivo están directamente relacionados en la mayoría de los formatos. En nuestra herramienta puedes ajustar la calidad de compresión para encontrar el equilibrio perfecto entre tamaño y calidad visual.\n\nPara archivos PDF y documentos, recomendamos una configuración de compresión media que mantiene la legibilidad. Para imágenes, una compresión del 80-90% suele ser un buen equilibrio.';
+        botResponse = 'La calidad y el tamaÃ±o del archivo estÃ¡n directamente relacionados en la mayorÃ­a de los formatos. En nuestra herramienta puedes ajustar la calidad de compresiÃ³n para encontrar el equilibrio perfecto entre tamaÃ±o y calidad visual.\n\nPara archivos PDF y documentos, recomendamos una configuraciÃ³n de compresiÃ³n media que mantiene la legibilidad. Para imÃ¡genes, una compresiÃ³n del 80-90% suele ser un buen equilibrio.';
         
         newSuggestions = [
-          { id: 'quality-1', text: 'Configuración avanzada', action: () => handleSendMessage('¿Cómo uso la configuración avanzada?') },
+          { id: 'quality-1', text: 'ConfiguraciÃ³n avanzada', action: () => handleSendMessage('Â¿CÃ³mo uso la configuraciÃ³n avanzada?') },
           { id: 'quality-2', text: 'Comprimir un PDF', action: () => onRequestConversion ? onRequestConversion('pdf', 'pdf') : null }
         ];
       } else if (lowerText.includes('hola') || lowerText.includes('ayuda') || lowerText.includes('asistente')) {
-        botResponse = `¡Hola! Soy tu asistente de conversión de Anclora Metaform. Puedo ayudarte con:\n\n• Recomendaciones sobre formatos de archivo\n• Información sobre tipos de conversión\n• Soluciones a problemas comunes\n• Consejos para optimizar tus archivos\n\n¿Sobre qué te gustaría saber más?`;
+        botResponse = `Â¡Hola! Soy tu asistente de conversiÃ³n de Anclora Nexus. Puedo ayudarte con:\n\nâ€¢ Recomendaciones sobre formatos de archivo\nâ€¢ InformaciÃ³n sobre tipos de conversiÃ³n\nâ€¢ Soluciones a problemas comunes\nâ€¢ Consejos para optimizar tus archivos\n\nÂ¿Sobre quÃ© te gustarÃ­a saber mÃ¡s?`;
         
         newSuggestions = initialSuggestions;
       } else {
-        botResponse = 'Entiendo tu consulta. Para poder ayudarte mejor, ¿podrías darme más detalles sobre el tipo de archivo que estás manejando y qué quieres hacer con él?';
+        botResponse = 'Entiendo tu consulta. Para poder ayudarte mejor, Â¿podrÃ­as darme mÃ¡s detalles sobre el tipo de archivo que estÃ¡s manejando y quÃ© quieres hacer con Ã©l?';
         
         newSuggestions = [
-          { id: 'help-1', text: 'Quiero convertir un archivo', action: () => handleSendMessage('¿Cómo convierto un archivo?') },
-          { id: 'help-2', text: 'Necesito información sobre formatos', action: () => handleSendMessage('¿Qué formato debería usar?') },
-          { id: 'help-3', text: 'Tengo un problema con una conversión', action: () => handleSendMessage('Tengo un problema con una conversión') }
+          { id: 'help-1', text: 'Quiero convertir un archivo', action: () => handleSendMessage('Â¿CÃ³mo convierto un archivo?') },
+          { id: 'help-2', text: 'Necesito informaciÃ³n sobre formatos', action: () => handleSendMessage('Â¿QuÃ© formato deberÃ­a usar?') },
+          { id: 'help-3', text: 'Tengo un problema con una conversiÃ³n', action: () => handleSendMessage('Tengo un problema con una conversiÃ³n') }
         ];
       }
       
@@ -268,7 +268,7 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
   const clearConversation = () => {
     setMessages([{
       id: 'welcome',
-      text: `¡Hola ${userName}! Soy tu asistente de conversión de Anclora Metaform. ¿En qué puedo ayudarte hoy?`,
+      text: `Â¡Hola ${userName}! Soy tu asistente de conversiÃ³n de Anclora Nexus. Â¿En quÃ© puedo ayudarte hoy?`,
       isUser: false,
       timestamp: new Date(),
     }]);
@@ -304,16 +304,16 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
 
   const generateFormatComparisonResponse = (formats: string[]): string => {
     if (formats.includes('jpg') && formats.includes('png')) {
-      return 'La principal diferencia entre JPG y PNG es que:\n\n• JPG utiliza compresión con pérdida, lo que resulta en archivos más pequeños pero con cierta pérdida de calidad, ideal para fotografías.\n\n• PNG usa compresión sin pérdida, preservando la calidad exacta de la imagen y admitiendo transparencia, mejor para gráficos, capturas de pantalla y imágenes con texto.\n\nSi el tamaño del archivo es importante, usa JPG para fotos. Si necesitas máxima calidad o transparencia, usa PNG.';
+      return 'La principal diferencia entre JPG y PNG es que:\n\nâ€¢ JPG utiliza compresiÃ³n con pÃ©rdida, lo que resulta en archivos mÃ¡s pequeÃ±os pero con cierta pÃ©rdida de calidad, ideal para fotografÃ­as.\n\nâ€¢ PNG usa compresiÃ³n sin pÃ©rdida, preservando la calidad exacta de la imagen y admitiendo transparencia, mejor para grÃ¡ficos, capturas de pantalla y imÃ¡genes con texto.\n\nSi el tamaÃ±o del archivo es importante, usa JPG para fotos. Si necesitas mÃ¡xima calidad o transparencia, usa PNG.';
     }
     
     if (formats.includes('pdf') && formats.includes('docx')) {
-      return 'Las principales diferencias entre PDF y DOCX son:\n\n• PDF está diseñado para mantener un formato exacto en cualquier dispositivo o programa. Es ideal para documentos finales que no necesitan edición y para compartir.\n\n• DOCX (Word) está diseñado para la edición fácil de documentos. Ofrece todas las herramientas de edición pero puede verse diferente según el software y dispositivo usado.\n\nUsa PDF para documentos finales y distribución, y DOCX para documentos en desarrollo que requieren edición.';
+      return 'Las principales diferencias entre PDF y DOCX son:\n\nâ€¢ PDF estÃ¡ diseÃ±ado para mantener un formato exacto en cualquier dispositivo o programa. Es ideal para documentos finales que no necesitan ediciÃ³n y para compartir.\n\nâ€¢ DOCX (Word) estÃ¡ diseÃ±ado para la ediciÃ³n fÃ¡cil de documentos. Ofrece todas las herramientas de ediciÃ³n pero puede verse diferente segÃºn el software y dispositivo usado.\n\nUsa PDF para documentos finales y distribuciÃ³n, y DOCX para documentos en desarrollo que requieren ediciÃ³n.';
     }
     
     // Generic comparison for other format combinations
     return `Comparando ${formats.map(f => f.toUpperCase()).join(' y ')}:\n\n` + 
-           `Cada uno de estos formatos tiene diferentes casos de uso. Si me indicas para qué necesitas usar el archivo (edición, compartir, almacenamiento, etc.), puedo darte una recomendación más específica.`;
+           `Cada uno de estos formatos tiene diferentes casos de uso. Si me indicas para quÃ© necesitas usar el archivo (ediciÃ³n, compartir, almacenamiento, etc.), puedo darte una recomendaciÃ³n mÃ¡s especÃ­fica.`;
   };
 
   return (
@@ -323,7 +323,7 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <Bot className="mr-2 text-primary" />
-              <CardTitle>Asistente de Conversión</CardTitle>
+              <CardTitle>Asistente de ConversiÃ³n</CardTitle>
               <div className="flex">
                 <Button
                   className="bg-transparent text-sm px-2 py-1"
@@ -335,7 +335,7 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
                 <Button
                   className="bg-transparent text-sm px-2 py-1"
                   onClick={clearConversation}
-                  title="Nueva conversación"
+                  title="Nueva conversaciÃ³n"
                 >
                   <Trash size={18} />
                 </Button>
@@ -471,7 +471,7 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
                 <div className="flex items-center">
                   <Sparkles className="h-4 w-4 text-amber-500 mr-1" />
                   <span className="text-xs text-amber-400">
-                    Desbloquea respuestas avanzadas y análisis de archivos con 
+                    Desbloquea respuestas avanzadas y anÃ¡lisis de archivos con 
                     <Button 
                       className="h-auto p-0 text-xs text-amber-400 underline"
                       onClick={() => {}}
@@ -513,3 +513,4 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
 };
 
 export default ConversionAssistant;
+

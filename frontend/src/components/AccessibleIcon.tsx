@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 interface AccessibleIconProps {
   label: string;
@@ -12,3 +12,4 @@ const AccessibleIcon: React.FC<AccessibleIconProps> = ({ label, children }) => (
 );
 
 export default AccessibleIcon;
+

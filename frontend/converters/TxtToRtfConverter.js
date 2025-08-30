@@ -1,31 +1,31 @@
-/**
- * Conversor TxtToRtfConverter - Anclora Metaform
+﻿/**
+ * Conversor TxtToRtfConverter - Anclora Nexus
  * Tu Contenido, Reinventado
  */
 
 class TxtToRtfConverter {
   constructor() {
-    this.name = 'Anclora Metaform - TxtToRtfConverter';
+    this.name = 'Anclora Nexus - TxtToRtfConverter';
     this.version = '1.0.0';
-    this.brand = 'Anclora Metaform';
+    this.brand = 'Anclora Nexus';
     this.tagline = 'Tu Contenido, Reinventado';
   }
 
   /**
    * Convierte contenido de texto a RTF
    * @param {string} textContent - Contenido del archivo TXT
-   * @param {Object} options - Opciones de conversión
-   * @returns {Object} - Resultado de la conversión
+   * @param {Object} options - Opciones de conversiÃ³n
+   * @returns {Object} - Resultado de la conversiÃ³n
    */
   convert(textContent, options = {}) {
     try {
       // Validar entrada
       if (!textContent || typeof textContent !== 'string') {
-        throw new Error('Contenido de texto inválido');
+        throw new Error('Contenido de texto invÃ¡lido');
       }
 
       if (textContent.trim() === '') {
-        throw new Error('El archivo está vacío');
+        throw new Error('El archivo estÃ¡ vacÃ­o');
       }
 
       // Opciones por defecto
@@ -70,7 +70,7 @@ class TxtToRtfConverter {
   /**
    * Procesa el contenido de texto y lo convierte a RTF
    * @param {string} textContent - Contenido original
-   * @param {Object} config - Configuración
+   * @param {Object} config - ConfiguraciÃ³n
    * @returns {string} - Contenido en RTF
    */
   processTextToRtf(textContent, config) {
@@ -79,26 +79,26 @@ class TxtToRtfConverter {
     // Construir documento RTF
     let rtf = this.buildRtfHeader(config);
     
-    // Agregar título principal si está habilitado
+    // Agregar tÃ­tulo principal si estÃ¡ habilitado
     if (config.addMetadata) {
       rtf += this.formatTitle(config.title, config);
       rtf += this.formatSeparator();
     }
 
-    // Procesar cada línea
+    // Procesar cada lÃ­nea
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
       const trimmedLine = line.trim();
       const nextLine = i < lines.length - 1 ? lines[i + 1] : '';
       const prevLine = i > 0 ? lines[i - 1] : '';
 
-      // Líneas vacías
+      // LÃ­neas vacÃ­as
       if (trimmedLine === '') {
         rtf += '\\par ';
         continue;
       }
 
-      // Detectar títulos
+      // Detectar tÃ­tulos
       if (config.detectTitles) {
         const headerLevel = this.detectHeaderLevel(line, nextLine, prevLine, i);
         if (headerLevel > 0) {
@@ -114,7 +114,7 @@ class TxtToRtfConverter {
         continue;
       }
 
-      // Detectar texto con indentación (citas)
+      // Detectar texto con indentaciÃ³n (citas)
       if (this.isIndentedText(line)) {
         rtf += this.formatQuote(trimmedLine, config);
         continue;
@@ -124,7 +124,7 @@ class TxtToRtfConverter {
       rtf += this.formatParagraph(line, config);
     }
 
-    // Agregar pie de página
+    // Agregar pie de pÃ¡gina
     if (config.addMetadata) {
       rtf += this.formatSeparator();
       rtf += this.formatFooter(config);
@@ -138,7 +138,7 @@ class TxtToRtfConverter {
 
   /**
    * Construye el encabezado RTF
-   * @param {Object} config - Configuración
+   * @param {Object} config - ConfiguraciÃ³n
    * @returns {string} - Encabezado RTF
    */
   buildRtfHeader(config) {
@@ -151,7 +151,7 @@ class TxtToRtfConverter {
 
   /**
    * Construye la tabla de fuentes
-   * @param {Object} config - Configuración
+   * @param {Object} config - ConfiguraciÃ³n
    * @returns {string} - Tabla de fuentes RTF
    */
   buildFontTable(config) {
@@ -167,9 +167,9 @@ class TxtToRtfConverter {
   }
 
   /**
-   * Construye la información del documento
-   * @param {Object} config - Configuración
-   * @returns {string} - Información del documento RTF
+   * Construye la informaciÃ³n del documento
+   * @param {Object} config - ConfiguraciÃ³n
+   * @returns {string} - InformaciÃ³n del documento RTF
    */
   buildDocumentInfo(config) {
     const currentDate = new Date();
@@ -183,30 +183,30 @@ class TxtToRtfConverter {
   }
 
   /**
-   * Detecta el nivel de encabezado de una línea
-   * @param {string} line - Línea actual
-   * @param {string} nextLine - Línea siguiente
-   * @param {string} prevLine - Línea anterior
-   * @param {number} index - Índice de la línea
+   * Detecta el nivel de encabezado de una lÃ­nea
+   * @param {string} line - LÃ­nea actual
+   * @param {string} nextLine - LÃ­nea siguiente
+   * @param {string} prevLine - LÃ­nea anterior
+   * @param {number} index - Ãndice de la lÃ­nea
    * @returns {number} - Nivel de encabezado (0 si no es encabezado)
    */
   detectHeaderLevel(line, nextLine, prevLine, index) {
     const trimmed = line.trim();
     
-    // Líneas vacías no son títulos
+    // LÃ­neas vacÃ­as no son tÃ­tulos
     if (!trimmed) return 0;
     
-    // Títulos al inicio del documento
+    // TÃ­tulos al inicio del documento
     if (index < 3 && trimmed.length < 60 && !trimmed.includes('.') && !trimmed.includes(',')) {
       return 1;
     }
     
-    // Líneas que terminan con ':'
+    // LÃ­neas que terminan con ':'
     if (trimmed.endsWith(':') && trimmed.length < 80 && !trimmed.includes(',')) {
       return 2;
     }
     
-    // Líneas en mayúsculas (títulos)
+    // LÃ­neas en mayÃºsculas (tÃ­tulos)
     if (trimmed === trimmed.toUpperCase() && 
         trimmed.length > 3 && 
         trimmed.length < 60 && 
@@ -214,8 +214,8 @@ class TxtToRtfConverter {
       return 2;
     }
     
-    // Líneas que parecen títulos de sección
-    if (trimmed.match(/^(capítulo|chapter|sección|section|parte|part)\s+\d+/i)) {
+    // LÃ­neas que parecen tÃ­tulos de secciÃ³n
+    if (trimmed.match(/^(capÃ­tulo|chapter|secciÃ³n|section|parte|part)\s+\d+/i)) {
       return 1;
     }
     
@@ -223,12 +223,12 @@ class TxtToRtfConverter {
   }
 
   /**
-   * Detecta si una línea es parte de una lista
-   * @param {string} line - Línea a evaluar
-   * @returns {Object} - Información de la lista
+   * Detecta si una lÃ­nea es parte de una lista
+   * @param {string} line - LÃ­nea a evaluar
+   * @returns {Object} - InformaciÃ³n de la lista
    */
   detectListItem(line) {
-    const match = line.match(/^(\s*)([-*+•]|\d+\.)\s+(.+)$/);
+    const match = line.match(/^(\s*)([-*+â€¢]|\d+\.)\s+(.+)$/);
     if (match) {
       const indent = match[1];
       const marker = match[2];
@@ -248,19 +248,19 @@ class TxtToRtfConverter {
   }
 
   /**
-   * Detecta si una línea tiene indentación significativa
-   * @param {string} line - Línea a evaluar
-   * @returns {boolean} - Tiene indentación
+   * Detecta si una lÃ­nea tiene indentaciÃ³n significativa
+   * @param {string} line - LÃ­nea a evaluar
+   * @returns {boolean} - Tiene indentaciÃ³n
    */
   isIndentedText(line) {
     return line.match(/^    /) && !this.detectListItem(line).isList;
   }
 
   /**
-   * Formatea un título
-   * @param {string} title - Texto del título
-   * @param {Object} config - Configuración
-   * @returns {string} - Título formateado en RTF
+   * Formatea un tÃ­tulo
+   * @param {string} title - Texto del tÃ­tulo
+   * @param {Object} config - ConfiguraciÃ³n
+   * @returns {string} - TÃ­tulo formateado en RTF
    */
   formatTitle(title, config) {
     const fontSize = Math.round(config.fontSize * 1.5 * 2); // RTF usa half-points
@@ -271,7 +271,7 @@ class TxtToRtfConverter {
    * Formatea un encabezado
    * @param {string} text - Texto del encabezado
    * @param {number} level - Nivel del encabezado
-   * @param {Object} config - Configuración
+   * @param {Object} config - ConfiguraciÃ³n
    * @returns {string} - Encabezado formateado en RTF
    */
   formatHeader(text, level, config) {
@@ -284,8 +284,8 @@ class TxtToRtfConverter {
 
   /**
    * Formatea un elemento de lista
-   * @param {Object} listInfo - Información de la lista
-   * @param {Object} config - Configuración
+   * @param {Object} listInfo - InformaciÃ³n de la lista
+   * @param {Object} config - ConfiguraciÃ³n
    * @returns {string} - Elemento de lista formateado en RTF
    */
   formatListItem(listInfo, config) {
@@ -299,7 +299,7 @@ class TxtToRtfConverter {
   /**
    * Formatea una cita (texto indentado)
    * @param {string} text - Texto de la cita
-   * @param {Object} config - Configuración
+   * @param {Object} config - ConfiguraciÃ³n
    * @returns {string} - Cita formateada en RTF
    */
   formatQuote(text, config) {
@@ -308,10 +308,10 @@ class TxtToRtfConverter {
   }
 
   /**
-   * Formatea un párrafo normal
-   * @param {string} text - Texto del párrafo
-   * @param {Object} config - Configuración
-   * @returns {string} - Párrafo formateado en RTF
+   * Formatea un pÃ¡rrafo normal
+   * @param {string} text - Texto del pÃ¡rrafo
+   * @param {Object} config - ConfiguraciÃ³n
+   * @returns {string} - PÃ¡rrafo formateado en RTF
    */
   formatParagraph(text, config) {
     const fontSize = config.fontSize * 2;
@@ -327,10 +327,10 @@ class TxtToRtfConverter {
   applyInlineFormatting(text) {
     let formatted = this.escapeRtfText(text);
 
-    // Detectar texto en mayúsculas como énfasis
+    // Detectar texto en mayÃºsculas como Ã©nfasis
     formatted = formatted.replace(/\b[A-Z]{3,}\b/g, '\\b $&\\b0 ');
 
-    // Detectar texto entre comillas como código
+    // Detectar texto entre comillas como cÃ³digo
     formatted = formatted.replace(/"([^"]+)"/g, '\\f2 $1\\f0 ');
 
     // Detectar URLs (simplificado)
@@ -348,9 +348,9 @@ class TxtToRtfConverter {
   }
 
   /**
-   * Formatea el pie de página
-   * @param {Object} config - Configuración
-   * @returns {string} - Pie de página en RTF
+   * Formatea el pie de pÃ¡gina
+   * @param {Object} config - ConfiguraciÃ³n
+   * @returns {string} - Pie de pÃ¡gina en RTF
    */
   formatFooter(config) {
     const currentDate = new Date().toLocaleDateString('es-ES');
@@ -370,7 +370,7 @@ class TxtToRtfConverter {
       .replace(/\\/g, '\\\\')     // Backslash
       .replace(/\{/g, '\\{')      // Llave izquierda
       .replace(/\}/g, '\\}')      // Llave derecha
-      .replace(/\n/g, '\\par ')   // Nueva línea
+      .replace(/\n/g, '\\par ')   // Nueva lÃ­nea
       .replace(/\t/g, '\\tab ')   // Tab
       // Caracteres Unicode
       .replace(/[^\x00-\x7F]/g, (char) => {
@@ -382,19 +382,19 @@ class TxtToRtfConverter {
   /**
    * Valida el archivo de entrada
    * @param {File} file - Archivo a validar
-   * @returns {Object} - Resultado de validación
+   * @returns {Object} - Resultado de validaciÃ³n
    */
   validateInput(file) {
     if (!file) {
-      return { valid: false, error: 'No se proporcionó archivo' };
+      return { valid: false, error: 'No se proporcionÃ³ archivo' };
     }
 
     if (file.size === 0) {
-      return { valid: false, error: 'El archivo está vacío' };
+      return { valid: false, error: 'El archivo estÃ¡ vacÃ­o' };
     }
 
     if (file.size > 10 * 1024 * 1024) { // 10MB
-      return { valid: false, error: 'El archivo es demasiado grande (máximo 10MB)' };
+      return { valid: false, error: 'El archivo es demasiado grande (mÃ¡ximo 10MB)' };
     }
 
     const allowedTypes = ['text/plain', 'text/txt', ''];
@@ -409,7 +409,7 @@ class TxtToRtfConverter {
    * Procesa un archivo completo
    * @param {File} file - Archivo a procesar
    * @param {Object} options - Opciones
-   * @returns {Promise<Object>} - Resultado de la conversión
+   * @returns {Promise<Object>} - Resultado de la conversiÃ³n
    */
   async processFile(file, options = {}) {
     try {
@@ -463,4 +463,5 @@ if (typeof module !== 'undefined' && module.exports) {
 } else if (typeof window !== 'undefined') {
   window.TxtToRtfConverter = TxtToRtfConverter;
 }
+
 

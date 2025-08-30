@@ -1,11 +1,11 @@
-import os
+﻿import os
 from pathlib import Path
 import chardet
 from src.models.conversion import conversion_engine
 
 
 def test_text_file_normalized_before_conversion(tmp_path):
-    content = "áéíóú"
+    content = "Ã¡Ã©Ã­Ã³Ãº"
     input_path = tmp_path / "sample.txt"
     input_path.write_bytes(content.encode("latin-1"))
     output_path = tmp_path / "sample.html"
@@ -23,3 +23,4 @@ def test_text_file_normalized_before_conversion(tmp_path):
     raw = input_path.read_bytes()
     detected = chardet.detect(raw).get("encoding", "").lower()
     assert detected.startswith("utf")
+

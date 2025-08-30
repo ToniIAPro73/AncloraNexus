@@ -1,4 +1,4 @@
-from enum import Enum
+﻿from enum import Enum
 from typing import Union
 
 from flask_socketio import SocketIO
@@ -23,6 +23,7 @@ def emit_progress(conversion_id: int, phase: Union[Phase, str], percent: int) ->
             {"conversion_id": conversion_id, "phase": phase, "percent": percent},
         )
     except Exception:
-        # Durante las pruebas el servidor SocketIO no está inicializado
+        # Durante las pruebas el servidor SocketIO no estÃ¡ inicializado
         pass
+
 

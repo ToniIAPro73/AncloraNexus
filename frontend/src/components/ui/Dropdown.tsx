@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+﻿import React, { useEffect, useRef, useState } from 'react';
 
 export interface DropdownItem { id: string|number; label: React.ReactNode; icon?: React.ReactNode; disabled?: boolean; onClick?: () => void }
 export const Dropdown: React.FC<{ trigger: React.ReactNode; items: DropdownItem[]; align?: 'left'|'right'; className?: string; menuClassName?: string; withDividers?: boolean }>
@@ -25,4 +25,5 @@ export const Dropdown: React.FC<{ trigger: React.ReactNode; items: DropdownItem[
       </div>
     );
   };
+
 

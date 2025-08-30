@@ -1,4 +1,4 @@
-import os
+﻿import os
 import subprocess
 from pathlib import Path
 
@@ -54,3 +54,4 @@ def test_undo(tmp_path):
     assert "Restored" in result.stdout
     assert not backup.exists()
     assert sample.read_text(encoding="utf-8") == original
+

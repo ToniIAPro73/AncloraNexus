@@ -1,4 +1,4 @@
-import os
+﻿import os
 import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
@@ -7,7 +7,7 @@ from src.main import app
 from sqlalchemy import text
 
 def add_missing_columns():
-    """Añade las columnas que faltan en la tabla users"""
+    """AÃ±ade las columnas que faltan en la tabla users"""
     with app.app_context():
         try:
             # Verificar si la columna reset_token existe
@@ -15,9 +15,9 @@ def add_missing_columns():
             print("La columna reset_token ya existe")
         except Exception as e:
             print(f"Error al verificar reset_token: {e}")
-            # Añadir la columna reset_token
+            # AÃ±adir la columna reset_token
             db.session.execute(text("ALTER TABLE users ADD COLUMN reset_token TEXT"))
-            print("Columna reset_token añadida")
+            print("Columna reset_token aÃ±adida")
         
         try:
             # Verificar si la columna reset_token_expiration existe
@@ -25,9 +25,9 @@ def add_missing_columns():
             print("La columna reset_token_expiration ya existe")
         except Exception as e:
             print(f"Error al verificar reset_token_expiration: {e}")
-            # Añadir la columna reset_token_expiration
+            # AÃ±adir la columna reset_token_expiration
             db.session.execute(text("ALTER TABLE users ADD COLUMN reset_token_expiration TIMESTAMP"))
-            print("Columna reset_token_expiration añadida")
+            print("Columna reset_token_expiration aÃ±adida")
         
         # Confirmar los cambios
         db.session.commit()
@@ -35,3 +35,4 @@ def add_missing_columns():
 
 if __name__ == "__main__":
     add_missing_columns()
+

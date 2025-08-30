@@ -1,4 +1,4 @@
-import os, shutil, tempfile, uuid
+﻿import os, shutil, tempfile, uuid
 from fpdf import FPDF
 from PIL import Image, ImageDraw
 from docx import Document
@@ -14,6 +14,7 @@ def convert(input_path, output_path):
             for line in f:
                 doc.add_paragraph(line.rstrip('\n'))
         doc.save(output_path)
-        return True, "Conversión exitosa"
+        return True, "ConversiÃ³n exitosa"
     except Exception as e:
-        return False, f"Error en conversión TXT→DOCX: {str(e)}"
+        return False, f"Error en conversiÃ³n TXTâ†’DOCX: {str(e)}"
+

@@ -1,172 +1,172 @@
-# 🧪 Guía de Pruebas - Nuevos Conversores Anclora
+﻿# ðŸ§ª GuÃ­a de Pruebas - Nuevos Conversores Anclora
 
-## 📋 Resumen de Pruebas
-Esta guía te ayudará a verificar que todos los nuevos conversores funcionan correctamente en tu entorno.
+## ðŸ“‹ Resumen de Pruebas
+Esta guÃ­a te ayudarÃ¡ a verificar que todos los nuevos conversores funcionan correctamente en tu entorno.
 
-## 🎯 Conversores a Probar
-1. **TXT → HTML** 🌐
-2. **TXT → DOC** 📄
-3. **TXT → MD** 📝
-4. **TXT → RTF** 📋
-5. **TXT → ODT** 📊
+## ðŸŽ¯ Conversores a Probar
+1. **TXT â†’ HTML** ðŸŒ
+2. **TXT â†’ DOC** ðŸ“„
+3. **TXT â†’ MD** ðŸ“
+4. **TXT â†’ RTF** ðŸ“‹
+5. **TXT â†’ ODT** ðŸ“Š
 
-## 📝 Archivos de Prueba
+## ðŸ“ Archivos de Prueba
 
-### **Archivo de Prueba Básico**
+### **Archivo de Prueba BÃ¡sico**
 Crea un archivo `prueba.txt` con este contenido:
 ```
-TÍTULO PRINCIPAL
+TÃTULO PRINCIPAL
 Este es un documento de prueba para verificar las conversiones.
 
-Subtítulo Importante
-Aquí hay un párrafo con texto normal que incluye algunas características:
+SubtÃ­tulo Importante
+AquÃ­ hay un pÃ¡rrafo con texto normal que incluye algunas caracterÃ­sticas:
 
 Lista de elementos:
 - Primer elemento de la lista
-- Segundo elemento con texto más largo
+- Segundo elemento con texto mÃ¡s largo
 - Tercer elemento final
 
 Lista numerada:
-1. Primera opción
-2. Segunda opción
-3. Tercera opción
+1. Primera opciÃ³n
+2. Segunda opciÃ³n
+3. Tercera opciÃ³n
 
 Texto con formato especial:
-→ Texto indentado como cita
-→ Otra línea de cita
+â†’ Texto indentado como cita
+â†’ Otra lÃ­nea de cita
 
-Características técnicas:
-• Soporte para Unicode: áéíóú ñ ¿¡
-• Caracteres especiales: @#$%&*()
-• Números y fechas: 2025-01-15, 123.456
+CaracterÃ­sticas tÃ©cnicas:
+â€¢ Soporte para Unicode: Ã¡Ã©Ã­Ã³Ãº Ã± Â¿Â¡
+â€¢ Caracteres especiales: @#$%&*()
+â€¢ NÃºmeros y fechas: 2025-01-15, 123.456
 
-CONCLUSIÓN
+CONCLUSIÃ“N
 Este archivo debe convertirse correctamente a todos los formatos.
 ```
 
 ### **Archivo de Prueba Avanzado**
 Crea un archivo `prueba_avanzada.txt`:
 ```
-DOCUMENTO TÉCNICO AVANZADO
+DOCUMENTO TÃ‰CNICO AVANZADO
 
-INTRODUCCIÓN
+INTRODUCCIÃ“N
 Este documento contiene elementos complejos para probar la robustez de los conversores.
 
-SECCIÓN 1: LISTAS COMPLEJAS
+SECCIÃ“N 1: LISTAS COMPLEJAS
 
 Lista mixta:
 - Elemento con sub-elementos:
-  → Sub-elemento 1
-  → Sub-elemento 2
+  â†’ Sub-elemento 1
+  â†’ Sub-elemento 2
 - Elemento normal
-- Elemento con números: 123, 456, 789
+- Elemento con nÃºmeros: 123, 456, 789
 
-SECCIÓN 2: CÓDIGO Y DATOS
+SECCIÃ“N 2: CÃ“DIGO Y DATOS
 
-Ejemplo de código:
+Ejemplo de cÃ³digo:
     function convertir(texto) {
         return texto.toUpperCase();
     }
 
 Datos estructurados:
-Nombre: Juan Pérez
+Nombre: Juan PÃ©rez
 Edad: 30
 Email: juan@ejemplo.com
 Fecha: 2025-07-15
 
-SECCIÓN 3: CARACTERES ESPECIALES
+SECCIÃ“N 3: CARACTERES ESPECIALES
 
-Símbolos: ©®™€$£¥
-Matemáticos: ±×÷≤≥≠∞
-Flechas: ←→↑↓⇐⇒⇑⇓
-Emojis: 🚀🎯✅❌⚠️💡
+SÃ­mbolos: Â©Â®â„¢â‚¬$Â£Â¥
+MatemÃ¡ticos: Â±Ã—Ã·â‰¤â‰¥â‰ âˆž
+Flechas: â†â†’â†‘â†“â‡â‡’â‡‘â‡“
+Emojis: ðŸš€ðŸŽ¯âœ…âŒâš ï¸ðŸ’¡
 
-CONCLUSIÓN FINAL
-Todos los elementos deben preservarse en la conversión.
+CONCLUSIÃ“N FINAL
+Todos los elementos deben preservarse en la conversiÃ³n.
 ```
 
-## 🔍 Procedimiento de Pruebas
+## ðŸ” Procedimiento de Pruebas
 
-### **1. Prueba Básica de Funcionamiento**
+### **1. Prueba BÃ¡sica de Funcionamiento**
 
 #### **Paso 1:** Cargar archivo
-1. Abre tu aplicación Anclora
+1. Abre tu aplicaciÃ³n Anclora
 2. Ve al Conversor Universal
 3. Selecciona el archivo `prueba.txt`
-4. Verifica que aparece el análisis IA
+4. Verifica que aparece el anÃ¡lisis IA
 
 #### **Paso 2:** Probar cada formato
 Para cada formato (HTML, DOC, MD, RTF, ODT):
 1. Selecciona el formato de destino
-2. Verifica que aparece el costo en créditos
-3. Haz clic en "Iniciar Conversión"
+2. Verifica que aparece el costo en crÃ©ditos
+3. Haz clic en "Iniciar ConversiÃ³n"
 4. Confirma que se descarga el archivo
 5. Abre el archivo en el software apropiado
 
-### **2. Verificación de Calidad**
+### **2. VerificaciÃ³n de Calidad**
 
 #### **HTML (prueba.html)**
-- ✅ Abre correctamente en navegador
-- ✅ Títulos aparecen como `<h1>`, `<h2>`
-- ✅ Listas aparecen como `<ul>` y `<ol>`
-- ✅ Texto indentado aparece como `<blockquote>`
-- ✅ Estilos CSS aplicados correctamente
+- âœ… Abre correctamente en navegador
+- âœ… TÃ­tulos aparecen como `<h1>`, `<h2>`
+- âœ… Listas aparecen como `<ul>` y `<ol>`
+- âœ… Texto indentado aparece como `<blockquote>`
+- âœ… Estilos CSS aplicados correctamente
 
 #### **DOC (prueba.docx)**
-- ✅ Abre en Microsoft Word/LibreOffice
-- ✅ Títulos tienen formato de encabezado
-- ✅ Listas con viñetas y numeración
-- ✅ Metadatos del documento presentes
-- ✅ Formato profesional aplicado
+- âœ… Abre en Microsoft Word/LibreOffice
+- âœ… TÃ­tulos tienen formato de encabezado
+- âœ… Listas con viÃ±etas y numeraciÃ³n
+- âœ… Metadatos del documento presentes
+- âœ… Formato profesional aplicado
 
 #### **MD (prueba.md)**
-- ✅ Abre en editor Markdown
-- ✅ Títulos con `#` y `##`
-- ✅ Listas con `-` y `1.`
-- ✅ Código con indentación
-- ✅ Sintaxis Markdown válida
+- âœ… Abre en editor Markdown
+- âœ… TÃ­tulos con `#` y `##`
+- âœ… Listas con `-` y `1.`
+- âœ… CÃ³digo con indentaciÃ³n
+- âœ… Sintaxis Markdown vÃ¡lida
 
 #### **RTF (prueba.rtf)**
-- ✅ Abre en Word/WordPad/LibreOffice
-- ✅ Títulos en negrita
-- ✅ Listas con viñetas
-- ✅ Formato RTF estándar
-- ✅ Compatibilidad universal
+- âœ… Abre en Word/WordPad/LibreOffice
+- âœ… TÃ­tulos en negrita
+- âœ… Listas con viÃ±etas
+- âœ… Formato RTF estÃ¡ndar
+- âœ… Compatibilidad universal
 
 #### **ODT (prueba.odt)**
-- ✅ Abre en LibreOffice Writer
-- ✅ Estructura de documento correcta
-- ✅ Estilos aplicados
-- ✅ Metadatos presentes
-- ✅ Formato OpenDocument válido
+- âœ… Abre en LibreOffice Writer
+- âœ… Estructura de documento correcta
+- âœ… Estilos aplicados
+- âœ… Metadatos presentes
+- âœ… Formato OpenDocument vÃ¡lido
 
 ### **3. Pruebas de Casos Extremos**
 
-#### **Archivo Vacío**
+#### **Archivo VacÃ­o**
 1. Crea archivo `vacio.txt` sin contenido
 2. Intenta convertir a cada formato
 3. Verifica manejo de errores apropiado
 
 #### **Archivo Muy Grande**
-1. Crea archivo `grande.txt` con 10,000+ líneas
-2. Prueba conversión a cada formato
+1. Crea archivo `grande.txt` con 10,000+ lÃ­neas
+2. Prueba conversiÃ³n a cada formato
 3. Verifica rendimiento y resultado
 
 #### **Caracteres Especiales**
-1. Crea archivo con emojis, acentos, símbolos
+1. Crea archivo con emojis, acentos, sÃ­mbolos
 2. Verifica que se preservan en todos los formatos
 
-## 📊 Lista de Verificación
+## ðŸ“Š Lista de VerificaciÃ³n
 
-### **Funcionalidad Básica**
-- [ ] TXT → HTML funciona
-- [ ] TXT → DOC funciona  
-- [ ] TXT → MD funciona
-- [ ] TXT → RTF funciona
-- [ ] TXT → ODT funciona
+### **Funcionalidad BÃ¡sica**
+- [ ] TXT â†’ HTML funciona
+- [ ] TXT â†’ DOC funciona  
+- [ ] TXT â†’ MD funciona
+- [ ] TXT â†’ RTF funciona
+- [ ] TXT â†’ ODT funciona
 
-### **Calidad de Conversión**
-- [ ] Títulos detectados correctamente
+### **Calidad de ConversiÃ³n**
+- [ ] TÃ­tulos detectados correctamente
 - [ ] Listas formateadas apropiadamente
 - [ ] Caracteres especiales preservados
 - [ ] Estructura del documento mantenida
@@ -174,8 +174,8 @@ Para cada formato (HTML, DOC, MD, RTF, ODT):
 
 ### **Interfaz de Usuario**
 - [ ] Nuevos formatos aparecen en selector
-- [ ] Costos de créditos mostrados
-- [ ] Análisis IA funciona
+- [ ] Costos de crÃ©ditos mostrados
+- [ ] AnÃ¡lisis IA funciona
 - [ ] Descarga de archivos funciona
 - [ ] Mensajes de error apropiados
 
@@ -186,7 +186,7 @@ Para cada formato (HTML, DOC, MD, RTF, ODT):
 - [ ] RTF abre en procesadores de texto
 - [ ] ODT abre en LibreOffice
 
-## 🚨 Problemas Comunes y Soluciones
+## ðŸš¨ Problemas Comunes y Soluciones
 
 ### **"Error al descargar archivo"**
 - Verifica que el navegador permite descargas
@@ -194,48 +194,49 @@ Para cada formato (HTML, DOC, MD, RTF, ODT):
 
 ### **"Archivo no se abre correctamente"**
 - Confirma que tienes el software apropiado instalado
-- Verifica que el archivo se descargó completamente
+- Verifica que el archivo se descargÃ³ completamente
 
-### **"Conversión falla silenciosamente"**
+### **"ConversiÃ³n falla silenciosamente"**
 - Abre la consola del navegador (F12)
 - Busca errores de JavaScript
-- Verifica que las dependencias están instaladas
+- Verifica que las dependencias estÃ¡n instaladas
 
 ### **"Formato no aparece en selector"**
 - Confirma que el archivo es .txt
-- Verifica que el UniversalConverter está actualizado
+- Verifica que el UniversalConverter estÃ¡ actualizado
 - Revisa que los imports son correctos
 
-## 📈 Métricas de Éxito
+## ðŸ“ˆ MÃ©tricas de Ã‰xito
 
-### **Criterios de Aprobación**
-- ✅ 100% de conversores funcionan
-- ✅ Archivos generados son válidos
-- ✅ Interfaz responde correctamente
-- ✅ No hay errores en consola
-- ✅ Rendimiento es aceptable (<3 segundos)
+### **Criterios de AprobaciÃ³n**
+- âœ… 100% de conversores funcionan
+- âœ… Archivos generados son vÃ¡lidos
+- âœ… Interfaz responde correctamente
+- âœ… No hay errores en consola
+- âœ… Rendimiento es aceptable (<3 segundos)
 
 ### **Benchmarks Esperados**
-- **HTML:** ~2-5KB por archivo típico
-- **DOC:** ~8-15KB por archivo típico
-- **MD:** ~0.5-2KB por archivo típico
-- **RTF:** ~1-3KB por archivo típico
-- **ODT:** ~5-10KB por archivo típico
+- **HTML:** ~2-5KB por archivo tÃ­pico
+- **DOC:** ~8-15KB por archivo tÃ­pico
+- **MD:** ~0.5-2KB por archivo tÃ­pico
+- **RTF:** ~1-3KB por archivo tÃ­pico
+- **ODT:** ~5-10KB por archivo tÃ­pico
 
-## 🎉 Confirmación Final
+## ðŸŽ‰ ConfirmaciÃ³n Final
 
 Una vez completadas todas las pruebas:
-1. ✅ Todos los conversores funcionan
-2. ✅ Calidad de conversión es buena
-3. ✅ Interfaz es estable
-4. ✅ No hay errores críticos
+1. âœ… Todos los conversores funcionan
+2. âœ… Calidad de conversiÃ³n es buena
+3. âœ… Interfaz es estable
+4. âœ… No hay errores crÃ­ticos
 
-**¡Tu instalación está completa y funcionando!** 🚀
+**Â¡Tu instalaciÃ³n estÃ¡ completa y funcionando!** ðŸš€
 
 Para reportar problemas o sugerir mejoras, documenta:
 - Archivo de prueba usado
 - Formato de destino
-- Error específico observado
-- Navegador y versión
+- Error especÃ­fico observado
+- Navegador y versiÃ³n
 - Pasos para reproducir
+
 

@@ -1,4 +1,4 @@
-import io
+﻿import io
 import pytest
 from flask_jwt_extended import create_access_token
 from src.models.user import User, db
@@ -55,7 +55,7 @@ class TestCreditsRoutes:
         resp = client.post('/api/credits/upgrade-plan', json={'plan': 'PREMIUM'}, headers=auth_headers)
         assert resp.status_code == 400
         data = resp.get_json()
-        assert data['error'] == 'Plan inválido'
+        assert data['error'] == 'Plan invÃ¡lido'
 
     def test_upgrade_plan_same_plan(self, client, auth_headers):
         """Cannot upgrade to the current active plan"""
@@ -97,4 +97,4 @@ class TestCreditsRoutes:
         )
         assert resp.status_code == 402
         result = resp.get_json()
-        assert result['error'] == 'Créditos insuficientes'
+        assert result['error'] == 'CrÃ©ditos insuficientes'

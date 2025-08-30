@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/Card';
 import { 
@@ -24,7 +24,7 @@ export const AdvancedFeaturesDemo = () => {
   // Dummy data for demonstration
   const demoUser = {
     id: 'user-123',
-    name: 'Ana García',
+    name: 'Ana GarcÃ­a',
     email: 'ana@example.com',
     isPremium: true
   };
@@ -44,8 +44,8 @@ export const AdvancedFeaturesDemo = () => {
     },
     {
       id: 'compression',
-      name: 'Compresión',
-      description: 'Nivel de compresión a aplicar',
+      name: 'CompresiÃ³n',
+      description: 'Nivel de compresiÃ³n a aplicar',
       type: 'slider' as const,
       default: 70,
       min: 0,
@@ -56,11 +56,11 @@ export const AdvancedFeaturesDemo = () => {
     {
       id: 'format',
       name: 'Formato interno',
-      description: 'Formato de codificación interno para el archivo',
+      description: 'Formato de codificaciÃ³n interno para el archivo',
       type: 'select' as const,
       default: 'standard',
       options: [
-        { value: 'standard', label: 'Estándar' },
+        { value: 'standard', label: 'EstÃ¡ndar' },
         { value: 'progressive', label: 'Progresivo' },
         { value: 'optimized', label: 'Optimizado' }
       ]
@@ -68,14 +68,14 @@ export const AdvancedFeaturesDemo = () => {
     {
       id: 'metadata',
       name: 'Conservar Metadatos',
-      description: 'Mantiene la información de metadatos del archivo original',
+      description: 'Mantiene la informaciÃ³n de metadatos del archivo original',
       type: 'toggle' as const,
       default: true
     },
     {
       id: 'smart-crop',
       name: 'Recorte inteligente',
-      description: 'Utiliza IA para recortar automáticamente la imagen',
+      description: 'Utiliza IA para recortar automÃ¡ticamente la imagen',
       type: 'toggle' as const,
       default: false,
       isPremium: true
@@ -106,7 +106,7 @@ export const AdvancedFeaturesDemo = () => {
     },
     {
       id: 'small-size',
-      name: 'Tamaño reducido',
+      name: 'TamaÃ±o reducido',
       settings: {
         quality: 60,
         compression: 90,
@@ -143,7 +143,7 @@ export const AdvancedFeaturesDemo = () => {
       <Card>
         <CardHeader>
           <CardTitle className="text-xl font-bold">
-            Anclora Metaform - Funciones Avanzadas
+            Anclora Nexus - Funciones Avanzadas
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -155,11 +155,11 @@ export const AdvancedFeaturesDemo = () => {
               </TabsTrigger>
               <TabsTrigger value="settings" className="flex flex-col items-center py-2">
                 <Settings className="h-5 w-5 mb-1" />
-                <span>Configuración</span>
+                <span>ConfiguraciÃ³n</span>
               </TabsTrigger>
               <TabsTrigger value="analytics" className="flex flex-col items-center py-2">
                 <BarChart className="h-5 w-5 mb-1" />
-                <span>Analítica</span>
+                <span>AnalÃ­tica</span>
               </TabsTrigger>
               <TabsTrigger value="formats" className="flex flex-col items-center py-2">
                 <FileSearch className="h-5 w-5 mb-1" />
@@ -171,7 +171,7 @@ export const AdvancedFeaturesDemo = () => {
               </TabsTrigger>
               <TabsTrigger value="optimization" className="flex flex-col items-center py-2">
                 <Sliders className="h-5 w-5 mb-1" />
-                <span>Optimización</span>
+                <span>OptimizaciÃ³n</span>
               </TabsTrigger>
             </TabsList>
             
@@ -213,12 +213,12 @@ export const AdvancedFeaturesDemo = () => {
                 <div className="md:col-span-2">
                   <Card className="h-full">
                     <CardHeader>
-                      <CardTitle>Área de Trabajo</CardTitle>
+                      <CardTitle>Ãrea de Trabajo</CardTitle>
                     </CardHeader>
                     <CardContent className="h-[400px] flex items-center justify-center bg-slate-800/50 rounded border border-dashed border-slate-700">
                       <div className="text-center">
                         <FileUp className="h-12 w-12 text-slate-500 mx-auto mb-4" />
-                        <p className="text-slate-400">Arrastra archivos aquí para comenzar una conversión</p>
+                        <p className="text-slate-400">Arrastra archivos aquÃ­ para comenzar una conversiÃ³n</p>
                       </div>
                     </CardContent>
                   </Card>
@@ -250,7 +250,7 @@ export const AdvancedFeaturesDemo = () => {
       
       <div className="text-center text-sm text-slate-500">
         <p>
-          Anclora Metaform - Plataforma avanzada de conversión de archivos
+          Anclora Nexus - Plataforma avanzada de conversiÃ³n de archivos
         </p>
       </div>
     </div>
@@ -258,3 +258,4 @@ export const AdvancedFeaturesDemo = () => {
 };
 
 export default AdvancedFeaturesDemo;
+

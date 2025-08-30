@@ -1,7 +1,7 @@
-{
+﻿{
   "proyecto": "Anclora Converter",
   "version": "1.0.0",
-  "descripcion": "Sistema de conversión de archivos con IA",
+  "descripcion": "Sistema de conversiÃ³n de archivos con IA",
   "autor": {
     "nombre": "Equipo Anclora",
     "email": "info@anclora.com",
@@ -18,7 +18,7 @@
       "premium": 10
     },
     "limites": {
-      "tamaño_maximo_mb": 100,
+      "tamaÃ±o_maximo_mb": 100,
       "conversiones_simultaneas": 5,
       "tiempo_limite_segundos": 300
     }
@@ -26,7 +26,7 @@
   "usuarios_prueba": [
     {
       "id": 1,
-      "nombre": "Ana García",
+      "nombre": "Ana GarcÃ­a",
       "email": "ana.garcia@email.com",
       "plan": "Pro",
       "creditos": 50,
@@ -35,16 +35,16 @@
     },
     {
       "id": 2,
-      "nombre": "Carlos López",
+      "nombre": "Carlos LÃ³pez",
       "email": "carlos.lopez@email.com",
-      "plan": "Básico",
+      "plan": "BÃ¡sico",
       "creditos": 25,
       "conversiones_realizadas": 8,
       "fecha_registro": "2025-02-20T14:45:00Z"
     },
     {
       "id": 3,
-      "nombre": "María Rodríguez",
+      "nombre": "MarÃ­a RodrÃ­guez",
       "email": "maria.rodriguez@email.com",
       "plan": "Premium",
       "creditos": 100,
@@ -63,11 +63,12 @@
   },
   "metadatos": {
     "fecha_creacion": "2025-07-15T19:50:00Z",
-    "proposito": "Archivo de prueba para conversión JSON",
-    "caracteres_especiales": "áéíóú ñ ¿¡ @#$%",
-    "unicode": "🚀 💎 📊 🎯",
+    "proposito": "Archivo de prueba para conversiÃ³n JSON",
+    "caracteres_especiales": "Ã¡Ã©Ã­Ã³Ãº Ã± Â¿Â¡ @#$%",
+    "unicode": "ðŸš€ ðŸ’Ž ðŸ“Š ðŸŽ¯",
     "numeros": [1, 2, 3, 4, 5, 10, 100, 1000],
     "booleanos": [true, false, null]
   }
 }
+
 

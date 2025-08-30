@@ -1,14 +1,14 @@
-# Documento de Prueba en Markdown
+﻿# Documento de Prueba en Markdown
 
-Este es un documento de prueba en formato Markdown para evaluar la conversión de archivos.
+Este es un documento de prueba en formato Markdown para evaluar la conversiÃ³n de archivos.
 
-## Sección 1: Texto Básico
+## SecciÃ³n 1: Texto BÃ¡sico
 
-Este párrafo contiene **texto en negrita** y *texto en cursiva*. También incluye `código inline` y enlaces como [este enlace](https://example.com).
+Este pÃ¡rrafo contiene **texto en negrita** y *texto en cursiva*. TambiÃ©n incluye `cÃ³digo inline` y enlaces como [este enlace](https://example.com).
 
-## Sección 2: Listas
+## SecciÃ³n 2: Listas
 
-### Lista con viñetas:
+### Lista con viÃ±etas:
 - Elemento 1
 - Elemento 2
   - Subelemento 2.1
@@ -20,12 +20,12 @@ Este párrafo contiene **texto en negrita** y *texto en cursiva*. También inclu
 2. Segundo elemento
 3. Tercer elemento
 
-## Sección 3: Código
+## SecciÃ³n 3: CÃ³digo
 
 ```javascript
 function ejemplo() {
-    console.log("Esto es un bloque de código");
-    return "Prueba de conversión";
+    console.log("Esto es un bloque de cÃ³digo");
+    return "Prueba de conversiÃ³n";
 }
 ```
 
@@ -35,7 +35,7 @@ def prueba_conversion():
     return True
 ```
 
-## Sección 4: Tablas
+## SecciÃ³n 4: Tablas
 
 | Columna 1 | Columna 2 | Columna 3 |
 |-----------|-----------|-----------|
@@ -43,20 +43,21 @@ def prueba_conversion():
 | Valor A   | Valor B   | Valor C   |
 | Test 1    | Test 2    | Test 3    |
 
-## Sección 5: Citas
+## SecciÃ³n 5: Citas
 
-> Esta es una cita de ejemplo para probar la conversión.
-> Puede tener múltiples líneas.
+> Esta es una cita de ejemplo para probar la conversiÃ³n.
+> Puede tener mÃºltiples lÃ­neas.
 
-## Sección 6: Caracteres Especiales
+## SecciÃ³n 6: Caracteres Especiales
 
-Caracteres con acentos: áéíóú, ÁÉÍÓÚ
-Caracteres especiales: ñ, ç, ü, ß
-Símbolos: © ® ™ § ¶ † ‡ • ‰ ′ ″
+Caracteres con acentos: Ã¡Ã©Ã­Ã³Ãº, ÃÃ‰ÃÃ“Ãš
+Caracteres especiales: Ã±, Ã§, Ã¼, ÃŸ
+SÃ­mbolos: Â© Â® â„¢ Â§ Â¶ â€  â€¡ â€¢ â€° â€² â€³
 
 ---
 
-**Nota:** Este archivo está diseñado para probar la conversión de Markdown a otros formatos.
+**Nota:** Este archivo estÃ¡ diseÃ±ado para probar la conversiÃ³n de Markdown a otros formatos.
 
-*Fecha de creación: 15 de julio de 2025*
+*Fecha de creaciÃ³n: 15 de julio de 2025*
+
 

@@ -1,31 +1,31 @@
-/**
- * Conversor TxtToMarkdownConverter - Anclora Metaform
+﻿/**
+ * Conversor TxtToMarkdownConverter - Anclora Nexus
  * Tu Contenido, Reinventado
  */
 
 class TxtToMarkdownConverter {
   constructor() {
-    this.name = 'Anclora Metaform - TxtToMarkdownConverter';
+    this.name = 'Anclora Nexus - TxtToMarkdownConverter';
     this.version = '1.0.0';
-    this.brand = 'Anclora Metaform';
+    this.brand = 'Anclora Nexus';
     this.tagline = 'Tu Contenido, Reinventado';
   }
 
   /**
    * Convierte contenido de texto a Markdown
    * @param {string} textContent - Contenido del archivo TXT
-   * @param {Object} options - Opciones de conversión
-   * @returns {Object} - Resultado de la conversión
+   * @param {Object} options - Opciones de conversiÃ³n
+   * @returns {Object} - Resultado de la conversiÃ³n
    */
   convert(textContent, options = {}) {
     try {
       // Validar entrada
       if (!textContent || typeof textContent !== 'string') {
-        throw new Error('Contenido de texto inválido');
+        throw new Error('Contenido de texto invÃ¡lido');
       }
 
       if (textContent.trim() === '') {
-        throw new Error('El archivo está vacío');
+        throw new Error('El archivo estÃ¡ vacÃ­o');
       }
 
       // Opciones por defecto
@@ -65,14 +65,14 @@ class TxtToMarkdownConverter {
   /**
    * Procesa el contenido de texto y lo convierte a Markdown
    * @param {string} textContent - Contenido original
-   * @param {Object} config - Configuración
+   * @param {Object} config - ConfiguraciÃ³n
    * @returns {string} - Contenido en Markdown
    */
   processTextToMarkdown(textContent, config) {
     let lines = textContent.split('\n');
     let markdownLines = [];
 
-    // Agregar metadatos si está habilitado
+    // Agregar metadatos si estÃ¡ habilitado
     if (config.addMetadata) {
       markdownLines.push('---');
       markdownLines.push(`title: "${config.title}"`);
@@ -82,11 +82,11 @@ class TxtToMarkdownConverter {
       markdownLines.push('');
     }
 
-    // Agregar título principal
+    // Agregar tÃ­tulo principal
     markdownLines.push(`${'#'.repeat(config.headerLevel)} ${config.title}`);
     markdownLines.push('');
 
-    // Procesar cada línea
+    // Procesar cada lÃ­nea
     let inCodeBlock = false;
     let inList = false;
     let listIndentLevel = 0;
@@ -97,7 +97,7 @@ class TxtToMarkdownConverter {
       const nextLine = i < lines.length - 1 ? lines[i + 1] : '';
       const prevLine = i > 0 ? lines[i - 1] : '';
 
-      // Detectar bloques de código
+      // Detectar bloques de cÃ³digo
       if (config.detectCodeBlocks && this.isCodeBlock(line, lines, i)) {
         if (!inCodeBlock) {
           markdownLines.push('```');
@@ -111,20 +111,20 @@ class TxtToMarkdownConverter {
         inCodeBlock = false;
       }
 
-      // Si estamos en un bloque de código, no procesar más
+      // Si estamos en un bloque de cÃ³digo, no procesar mÃ¡s
       if (inCodeBlock) {
         markdownLines.push(line);
         continue;
       }
 
-      // Líneas vacías
+      // LÃ­neas vacÃ­as
       if (trimmedLine === '') {
         markdownLines.push('');
         inList = false;
         continue;
       }
 
-      // Detectar títulos
+      // Detectar tÃ­tulos
       const headerLevel = this.detectHeaderLevel(line, nextLine, prevLine, i);
       if (headerLevel > 0) {
         markdownLines.push(`${'#'.repeat(headerLevel + config.headerLevel)} ${trimmedLine}`);
@@ -158,7 +158,7 @@ class TxtToMarkdownConverter {
         continue;
       }
 
-      // Detectar citas (líneas que empiezan con espacios significativos)
+      // Detectar citas (lÃ­neas que empiezan con espacios significativos)
       if (this.isQuote(line)) {
         markdownLines.push(`> ${trimmedLine}`);
         continue;
@@ -167,21 +167,21 @@ class TxtToMarkdownConverter {
       // Detectar texto con formato especial
       const formattedLine = this.applyInlineFormatting(line);
       
-      // Línea normal de párrafo
+      // LÃ­nea normal de pÃ¡rrafo
       markdownLines.push(formattedLine);
       
-      // Agregar línea vacía después de párrafos si la siguiente línea no está vacía
+      // Agregar lÃ­nea vacÃ­a despuÃ©s de pÃ¡rrafos si la siguiente lÃ­nea no estÃ¡ vacÃ­a
       if (nextLine.trim() !== '' && !this.isListItem(nextLine) && !inList) {
         markdownLines.push('');
       }
     }
 
-    // Cerrar bloque de código si quedó abierto
+    // Cerrar bloque de cÃ³digo si quedÃ³ abierto
     if (inCodeBlock) {
       markdownLines.push('```');
     }
 
-    // Agregar pie de página
+    // Agregar pie de pÃ¡gina
     markdownLines.push('');
     markdownLines.push('---');
     markdownLines.push('');
@@ -191,35 +191,35 @@ class TxtToMarkdownConverter {
   }
 
   /**
-   * Detecta el nivel de encabezado de una línea
-   * @param {string} line - Línea actual
-   * @param {string} nextLine - Línea siguiente
-   * @param {string} prevLine - Línea anterior
-   * @param {number} index - Índice de la línea
+   * Detecta el nivel de encabezado de una lÃ­nea
+   * @param {string} line - LÃ­nea actual
+   * @param {string} nextLine - LÃ­nea siguiente
+   * @param {string} prevLine - LÃ­nea anterior
+   * @param {number} index - Ãndice de la lÃ­nea
    * @returns {number} - Nivel de encabezado (0 si no es encabezado)
    */
   detectHeaderLevel(line, nextLine, prevLine, index) {
     const trimmed = line.trim();
     
-    // Líneas vacías no son títulos
+    // LÃ­neas vacÃ­as no son tÃ­tulos
     if (!trimmed) return 0;
     
-    // Títulos al inicio del documento
+    // TÃ­tulos al inicio del documento
     if (index < 3 && trimmed.length < 60 && !trimmed.includes('.') && !trimmed.includes(',')) {
       return 1;
     }
     
-    // Líneas seguidas de líneas de guiones o iguales (estilo Setext)
+    // LÃ­neas seguidas de lÃ­neas de guiones o iguales (estilo Setext)
     if (nextLine && (nextLine.match(/^=+$/) || nextLine.match(/^-+$/))) {
       return nextLine.match(/^=+$/) ? 1 : 2;
     }
     
-    // Líneas que terminan con ':'
+    // LÃ­neas que terminan con ':'
     if (trimmed.endsWith(':') && trimmed.length < 80 && !trimmed.includes(',')) {
       return 2;
     }
     
-    // Líneas en mayúsculas (títulos)
+    // LÃ­neas en mayÃºsculas (tÃ­tulos)
     if (trimmed === trimmed.toUpperCase() && 
         trimmed.length > 3 && 
         trimmed.length < 60 && 
@@ -227,8 +227,8 @@ class TxtToMarkdownConverter {
       return 2;
     }
     
-    // Líneas que parecen títulos de sección
-    if (trimmed.match(/^(capítulo|chapter|sección|section|parte|part)\s+\d+/i)) {
+    // LÃ­neas que parecen tÃ­tulos de secciÃ³n
+    if (trimmed.match(/^(capÃ­tulo|chapter|secciÃ³n|section|parte|part)\s+\d+/i)) {
       return 1;
     }
     
@@ -236,12 +236,12 @@ class TxtToMarkdownConverter {
   }
 
   /**
-   * Detecta si una línea es parte de una lista
-   * @param {string} line - Línea a evaluar
-   * @returns {Object} - Información de la lista
+   * Detecta si una lÃ­nea es parte de una lista
+   * @param {string} line - LÃ­nea a evaluar
+   * @returns {Object} - InformaciÃ³n de la lista
    */
   detectListItem(line) {
-    const match = line.match(/^(\s*)([-*+•]|\d+\.)\s+(.+)$/);
+    const match = line.match(/^(\s*)([-*+â€¢]|\d+\.)\s+(.+)$/);
     if (match) {
       const indent = match[1];
       const marker = match[2];
@@ -271,21 +271,21 @@ class TxtToMarkdownConverter {
   }
 
   /**
-   * Detecta si una línea parece ser código
-   * @param {string} line - Línea a evaluar
-   * @param {Array} lines - Todas las líneas
-   * @param {number} index - Índice actual
-   * @returns {boolean} - Es código
+   * Detecta si una lÃ­nea parece ser cÃ³digo
+   * @param {string} line - LÃ­nea a evaluar
+   * @param {Array} lines - Todas las lÃ­neas
+   * @param {number} index - Ãndice actual
+   * @returns {boolean} - Es cÃ³digo
    */
   isCodeBlock(line, lines, index) {
-    // Líneas que empiezan con muchos espacios
+    // LÃ­neas que empiezan con muchos espacios
     if (line.match(/^    /)) {
       return true;
     }
 
-    // Líneas que parecen código (contienen símbolos de programación)
+    // LÃ­neas que parecen cÃ³digo (contienen sÃ­mbolos de programaciÃ³n)
     if (this.looksLikeCode(line)) {
-      // Verificar contexto - si las líneas adyacentes también parecen código
+      // Verificar contexto - si las lÃ­neas adyacentes tambiÃ©n parecen cÃ³digo
       const prevLine = index > 0 ? lines[index - 1] : '';
       const nextLine = index < lines.length - 1 ? lines[index + 1] : '';
       
@@ -298,13 +298,13 @@ class TxtToMarkdownConverter {
   }
 
   /**
-   * Determina si una línea parece código
-   * @param {string} line - Línea a evaluar
-   * @returns {boolean} - Parece código
+   * Determina si una lÃ­nea parece cÃ³digo
+   * @param {string} line - LÃ­nea a evaluar
+   * @returns {boolean} - Parece cÃ³digo
    */
   looksLikeCode(line) {
     const codePatterns = [
-      /[{}();]/,                    // Llaves, paréntesis, punto y coma
+      /[{}();]/,                    // Llaves, parÃ©ntesis, punto y coma
       /^\s*(function|class|def|var|let|const|import|export)/,  // Palabras clave
       /[=<>!]+/,                    // Operadores
       /^\s*[#//]\s/,                // Comentarios
@@ -316,14 +316,14 @@ class TxtToMarkdownConverter {
   }
 
   /**
-   * Detecta si una línea es parte de una tabla
-   * @param {string} line - Línea a evaluar
-   * @param {Array} lines - Todas las líneas
-   * @param {number} index - Índice actual
+   * Detecta si una lÃ­nea es parte de una tabla
+   * @param {string} line - LÃ­nea a evaluar
+   * @param {Array} lines - Todas las lÃ­neas
+   * @param {number} index - Ãndice actual
    * @returns {boolean} - Es fila de tabla
    */
   isTableRow(line, lines, index) {
-    // Líneas con múltiples separadores (|, \t, múltiples espacios)
+    // LÃ­neas con mÃºltiples separadores (|, \t, mÃºltiples espacios)
     const separators = (line.match(/\|/g) || []).length;
     const tabs = (line.match(/\t/g) || []).length;
     const multiSpaces = (line.match(/\s{3,}/g) || []).length;
@@ -332,8 +332,8 @@ class TxtToMarkdownConverter {
   }
 
   /**
-   * Formatea una línea como fila de tabla Markdown
-   * @param {string} line - Línea original
+   * Formatea una lÃ­nea como fila de tabla Markdown
+   * @param {string} line - LÃ­nea original
    * @returns {string} - Fila de tabla formateada
    */
   formatTableRow(line) {
@@ -349,14 +349,14 @@ class TxtToMarkdownConverter {
       return `| ${cells.join(' | ')} |`;
     }
 
-    // Si tiene múltiples espacios, convertir
+    // Si tiene mÃºltiples espacios, convertir
     const cells = line.split(/\s{3,}/).map(cell => cell.trim()).filter(cell => cell);
     return `| ${cells.join(' | ')} |`;
   }
 
   /**
    * Crea el separador de tabla Markdown
-   * @param {string} line - Línea de referencia
+   * @param {string} line - LÃ­nea de referencia
    * @returns {string} - Separador de tabla
    */
   createTableSeparator(line) {
@@ -366,18 +366,18 @@ class TxtToMarkdownConverter {
   }
 
   /**
-   * Detecta si una línea es una cita
-   * @param {string} line - Línea a evaluar
+   * Detecta si una lÃ­nea es una cita
+   * @param {string} line - LÃ­nea a evaluar
    * @returns {boolean} - Es cita
    */
   isQuote(line) {
-    // Líneas con indentación significativa que no son listas ni código
+    // LÃ­neas con indentaciÃ³n significativa que no son listas ni cÃ³digo
     return line.match(/^    /) && !this.looksLikeCode(line) && !this.detectListItem(line).isList;
   }
 
   /**
-   * Detecta si una línea es item de lista
-   * @param {string} line - Línea a evaluar
+   * Detecta si una lÃ­nea es item de lista
+   * @param {string} line - LÃ­nea a evaluar
    * @returns {boolean} - Es item de lista
    */
   isListItem(line) {
@@ -385,14 +385,14 @@ class TxtToMarkdownConverter {
   }
 
   /**
-   * Aplica formato inline a una línea
-   * @param {string} line - Línea original
-   * @returns {string} - Línea con formato aplicado
+   * Aplica formato inline a una lÃ­nea
+   * @param {string} line - LÃ­nea original
+   * @returns {string} - LÃ­nea con formato aplicado
    */
   applyInlineFormatting(line) {
     let formatted = line;
 
-    // Detectar texto en mayúsculas como énfasis
+    // Detectar texto en mayÃºsculas como Ã©nfasis
     formatted = formatted.replace(/\b[A-Z]{3,}\b/g, '**$&**');
 
     // Detectar URLs
@@ -401,7 +401,7 @@ class TxtToMarkdownConverter {
     // Detectar emails
     formatted = formatted.replace(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g, '[$&](mailto:$&)');
 
-    // Detectar texto entre comillas como código inline
+    // Detectar texto entre comillas como cÃ³digo inline
     formatted = formatted.replace(/"([^"]+)"/g, '`$1`');
 
     return formatted;
@@ -410,19 +410,19 @@ class TxtToMarkdownConverter {
   /**
    * Valida el archivo de entrada
    * @param {File} file - Archivo a validar
-   * @returns {Object} - Resultado de validación
+   * @returns {Object} - Resultado de validaciÃ³n
    */
   validateInput(file) {
     if (!file) {
-      return { valid: false, error: 'No se proporcionó archivo' };
+      return { valid: false, error: 'No se proporcionÃ³ archivo' };
     }
 
     if (file.size === 0) {
-      return { valid: false, error: 'El archivo está vacío' };
+      return { valid: false, error: 'El archivo estÃ¡ vacÃ­o' };
     }
 
     if (file.size > 10 * 1024 * 1024) { // 10MB
-      return { valid: false, error: 'El archivo es demasiado grande (máximo 10MB)' };
+      return { valid: false, error: 'El archivo es demasiado grande (mÃ¡ximo 10MB)' };
     }
 
     const allowedTypes = ['text/plain', 'text/txt', ''];
@@ -437,7 +437,7 @@ class TxtToMarkdownConverter {
    * Procesa un archivo completo
    * @param {File} file - Archivo a procesar
    * @param {Object} options - Opciones
-   * @returns {Promise<Object>} - Resultado de la conversión
+   * @returns {Promise<Object>} - Resultado de la conversiÃ³n
    */
   async processFile(file, options = {}) {
     try {
@@ -491,4 +491,5 @@ if (typeof module !== 'undefined' && module.exports) {
 } else if (typeof window !== 'undefined') {
   window.TxtToMarkdownConverter = TxtToMarkdownConverter;
 }
+
 

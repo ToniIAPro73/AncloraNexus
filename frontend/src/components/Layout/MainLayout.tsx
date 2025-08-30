@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import Sidebar from './Sidebar';
 import { Header } from './Header';
 import { CreditProvider, CreditBalance, CreditHistory } from '../CreditSystem';
@@ -19,13 +19,13 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   const [isMobile, setIsMobile] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
 
-  // Obtener título dinámico basado en activeTab
+  // Obtener tÃ­tulo dinÃ¡mico basado en activeTab
   const getPageTitle = () => {
     switch (activeTab) {
       case 'Conversor':
         return 'Conversor Inteligente';
-      case 'Créditos':
-        return 'Gestión de Créditos';
+      case 'CrÃ©ditos':
+        return 'GestiÃ³n de CrÃ©ditos';
       default:
         return activeTab || 'Bienvenido';
     }
@@ -61,7 +61,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
         {/* Efectos de luz */}
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-primary/5 to-secondary/5 rounded-full blur-3xl opacity-10" />
         
-        {/* Líneas decorativas */}
+        {/* LÃ­neas decorativas */}
         <div className="absolute inset-0 bg-[url('/images/grid-pattern.png')] bg-repeat opacity-5"></div>
       </div>
 
@@ -81,7 +81,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
         isMobile={isMobile}
       />
 
-      {/* Capa negra en móvil al abrir menú */}
+      {/* Capa negra en mÃ³vil al abrir menÃº */}
       {isMobile && !sidebarCollapsed && (
         <div
           className="fixed inset-0 bg-black/70 z-30 backdrop-blur-sm"
@@ -102,7 +102,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
         `}
       >
         <div className="max-w-7xl mx-auto">
-          {activeTab === 'Créditos' ? (
+          {activeTab === 'CrÃ©ditos' ? (
             <CreditProvider>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <CreditBalance />
@@ -120,3 +120,4 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
     </div>
   );
 };
+

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import '@testing-library/jest-dom/vitest';
@@ -37,4 +37,5 @@ describe('FileUploader default UI', () => {
     expect(screen.getByRole('alert')).toHaveTextContent('Formato de archivo no soportado');
   });
 });
+
 

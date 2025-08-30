@@ -1,4 +1,4 @@
-/* Variables CSS para temas */
+﻿/* Variables CSS para temas */
 :root {
   --color-primary: #3B82F6;
   --color-secondary: #1E40AF;
@@ -15,7 +15,7 @@
   -webkit-backdrop-filter: blur(12px);
 }
 
-/* Estilos para el menú móvil */
+/* Estilos para el menÃº mÃ³vil */
 .mobile-menu-enter {
   opacity: 0;
   transform: translateY(-10px);
@@ -86,7 +86,7 @@ details summary::-webkit-details-marker {
   }
 }
 
-/* Focus visible para navegación por teclado */
+/* Focus visible para navegaciÃ³n por teclado */
 .focus-visible:focus {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
@@ -96,3 +96,4 @@ details summary::-webkit-details-marker {
 html {
   scroll-behavior: smooth;
 }
+

@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+﻿import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import path from 'path';
 import fs from 'fs/promises';
-import ffmpeg from '@ts-ffmpeg/fluent-ffmpeg'; // Para validación de media
+import ffmpeg from '@ts-ffmpeg/fluent-ffmpeg'; // Para validaciÃ³n de media
 import {
   fileExists,
   measureConversionTime,
@@ -9,15 +9,15 @@ import {
   cleanupTempFiles,
   createTestReport
 } from '@test/utils/test-helpers';
-import { AncloraMetaform } from '@/AncloraMetaform';
+import { AncloraNexus } from '@/AncloraNexus';
 
 describe('Conversiones de Media (Audio/Video)', () => {
-  let converter: AncloraMetaform;
+  let converter: AncloraNexus;
   let tempFiles: string[] = [];
   let testResults: any[] = [];
 
   beforeAll(async () => {
-    converter = new AncloraMetaform({
+    converter = new AncloraNexus({
       ffmpegPath: '/usr/local/bin/ffmpeg',
       enableHardwareAcceleration: true,
       maxVideoDuration: 3600, // 1 hora
@@ -62,7 +62,7 @@ describe('Conversiones de Media (Audio/Video)', () => {
         expect(metadata.sampleRate).toBe(44100);
 
         testResults.push({
-          conversion: 'MP3 → WAV',
+          conversion: 'MP3 â†’ WAV',
           success: true,
           duration
         });
@@ -100,7 +100,7 @@ describe('Conversiones de Media (Audio/Video)', () => {
 
         expect(result.success).toBe(true);
         
-        // FLAC debe ser más grande que MP3 (sin pérdida)
+        // FLAC debe ser mÃ¡s grande que MP3 (sin pÃ©rdida)
         const [mp3Size, flacSize] = await Promise.all([
           fs.stat(mp3Path).then(s => s.size),
           fs.stat(outputPath).then(s => s.size)
@@ -160,7 +160,7 @@ describe('Conversiones de Media (Audio/Video)', () => {
       });
     });
 
-    describe('Conversiones de audio sin pérdida', () => {
+    describe('Conversiones de audio sin pÃ©rdida', () => {
       const flacPath = path.join(__dirname, '../../fixtures/media/valid/test-audio.flac');
 
       it('debe convertir FLAC a ALAC', async () => {
@@ -205,7 +205,7 @@ describe('Conversiones de Media (Audio/Video)', () => {
     describe('Procesamiento de audio', () => {
       const audioPath = path.join(__dirname, '../../fixtures/media/valid/test-audio.mp3');
 
-      it('debe cambiar sample rate durante conversión', async () => {
+      it('debe cambiar sample rate durante conversiÃ³n', async () => {
         const outputPath = await createTempFile('mp3');
         tempFiles.push(outputPath);
 
@@ -225,7 +225,7 @@ describe('Conversiones de Media (Audio/Video)', () => {
         expect(metadata.sampleRate).toBe(22050);
       });
 
-      it('debe convertir estéreo a mono', async () => {
+      it('debe convertir estÃ©reo a mono', async () => {
         const outputPath = await createTempFile('mp3');
         tempFiles.push(outputPath);
 
@@ -245,7 +245,7 @@ describe('Conversiones de Media (Audio/Video)', () => {
         expect(metadata.channels).toBe(1);
       });
 
-      it('debe normalizar volumen durante conversión', async () => {
+      it('debe normalizar volumen durante conversiÃ³n', async () => {
         const outputPath = await createTempFile('mp3');
         tempFiles.push(outputPath);
 
@@ -291,7 +291,7 @@ describe('Conversiones de Media (Audio/Video)', () => {
           targetFormat: 'mp3',
           options: {
             startTime: 5,   // Comenzar en segundo 5
-            duration: 10    // Duración de 10 segundos
+            duration: 10    // DuraciÃ³n de 10 segundos
           }
         });
 
@@ -335,7 +335,7 @@ describe('Conversiones de Media (Audio/Video)', () => {
     describe('Conversiones de audio multicanal', () => {
       const surroundPath = path.join(__dirname, '../../fixtures/media/valid/test-audio-multichannel.ac3');
 
-      it('debe convertir AC3 5.1 a estéreo', async () => {
+      it('debe convertir AC3 5.1 a estÃ©reo', async () => {
         const outputPath = await createTempFile('mp3');
         tempFiles.push(outputPath);
 
@@ -352,7 +352,7 @@ describe('Conversiones de Media (Audio/Video)', () => {
         expect(result.success).toBe(true);
       });
 
-      it('debe preservar canales 5.1 en conversión', async () => {
+      it('debe preservar canales 5.1 en conversiÃ³n', async () => {
         const outputPath = await createTempFile('ac3');
         tempFiles.push(outputPath);
 
@@ -399,7 +399,7 @@ describe('Conversiones de Media (Audio/Video)', () => {
         expect(await fileExists(outputPath)).toBe(true);
 
         testResults.push({
-          conversion: 'MP4 → AVI',
+          conversion: 'MP4 â†’ AVI',
           success: true,
           duration
         });
@@ -459,7 +459,7 @@ describe('Conversiones de Media (Audio/Video)', () => {
 
         expect(result.success).toBe(true);
         
-        // Conversión sin recodificar debe ser rápida
+        // ConversiÃ³n sin recodificar debe ser rÃ¡pida
         expect(result.metadata?.processingTime).toBeLessThan(5000);
       });
 
@@ -503,7 +503,7 @@ describe('Conversiones de Media (Audio/Video)', () => {
     describe('Procesamiento de video', () => {
       const videoPath = path.join(__dirname, '../../fixtures/media/valid/test-video.mp4');
 
-      it('debe cambiar resolución de video', async () => {
+      it('debe cambiar resoluciÃ³n de video', async () => {
         const outputPath = await createTempFile('mp4');
         tempFiles.push(outputPath);
 
@@ -658,7 +658,7 @@ describe('Conversiones de Media (Audio/Video)', () => {
       });
     });
 
-    describe('Extracción de componentes', () => {
+    describe('ExtracciÃ³n de componentes', () => {
       const videoPath = path.join(__dirname, '../../fixtures/media/valid/test-video.mp4');
 
       it('debe extraer audio de video', async () => {
@@ -723,7 +723,7 @@ describe('Conversiones de Media (Audio/Video)', () => {
         expect(await fileExists(outputPath)).toBe(true);
       });
 
-      it('debe extraer subtítulos de video', async () => {
+      it('debe extraer subtÃ­tulos de video', async () => {
         const videoWithSubs = path.join(__dirname, '../../fixtures/media/valid/test-video-subs.mkv');
         const outputPath = await createTempFile('srt');
         tempFiles.push(outputPath);
@@ -732,7 +732,7 @@ describe('Conversiones de Media (Audio/Video)', () => {
           inputPath: videoWithSubs,
           outputPath,
           options: {
-            streamIndex: 0,  // Primera pista de subtítulos
+            streamIndex: 0,  // Primera pista de subtÃ­tulos
             format: 'srt'
           }
         });
@@ -803,7 +803,7 @@ describe('Conversiones de Media (Audio/Video)', () => {
         expect(result.success).toBe(true);
       });
 
-      it('debe crear video desde imágenes', async () => {
+      it('debe crear video desde imÃ¡genes', async () => {
         const imagesDir = path.join(__dirname, '../../fixtures/images/sequence');
         const outputPath = await createTempFile('mp4');
         tempFiles.push(outputPath);
@@ -825,7 +825,7 @@ describe('Conversiones de Media (Audio/Video)', () => {
         expect(metadata.duration).toBeCloseTo(10, 1);
       });
 
-      it('debe concatenar múltiples videos', async () => {
+      it('debe concatenar mÃºltiples videos', async () => {
         const videos = [
           path.join(__dirname, '../../fixtures/media/valid/test-video-1.mp4'),
           path.join(__dirname, '../../fixtures/media/valid/test-video-2.mp4'),
@@ -849,7 +849,7 @@ describe('Conversiones de Media (Audio/Video)', () => {
       });
     });
 
-    describe('Streaming y optimización', () => {
+    describe('Streaming y optimizaciÃ³n', () => {
       it('debe optimizar video para streaming web', async () => {
         const inputPath = path.join(__dirname, '../../fixtures/media/valid/test-video.mp4');
         const outputPath = await createTempFile('mp4');
@@ -931,7 +931,7 @@ describe('Conversiones de Media (Audio/Video)', () => {
     });
 
     describe('Conversiones por lotes de media', () => {
-      it('debe convertir múltiples audios a formato uniforme', async () => {
+      it('debe convertir mÃºltiples audios a formato uniforme', async () => {
         const inputDir = path.join(__dirname, '../../fixtures/media/valid/audio-batch');
         const outputDir = path.join(process.cwd(), 'temp', 'audio-normalized');
         await fs.mkdir(outputDir, { recursive: true });
@@ -952,7 +952,7 @@ describe('Conversiones de Media (Audio/Video)', () => {
         expect(result.failed).toBe(0);
       });
 
-      it('debe crear proxies de video para edición', async () => {
+      it('debe crear proxies de video para ediciÃ³n', async () => {
         const videos = [
           path.join(__dirname, '../../fixtures/media/valid/raw-video-1.mov'),
           path.join(__dirname, '../../fixtures/media/valid/raw-video-2.mov')
@@ -977,7 +977,7 @@ describe('Conversiones de Media (Audio/Video)', () => {
 
     describe('Manejo de archivos media corrompidos', () => {
       describe('Media subsanable', () => {
-        it('debe reparar MP4 con índice corrupto', async () => {
+        it('debe reparar MP4 con Ã­ndice corrupto', async () => {
           const corruptedPath = path.join(__dirname, '../../fixtures/media/corrupted-fixable/bad-index.mp4');
           const outputPath = await createTempFile('mp4');
           tempFiles.push(outputPath);
@@ -1068,13 +1068,13 @@ describe('Conversiones de Media (Audio/Video)', () => {
       });
     });
 
-    describe('Validaciones y límites de media', () => {
-      it('debe rechazar videos que excedan duración máxima', async () => {
+    describe('Validaciones y lÃ­mites de media', () => {
+      it('debe rechazar videos que excedan duraciÃ³n mÃ¡xima', async () => {
         const longVideoPath = path.join(__dirname, '../../fixtures/media/valid/long-video.mp4');
         const outputPath = await createTempFile('avi');
         tempFiles.push(outputPath);
 
-        const converterWithLimit = new AncloraMetaform({
+        const converterWithLimit = new AncloraNexus({
           maxVideoDuration: 300 // 5 minutos
         });
 
@@ -1085,15 +1085,15 @@ describe('Conversiones de Media (Audio/Video)', () => {
         });
 
         expect(result.success).toBe(false);
-        expect(result.error).toContain('duración máxima');
+        expect(result.error).toContain('duraciÃ³n mÃ¡xima');
       });
 
-      it('debe manejar límites de resolución', async () => {
+      it('debe manejar lÃ­mites de resoluciÃ³n', async () => {
         const video4kPath = path.join(__dirname, '../../fixtures/media/valid/test-video-4k.mp4');
         const outputPath = await createTempFile('mp4');
         tempFiles.push(outputPath);
 
-        const converterWithLimit = new AncloraMetaform({
+        const converterWithLimit = new AncloraNexus({
           maxVideoResolution: '1920x1080'
         });
 

@@ -1,4 +1,4 @@
-import os
+﻿import os
 import sys
 from pathlib import Path
 
@@ -22,7 +22,7 @@ from src.routes.credits import credits_bp
 from src.routes.user import user_bp
 from src.ws import socketio
 
-# Cargar variables de entorno tanto desde la raíz del proyecto como desde backend/
+# Cargar variables de entorno tanto desde la raÃ­z del proyecto como desde backend/
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR.parent / ".env")
 load_dotenv(BASE_DIR / ".env")
@@ -30,22 +30,22 @@ load_dotenv(BASE_DIR / ".env")
 # Configure Flask to serve the built frontend from the dist directory
 app = Flask(__name__, static_folder="../frontend/dist", static_url_path="")
 
-# Aplicar configuración centralizada
+# Aplicar configuraciÃ³n centralizada
 config_class = get_config()
 app.config.from_object(config_class)
 
-# Configuración de logging
+# ConfiguraciÃ³n de logging
 log_level = os.environ.get("LOG_LEVEL", "INFO").upper()
 logging.basicConfig(level=getattr(logging, log_level, logging.INFO))
 logging.getLogger("werkzeug").setLevel(logging.WARNING)
 metrics = PrometheusMetrics(app)
 metrics.info("app_info", "Anclora Nexus API", version="2.0.0")
 
-# Validar configuración crítica
+# Validar configuraciÃ³n crÃ­tica
 if not app.config.get("SECRET_KEY") or not app.config.get("JWT_SECRET_KEY"):
     raise RuntimeError("SECRET_KEY and JWT_SECRET_KEY must be set in configuration")
 
-# Configuración de CORS
+# ConfiguraciÃ³n de CORS
 CORS(
     app,
     origins=app.config["ALLOWED_ORIGINS"],
@@ -56,10 +56,10 @@ CORS(
 # Inicializar SocketIO
 socketio.init_app(app, cors_allowed_origins=app.config["ALLOWED_ORIGINS"])
 
-# Configuración de JWT
+# ConfiguraciÃ³n de JWT
 jwt = JWTManager(app)
 
-# Configuración de base de datos
+# ConfiguraciÃ³n de base de datos
 app.config["SQLALCHEMY_DATABASE_URI"] = (
     f"sqlite:///{os.path.join(os.path.dirname(__file__), 'models/database', 'app.db')}"
 )
@@ -99,18 +99,18 @@ def expired_token_callback(jwt_header, jwt_payload):
 
 @jwt.invalid_token_loader
 def invalid_token_callback(error):
-    return jsonify({"error": "Token inválido"}), 401
+    return jsonify({"error": "Token invÃ¡lido"}), 401
 
 
 @jwt.unauthorized_loader
 def missing_token_callback(error):
-    return jsonify({"error": "Token de autorización requerido"}), 401
+    return jsonify({"error": "Token de autorizaciÃ³n requerido"}), 401
 
 
 # Ruta de salud del API
 @app.route("/api/health", methods=["GET"])
 def health_check():
-    """Endpoint de verificación de salud del API"""
+    """Endpoint de verificaciÃ³n de salud del API"""
     return (
         jsonify(
             {
@@ -124,16 +124,16 @@ def health_check():
     )
 
 
-# Ruta de información del API
+# Ruta de informaciÃ³n del API
 @app.route("/api/info", methods=["GET"])
 def api_info():
-    """Información general del API"""
+    """InformaciÃ³n general del API"""
     return (
         jsonify(
             {
                 "name": "Anclora Nexus API",
                 "version": "1.0.0",
-                "description": "API para conversión inteligente de archivos",
+                "description": "API para conversiÃ³n inteligente de archivos",
                 "endpoints": {
                     "auth": "/api/auth",
                     "conversions": "/api/conversion",
@@ -141,10 +141,10 @@ def api_info():
                     "users": "/api/users",
                 },
                 "features": [
-                    "Autenticación JWT",
-                    "Sistema de créditos",
-                    "Conversión de archivos",
-                    "Gestión de usuarios",
+                    "AutenticaciÃ³n JWT",
+                    "Sistema de crÃ©ditos",
+                    "ConversiÃ³n de archivos",
+                    "GestiÃ³n de usuarios",
                     "Historial de conversiones",
                 ],
             }
@@ -153,7 +153,7 @@ def api_info():
     )
 
 
-# Servir archivos estáticos del frontend
+# Servir archivos estÃ¡ticos del frontend
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve(path):
@@ -194,14 +194,15 @@ def internal_error(error):
 
 @app.errorhandler(400)
 def bad_request(error):
-    return jsonify({"error": "Solicitud inválida"}), 400
+    return jsonify({"error": "Solicitud invÃ¡lida"}), 400
 
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
     print("Iniciando Anclora Nexus API...")
     print(f"API disponible en: http://localhost:{port}/api")
-    print(f"Información del API: http://localhost:{port}/api/info")
-    print(f"Verificación de salud: http://localhost:{port}/api/health")
+    print(f"InformaciÃ³n del API: http://localhost:{port}/api/info")
+    print(f"VerificaciÃ³n de salud: http://localhost:{port}/api/health")
     print("=" * 50)
     app.run(host="0.0.0.0", port=port, debug=True)
+

@@ -1,188 +1,189 @@
-#!/bin/bash
+﻿#!/bin/bash
 # consolidar_carpetas.sh
 
-echo "🔄 Iniciando consolidación de carpetas server, services y utils..."
-echo "📍 Directorio: $(pwd)"
+echo "ðŸ”„ Iniciando consolidaciÃ³n de carpetas server, services y utils..."
+echo "ðŸ“ Directorio: $(pwd)"
 
 # Verificar que estamos en el directorio correcto
 if [ ! -f "README.md" ] || [ ! -d "frontend" ] || [ ! -d "backend" ]; then
-    echo "❌ Error: Ejecutar desde la raíz del repositorio AncloraMetaform"
+    echo "âŒ Error: Ejecutar desde la raÃ­z del repositorio AncloraNexus"
     exit 1
 fi
 
 # Crear backup
-echo "💾 Creando backup..."
-git branch backup-consolidacion-$(date +%Y%m%d-%H%M%S) 2>/dev/null || echo "⚠️ No se pudo crear rama de backup"
+echo "ðŸ’¾ Creando backup..."
+git branch backup-consolidacion-$(date +%Y%m%d-%H%M%S) 2>/dev/null || echo "âš ï¸ No se pudo crear rama de backup"
 tar -czf backup-carpetas-$(date +%Y%m%d-%H%M%S).tar.gz server/ services/ utils/ 2>/dev/null
 
 # FASE 1: Verificar duplicados exactos
-echo "🔍 Verificando duplicados exactos..."
+echo "ðŸ” Verificando duplicados exactos..."
 
-echo "📊 Comparando server/main.py con backend/src/main.py:"
+echo "ðŸ“Š Comparando server/main.py con backend/src/main.py:"
 if diff -q server/main.py backend/src/main.py >/dev/null 2>&1; then
-    echo "✅ Archivos idénticos - server/main.py será eliminado"
+    echo "âœ… Archivos idÃ©nticos - server/main.py serÃ¡ eliminado"
     REMOVE_SERVER_MAIN=true
 else
-    echo "⚠️ Archivos diferentes - revisar manualmente"
+    echo "âš ï¸ Archivos diferentes - revisar manualmente"
     REMOVE_SERVER_MAIN=false
 fi
 
-echo "📊 Comparando services/conversion.py con backend/src/routes/conversion.py:"
+echo "ðŸ“Š Comparando services/conversion.py con backend/src/routes/conversion.py:"
 if diff -q services/conversion.py backend/src/routes/conversion.py >/dev/null 2>&1; then
-    echo "✅ Archivos idénticos - services/conversion.py será eliminado"
+    echo "âœ… Archivos idÃ©nticos - services/conversion.py serÃ¡ eliminado"
     REMOVE_SERVICES_CONVERSION=true
 else
-    echo "⚠️ Archivos diferentes - revisar manualmente"
+    echo "âš ï¸ Archivos diferentes - revisar manualmente"
     REMOVE_SERVICES_CONVERSION=false
 fi
 
 # FASE 2: Verificar archivos que pueden tener diferencias
-echo "🔍 Verificando archivos con posibles diferencias..."
+echo "ðŸ” Verificando archivos con posibles diferencias..."
 
 if [ -f "services/credits.py" ] && [ -f "backend/src/routes/credits.py" ]; then
-    echo "📊 Comparando services/credits.py con backend/src/routes/credits.py:"
+    echo "ðŸ“Š Comparando services/credits.py con backend/src/routes/credits.py:"
     if diff -q services/credits.py backend/src/routes/credits.py >/dev/null 2>&1; then
-        echo "✅ Archivos idénticos"
+        echo "âœ… Archivos idÃ©nticos"
         CREDITS_ACTION="remove_services"
     else
-        echo "⚠️ Archivos diferentes - comparando fechas..."
+        echo "âš ï¸ Archivos diferentes - comparando fechas..."
         SERVICES_DATE=$(stat -c %Y services/credits.py 2>/dev/null)
         BACKEND_DATE=$(stat -c %Y backend/src/routes/credits.py 2>/dev/null)
         
         if [ "$SERVICES_DATE" -gt "$BACKEND_DATE" ]; then
-            echo "📅 services/credits.py es más reciente - será copiado"
+            echo "ðŸ“… services/credits.py es mÃ¡s reciente - serÃ¡ copiado"
             CREDITS_ACTION="copy_from_services"
         else
-            echo "📅 backend/src/routes/credits.py es más reciente - services será eliminado"
+            echo "ðŸ“… backend/src/routes/credits.py es mÃ¡s reciente - services serÃ¡ eliminado"
             CREDITS_ACTION="remove_services"
         fi
     fi
 elif [ -f "services/credits.py" ]; then
-    echo "📊 services/credits.py existe pero no backend/src/routes/credits.py - será movido"
+    echo "ðŸ“Š services/credits.py existe pero no backend/src/routes/credits.py - serÃ¡ movido"
     CREDITS_ACTION="move_from_services"
 else
-    echo "📊 No se encontró services/credits.py"
+    echo "ðŸ“Š No se encontrÃ³ services/credits.py"
     CREDITS_ACTION="none"
 fi
 
 # FASE 3: Crear directorios necesarios
-echo "📁 Creando directorios necesarios..."
+echo "ðŸ“ Creando directorios necesarios..."
 mkdir -p frontend/src/services
 mkdir -p data/{conversions,formats}
 
-# FASE 4: Ejecutar consolidación
-echo "🔄 Ejecutando consolidación..."
+# FASE 4: Ejecutar consolidaciÃ³n
+echo "ðŸ”„ Ejecutando consolidaciÃ³n..."
 
 # Eliminar duplicados exactos
 if [ "$REMOVE_SERVER_MAIN" = true ]; then
-    echo "🗑️ Eliminando server/main.py (duplicado exacto)"
+    echo "ðŸ—‘ï¸ Eliminando server/main.py (duplicado exacto)"
     rm -f server/main.py
 fi
 
 if [ "$REMOVE_SERVICES_CONVERSION" = true ]; then
-    echo "🗑️ Eliminando services/conversion.py (duplicado exacto)"
+    echo "ðŸ—‘ï¸ Eliminando services/conversion.py (duplicado exacto)"
     rm -f services/conversion.py
 fi
 
-# Manejar credits.py según el análisis
+# Manejar credits.py segÃºn el anÃ¡lisis
 case $CREDITS_ACTION in
     "copy_from_services")
-        echo "📋 Copiando services/credits.py a backend/src/routes/"
+        echo "ðŸ“‹ Copiando services/credits.py a backend/src/routes/"
         cp services/credits.py backend/src/routes/credits.py
         rm -f services/credits.py
         ;;
     "move_from_services")
-        echo "📋 Moviendo services/credits.py a backend/src/routes/"
+        echo "ðŸ“‹ Moviendo services/credits.py a backend/src/routes/"
         mv services/credits.py backend/src/routes/credits.py
         ;;
     "remove_services")
-        echo "🗑️ Eliminando services/credits.py (backend es más actual)"
+        echo "ðŸ—‘ï¸ Eliminando services/credits.py (backend es mÃ¡s actual)"
         rm -f services/credits.py
         ;;
 esac
 
 # Mover servicios TypeScript al frontend
-echo "🔄 Moviendo servicios TypeScript al frontend..."
+echo "ðŸ”„ Moviendo servicios TypeScript al frontend..."
 for service in ebookConversionService.ts ebookValidationService.ts geminiService.ts; do
     if [ -f "services/$service" ]; then
-        echo "📋 Moviendo services/$service a frontend/src/services/"
+        echo "ðŸ“‹ Moviendo services/$service a frontend/src/services/"
         mv "services/$service" "frontend/src/services/"
     fi
 done
 
 # Mover archivos de datos
-echo "📊 Reorganizando archivos de datos..."
+echo "ðŸ“Š Reorganizando archivos de datos..."
 for csv_file in utils/*.csv; do
     if [ -f "$csv_file" ]; then
         filename=$(basename "$csv_file")
         case $filename in
             *conversion*|*secuencial*)
-                echo "📋 Moviendo $filename a data/conversions/"
+                echo "ðŸ“‹ Moviendo $filename a data/conversions/"
                 mv "$csv_file" "data/conversions/"
                 ;;
             *format*)
-                echo "📋 Moviendo $filename a data/formats/"
+                echo "ðŸ“‹ Moviendo $filename a data/formats/"
                 mv "$csv_file" "data/formats/"
                 ;;
             *)
-                echo "📋 Moviendo $filename a data/conversions/ (por defecto)"
+                echo "ðŸ“‹ Moviendo $filename a data/conversions/ (por defecto)"
                 mv "$csv_file" "data/conversions/"
                 ;;
         esac
     fi
 done
 
-# Eliminar archivos de caché
-echo "🧹 Eliminando archivos de caché..."
+# Eliminar archivos de cachÃ©
+echo "ðŸ§¹ Eliminando archivos de cachÃ©..."
 rm -rf utils/__pycache__
 rm -rf server/__pycache__ 2>/dev/null
 
 # Eliminar bases de datos duplicadas
 if [ -f "server/database/app.db" ]; then
-    echo "🗑️ Eliminando server/database/app.db (duplicado)"
+    echo "ðŸ—‘ï¸ Eliminando server/database/app.db (duplicado)"
     rm -f server/database/app.db
 fi
 
 # Eliminar archivos obsoletos
 if [ -f "server/index.mjs" ]; then
-    echo "🗑️ Eliminando server/index.mjs (obsoleto)"
+    echo "ðŸ—‘ï¸ Eliminando server/index.mjs (obsoleto)"
     rm -f server/index.mjs
 fi
 
-# FASE 5: Eliminar carpetas vacías
-echo "🗂️ Eliminando carpetas vacías..."
+# FASE 5: Eliminar carpetas vacÃ­as
+echo "ðŸ—‚ï¸ Eliminando carpetas vacÃ­as..."
 
-# Verificar si las carpetas están vacías antes de eliminar
+# Verificar si las carpetas estÃ¡n vacÃ­as antes de eliminar
 if [ -d "server/database" ] && [ -z "$(ls -A server/database)" ]; then
     rmdir server/database
-    echo "🗑️ Eliminada carpeta vacía: server/database"
+    echo "ðŸ—‘ï¸ Eliminada carpeta vacÃ­a: server/database"
 fi
 
 if [ -d "server" ] && [ -z "$(ls -A server)" ]; then
     rmdir server
-    echo "🗑️ Eliminada carpeta vacía: server"
+    echo "ðŸ—‘ï¸ Eliminada carpeta vacÃ­a: server"
 fi
 
 if [ -d "services" ] && [ -z "$(ls -A services)" ]; then
     rmdir services
-    echo "🗑️ Eliminada carpeta vacía: services"
+    echo "ðŸ—‘ï¸ Eliminada carpeta vacÃ­a: services"
 fi
 
 if [ -d "utils" ] && [ -z "$(ls -A utils)" ]; then
     rmdir utils
-    echo "🗑️ Eliminada carpeta vacía: utils"
+    echo "ðŸ—‘ï¸ Eliminada carpeta vacÃ­a: utils"
 fi
 
 echo ""
-echo "✅ CONSOLIDACIÓN COMPLETADA!"
+echo "âœ… CONSOLIDACIÃ“N COMPLETADA!"
 echo ""
-echo "📊 Resumen de cambios:"
-echo "   🗑️ Eliminados duplicados exactos"
-echo "   📋 Consolidados archivos con diferencias"
-echo "   🔄 Servicios TypeScript movidos a frontend/src/services/"
-echo "   📊 Archivos CSV organizados en data/"
-echo "   🗂️ Carpetas vacías eliminadas"
+echo "ðŸ“Š Resumen de cambios:"
+echo "   ðŸ—‘ï¸ Eliminados duplicados exactos"
+echo "   ðŸ“‹ Consolidados archivos con diferencias"
+echo "   ðŸ”„ Servicios TypeScript movidos a frontend/src/services/"
+echo "   ðŸ“Š Archivos CSV organizados en data/"
+echo "   ðŸ—‚ï¸ Carpetas vacÃ­as eliminadas"
 echo ""
-echo "📋 Verificar con: ./validar_consolidacion.sh"
-echo "🔍 Revisar cambios con: git status"
+echo "ðŸ“‹ Verificar con: ./validar_consolidacion.sh"
+echo "ðŸ” Revisar cambios con: git status"
+
 

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { IconAudio, IconVideo, IconImage, IconFile, IconArchive, IconPresentation, IconEbook } from './Icons';
 
 interface Category {
@@ -9,7 +9,7 @@ interface Category {
 
 const categories: Category[] = [
   { key: 'document', name: 'Documentos', icon: IconFile },
-  { key: 'image', name: 'Imágenes', icon: IconImage },
+  { key: 'image', name: 'ImÃ¡genes', icon: IconImage },
   { key: 'audio', name: 'Audio', icon: IconAudio },
   { key: 'video', name: 'Video', icon: IconVideo },
   { key: 'presentation', name: 'Presentaciones', icon: IconPresentation },
@@ -21,7 +21,7 @@ export const InteractiveConversions: React.FC = () => {
   return (
     <section className="w-full max-w-6xl mx-auto py-12 sm:py-16">
       <h2 className="text-h2 text-center text-white mb-8">
-        ¿Qué quieres convertir hoy?
+        Â¿QuÃ© quieres convertir hoy?
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {categories.map(({ key, name, icon: Icon }) => (
@@ -39,3 +39,4 @@ export const InteractiveConversions: React.FC = () => {
 };
 
 export default InteractiveConversions;
+

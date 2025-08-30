@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardContent, CardTitle } from './ui';
 import { Button, Badge } from './ui';
 import { 
@@ -98,8 +98,8 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
       case 'pdf':
         features.push({
           id: 'compress-images',
-          name: 'Compresión de imágenes',
-          description: 'Reduce el tamaño de las imágenes en el PDF sin afectar significativamente la calidad visual.',
+          name: 'CompresiÃ³n de imÃ¡genes',
+          description: 'Reduce el tamaÃ±o de las imÃ¡genes en el PDF sin afectar significativamente la calidad visual.',
           recommended: true,
           impact: 'high',
           before: Math.floor(fileSize * 0.6),
@@ -108,8 +108,8 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
         });
         features.push({
           id: 'optimize-text',
-          name: 'Optimización de texto',
-          description: 'Comprime la información de texto y fuentes para reducir el tamaño del archivo.',
+          name: 'OptimizaciÃ³n de texto',
+          description: 'Comprime la informaciÃ³n de texto y fuentes para reducir el tamaÃ±o del archivo.',
           recommended: true,
           impact: 'medium',
           before: Math.floor(fileSize * 0.3),
@@ -119,7 +119,7 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
         features.push({
           id: 'remove-metadata',
           name: 'Eliminar metadatos',
-          description: 'Elimina información de metadatos innecesaria como autor, creador, etc.',
+          description: 'Elimina informaciÃ³n de metadatos innecesaria como autor, creador, etc.',
           recommended: false,
           impact: 'low',
           before: Math.floor(fileSize * 0.05),
@@ -128,8 +128,8 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
         });
         features.push({
           id: 'advanced-compression',
-          name: 'Compresión avanzada',
-          description: 'Algoritmos avanzados de compresión para máxima reducción de tamaño con mínima pérdida de calidad.',
+          name: 'CompresiÃ³n avanzada',
+          description: 'Algoritmos avanzados de compresiÃ³n para mÃ¡xima reducciÃ³n de tamaÃ±o con mÃ­nima pÃ©rdida de calidad.',
           recommended: true,
           impact: 'high',
           before: fileSize,
@@ -145,7 +145,7 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
         features.push({
           id: 'resize-image',
           name: 'Redimensionar imagen',
-          description: 'Reduce las dimensiones de la imagen para disminuir su tamaño.',
+          description: 'Reduce las dimensiones de la imagen para disminuir su tamaÃ±o.',
           recommended: fileSize > 1000000,
           impact: 'high',
           before: fileSize,
@@ -155,7 +155,7 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
         features.push({
           id: 'compress-quality',
           name: 'Ajustar calidad',
-          description: 'Reduce la calidad de la imagen para disminuir su tamaño sin afectar demasiado la apariencia visual.',
+          description: 'Reduce la calidad de la imagen para disminuir su tamaÃ±o sin afectar demasiado la apariencia visual.',
           recommended: true,
           impact: 'high',
           before: fileSize,
@@ -165,7 +165,7 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
         features.push({
           id: 'strip-metadata',
           name: 'Eliminar metadatos',
-          description: 'Elimina metadatos EXIF y otra información no visible de la imagen.',
+          description: 'Elimina metadatos EXIF y otra informaciÃ³n no visible de la imagen.',
           recommended: false,
           impact: 'low',
           before: Math.floor(fileSize * 0.02),
@@ -174,8 +174,8 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
         });
         features.push({
           id: 'smart-compression',
-          name: 'Compresión inteligente',
-          description: 'Utiliza IA para identificar áreas de la imagen donde se puede aplicar mayor compresión sin afectar detalles importantes.',
+          name: 'CompresiÃ³n inteligente',
+          description: 'Utiliza IA para identificar Ã¡reas de la imagen donde se puede aplicar mayor compresiÃ³n sin afectar detalles importantes.',
           recommended: true,
           impact: 'high',
           before: fileSize,
@@ -189,8 +189,8 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
       case 'doc':
         features.push({
           id: 'compress-images',
-          name: 'Comprimir imágenes incrustadas',
-          description: 'Reduce el tamaño de las imágenes incluidas en el documento.',
+          name: 'Comprimir imÃ¡genes incrustadas',
+          description: 'Reduce el tamaÃ±o de las imÃ¡genes incluidas en el documento.',
           recommended: true,
           impact: 'high',
           before: Math.floor(fileSize * 0.7),
@@ -200,7 +200,7 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
         features.push({
           id: 'remove-metadata',
           name: 'Eliminar metadatos',
-          description: 'Elimina información de autor, comentarios y revisiones.',
+          description: 'Elimina informaciÃ³n de autor, comentarios y revisiones.',
           recommended: false,
           impact: 'low',
           before: Math.floor(fileSize * 0.05),
@@ -210,7 +210,7 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
         features.push({
           id: 'optimize-macros',
           name: 'Eliminar macros',
-          description: 'Elimina macros que pueden aumentar el tamaño del archivo y representar riesgos de seguridad.',
+          description: 'Elimina macros que pueden aumentar el tamaÃ±o del archivo y representar riesgos de seguridad.',
           recommended: true,
           impact: 'medium',
           before: Math.floor(fileSize * 0.1),
@@ -219,8 +219,8 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
         });
         features.push({
           id: 'advanced-docx',
-          name: 'Optimización avanzada',
-          description: 'Algoritmos avanzados para optimizar la estructura interna del documento y reducir significativamente su tamaño.',
+          name: 'OptimizaciÃ³n avanzada',
+          description: 'Algoritmos avanzados para optimizar la estructura interna del documento y reducir significativamente su tamaÃ±o.',
           recommended: true,
           impact: 'high',
           before: fileSize,
@@ -233,8 +233,8 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
       default:
         features.push({
           id: 'general-compression',
-          name: 'Compresión general',
-          description: 'Aplica algoritmos de compresión estándar para reducir el tamaño del archivo.',
+          name: 'CompresiÃ³n general',
+          description: 'Aplica algoritmos de compresiÃ³n estÃ¡ndar para reducir el tamaÃ±o del archivo.',
           recommended: true,
           impact: 'medium',
           before: fileSize,
@@ -244,7 +244,7 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
         features.push({
           id: 'remove-metadata',
           name: 'Eliminar metadatos',
-          description: 'Elimina información de metadatos innecesaria.',
+          description: 'Elimina informaciÃ³n de metadatos innecesaria.',
           recommended: false,
           impact: 'low',
           before: Math.floor(fileSize * 0.03),
@@ -263,7 +263,7 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
     settings.push({
       id: 'general-quality',
       name: 'Calidad general',
-      description: 'Ajusta el equilibrio entre calidad y tamaño de archivo',
+      description: 'Ajusta el equilibrio entre calidad y tamaÃ±o de archivo',
       type: 'slider',
       value: 80,
       min: 0,
@@ -277,8 +277,8 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
       case 'pdf':
         settings.push({
           id: 'image-quality',
-          name: 'Calidad de imágenes',
-          description: 'Nivel de compresión aplicado a las imágenes en el PDF',
+          name: 'Calidad de imÃ¡genes',
+          description: 'Nivel de compresiÃ³n aplicado a las imÃ¡genes en el PDF',
           type: 'slider',
           value: 75,
           min: 0,
@@ -288,8 +288,8 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
         });
         settings.push({
           id: 'text-compression',
-          name: 'Compresión de texto',
-          description: 'Nivel de compresión aplicado al texto',
+          name: 'CompresiÃ³n de texto',
+          description: 'Nivel de compresiÃ³n aplicado al texto',
           type: 'select',
           value: 'medium',
           options: [
@@ -307,7 +307,7 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
         });
         settings.push({
           id: 'ai-optimize',
-          name: 'Optimización con IA',
+          name: 'OptimizaciÃ³n con IA',
           description: 'Utiliza inteligencia artificial para optimizar el archivo',
           type: 'toggle',
           value: isPremiumUser,
@@ -321,8 +321,8 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
       case 'png':
         settings.push({
           id: 'compression-quality',
-          name: 'Nivel de compresión',
-          description: 'Balance entre calidad de imagen y tamaño de archivo',
+          name: 'Nivel de compresiÃ³n',
+          description: 'Balance entre calidad de imagen y tamaÃ±o de archivo',
           type: 'slider',
           value: 80,
           min: 0,
@@ -333,11 +333,11 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
         settings.push({
           id: 'resize-dimensions',
           name: 'Redimensionar',
-          description: 'Redimensiona la imagen a un tamaño específico',
+          description: 'Redimensiona la imagen a un tamaÃ±o especÃ­fico',
           type: 'select',
           value: 'original',
           options: [
-            { value: 'original', label: 'Tamaño original' },
+            { value: 'original', label: 'TamaÃ±o original' },
             { value: '1920', label: 'HD (1920px)' },
             { value: '1280', label: 'Medium (1280px)' },
             { value: '800', label: 'Small (800px)' }
@@ -346,14 +346,14 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
         settings.push({
           id: 'preserve-metadata',
           name: 'Conservar metadatos',
-          description: 'Mantiene información EXIF y otros metadatos',
+          description: 'Mantiene informaciÃ³n EXIF y otros metadatos',
           type: 'toggle',
           value: false
         });
         settings.push({
           id: 'smart-compression',
-          name: 'Compresión inteligente',
-          description: 'Utiliza IA para preservar áreas importantes',
+          name: 'CompresiÃ³n inteligente',
+          description: 'Utiliza IA para preservar Ã¡reas importantes',
           type: 'toggle',
           value: isPremiumUser,
           isPremium: true,
@@ -365,8 +365,8 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
       case 'doc':
         settings.push({
           id: 'image-quality',
-          name: 'Calidad de imágenes incrustadas',
-          description: 'Nivel de compresión aplicado a las imágenes del documento',
+          name: 'Calidad de imÃ¡genes incrustadas',
+          description: 'Nivel de compresiÃ³n aplicado a las imÃ¡genes del documento',
           type: 'slider',
           value: 75,
           min: 0,
@@ -384,14 +384,14 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
         settings.push({
           id: 'remove-comments',
           name: 'Eliminar comentarios',
-          description: 'Elimina comentarios y marcas de revisión',
+          description: 'Elimina comentarios y marcas de revisiÃ³n',
           type: 'toggle',
           value: true
         });
         settings.push({
           id: 'deep-analysis',
-          name: 'Análisis profundo',
-          description: 'Analiza la estructura del documento para máxima optimización',
+          name: 'AnÃ¡lisis profundo',
+          description: 'Analiza la estructura del documento para mÃ¡xima optimizaciÃ³n',
           type: 'toggle',
           value: isPremiumUser,
           isPremium: true,
@@ -502,15 +502,15 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
           </div>
           
           <div>
-            <h3 className="font-medium text-white">Puntuación de optimización</h3>
+            <h3 className="font-medium text-white">PuntuaciÃ³n de optimizaciÃ³n</h3>
             <p className="text-sm text-slate-400 mt-1">
-              Tu archivo tiene potencial de mejora. Aplicando las optimizaciones recomendadas podrías reducir significativamente su tamaño.
+              Tu archivo tiene potencial de mejora. Aplicando las optimizaciones recomendadas podrÃ­as reducir significativamente su tamaÃ±o.
             </p>
           </div>
         </div>
         
         <div className="text-right">
-          <div className="text-sm text-slate-400">Tamaño actual</div>
+          <div className="text-sm text-slate-400">TamaÃ±o actual</div>
           <div className="text-lg font-medium text-white">{formatBytes(fileSize)}</div>
           <div className="text-sm text-green-500">Ahorro estimado: {formatBytes(estimatedSavings)}</div>
         </div>
@@ -590,11 +590,11 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
                     {feature.before && feature.after && (
                       <div className="mt-2 grid grid-cols-2 gap-2 text-center text-sm">
                         <div className="bg-slate-700/50 p-2 rounded">
-                          <div className="text-slate-400">Tamaño actual</div>
+                          <div className="text-slate-400">TamaÃ±o actual</div>
                           <div className="text-white font-medium">{formatBytes(feature.before)}</div>
                         </div>
                         <div className="bg-slate-700/50 p-2 rounded">
-                          <div className="text-slate-400">Después de optimizar</div>
+                          <div className="text-slate-400">DespuÃ©s de optimizar</div>
                           <div className="text-green-500 font-medium">{formatBytes(feature.after)}</div>
                         </div>
                       </div>
@@ -604,7 +604,7 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
                       <div className="mt-2 bg-gradient-to-r from-amber-500/10 to-amber-600/5 border border-amber-500/20 p-2 rounded flex items-center">
                         <Info size={14} className="text-amber-500 mr-2" />
                         <span className="text-xs text-amber-300">
-                          Esta optimización avanzada está disponible para usuarios Premium
+                          Esta optimizaciÃ³n avanzada estÃ¡ disponible para usuarios Premium
                         </span>
                       </div>
                     )}
@@ -626,7 +626,7 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
           onClick={() => setShowAdvancedSettings(!showAdvancedSettings)}
         >
           <Settings size={16} className="mr-2" />
-          <span className="font-medium">Configuración avanzada</span>
+          <span className="font-medium">ConfiguraciÃ³n avanzada</span>
           {showAdvancedSettings ? <ChevronDown size={16} className="ml-1" /> : <ChevronRight size={16} className="ml-1" />}
         </button>
         
@@ -724,7 +724,7 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <Sliders className="mr-2 text-primary" />
-              <CardTitle>Optimización de Conversión</CardTitle>
+              <CardTitle>OptimizaciÃ³n de ConversiÃ³n</CardTitle>
             </div>
             <Badge className="bg-gray-200 text-xs px-2 py-1 rounded">
               {isOptimized ? 'Optimizado' : 'No optimizado'}
@@ -741,7 +741,7 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
               <div>
                 <h3 className="font-medium text-white">{fileName}</h3>
                 <p className="text-sm text-slate-400">
-                  {formatBytes(fileSize)} • {fileType.toUpperCase()}
+                  {formatBytes(fileSize)} â€¢ {fileType.toUpperCase()}
                 </p>
               </div>
             </div>
@@ -807,3 +807,4 @@ export const ConversionOptimization: React.FC<ConversionOptimizationProps> = ({
 };
 
 export default ConversionOptimization;
+

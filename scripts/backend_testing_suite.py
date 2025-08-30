@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
 Suite de pruebas completa para el backend de Anclora Converter
 """
@@ -31,7 +31,7 @@ class AncloraBackendTester:
         }
         self.test_results.append(result)
         
-        status = "✅ PASS" if success else "❌ FAIL"
+        status = "âœ… PASS" if success else "âŒ FAIL"
         print(f"{status} {test_name}: {details}")
         
         if not success and response_data:
@@ -140,7 +140,7 @@ class AncloraBackendTester:
                     self.log_test("Conversion Formats", True, f"{total_conversions} conversiones soportadas")
                     return True
                 else:
-                    self.log_test("Conversion Formats", False, "Estructura de respuesta inválida", data)
+                    self.log_test("Conversion Formats", False, "Estructura de respuesta invÃ¡lida", data)
                     return False
             else:
                 self.log_test("Conversion Formats", False, f"Status code: {response.status_code}")
@@ -151,7 +151,7 @@ class AncloraBackendTester:
             return False
     
     def test_price_estimation(self):
-        """Prueba la estimación de precios"""
+        """Prueba la estimaciÃ³n de precios"""
         try:
             price_request = {
                 "source_format": "jpg",
@@ -170,10 +170,10 @@ class AncloraBackendTester:
                 data = response.json()
                 if 'estimated_price' in data and 'breakdown' in data:
                     price = data['estimated_price']
-                    self.log_test("Price Estimation", True, f"Precio estimado: €{price}")
+                    self.log_test("Price Estimation", True, f"Precio estimado: â‚¬{price}")
                     return True
                 else:
-                    self.log_test("Price Estimation", False, "Estructura de respuesta inválida", data)
+                    self.log_test("Price Estimation", False, "Estructura de respuesta invÃ¡lida", data)
                     return False
             else:
                 self.log_test("Price Estimation", False, f"Status code: {response.status_code}", response.text)
@@ -196,10 +196,10 @@ class AncloraBackendTester:
                         self.log_test("Pricing Tiers", True, "Niveles de precios obtenidos correctamente")
                         return True
                     else:
-                        self.log_test("Pricing Tiers", False, "Estructura de tiers inválida", data)
+                        self.log_test("Pricing Tiers", False, "Estructura de tiers invÃ¡lida", data)
                         return False
                 else:
-                    self.log_test("Pricing Tiers", False, "Estructura de respuesta inválida", data)
+                    self.log_test("Pricing Tiers", False, "Estructura de respuesta invÃ¡lida", data)
                     return False
             else:
                 self.log_test("Pricing Tiers", False, f"Status code: {response.status_code}")
@@ -210,7 +210,7 @@ class AncloraBackendTester:
             return False
     
     def test_leaderboard(self):
-        """Prueba la tabla de líderes"""
+        """Prueba la tabla de lÃ­deres"""
         try:
             response = self.session.get(f"{self.base_url}/api/rewards/leaderboard")
             
@@ -218,10 +218,10 @@ class AncloraBackendTester:
                 data = response.json()
                 if 'leaderboard' in data:
                     leaderboard = data['leaderboard']
-                    self.log_test("Leaderboard", True, f"Tabla de líderes con {len(leaderboard)} usuarios")
+                    self.log_test("Leaderboard", True, f"Tabla de lÃ­deres con {len(leaderboard)} usuarios")
                     return True
                 else:
-                    self.log_test("Leaderboard", False, "Estructura de respuesta inválida", data)
+                    self.log_test("Leaderboard", False, "Estructura de respuesta invÃ¡lida", data)
                     return False
             else:
                 self.log_test("Leaderboard", False, f"Status code: {response.status_code}", response.text)
@@ -244,7 +244,7 @@ class AncloraBackendTester:
                     self.log_test("Achievements", True, f"{total} logros disponibles")
                     return True
                 else:
-                    self.log_test("Achievements", False, "Estructura de respuesta inválida", data)
+                    self.log_test("Achievements", False, "Estructura de respuesta invÃ¡lida", data)
                     return False
             else:
                 self.log_test("Achievements", False, f"Status code: {response.status_code}", response.text)
@@ -255,7 +255,7 @@ class AncloraBackendTester:
             return False
     
     def test_public_challenges(self):
-        """Prueba el endpoint de desafíos públicos"""
+        """Prueba el endpoint de desafÃ­os pÃºblicos"""
         try:
             response = self.session.get(f"{self.base_url}/api/rewards/challenges/public")
             
@@ -264,10 +264,10 @@ class AncloraBackendTester:
                 if 'active_challenges' in data:
                     challenges = data['active_challenges']
                     total = data.get('total_active', 0)
-                    self.log_test("Public Challenges", True, f"{total} desafíos activos")
+                    self.log_test("Public Challenges", True, f"{total} desafÃ­os activos")
                     return True
                 else:
-                    self.log_test("Public Challenges", False, "Estructura de respuesta inválida", data)
+                    self.log_test("Public Challenges", False, "Estructura de respuesta invÃ¡lida", data)
                     return False
             else:
                 self.log_test("Public Challenges", False, f"Status code: {response.status_code}", response.text)
@@ -278,9 +278,9 @@ class AncloraBackendTester:
             return False
     
     def test_authenticated_endpoints(self):
-        """Prueba endpoints que requieren autenticación"""
+        """Prueba endpoints que requieren autenticaciÃ³n"""
         if not self.auth_token:
-            self.log_test("Authenticated Endpoints", False, "No hay token de autenticación")
+            self.log_test("Authenticated Endpoints", False, "No hay token de autenticaciÃ³n")
             return False
         
         headers = {
@@ -365,12 +365,12 @@ class AncloraBackendTester:
     
     def run_all_tests(self):
         """Ejecuta todas las pruebas"""
-        print("🚀 Iniciando suite de pruebas del backend Anclora Converter")
+        print("ðŸš€ Iniciando suite de pruebas del backend Anclora Converter")
         print("=" * 60)
         
         start_time = time.time()
         
-        # Pruebas básicas
+        # Pruebas bÃ¡sicas
         self.test_health_endpoint()
         self.test_conversion_formats()
         self.test_price_estimation()
@@ -379,7 +379,7 @@ class AncloraBackendTester:
         self.test_achievements()
         self.test_public_challenges()
         
-        # Pruebas de autenticación
+        # Pruebas de autenticaciÃ³n
         if self.test_user_registration():
             self.test_authenticated_endpoints()
         
@@ -391,7 +391,7 @@ class AncloraBackendTester:
         
         # Resumen de resultados
         print("\n" + "=" * 60)
-        print("📊 RESUMEN DE PRUEBAS")
+        print("ðŸ“Š RESUMEN DE PRUEBAS")
         print("=" * 60)
         
         total_tests = len(self.test_results)
@@ -399,13 +399,13 @@ class AncloraBackendTester:
         failed_tests = total_tests - passed_tests
         
         print(f"Total de pruebas: {total_tests}")
-        print(f"✅ Exitosas: {passed_tests}")
-        print(f"❌ Fallidas: {failed_tests}")
-        print(f"⏱️ Duración: {duration:.2f} segundos")
-        print(f"📈 Tasa de éxito: {(passed_tests/total_tests)*100:.1f}%")
+        print(f"âœ… Exitosas: {passed_tests}")
+        print(f"âŒ Fallidas: {failed_tests}")
+        print(f"â±ï¸ DuraciÃ³n: {duration:.2f} segundos")
+        print(f"ðŸ“ˆ Tasa de Ã©xito: {(passed_tests/total_tests)*100:.1f}%")
         
         if failed_tests > 0:
-            print("\n❌ PRUEBAS FALLIDAS:")
+            print("\nâŒ PRUEBAS FALLIDAS:")
             for result in self.test_results:
                 if not result['success']:
                     print(f"  - {result['test_name']}: {result['details']}")
@@ -427,5 +427,6 @@ if __name__ == "__main__":
     with open('/home/ubuntu/backend_test_results.json', 'w') as f:
         json.dump(results, f, indent=2, default=str)
     
-    print(f"\n💾 Resultados guardados en: /home/ubuntu/backend_test_results.json")
+    print(f"\nðŸ’¾ Resultados guardados en: /home/ubuntu/backend_test_results.json")
+
 

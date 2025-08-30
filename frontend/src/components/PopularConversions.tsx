@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { IconAudio, IconVideo, IconImage, IconFile, IconArchive, IconPresentation, IconArrowRight, IconEbook } from './Icons';
 import { FileCategory } from '../utils/conversionMaps';
 import AccessibleIcon from './AccessibleIcon';
@@ -65,7 +65,7 @@ const popularData: Record<FileCategory, CategoryInfo> = {
         ],
     },
     presentation: {
-        name: 'Presentación',
+        name: 'PresentaciÃ³n',
         icon: IconPresentation,
         conversions: [
             { from: 'PPTX', to: 'PDF' }, { from: 'PPT', to: 'PDF' },
@@ -96,7 +96,7 @@ export const PopularConversions: React.FC = () => {
     return (
         <section className="w-full max-w-6xl mx-auto py-16 sm:py-24">
             <h2 className="text-h2 text-center mb-12">
-                Accede rápidamente a nuestras solicitudes de conversión más populares
+                Accede rÃ¡pidamente a nuestras solicitudes de conversiÃ³n mÃ¡s populares
             </h2>
             <div className="flex flex-col md:flex-row gap-8 lg:gap-12">
                 <aside className="w-full md:w-1/4">

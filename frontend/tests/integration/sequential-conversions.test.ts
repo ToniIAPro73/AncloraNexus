@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+﻿import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import path from 'path';
 import fs from 'fs/promises';
 import {
@@ -7,14 +7,14 @@ import {
   measureConversionTime,
   createTempFile,
   cleanupTempFiles} from '@test/utils/test-helpers';
-import { AncloraMetaform } from '@/AncloraMetaform';
+import { AncloraNexus } from '@/AncloraNexus';
 
 describe('Conversiones Secuenciales Complejas', () => {
-  let converter: AncloraMetaform;
+  let converter: AncloraNexus;
   let tempFiles: string[] = [];
 
   beforeAll(async () => {
-    converter = new AncloraMetaform({
+    converter = new AncloraNexus({
       enableSequentialConversion: true,
       preserveIntermediateFiles: true,
       maxSequenceLength: 5
@@ -27,7 +27,7 @@ describe('Conversiones Secuenciales Complejas', () => {
   });
 
   describe('Secuencias de 2 pasos', () => {
-    it('debe realizar conversión PDF → Word → HTML', async () => {
+    it('debe realizar conversiÃ³n PDF â†’ Word â†’ HTML', async () => {
       const inputPath = path.join(__dirname, '../../fixtures/documents/valid/test-document.pdf');
       const intermediateDocx = await createTempFile('docx');
       const finalHtml = await createTempFile('html');
@@ -45,12 +45,12 @@ describe('Conversiones Secuenciales Complejas', () => {
       expect(sequence.completedSteps).toBe(2);
       expect(await fileExists(finalHtml)).toBe(true);
       
-      // Verificar que el contenido HTML sea válido
+      // Verificar que el contenido HTML sea vÃ¡lido
       const htmlContent = await fs.readFile(finalHtml, 'utf-8');
       expect(htmlContent).toContain('<!DOCTYPE html>');
     });
 
-    it('debe realizar conversión Excel → CSV → JSON', async () => {
+    it('debe realizar conversiÃ³n Excel â†’ CSV â†’ JSON', async () => {
       const inputPath = path.join(__dirname, '../../fixtures/documents/valid/test-spreadsheet.xlsx');
       const intermediateCsv = await createTempFile('csv');
       const finalJson = await createTempFile('json');
@@ -73,7 +73,7 @@ describe('Conversiones Secuenciales Complejas', () => {
       expect(Array.isArray(data) || typeof data === 'object').toBe(true);
     });
 
-    it('debe realizar conversión Word → RTF → PDF', async () => {
+    it('debe realizar conversiÃ³n Word â†’ RTF â†’ PDF', async () => {
       const inputPath = path.join(__dirname, '../../fixtures/documents/valid/test-document.docx');
       const intermediateRtf = await createTempFile('rtf');
       const finalPdf = await createTempFile('pdf');
@@ -92,7 +92,7 @@ describe('Conversiones Secuenciales Complejas', () => {
       expect(pdfValidation.isValid).toBe(true);
     });
 
-    it('debe realizar conversión HTML → Markdown → PDF', async () => {
+    it('debe realizar conversiÃ³n HTML â†’ Markdown â†’ PDF', async () => {
       const inputPath = path.join(__dirname, '../../fixtures/documents/valid/test-document.html');
       const intermediateMd = await createTempFile('md');
       const finalPdf = await createTempFile('pdf');
@@ -120,7 +120,7 @@ describe('Conversiones Secuenciales Complejas', () => {
   });
 
   describe('Secuencias de 3 pasos', () => {
-    it('debe realizar conversión PDF → Image → OCR → Word', async () => {
+    it('debe realizar conversiÃ³n PDF â†’ Image â†’ OCR â†’ Word', async () => {
       const inputPath = path.join(__dirname, '../../fixtures/documents/valid/test-document.pdf');
       const imagePath = await createTempFile('png');
       const ocrPath = await createTempFile('txt');
@@ -151,7 +151,7 @@ describe('Conversiones Secuenciales Complejas', () => {
       expect(sequence.completedSteps).toBe(3);
     });
 
-    it('debe realizar conversión Excel → XML → Transform → HTML', async () => {
+    it('debe realizar conversiÃ³n Excel â†’ XML â†’ Transform â†’ HTML', async () => {
       const inputPath = path.join(__dirname, '../../fixtures/documents/valid/test-spreadsheet.xlsx');
       const xmlPath = await createTempFile('xml');
       const transformedXml = await createTempFile('xml');
@@ -184,7 +184,7 @@ describe('Conversiones Secuenciales Complejas', () => {
       expect(htmlContent).toContain('<table');
     });
 
-    it('debe realizar conversión PowerPoint → PDF → Images → Video', async () => {
+    it('debe realizar conversiÃ³n PowerPoint â†’ PDF â†’ Images â†’ Video', async () => {
       const inputPath = path.join(__dirname, '../../fixtures/documents/valid/test-presentation.pptx');
       const pdfPath = await createTempFile('pdf');
       const imagesDir = path.join(process.cwd(), 'temp', 'images');
@@ -222,8 +222,8 @@ describe('Conversiones Secuenciales Complejas', () => {
   });
 
   describe('Secuencias de 4+ pasos', () => {
-    it('debe realizar conversión compleja de migración documental', async () => {
-      // Simula migración de sistema legacy
+    it('debe realizar conversiÃ³n compleja de migraciÃ³n documental', async () => {
+      // Simula migraciÃ³n de sistema legacy
       const inputPath = path.join(__dirname, '../../fixtures/documents/valid/legacy-format.doc');
       const step1 = await createTempFile('docx');
       const step2 = await createTempFile('xml');
@@ -274,7 +274,7 @@ describe('Conversiones Secuenciales Complejas', () => {
     it('debe realizar procesamiento de datos complejos', async () => {
       const inputPath = path.join(__dirname, '../../fixtures/documents/valid/data-source.csv');
       
-      // CSV → Excel → Pivote → Gráfico → PDF → Compresión
+      // CSV â†’ Excel â†’ Pivote â†’ GrÃ¡fico â†’ PDF â†’ CompresiÃ³n
       const excelPath = await createTempFile('xlsx');
       const pivotPath = await createTempFile('xlsx');
       const chartPath = await createTempFile('png');
@@ -337,14 +337,14 @@ describe('Conversiones Secuenciales Complejas', () => {
   describe('Manejo de errores en secuencias', () => {
     it('debe manejar fallo en paso intermedio', async () => {
       const inputPath = path.join(__dirname, '../../fixtures/documents/valid/test-document.pdf');
-      const step1 = await createTempFile('xyz'); // Formato inválido
+      const step1 = await createTempFile('xyz'); // Formato invÃ¡lido
       const step2 = await createTempFile('docx');
       tempFiles.push(step1, step2);
 
       const sequence = await converter.sequentialConvert({
         inputPath,
         sequence: [
-          { format: 'xyz', outputPath: step1 }, // Esto fallará
+          { format: 'xyz', outputPath: step1 }, // Esto fallarÃ¡
           { format: 'docx', outputPath: step2 }
         ]
       });
@@ -372,7 +372,7 @@ describe('Conversiones Secuenciales Complejas', () => {
         sequence: [
           { format: 'txt', outputPath: outputs[0] },
           { format: 'html', outputPath: outputs[1] },
-          { format: 'invalid', outputPath: outputs[2] }, // Fallará
+          { format: 'invalid', outputPath: outputs[2] }, // FallarÃ¡
           { format: 'pdf', outputPath: outputs[3] }
         ]
       });
@@ -382,11 +382,11 @@ describe('Conversiones Secuenciales Complejas', () => {
       expect(sequence.errors[0].step).toBe(2);
     });
 
-    it('debe validar longitud máxima de secuencia', async () => {
+    it('debe validar longitud mÃ¡xima de secuencia', async () => {
       const inputPath = path.join(__dirname, '../../fixtures/documents/valid/test-document.pdf');
       const tooManySteps = [];
       
-      // Intentar crear secuencia de 10 pasos (máximo es 5)
+      // Intentar crear secuencia de 10 pasos (mÃ¡ximo es 5)
       for (let i = 0; i < 10; i++) {
         tooManySteps.push({
           format: 'txt',
@@ -399,17 +399,17 @@ describe('Conversiones Secuenciales Complejas', () => {
           inputPath,
           sequence: tooManySteps
         })
-      ).rejects.toThrow('excede el máximo permitido');
+      ).rejects.toThrow('excede el mÃ¡ximo permitido');
     });
   });
 
-  describe('Optimización de secuencias', () => {
-    it('debe detectar y optimizar rutas de conversión', async () => {
+  describe('OptimizaciÃ³n de secuencias', () => {
+    it('debe detectar y optimizar rutas de conversiÃ³n', async () => {
       const inputPath = path.join(__dirname, '../../fixtures/documents/valid/test-document.pdf');
       const finalPath = await createTempFile('html');
       tempFiles.push(finalPath);
 
-      // La aplicación debería optimizar PDF → DOCX → HTML a PDF → HTML directamente
+      // La aplicaciÃ³n deberÃ­a optimizar PDF â†’ DOCX â†’ HTML a PDF â†’ HTML directamente
       const result = await converter.optimizeAndConvert({
         inputPath,
         targetFormat: 'html',
@@ -418,17 +418,17 @@ describe('Conversiones Secuenciales Complejas', () => {
       });
 
       expect(result.optimized).toBe(true);
-      expect(result.stepsUsed).toBe(1); // Conversión directa
+      expect(result.stepsUsed).toBe(1); // ConversiÃ³n directa
       expect(result.stepsProposed).toBe(2);
     });
 
-    it('debe usar caché para conversiones repetidas', async () => {
+    it('debe usar cachÃ© para conversiones repetidas', async () => {
       const inputPath = path.join(__dirname, '../../fixtures/documents/valid/test-document.pdf');
       const output1 = await createTempFile('docx');
       const output2 = await createTempFile('docx');
       tempFiles.push(output1, output2);
 
-      // Primera conversión
+      // Primera conversiÃ³n
       const time1 = await measureConversionTime(async () => {
         return await converter.convert({
           inputPath,
@@ -437,7 +437,7 @@ describe('Conversiones Secuenciales Complejas', () => {
         });
       });
 
-      // Segunda conversión (debería usar caché)
+      // Segunda conversiÃ³n (deberÃ­a usar cachÃ©)
       const time2 = await measureConversionTime(async () => {
         return await converter.convert({
           inputPath,
@@ -455,7 +455,7 @@ describe('Conversiones Secuenciales Complejas', () => {
     it('debe procesar ramas paralelas cuando sea posible', async () => {
       const inputPath = path.join(__dirname, '../../fixtures/documents/valid/test-document.pdf');
       
-      // PDF → [DOCX, PNG, TXT] → ZIP
+      // PDF â†’ [DOCX, PNG, TXT] â†’ ZIP
       const docxPath = await createTempFile('docx');
       const pngPath = await createTempFile('png');
       const txtPath = await createTempFile('txt');
@@ -486,10 +486,10 @@ describe('Conversiones Secuenciales Complejas', () => {
   });
 
   describe('Casos de uso empresariales complejos', () => {
-    it('debe ejecutar flujo de digitalización de facturas', async () => {
+    it('debe ejecutar flujo de digitalizaciÃ³n de facturas', async () => {
       const scanPath = path.join(__dirname, '../../fixtures/documents/valid/invoice-scan.jpg');
       
-      // Imagen → OCR → PDF → Extracción → Excel → ERP (simulado)
+      // Imagen â†’ OCR â†’ PDF â†’ ExtracciÃ³n â†’ Excel â†’ ERP (simulado)
       const ocrText = await createTempFile('txt');
       const pdfPath = await createTempFile('pdf');
       const dataPath = await createTempFile('json');
@@ -551,10 +551,10 @@ describe('Conversiones Secuenciales Complejas', () => {
       expect(invoiceData).toHaveProperty('total');
     });
 
-    it('debe ejecutar flujo de publicación multicanal', async () => {
+    it('debe ejecutar flujo de publicaciÃ³n multicanal', async () => {
       const sourcePath = path.join(__dirname, '../../fixtures/documents/valid/marketing-content.docx');
       
-      // DOCX → [Web, Print, Mobile] → Optimizado
+      // DOCX â†’ [Web, Print, Mobile] â†’ Optimizado
       const webHtml = await createTempFile('html');
       const printPdf = await createTempFile('pdf');
       const mobileJson = await createTempFile('json');

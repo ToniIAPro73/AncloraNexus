@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { EbookConverter } from './EbookConverter';
 import { EbookFormatSelector } from './EbookFormatSelector';
 import { EbookMetadataViewer } from './EbookMetadataViewer';
@@ -84,7 +84,7 @@ export const EbookConverterPage: React.FC<EbookConverterPageProps> = ({
                       opacity: '0.7'
                     }}
                   >
-                    Convierte entre formatos de libros electrónicos
+                    Convierte entre formatos de libros electrÃ³nicos
                   </p>
                 </div>
               </div>
@@ -197,7 +197,7 @@ export const EbookConverterPage: React.FC<EbookConverterPageProps> = ({
                 color: 'var(--color-neutral-900)'
               }}
             >
-              Opciones avanzadas de conversión
+              Opciones avanzadas de conversiÃ³n
             </h3>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3" style={{ gap: 'var(--space-3)' }}>
@@ -210,7 +210,7 @@ export const EbookConverterPage: React.FC<EbookConverterPageProps> = ({
                     color: 'var(--color-neutral-900)'
                   }}
                 >
-                  Calidad de conversión
+                  Calidad de conversiÃ³n
                 </label>
                 <select 
                   className="w-full rounded border"
@@ -220,7 +220,7 @@ export const EbookConverterPage: React.FC<EbookConverterPageProps> = ({
                     fontSize: '14px'
                   }}
                 >
-                  <option value="low">Baja (archivo más pequeño)</option>
+                  <option value="low">Baja (archivo mÃ¡s pequeÃ±o)</option>
                   <option value="medium" selected>Media (recomendado)</option>
                   <option value="high">Alta (mejor calidad)</option>
                 </select>
@@ -245,7 +245,7 @@ export const EbookConverterPage: React.FC<EbookConverterPageProps> = ({
                     fontSize: '14px'
                   }}
                 >
-                  <option value="generic" selected>Genérico</option>
+                  <option value="generic" selected>GenÃ©rico</option>
                   <option value="kindle">Kindle</option>
                   <option value="kobo">Kobo</option>
                 </select>
@@ -273,7 +273,7 @@ export const EbookConverterPage: React.FC<EbookConverterPageProps> = ({
                   </label>
                   <label className="flex items-center" style={{ gap: 'var(--space-1)' }}>
                     <input type="checkbox" />
-                    <span style={{ fontSize: '12px' }}>Comprimir imágenes</span>
+                    <span style={{ fontSize: '12px' }}>Comprimir imÃ¡genes</span>
                   </label>
                 </div>
               </div>
@@ -284,4 +284,5 @@ export const EbookConverterPage: React.FC<EbookConverterPageProps> = ({
     </div>
   );
 };
+
 

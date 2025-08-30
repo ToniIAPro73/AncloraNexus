@@ -1,4 +1,4 @@
-export const resources = {
+﻿export const resources = {
   en: {
     translation: {
       header: {
@@ -58,7 +58,7 @@ export const resources = {
         ariaLabel: 'Encabezado principal',
         title: 'Conversor Inteligente',
         subtitle: 'Convierte archivos con inteligencia artificial avanzada',
-        credits: '{{count}} créditos',
+        credits: '{{count}} crÃ©ditos',
         defaultName: 'Usuario',
         defaultEmail: 'usuario@ejemplo.com',
         highContrast: 'Contraste alto'
@@ -67,14 +67,14 @@ export const resources = {
         skipLink: 'Ir al contenido principal',
         heroTitle: 'Anclora Nexus',
         heroSubtitle: 'Tu Contenido, Reinventado',
-        featuresTitle: 'Características',
+        featuresTitle: 'CaracterÃ­sticas',
         features: {
           smartConversion: {
-            title: 'Conversión Inteligente',
-            desc: 'Transforma tus archivos a múltiples formatos con IA.'
+            title: 'ConversiÃ³n Inteligente',
+            desc: 'Transforma tus archivos a mÃºltiples formatos con IA.'
           },
           intuitiveDesign: {
-            title: 'Diseño Intuitivo',
+            title: 'DiseÃ±o Intuitivo',
             desc: 'Interfaz sencilla y optimizada para tu flujo de trabajo.'
           },
           multiplatformSupport: {
@@ -86,21 +86,21 @@ export const resources = {
         pricing: {
           free: {
             title: 'Gratis',
-            desc: 'Funcionalidades básicas sin costo.',
+            desc: 'Funcionalidades bÃ¡sicas sin costo.',
             cta: 'Comenzar'
           },
           pro: {
             title: 'Pro',
-            desc: 'Conversión ilimitada y funciones avanzadas.',
+            desc: 'ConversiÃ³n ilimitada y funciones avanzadas.',
             cta: 'Elegir Pro'
           },
           enterprise: {
             title: 'Empresa',
             desc: 'Soluciones personalizadas para equipos.',
-            cta: 'Contáctanos'
+            cta: 'ContÃ¡ctanos'
           }
         },
-        ctaTitle: '¿Listo para transformar tu contenido?',
+        ctaTitle: 'Â¿Listo para transformar tu contenido?',
         ctaButton: 'Ir a la App'
       }
     }
@@ -108,3 +108,4 @@ export const resources = {
 } as const;
 
 export default resources;
+

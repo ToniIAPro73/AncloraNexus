@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
@@ -59,4 +59,5 @@ export const IconButton: React.FC<ButtonProps & { icon: React.ReactNode; label: 
     {icon}
   </Button>
 );
+
 

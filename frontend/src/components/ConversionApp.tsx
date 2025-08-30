@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+﻿import React, { useState, useCallback } from 'react';
 
 interface ConversionAppProps {
   onBackToLanding: () => void;
@@ -32,7 +32,7 @@ const ConversionApp: React.FC<ConversionAppProps> = ({ onBackToLanding }) => {
     if (!selectedFile) return;
     
     setIsConverting(true);
-    // Simulación de conversión
+    // SimulaciÃ³n de conversiÃ³n
     setTimeout(() => {
       setIsConverting(false);
       alert(`Archivo ${selectedFile.name} convertido a ${targetFormat.toUpperCase()}`);
@@ -75,7 +75,7 @@ const ConversionApp: React.FC<ConversionAppProps> = ({ onBackToLanding }) => {
             backdropFilter: 'blur(10px)'
           }}
         >
-          ← Volver a la landing
+          â† Volver a la landing
         </button>
         
         <h1 style={{ 
@@ -91,7 +91,7 @@ const ConversionApp: React.FC<ConversionAppProps> = ({ onBackToLanding }) => {
           fontSize: '1.2rem',
           textAlign: 'center'
         }}>
-          Convierte tus archivos con tecnología de IA
+          Convierte tus archivos con tecnologÃ­a de IA
         </p>
       </div>
 
@@ -122,7 +122,7 @@ const ConversionApp: React.FC<ConversionAppProps> = ({ onBackToLanding }) => {
         >
           {selectedFile ? (
             <div>
-              <div style={{ fontSize: '4rem', marginBottom: '20px' }}>📄</div>
+              <div style={{ fontSize: '4rem', marginBottom: '20px' }}>ðŸ“„</div>
               <h3 style={{ color: '#10b981', marginBottom: '10px' }}>
                 {selectedFile.name}
               </h3>
@@ -132,9 +132,9 @@ const ConversionApp: React.FC<ConversionAppProps> = ({ onBackToLanding }) => {
             </div>
           ) : (
             <div>
-              <div style={{ fontSize: '4rem', marginBottom: '20px' }}>📁</div>
+              <div style={{ fontSize: '4rem', marginBottom: '20px' }}>ðŸ“</div>
               <h3 style={{ color: '#374151', marginBottom: '10px' }}>
-                Arrastra tu archivo aquí
+                Arrastra tu archivo aquÃ­
               </h3>
               <p style={{ color: '#6b7280', marginBottom: '20px' }}>
                 o haz clic para seleccionar
@@ -215,19 +215,19 @@ const ConversionApp: React.FC<ConversionAppProps> = ({ onBackToLanding }) => {
           gap: '20px'
         }}>
           <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '2rem', marginBottom: '10px' }}>🚀</div>
-            <h4 style={{ color: '#374151', marginBottom: '5px' }}>Ultra rápido</h4>
-            <p style={{ color: '#6b7280', fontSize: '14px' }}>Conversión en segundos</p>
+            <div style={{ fontSize: '2rem', marginBottom: '10px' }}>ðŸš€</div>
+            <h4 style={{ color: '#374151', marginBottom: '5px' }}>Ultra rÃ¡pido</h4>
+            <p style={{ color: '#6b7280', fontSize: '14px' }}>ConversiÃ³n en segundos</p>
           </div>
           <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '2rem', marginBottom: '10px' }}>🔒</div>
+            <div style={{ fontSize: '2rem', marginBottom: '10px' }}>ðŸ”’</div>
             <h4 style={{ color: '#374151', marginBottom: '5px' }}>100% seguro</h4>
             <p style={{ color: '#6b7280', fontSize: '14px' }}>Tus archivos protegidos</p>
           </div>
           <div style={{ textAlign: 'center' }}>
-            <div style={{ fontSize: '2rem', marginBottom: '10px' }}>🎯</div>
+            <div style={{ fontSize: '2rem', marginBottom: '10px' }}>ðŸŽ¯</div>
             <h4 style={{ color: '#374151', marginBottom: '5px' }}>Alta calidad</h4>
-            <p style={{ color: '#6b7280', fontSize: '14px' }}>Sin pérdida de calidad</p>
+            <p style={{ color: '#6b7280', fontSize: '14px' }}>Sin pÃ©rdida de calidad</p>
           </div>
         </div>
       </div>
@@ -236,3 +236,4 @@ const ConversionApp: React.FC<ConversionAppProps> = ({ onBackToLanding }) => {
 };
 
 export default ConversionApp;
+

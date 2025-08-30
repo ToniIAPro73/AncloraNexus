@@ -1,4 +1,4 @@
-import io
+﻿import io
 import pytest
 from src.models.user import User, db
 
@@ -7,8 +7,8 @@ from src.models.user import User, db
 @pytest.mark.conversion
 class TestConversionProgress:
     def test_conversion_status_updates(self, client, auth_headers, app):
-        """Debe actualizar el estado de la conversión"""
-        # Crear un usuario con créditos suficientes
+        """Debe actualizar el estado de la conversiÃ³n"""
+        # Crear un usuario con crÃ©ditos suficientes
         with app.app_context():
             user = User.query.filter_by(email='integration@example.com').first()
             user.credits = 100

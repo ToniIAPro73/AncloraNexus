@@ -1,5 +1,5 @@
-/**
- * Conversor TxtToDocConverter - Anclora Metaform
+﻿/**
+ * Conversor TxtToDocConverter - Anclora Nexus
  * Tu Contenido, Reinventado
  */
 
@@ -22,28 +22,28 @@ if (typeof require !== 'undefined') {
 
 class TxtToDocConverter {
   constructor() {
-    this.name = 'Anclora Metaform - TxtToDocConverter';
+    this.name = 'Anclora Nexus - TxtToDocConverter';
     this.version = '1.0.0';
-    this.brand = 'Anclora Metaform';
+    this.brand = 'Anclora Nexus';
     this.tagline = 'Tu Contenido, Reinventado';
   }
 
   /**
    * Convierte contenido de texto a documento Word
    * @param {string} textContent - Contenido del archivo TXT
-   * @param {Object} options - Opciones de conversión
-   * @returns {Promise<Object>} - Resultado de la conversión
+   * @param {Object} options - Opciones de conversiÃ³n
+   * @returns {Promise<Object>} - Resultado de la conversiÃ³n
    */
   async convert(textContent, options = {}) {
     try {
       // Validar entrada
       if (!textContent || typeof textContent !== 'string') {
-        throw new Error('Contenido de texto inválido');
+        throw new Error('Contenido de texto invÃ¡lido');
       }
 
-      // Verificar disponibilidad de la librería
+      // Verificar disponibilidad de la librerÃ­a
       if (!Document) {
-        throw new Error('Librería docx no disponible');
+        throw new Error('LibrerÃ­a docx no disponible');
       }
 
       // Opciones por defecto
@@ -89,14 +89,14 @@ class TxtToDocConverter {
   /**
    * Procesa el contenido de texto para el documento
    * @param {string} textContent - Contenido original
-   * @param {Object} config - Configuración
-   * @returns {Array} - Líneas procesadas
+   * @param {Object} config - ConfiguraciÃ³n
+   * @returns {Array} - LÃ­neas procesadas
    */
   processTextContent(textContent, config) {
-    // Dividir en líneas
+    // Dividir en lÃ­neas
     let lines = textContent.split('\n');
 
-    // Procesar cada línea
+    // Procesar cada lÃ­nea
     const processedLines = lines.map((line, index) => {
       return {
         text: line,
@@ -111,29 +111,29 @@ class TxtToDocConverter {
   }
 
   /**
-   * Detecta si una línea es un título
-   * @param {string} line - Línea a evaluar
-   * @param {number} index - Índice de la línea
-   * @param {Array} allLines - Todas las líneas
-   * @returns {boolean} - Es título
+   * Detecta si una lÃ­nea es un tÃ­tulo
+   * @param {string} line - LÃ­nea a evaluar
+   * @param {number} index - Ãndice de la lÃ­nea
+   * @param {Array} allLines - Todas las lÃ­neas
+   * @returns {boolean} - Es tÃ­tulo
    */
   detectTitle(line, index, allLines) {
     const trimmed = line.trim();
     
-    // Líneas vacías no son títulos
+    // LÃ­neas vacÃ­as no son tÃ­tulos
     if (!trimmed) return false;
     
-    // Líneas cortas al inicio del documento
+    // LÃ­neas cortas al inicio del documento
     if (index < 3 && trimmed.length < 50 && !trimmed.includes('.')) {
       return true;
     }
     
-    // Líneas que terminan con ':'
+    // LÃ­neas que terminan con ':'
     if (trimmed.endsWith(':') && trimmed.length < 100) {
       return true;
     }
     
-    // Líneas en mayúsculas
+    // LÃ­neas en mayÃºsculas
     if (trimmed === trimmed.toUpperCase() && trimmed.length > 3 && trimmed.length < 80) {
       return true;
     }
@@ -142,9 +142,9 @@ class TxtToDocConverter {
   }
 
   /**
-   * Detecta el nivel de indentación
-   * @param {string} line - Línea a evaluar
-   * @returns {number} - Nivel de indentación
+   * Detecta el nivel de indentaciÃ³n
+   * @param {string} line - LÃ­nea a evaluar
+   * @returns {number} - Nivel de indentaciÃ³n
    */
   detectIndentation(line) {
     const match = line.match(/^(\s*)/);
@@ -160,14 +160,14 @@ class TxtToDocConverter {
 
   /**
    * Crea el documento Word
-   * @param {Array} processedLines - Líneas procesadas
-   * @param {Object} config - Configuración
+   * @param {Array} processedLines - LÃ­neas procesadas
+   * @param {Object} config - ConfiguraciÃ³n
    * @returns {Document} - Documento Word
    */
   async createWordDocument(processedLines, config) {
     const children = [];
 
-    // Agregar encabezado si está habilitado
+    // Agregar encabezado si estÃ¡ habilitado
     if (config.addHeader) {
       children.push(
         new Paragraph({
@@ -184,12 +184,12 @@ class TxtToDocConverter {
         })
       );
 
-      // Línea separadora
+      // LÃ­nea separadora
       children.push(
         new Paragraph({
           children: [
             new TextRun({
-              text: '─'.repeat(50),
+              text: 'â”€'.repeat(50),
               color: '666666',
               size: config.fontSize * 2
             })
@@ -200,10 +200,10 @@ class TxtToDocConverter {
       );
     }
 
-    // Procesar cada línea
+    // Procesar cada lÃ­nea
     for (const lineData of processedLines) {
       if (lineData.isEmpty) {
-        // Línea vacía - agregar espacio
+        // LÃ­nea vacÃ­a - agregar espacio
         children.push(
           new Paragraph({
             children: [new TextRun({ text: '' })],
@@ -213,7 +213,7 @@ class TxtToDocConverter {
         continue;
       }
 
-      // Crear párrafo según el tipo de línea
+      // Crear pÃ¡rrafo segÃºn el tipo de lÃ­nea
       if (lineData.isTitle) {
         children.push(this.createTitleParagraph(lineData.text, config));
       } else {
@@ -221,13 +221,13 @@ class TxtToDocConverter {
       }
     }
 
-    // Agregar pie de página si está habilitado
+    // Agregar pie de pÃ¡gina si estÃ¡ habilitado
     if (config.addFooter) {
       children.push(
         new Paragraph({
           children: [
             new TextRun({
-              text: '─'.repeat(50),
+              text: 'â”€'.repeat(50),
               color: '666666',
               size: config.fontSize * 2
             })
@@ -271,10 +271,10 @@ class TxtToDocConverter {
   }
 
   /**
-   * Crea un párrafo de título
-   * @param {string} text - Texto del título
-   * @param {Object} config - Configuración
-   * @returns {Paragraph} - Párrafo de título
+   * Crea un pÃ¡rrafo de tÃ­tulo
+   * @param {string} text - Texto del tÃ­tulo
+   * @param {Object} config - ConfiguraciÃ³n
+   * @returns {Paragraph} - PÃ¡rrafo de tÃ­tulo
    */
   createTitleParagraph(text, config) {
     return new Paragraph({
@@ -292,11 +292,11 @@ class TxtToDocConverter {
   }
 
   /**
-   * Crea un párrafo de texto normal
-   * @param {string} text - Texto del párrafo
-   * @param {number} indentLevel - Nivel de indentación
-   * @param {Object} config - Configuración
-   * @returns {Paragraph} - Párrafo de texto
+   * Crea un pÃ¡rrafo de texto normal
+   * @param {string} text - Texto del pÃ¡rrafo
+   * @param {number} indentLevel - Nivel de indentaciÃ³n
+   * @param {Object} config - ConfiguraciÃ³n
+   * @returns {Paragraph} - PÃ¡rrafo de texto
    */
   createTextParagraph(text, indentLevel, config) {
     return new Paragraph({
@@ -317,19 +317,19 @@ class TxtToDocConverter {
   /**
    * Valida el archivo de entrada
    * @param {File} file - Archivo a validar
-   * @returns {Object} - Resultado de validación
+   * @returns {Object} - Resultado de validaciÃ³n
    */
   validateInput(file) {
     if (!file) {
-      return { valid: false, error: 'No se proporcionó archivo' };
+      return { valid: false, error: 'No se proporcionÃ³ archivo' };
     }
 
     if (file.size === 0) {
-      return { valid: false, error: 'El archivo está vacío' };
+      return { valid: false, error: 'El archivo estÃ¡ vacÃ­o' };
     }
 
     if (file.size > 50 * 1024 * 1024) { // 50MB
-      return { valid: false, error: 'El archivo es demasiado grande (máximo 50MB)' };
+      return { valid: false, error: 'El archivo es demasiado grande (mÃ¡ximo 50MB)' };
     }
 
     const allowedTypes = ['text/plain', 'text/txt', ''];
@@ -344,7 +344,7 @@ class TxtToDocConverter {
    * Procesa un archivo completo
    * @param {File} file - Archivo a procesar
    * @param {Object} options - Opciones
-   * @returns {Promise<Object>} - Resultado de la conversión
+   * @returns {Promise<Object>} - Resultado de la conversiÃ³n
    */
   async processFile(file, options = {}) {
     try {
@@ -412,4 +412,5 @@ if (typeof module !== 'undefined' && module.exports) {
 } else if (typeof window !== 'undefined') {
   window.TxtToDocConverter = TxtToDocConverter;
 }
+
 

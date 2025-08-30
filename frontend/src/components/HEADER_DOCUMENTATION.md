@@ -1,21 +1,21 @@
-# Componente Header para Anclora Nexus
+﻿# Componente Header para Anclora Nexus
 
-Este componente implementa la barra de navegación principal para la aplicación Anclora Nexus, integrándose con el sistema de notificaciones y proporcionando acceso a las funciones principales de la aplicación.
+Este componente implementa la barra de navegaciÃ³n principal para la aplicaciÃ³n Anclora Nexus, integrÃ¡ndose con el sistema de notificaciones y proporcionando acceso a las funciones principales de la aplicaciÃ³n.
 
-## Características
+## CaracterÃ­sticas
 
-- **Diseño Responsivo**: Se adapta a pantallas móviles y de escritorio
-- **Menú de Usuario**: Desplegable con opciones de perfil, configuración y cierre de sesión
-- **Centro de Notificaciones**: Muestra alertas y actualizaciones de la aplicación
+- **DiseÃ±o Responsivo**: Se adapta a pantallas mÃ³viles y de escritorio
+- **MenÃº de Usuario**: Desplegable con opciones de perfil, configuraciÃ³n y cierre de sesiÃ³n
+- **Centro de Notificaciones**: Muestra alertas y actualizaciones de la aplicaciÃ³n
 - **Indicador de Plan**: Muestra visualmente el plan actual del usuario (Free, Premium, Business)
-- **Navegación Principal**: Acceso rápido a las secciones principales de la aplicación
-- **Integración con Notificaciones**: Utiliza el sistema de notificaciones para alertas de sesión
+- **NavegaciÃ³n Principal**: Acceso rÃ¡pido a las secciones principales de la aplicaciÃ³n
+- **IntegraciÃ³n con Notificaciones**: Utiliza el sistema de notificaciones para alertas de sesiÃ³n
 
 ## Props
 
-| Nombre | Tipo | Descripción | Valor por defecto |
+| Nombre | Tipo | DescripciÃ³n | Valor por defecto |
 |--------|------|-------------|-------------------|
-| `onMenuToggle` | `() => void` | Función para controlar la visibilidad del menú lateral en dispositivos móviles | `undefined` |
+| `onMenuToggle` | `() => void` | FunciÃ³n para controlar la visibilidad del menÃº lateral en dispositivos mÃ³viles | `undefined` |
 | `userPlan` | `'free' \| 'premium' \| 'business'` | Plan actual del usuario | `'free'` |
 
 ## Uso
@@ -38,13 +38,13 @@ function App() {
         onMenuToggle={toggleSidebar} 
         userPlan={user?.plan || 'free'}
       />
-      {/* Resto de la aplicación */}
+      {/* Resto de la aplicaciÃ³n */}
     </div>
   );
 }
 ```
 
-## Integración con Sistema de Notificaciones
+## IntegraciÃ³n con Sistema de Notificaciones
 
 El componente Header utiliza el hook `useNotifications` para mostrar alertas sobre acciones del usuario:
 
@@ -56,7 +56,7 @@ export function Header({ onMenuToggle, userPlan = 'free' }) {
 
   const handleLogout = async () => {
     await logout();
-    notifySuccess('Sesión cerrada', 'Has cerrado sesión correctamente');
+    notifySuccess('SesiÃ³n cerrada', 'Has cerrado sesiÃ³n correctamente');
     navigate('/login');
   };
   
@@ -64,20 +64,20 @@ export function Header({ onMenuToggle, userPlan = 'free' }) {
 }
 ```
 
-## Estructura del Menú de Usuario
+## Estructura del MenÃº de Usuario
 
-El menú de usuario muestra las siguientes opciones:
+El menÃº de usuario muestra las siguientes opciones:
 
-1. **Mi Perfil**: Acceso a la información personal del usuario
-2. **Configuración**: Opciones y preferencias de la aplicación
+1. **Mi Perfil**: Acceso a la informaciÃ³n personal del usuario
+2. **ConfiguraciÃ³n**: Opciones y preferencias de la aplicaciÃ³n
 3. **Mis Documentos**: Historial de archivos procesados
 4. **Dashboard**: Panel principal de control
-5. **Ayuda**: Documentación y soporte
-6. **Cerrar Sesión**: Finalizar la sesión actual
+5. **Ayuda**: DocumentaciÃ³n y soporte
+6. **Cerrar SesiÃ³n**: Finalizar la sesiÃ³n actual
 
 ## Estilos
 
-El componente utiliza TailwindCSS para los estilos y se adapta al tema de la aplicación. Los principales elementos son:
+El componente utiliza TailwindCSS para los estilos y se adapta al tema de la aplicaciÃ³n. Los principales elementos son:
 
 - **Header**: `bg-background border-b border-border/40`
 - **Logo Container**: `flex items-center gap-2`
@@ -86,40 +86,40 @@ El componente utiliza TailwindCSS para los estilos y se adapta al tema de la apl
 - **Business Badge**: `bg-purple-600 hover:bg-purple-700`
 - **Dropdowns**: `rounded-md border border-border bg-background shadow-lg z-50`
 
-## Personalización
+## PersonalizaciÃ³n
 
-El componente puede personalizarse a través de:
+El componente puede personalizarse a travÃ©s de:
 
-1. **Tema**: Los colores se adaptan automáticamente al tema de la aplicación
-2. **Plan del usuario**: El indicador de plan cambia visualmente según el tipo de cuenta
-3. **Menús**: La estructura de menús puede extenderse según las necesidades de la aplicación
+1. **Tema**: Los colores se adaptan automÃ¡ticamente al tema de la aplicaciÃ³n
+2. **Plan del usuario**: El indicador de plan cambia visualmente segÃºn el tipo de cuenta
+3. **MenÃºs**: La estructura de menÃºs puede extenderse segÃºn las necesidades de la aplicaciÃ³n
 
 ## Dependencias
 
-- **React Router**: Para la navegación entre páginas
+- **React Router**: Para la navegaciÃ³n entre pÃ¡ginas
 - **Lucide React**: Para los iconos
 - **NotificationSystem**: Para mostrar notificaciones de acciones
-- **useAuth**: Hook para gestionar la autenticación
+- **useAuth**: Hook para gestionar la autenticaciÃ³n
 
-## Ejemplo de Integración con Notificaciones
+## Ejemplo de IntegraciÃ³n con Notificaciones
 
 ```tsx
 // Dentro del componente Header
 
 const { notifyInfo, notifySuccess, notifyError } = useNotifications();
 
-// Ejemplo de notificación informativa
+// Ejemplo de notificaciÃ³n informativa
 const showPlanInfo = () => {
   notifyInfo(
     'Plan Actual', 
-    `Estás utilizando el plan ${userPlan.toUpperCase()}`, 
+    `EstÃ¡s utilizando el plan ${userPlan.toUpperCase()}`, 
     { duration: 3000 }
   );
 };
 
-// Ejemplo de notificación al cambiar de plan
+// Ejemplo de notificaciÃ³n al cambiar de plan
 const upgradeToPremium = () => {
-  // Lógica para actualizar plan...
+  // LÃ³gica para actualizar plan...
   notifySuccess(
     'Plan actualizado',
     'Te has actualizado al plan Premium correctamente',
@@ -132,3 +132,4 @@ const upgradeToPremium = () => {
   );
 };
 ```
+

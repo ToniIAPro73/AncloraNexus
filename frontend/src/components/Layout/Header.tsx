@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useAuth } from '../../auth/AuthContext';
 import { ChevronDown, Menu, Bell, Search, CreditCard, LogOut, Settings } from 'lucide-react';
 // No longer using AccessibleIcon in this component
@@ -30,13 +30,13 @@ export const Header: React.FC<HeaderProps> = ({
       className="fixed top-0 left-0 right-0 h-16 bg-slate-800/80 backdrop-blur-md shadow-md z-20 border-b border-slate-700/50"
     >
       <div className="flex items-center justify-between h-full px-4">
-        {/* Botón menú móvil y título de la sección */}
+        {/* BotÃ³n menÃº mÃ³vil y tÃ­tulo de la secciÃ³n */}
         <div className="flex items-center gap-4">
           {isMobile && (
             <button
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
               className="p-1.5 rounded-lg bg-slate-700/50 text-white hover:bg-slate-600/50 transition-colors"
-              aria-label={sidebarCollapsed ? "Expandir menú" : "Contraer menú"}
+              aria-label={sidebarCollapsed ? "Expandir menÃº" : "Contraer menÃº"}
             >
               <Menu size={20} />
             </button>
@@ -50,7 +50,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Barra de búsqueda (visible solo en desktop) */}
+        {/* Barra de bÃºsqueda (visible solo en desktop) */}
         <div className="hidden md:flex max-w-md flex-1 mx-8">
           <div className="relative w-full">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -64,12 +64,12 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Área de usuario, notificaciones y créditos */}
+        {/* Ãrea de usuario, notificaciones y crÃ©ditos */}
         <div className="flex items-center space-x-3 md:space-x-4">
-          {/* Contador de créditos */}
+          {/* Contador de crÃ©ditos */}
           <div className="flex items-center gap-2 bg-gradient-to-r from-slate-700/80 to-slate-800/80 border border-slate-700/50 px-3 py-1 rounded-full text-white shadow-md">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium">{user?.credits || 50} créditos</span>
+            <span className="text-sm font-medium">{user?.credits || 50} crÃ©ditos</span>
           </div>
 
           {/* Notificaciones */}
@@ -83,7 +83,7 @@ export const Header: React.FC<HeaderProps> = ({
               <div className="absolute top-0 right-0 w-2 h-2 bg-primary rounded-full"></div>
             </button>
             
-            {/* Menú de notificaciones */}
+            {/* MenÃº de notificaciones */}
             {notificationsOpen && (
               <div className="absolute right-0 mt-2 w-72 bg-slate-800 rounded-lg shadow-lg border border-slate-700/50 overflow-hidden z-50">
                 <div className="p-3 border-b border-slate-700/50">
@@ -91,7 +91,7 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
                 <div className="p-3">
                   <div className="py-2 px-3 hover:bg-slate-700/50 rounded-lg transition-colors">
-                    <p className="text-slate-300 text-sm">Tienes 5 nuevos créditos disponibles</p>
+                    <p className="text-slate-300 text-sm">Tienes 5 nuevos crÃ©ditos disponibles</p>
                     <span className="text-slate-400 text-xs">Hace 12 minutos</span>
                   </div>
                 </div>
@@ -104,7 +104,7 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               onClick={toggleUserMenu}
               className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700/50 px-2 py-1 rounded-full shadow-md transition-colors"
-              aria-label="Menú de usuario"
+              aria-label="MenÃº de usuario"
             >
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-medium border border-white/20 shadow-inner">
                 {user?.full_name?.charAt(0) || 'U'}
@@ -120,7 +120,7 @@ export const Header: React.FC<HeaderProps> = ({
               <ChevronDown size={16} className="text-slate-400 hidden md:block" />
             </button>
             
-            {/* Menú de usuario */}
+            {/* MenÃº de usuario */}
             {userMenuOpen && (
               <div className="absolute right-0 mt-2 w-56 bg-slate-800 rounded-lg shadow-lg border border-slate-700/50 overflow-hidden z-50">
                 <div className="p-4 border-b border-slate-700/50">
@@ -131,18 +131,18 @@ export const Header: React.FC<HeaderProps> = ({
                 <div className="p-2">
                   <button className="flex w-full items-center gap-2 p-2 hover:bg-slate-700/50 rounded-lg text-left">
                     <Settings size={16} className="text-slate-400" />
-                    <span className="text-slate-200">Configuración</span>
+                    <span className="text-slate-200">ConfiguraciÃ³n</span>
                   </button>
                   <button className="flex w-full items-center gap-2 p-2 hover:bg-slate-700/50 rounded-lg text-left">
                     <CreditCard size={16} className="text-slate-400" />
-                    <span className="text-slate-200">Administrar créditos</span>
+                    <span className="text-slate-200">Administrar crÃ©ditos</span>
                   </button>
                   <button 
                     className="flex w-full items-center gap-2 p-2 hover:bg-red-900/20 text-red-400 hover:text-red-300 rounded-lg text-left"
                     onClick={logout}
                   >
                     <LogOut size={16} />
-                    <span>Cerrar sesión</span>
+                    <span>Cerrar sesiÃ³n</span>
                   </button>
                 </div>
               </div>
@@ -153,3 +153,4 @@ export const Header: React.FC<HeaderProps> = ({
     </header>
   );
 };
+

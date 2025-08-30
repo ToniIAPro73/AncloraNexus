@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+﻿import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import path from 'path';
 import fs from 'fs/promises';
-import sharp from 'sharp'; // Para validación de imágenes
+import sharp from 'sharp'; // Para validaciÃ³n de imÃ¡genes
 import {
   fileExists,
   measureConversionTime,
@@ -9,15 +9,15 @@ import {
   cleanupTempFiles,
   createTestReport
 } from '@test/utils/test-helpers';
-import { AncloraMetaform } from '@/AncloraMetaform';
+import { AncloraNexus } from '@/AncloraNexus';
 
-describe('Conversiones de Imágenes', () => {
-  let converter: AncloraMetaform;
+describe('Conversiones de ImÃ¡genes', () => {
+  let converter: AncloraNexus;
   let tempFiles: string[] = [];
   let testResults: any[] = [];
 
   beforeAll(async () => {
-    converter = new AncloraMetaform({
+    converter = new AncloraNexus({
       maxImageDimension: 10000,
       supportedColorSpaces: ['sRGB', 'CMYK', 'Grayscale'],
       enableGPUAcceleration: true,
@@ -28,7 +28,7 @@ describe('Conversiones de Imágenes', () => {
 
   afterAll(async () => {
     await cleanupTempFiles(tempFiles);
-    console.log(createTestReport('Imágenes', testResults));
+    console.log(createTestReport('ImÃ¡genes', testResults));
   });
 
   describe('Conversiones de formatos rasterizados', () => {
@@ -61,7 +61,7 @@ describe('Conversiones de Imágenes', () => {
         expect(metadata.height).toBe(originalMetadata.height);
 
         testResults.push({
-          conversion: 'JPEG → PNG',
+          conversion: 'JPEG â†’ PNG',
           success: true,
           duration
         });
@@ -84,7 +84,7 @@ describe('Conversiones de Imágenes', () => {
 
         expect(result.success).toBe(true);
         
-        // Verificar que WebP es más pequeño
+        // Verificar que WebP es mÃ¡s pequeÃ±o
         const [originalSize, webpSize] = await Promise.all([
           fs.stat(jpegPath).then(s => s.size),
           fs.stat(outputPath).then(s => s.size)
@@ -285,7 +285,7 @@ describe('Conversiones de Imágenes', () => {
 
     describe('TIFF conversiones', () => {
 
-      it('debe convertir TIFF multipágina a PDF', async () => {
+      it('debe convertir TIFF multipÃ¡gina a PDF', async () => {
         const multiPageTiff = path.join(__dirname, '../../fixtures/images/valid/test-multipage.tiff');
         const outputPath = await createTempFile('pdf');
         tempFiles.push(outputPath);
@@ -303,7 +303,7 @@ describe('Conversiones de Imágenes', () => {
         expect(result.metadata?.pagesProcessed).toBeGreaterThan(1);
       });
 
-      it('debe extraer páginas de TIFF a PNG', async () => {
+      it('debe extraer pÃ¡ginas de TIFF a PNG', async () => {
         const multiPageTiff = path.join(__dirname, '../../fixtures/images/valid/test-multipage.tiff');
         const outputDir = path.join(process.cwd(), 'temp', 'tiff-pages');
         await fs.mkdir(outputDir, { recursive: true });
@@ -405,7 +405,7 @@ describe('Conversiones de Imágenes', () => {
         expect(result.success).toBe(true);
       });
 
-      it('debe convertir BMP a JPEG con compresión', async () => {
+      it('debe convertir BMP a JPEG con compresiÃ³n', async () => {
         const outputPath = await createTempFile('jpg');
         tempFiles.push(outputPath);
 
@@ -420,7 +420,7 @@ describe('Conversiones de Imágenes', () => {
 
         expect(result.success).toBe(true);
         
-        // Verificar reducción de tamaño
+        // Verificar reducciÃ³n de tamaÃ±o
         const [bmpSize, jpegSize] = await Promise.all([
           fs.stat(bmpPath).then(s => s.size),
           fs.stat(outputPath).then(s => s.size)
@@ -472,7 +472,7 @@ describe('Conversiones de Imágenes', () => {
         expect(result.success).toBe(true);
       });
 
-      it('debe convertir SVG a múltiples tamaños PNG', async () => {
+      it('debe convertir SVG a mÃºltiples tamaÃ±os PNG', async () => {
         const sizes = [16, 32, 64, 128, 256, 512];
         const outputPaths = [];
 
@@ -505,7 +505,7 @@ describe('Conversiones de Imágenes', () => {
   describe('Conversiones con procesamiento de imagen', () => {
     const testImagePath = path.join(__dirname, '../../fixtures/images/valid/test-image.jpg');
 
-    it('debe redimensionar durante conversión', async () => {
+    it('debe redimensionar durante conversiÃ³n', async () => {
       const outputPath = await createTempFile('jpg');
       tempFiles.push(outputPath);
 
@@ -530,7 +530,7 @@ describe('Conversiones de Imágenes', () => {
       expect(metadata.height).toBe(600);
     });
 
-    it('debe aplicar marca de agua durante conversión', async () => {
+    it('debe aplicar marca de agua durante conversiÃ³n', async () => {
       const watermarkPath = path.join(__dirname, '../../fixtures/images/valid/watermark.png');
       const outputPath = await createTempFile('jpg');
       tempFiles.push(outputPath);
@@ -552,7 +552,7 @@ describe('Conversiones de Imágenes', () => {
       expect(result.success).toBe(true);
     });
 
-    it('debe aplicar filtros durante conversión', async () => {
+    it('debe aplicar filtros durante conversiÃ³n', async () => {
       const outputPath = await createTempFile('jpg');
       tempFiles.push(outputPath);
 
@@ -577,7 +577,7 @@ describe('Conversiones de Imágenes', () => {
       expect(metadata.space).toBe('b-w'); // Escala de grises
     });
 
-    it('debe rotar y voltear durante conversión', async () => {
+    it('debe rotar y voltear durante conversiÃ³n', async () => {
       const outputPath = await createTempFile('jpg');
       tempFiles.push(outputPath);
 
@@ -596,12 +596,12 @@ describe('Conversiones de Imágenes', () => {
       
       const originalMeta = await sharp(testImagePath).metadata();
       const rotatedMeta = await sharp(outputPath).metadata();
-      // Después de rotar 90°, ancho y alto se intercambian
+      // DespuÃ©s de rotar 90Â°, ancho y alto se intercambian
       expect(rotatedMeta.width).toBe(originalMeta.height);
       expect(rotatedMeta.height).toBe(originalMeta.width);
     });
 
-    it('debe recortar durante conversión', async () => {
+    it('debe recortar durante conversiÃ³n', async () => {
       const outputPath = await createTempFile('jpg');
       tempFiles.push(outputPath);
 
@@ -728,7 +728,7 @@ describe('Conversiones de Imágenes', () => {
       expect(metadata.exif).toBeUndefined();
     });
 
-    it('debe actualizar metadatos durante conversión', async () => {
+    it('debe actualizar metadatos durante conversiÃ³n', async () => {
       const outputPath = await createTempFile('jpg');
       tempFiles.push(outputPath);
 
@@ -738,7 +738,7 @@ describe('Conversiones de Imágenes', () => {
         targetFormat: 'jpg',
         options: {
           metadata: {
-            copyright: '© 2024 Anclora Metaform',
+            copyright: 'Â© 2024 Anclora Nexus',
             author: 'Test Suite',
             description: 'Imagen convertida para pruebas',
             keywords: ['test', 'conversion', 'anclora']
@@ -809,7 +809,7 @@ describe('Conversiones de Imágenes', () => {
       expect(result.success).toBe(true);
     });
 
-    it('debe crear ICO con múltiples resoluciones', async () => {
+    it('debe crear ICO con mÃºltiples resoluciones', async () => {
       const outputPath = await createTempFile('ico');
       tempFiles.push(outputPath);
 
@@ -828,8 +828,8 @@ describe('Conversiones de Imágenes', () => {
     });
   });
 
-  describe('Conversiones por lotes de imágenes', () => {
-    it('debe procesar múltiples imágenes a miniatura', async () => {
+  describe('Conversiones por lotes de imÃ¡genes', () => {
+    it('debe procesar mÃºltiples imÃ¡genes a miniatura', async () => {
       const inputDir = path.join(__dirname, '../../fixtures/images/valid/batch');
       const outputDir = path.join(process.cwd(), 'temp', 'thumbnails');
       await fs.mkdir(outputDir, { recursive: true });
@@ -859,7 +859,7 @@ describe('Conversiones de Imágenes', () => {
       }
     });
 
-    it('debe optimizar imágenes para web', async () => {
+    it('debe optimizar imÃ¡genes para web', async () => {
       const inputImages = [
         path.join(__dirname, '../../fixtures/images/valid/product-1.jpg'),
         path.join(__dirname, '../../fixtures/images/valid/product-2.png'),
@@ -880,7 +880,7 @@ describe('Conversiones de Imágenes', () => {
         }
       });
 
-      expect(results.files.length).toBe(18); // 3 imágenes × 2 formatos × 3 tamaños
+      expect(results.files.length).toBe(18); // 3 imÃ¡genes Ã— 2 formatos Ã— 3 tamaÃ±os
       
       // Agregar archivos a limpieza
       results.files.forEach((file: { path: string; }) => tempFiles.push(file.path));
@@ -888,7 +888,7 @@ describe('Conversiones de Imágenes', () => {
   });
 
   describe('Manejo de archivos corrompidos', () => {
-    describe('Imágenes subsanables', () => {
+    describe('ImÃ¡genes subsanables', () => {
       it('debe reparar JPEG truncado', async () => {
         const corruptedPath = path.join(__dirname, '../../fixtures/images/corrupted-fixable/truncated.jpg');
         const outputPath = await createTempFile('jpg');
@@ -909,7 +909,7 @@ describe('Conversiones de Imágenes', () => {
         expect(result.metadata?.dataRecovered).toBeGreaterThan(90);
       });
 
-      it('debe corregir PNG con CRC inválido', async () => {
+      it('debe corregir PNG con CRC invÃ¡lido', async () => {
         const corruptedPath = path.join(__dirname, '../../fixtures/images/corrupted-fixable/bad-crc.png');
         const outputPath = await createTempFile('png');
         tempFiles.push(outputPath);
@@ -945,7 +945,7 @@ describe('Conversiones de Imágenes', () => {
       });
     });
 
-    describe('Imágenes insubsanables', () => {
+    describe('ImÃ¡genes insubsanables', () => {
       it('debe fallar con archivo completamente corrupto', async () => {
         const corruptedPath = path.join(__dirname, '../../fixtures/images/corrupted-unfixable/severe-corruption.jpg');
         const outputPath = await createTempFile('png');
@@ -978,10 +978,10 @@ describe('Conversiones de Imágenes', () => {
     });
   });
 
-  describe('Validaciones y límites', () => {
+  describe('Validaciones y lÃ­mites', () => {
     const testImagePath = path.join(__dirname, '../../fixtures/images/valid/test-image.jpg');
 
-    it('debe rechazar imágenes que excedan dimensiones máximas', async () => {
+    it('debe rechazar imÃ¡genes que excedan dimensiones mÃ¡ximas', async () => {
       const oversizedPath = path.join(__dirname, '../../fixtures/images/valid/oversized.jpg');
       const outputPath = await createTempFile('png');
       tempFiles.push(outputPath);
@@ -993,15 +993,15 @@ describe('Conversiones de Imágenes', () => {
       });
 
       expect(result.success).toBe(false);
-      expect(result.error).toContain('dimensiones máximas');
+      expect(result.error).toContain('dimensiones mÃ¡ximas');
     });
 
-    it('debe manejar conversión con límite de memoria', async () => {
+    it('debe manejar conversiÃ³n con lÃ­mite de memoria', async () => {
       const largePath = path.join(__dirname, '../../fixtures/images/valid/large-image.tiff');
       const outputPath = await createTempFile('jpg');
       tempFiles.push(outputPath);
 
-      const converterWithLimit = new AncloraMetaform({
+      const converterWithLimit = new AncloraNexus({
         maxMemoryUsage: 100 * 1024 * 1024 // 100MB
       });
 

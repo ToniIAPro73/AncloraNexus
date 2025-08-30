@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, send_file
+﻿from flask import Blueprint, request, jsonify, send_file
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from werkzeug.utils import secure_filename
 from src.models.user import User, Conversion, CreditTransaction, db
@@ -32,7 +32,7 @@ ALLOWED_EXTENSIONS = {
 }
 
 def allowed_file(filename):
-    """Verifica si el archivo tiene una extensión permitida"""
+    """Verifica si el archivo tiene una extensiÃ³n permitida"""
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -55,13 +55,13 @@ def analyze_file():
         if not user:
             return jsonify({'error': 'Usuario no encontrado'}), 404
         
-        # Verificar que se subió un archivo
+        # Verificar que se subiÃ³ un archivo
         if 'file' not in request.files:
-            return jsonify({'error': 'No se proporcionó ningún archivo'}), 400
+            return jsonify({'error': 'No se proporcionÃ³ ningÃºn archivo'}), 400
         
         file = request.files['file']
         if file.filename == '':
-            return jsonify({'error': 'No se seleccionó ningún archivo'}), 400
+            return jsonify({'error': 'No se seleccionÃ³ ningÃºn archivo'}), 400
         
         if not allowed_file(file.filename):
             return jsonify({'error': 'Tipo de archivo no soportado'}), 400
@@ -82,7 +82,7 @@ def analyze_file():
             analysis = conversion_engine.analyze_file(temp_path, filename)
             analysis['classification'] = classification
             
-            # Añadir información de costos
+            # AÃ±adir informaciÃ³n de costos
             source_format = analysis['extension']
             cost_info = {}
             for target_format in analysis['supported_formats']:
@@ -119,7 +119,7 @@ def convert_file():
         
         # Verificar archivo
         if 'file' not in request.files:
-            return jsonify({'error': 'No se proporcionó ningún archivo'}), 400
+            return jsonify({'error': 'No se proporcionÃ³ ningÃºn archivo'}), 400
         
         file = request.files['file']
         target_format = request.form.get('target_format')
@@ -134,17 +134,17 @@ def convert_file():
         filename = secure_filename(file.filename)
         source_format = filename.rsplit('.', 1)[1].lower()
         
-        # Verificar que la conversión esté soportada
+        # Verificar que la conversiÃ³n estÃ© soportada
         if target_format not in conversion_engine.get_supported_formats(source_format):
-            return jsonify({'error': f'Conversión {source_format} → {target_format} no soportada'}), 400
+            return jsonify({'error': f'ConversiÃ³n {source_format} â†’ {target_format} no soportada'}), 400
         
         # Calcular costo
         credits_needed = conversion_engine.get_conversion_cost(source_format, target_format)
         
-        # Verificar créditos suficientes
+        # Verificar crÃ©ditos suficientes
         if user.credits < credits_needed:
             return jsonify({
-                'error': 'Créditos insuficientes',
+                'error': 'CrÃ©ditos insuficientes',
                 'credits_needed': credits_needed,
                 'credits_available': user.credits
             }), 402
@@ -153,7 +153,7 @@ def convert_file():
         input_path = os.path.join(UPLOAD_FOLDER, f"{uuid.uuid4()}_{filename}")
         file.save(input_path)
         
-        # Crear registro de conversión
+        # Crear registro de conversiÃ³n
         conversion = Conversion(
             user_id=user.id,
             original_filename=filename,
@@ -177,7 +177,7 @@ def convert_file():
             output_filename = f"{filename.rsplit('.', 1)[0]}.{target_format}"
             output_path = os.path.join(OUTPUT_FOLDER, f"{uuid.uuid4()}_{output_filename}")
 
-            # Realizar conversión
+            # Realizar conversiÃ³n
             start_time = time.time()
             success, message = conversion_engine.convert_file(
                 input_path, output_path, source_format, target_format
@@ -194,20 +194,20 @@ def convert_file():
                 backup_path = BACKUP_FOLDER / backup_filename
                 shutil.copy(input_path, backup_path)
 
-                # Consumir créditos
+                # Consumir crÃ©ditos
                 user.consume_credits(credits_needed)
 
-                # Registrar transacción de créditos
+                # Registrar transacciÃ³n de crÃ©ditos
                 transaction = CreditTransaction(
                     user_id=user.id,
                     amount=-credits_needed,
                     transaction_type='conversion',
-                    description=f'Conversión {source_format} → {target_format}',
+                    description=f'ConversiÃ³n {source_format} â†’ {target_format}',
                     conversion_id=conversion.id
                 )
                 db.session.add(transaction)
 
-                # Registrar log de conversión
+                # Registrar log de conversiÃ³n
                 log = ConversionLog(
                     conversion_id=conversion.id,
                     file_hash=original_hash,
@@ -216,7 +216,7 @@ def convert_file():
                 )
                 db.session.add(log)
 
-                # Actualizar conversión
+                # Actualizar conversiÃ³n
                 conversion.status = 'completed'
                 conversion.processing_time = processing_time
                 conversion.completed_at = datetime.utcnow()
@@ -225,14 +225,14 @@ def convert_file():
                 emit_progress(conversion.id, Phase.POSTPROCESS, 100)
 
                 return jsonify({
-                    'message': 'Conversión completada exitosamente',
+                    'message': 'ConversiÃ³n completada exitosamente',
                     'conversion': conversion.to_dict(),
                     'download_url': f'/api/download/{conversion.id}',
                     'user_credits_remaining': user.credits
                 }), 200
                 
             else:
-                # Error en conversión
+                # Error en conversiÃ³n
                 conversion.status = 'failed'
                 conversion.error_message = message
                 conversion.processing_time = processing_time
@@ -241,7 +241,7 @@ def convert_file():
                 emit_progress(conversion.id, Phase.POSTPROCESS, 100)
 
                 return jsonify({
-                    'error': f'Error en la conversión: {message}',
+                    'error': f'Error en la conversiÃ³n: {message}',
                     'conversion': conversion.to_dict()
                 }), 500
                 
@@ -256,7 +256,7 @@ def convert_file():
             emit_progress(conversion.id, Phase.POSTPROCESS, 100)
 
             return jsonify({
-                'error': f'Error durante la conversión: {str(e)}',
+                'error': f'Error durante la conversiÃ³n: {str(e)}',
                 'conversion': conversion.to_dict()
             }), 500
             
@@ -278,7 +278,7 @@ def undo_conversion(conversion_id):
         user_id = get_jwt_identity()
         conversion = Conversion.query.filter_by(id=conversion_id, user_id=user_id).first()
         if not conversion:
-            return jsonify({'error': 'Conversión no encontrada'}), 404
+            return jsonify({'error': 'ConversiÃ³n no encontrada'}), 404
 
         log = ConversionLog.query.filter_by(conversion_id=conversion_id).first()
         if not log or not os.path.exists(log.backup_path):
@@ -286,7 +286,7 @@ def undo_conversion(conversion_id):
 
         shutil.copy(log.backup_path, log.output_path)
 
-        return jsonify({'message': 'Conversión revertida', 'conversion_id': conversion_id}), 200
+        return jsonify({'message': 'ConversiÃ³n revertida', 'conversion_id': conversion_id}), 200
     except Exception as e:
         return jsonify({'error': f'Error al restaurar: {str(e)}'}), 500
 
@@ -297,17 +297,17 @@ def download_file(conversion_id):
     try:
         user_id = get_jwt_identity()
         
-        # Buscar conversión
+        # Buscar conversiÃ³n
         conversion = Conversion.query.filter_by(
             id=conversion_id,
             user_id=user_id
         ).first()
         
         if not conversion:
-            return jsonify({'error': 'Conversión no encontrada'}), 404
+            return jsonify({'error': 'ConversiÃ³n no encontrada'}), 404
         
         if conversion.status != 'completed':
-            return jsonify({'error': 'La conversión no está completada'}), 400
+            return jsonify({'error': 'La conversiÃ³n no estÃ¡ completada'}), 400
         
         # Buscar archivo de salida
         output_path = os.path.join(OUTPUT_FOLDER, f"*_{conversion.output_filename}")
@@ -380,7 +380,7 @@ def get_conversion_history():
 @conversion_bp.route('/stats', methods=['GET'])
 @jwt_required()
 def get_conversion_stats():
-    """Obtiene estadísticas de conversiones del usuario"""
+    """Obtiene estadÃ­sticas de conversiones del usuario"""
     try:
         user_id = get_jwt_identity()
         user = User.query.get(user_id)
@@ -388,7 +388,7 @@ def get_conversion_stats():
         if not user:
             return jsonify({'error': 'Usuario no encontrado'}), 404
         
-        # Estadísticas básicas
+        # EstadÃ­sticas bÃ¡sicas
         total_conversions = Conversion.query.filter_by(user_id=user_id).count()
         successful_conversions = Conversion.query.filter_by(
             user_id=user_id, status='completed'
@@ -429,4 +429,5 @@ def get_conversion_stats():
         
     except Exception as e:
         return jsonify({'error': f'Error interno del servidor: {str(e)}'}), 500
+
 

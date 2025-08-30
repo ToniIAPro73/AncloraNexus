@@ -1,4 +1,4 @@
-// frontend/src/components/NewConversorInteligente.tsx
+﻿// frontend/src/components/NewConversorInteligente.tsx
 import React, { useState, useCallback } from 'react';
 import { Card, CardHeader, CardTitle, CardContent, Badge, FileUpload, StepProgress, Progress } from './ui';
 import { 
@@ -133,11 +133,11 @@ const PopularConversion: React.FC<PopularConversionProps> = ({
       
       <div className="text-center mt-2">
         <h4 className="text-base font-medium text-white">
-          {from} <span className="text-slate-400">→</span> {to}
+          {from} <span className="text-slate-400">â†’</span> {to}
         </h4>
         <div className="flex items-center justify-center mt-2">
           <Badge variant="default" size="sm" className="bg-slate-700">
-            {cost} créditos
+            {cost} crÃ©ditos
           </Badge>
         </div>
       </div>
@@ -157,7 +157,7 @@ export const NewConversorInteligente: React.FC = () => {
     setSelectedFile(file);
     setCurrentStep(2);
     
-    // Simular análisis
+    // Simular anÃ¡lisis
     setTimeout(() => {
       setCurrentStep(3);
     }, 2000);
@@ -168,7 +168,7 @@ export const NewConversorInteligente: React.FC = () => {
     setIsConverting(true);
     setCurrentStep(4);
     
-    // Simular conversión
+    // Simular conversiÃ³n
     setTimeout(() => {
       setIsConverting(false);
     }, 3000);
@@ -198,7 +198,7 @@ export const NewConversorInteligente: React.FC = () => {
         </h1>
         
         <p className="text-slate-300 text-lg max-w-2xl mx-auto">
-          Convierte cualquier archivo a múltiples formatos con nuestra tecnología de inteligencia artificial avanzada
+          Convierte cualquier archivo a mÃºltiples formatos con nuestra tecnologÃ­a de inteligencia artificial avanzada
         </p>
         
         <div className="flex flex-wrap gap-2 justify-center pt-2">
@@ -206,7 +206,7 @@ export const NewConversorInteligente: React.FC = () => {
             IA avanzada
           </Badge>
           <Badge variant="default" className="bg-slate-800/50 border border-slate-600 backdrop-blur-sm">
-            Conversión rápida
+            ConversiÃ³n rÃ¡pida
           </Badge>
           <Badge variant="default" className="bg-slate-800/50 border border-slate-600 backdrop-blur-sm">
             +200 formatos
@@ -232,7 +232,7 @@ export const NewConversorInteligente: React.FC = () => {
         <ConversionStep
           number={1}
           title="Subir Archivo"
-          icon="📂"
+          icon="ðŸ“‚"
           isActive={currentStep === 1}
           isCompleted={currentStep > 1}
         >
@@ -243,7 +243,7 @@ export const NewConversorInteligente: React.FC = () => {
               maxSizeMB={50}
               acceptedFormats={["TXT", "PDF", "DOC", "HTML", "MD"]}
               className="animate-in fade-in duration-500"
-              dropzoneLabel="Arrastra tu archivo aquí o haz clic para seleccionar"
+              dropzoneLabel="Arrastra tu archivo aquÃ­ o haz clic para seleccionar"
               supportedFormatsLabel="Formatos soportados"
             />
           ) : (
@@ -267,11 +267,11 @@ export const NewConversorInteligente: React.FC = () => {
           )}
         </ConversionStep>
 
-        {/* Paso 2: Análisis IA */}
+        {/* Paso 2: AnÃ¡lisis IA */}
         <ConversionStep
           number={2}
-          title="Análisis IA"
-          icon="🤖"
+          title="AnÃ¡lisis IA"
+          icon="ðŸ¤–"
           isActive={currentStep === 2}
           isCompleted={currentStep > 2}
         >
@@ -283,7 +283,7 @@ export const NewConversorInteligente: React.FC = () => {
             </div>
           ) : currentStep > 2 ? (
             <div className="text-sm">
-              <p className="text-gray-400 mb-2">Análisis completado</p>
+              <p className="text-gray-400 mb-2">AnÃ¡lisis completado</p>
               <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-3">
                 <div className="flex items-center text-green-400 text-xs">
                   <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
@@ -304,7 +304,7 @@ export const NewConversorInteligente: React.FC = () => {
         <ConversionStep
           number={3}
           title="Configurar"
-          icon="⚙️"
+          icon="âš™ï¸"
           isActive={currentStep === 3}
           isCompleted={currentStep > 3}
         >
@@ -330,20 +330,20 @@ export const NewConversorInteligente: React.FC = () => {
                 <div>
                   <div className="flex justify-between items-center text-xs text-gray-400 mb-3">
                     <span>Costo:</span>
-                    <span className="text-primary font-medium">0 créditos</span>
+                    <span className="text-primary font-medium">0 crÃ©ditos</span>
                   </div>
                   <button
                     onClick={handleConvert}
                     className="w-full bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded-lg transition-colors text-button font-medium"
                   >
-                    Iniciar Conversión
+                    Iniciar ConversiÃ³n
                   </button>
                 </div>
               )}
             </div>
           ) : (
             <div className="text-sm text-gray-500 text-center py-4">
-              Esperando análisis...
+              Esperando anÃ¡lisis...
             </div>
           )}
         </ConversionStep>
@@ -352,7 +352,7 @@ export const NewConversorInteligente: React.FC = () => {
         <ConversionStep
           number={4}
           title="Descargar"
-          icon="⬇️"
+          icon="â¬‡ï¸"
           isActive={currentStep === 4}
           isCompleted={!isConverting && currentStep === 4}
         >
@@ -402,7 +402,7 @@ export const NewConversorInteligente: React.FC = () => {
                   </div>
                 </div>
                 
-                <h3 className="text-xl font-medium text-white mb-4">¡Conversión completada!</h3>
+                <h3 className="text-xl font-medium text-white mb-4">Â¡ConversiÃ³n completada!</h3>
                 
                 <button className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white py-3 px-4 rounded-lg transition-all shadow-lg shadow-green-500/20 hover:shadow-xl hover:shadow-green-500/30 font-medium flex items-center justify-center space-x-2">
                   <Download size={18} />
@@ -410,13 +410,13 @@ export const NewConversorInteligente: React.FC = () => {
                 </button>
                 
                 <p className="text-xs text-slate-400 mt-3">
-                  El archivo estará disponible durante 24 horas
+                  El archivo estarÃ¡ disponible durante 24 horas
                 </p>
               </div>
             )
           ) : (
             <div className="text-sm text-gray-500 text-center py-4">
-              Esperando conversión...
+              Esperando conversiÃ³n...
             </div>
           )}
         </ConversionStep>
@@ -431,7 +431,7 @@ export const NewConversorInteligente: React.FC = () => {
             </div>
             <div className="ml-4">
               <h2 className="text-2xl font-bold text-white">Conversiones Populares</h2>
-              <p className="text-slate-400 text-sm">Las transformaciones más utilizadas por nuestros usuarios</p>
+              <p className="text-slate-400 text-sm">Las transformaciones mÃ¡s utilizadas por nuestros usuarios</p>
             </div>
           </div>
           
@@ -439,7 +439,7 @@ export const NewConversorInteligente: React.FC = () => {
             <Badge variant="primary" className="bg-gradient-to-r from-amber-500 to-orange-600">
               Nuevo
             </Badge>
-            <span className="text-slate-400 text-sm">Actualizado hace 2 días</span>
+            <span className="text-slate-400 text-sm">Actualizado hace 2 dÃ­as</span>
           </div>
         </div>
         
@@ -454,8 +454,8 @@ export const NewConversorInteligente: React.FC = () => {
               cost={conversion.cost}
               popular={conversion.popular}
               onClick={() => {
-                // Lógica para iniciar conversión popular
-                console.log(`Iniciando conversión ${conversion.from} → ${conversion.to}`);
+                // LÃ³gica para iniciar conversiÃ³n popular
+                console.log(`Iniciando conversiÃ³n ${conversion.from} â†’ ${conversion.to}`);
               }}
             />
           ))}
@@ -464,4 +464,5 @@ export const NewConversorInteligente: React.FC = () => {
     </div>
   );
 };
+
 

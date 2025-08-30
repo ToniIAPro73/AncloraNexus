@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
@@ -29,7 +29,7 @@ describe('UniversalConverter actions', () => {
 
     fireEvent.change(input, { target: { files: [file1, file2] } });
 
-    const upButtons = screen.getAllByText('↑');
+    const upButtons = screen.getAllByText('â†‘');
     fireEvent.click(upButtons[1]);
 
     const names = screen.getAllByText(/file[12]\.txt/).map(el => el.textContent);
@@ -40,4 +40,5 @@ describe('UniversalConverter actions', () => {
     vi.useRealTimers();
   });
 });
+
 

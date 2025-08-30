@@ -1,4 +1,4 @@
-from datetime import datetime
+﻿from datetime import datetime
 from .user import db
 
 class ConversionLog(db.Model):
@@ -12,3 +12,4 @@ class ConversionLog(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
     conversion = db.relationship('Conversion', backref=db.backref('log', uselist=False, cascade='all, delete-orphan'))
+

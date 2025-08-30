@@ -1,4 +1,4 @@
-// Eliminamos la importación no utilizada de React
+﻿// Eliminamos la importaciÃ³n no utilizada de React
 import { render, fireEvent, screen, waitFor, cleanup } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import '@testing-library/jest-dom/vitest';
@@ -68,3 +68,4 @@ describe('AuthContext navigation', () => {
     });
   });
 });
+

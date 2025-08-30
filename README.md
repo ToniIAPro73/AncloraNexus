@@ -1,65 +1,65 @@
-# Anclora Nexus
+﻿# Anclora Nexus
 
 ![Anclora Nexus Logo](./frontend/public/images/logos/logo-anclora-nexus.png)
 
 **Tu Contenido, Reinventado**
 
-## 📋 Resumen
+## ðŸ“‹ Resumen
 
-**Anclora Nexus** es una plataforma integral de transformación de contenido que incluye dos módulos principales:
+**Anclora Nexus** es una plataforma integral de transformaciÃ³n de contenido que incluye dos mÃ³dulos principales:
 
-### 🔄 **Núcleo de Conversión**: 
-Este paquete contiene **6 nuevos conversores** que expanden las capacidades de conversión, logrando **paridad competitiva completa** con las principales herramientas del mercado.
+### ðŸ”„ **NÃºcleo de ConversiÃ³n**: 
+Este paquete contiene **6 nuevos conversores** que expanden las capacidades de conversiÃ³n, logrando **paridad competitiva completa** con las principales herramientas del mercado.
 
-### 📚 **Anclora Press** (Módulo Opcional):
-Herramienta avanzada para la **creación y publicación de libros digitales**, que permite importar documentos (.txt, .md, .doc, .docx, .pdf), editarlos para crear libros tanto digitales como físicos, exportarlos a los formatos más relevantes del mercado, e incluso publicarlos.
+### ðŸ“š **Anclora Press** (MÃ³dulo Opcional):
+Herramienta avanzada para la **creaciÃ³n y publicaciÃ³n de libros digitales**, que permite importar documentos (.txt, .md, .doc, .docx, .pdf), editarlos para crear libros tanto digitales como fÃ­sicos, exportarlos a los formatos mÃ¡s relevantes del mercado, e incluso publicarlos.
 
-## 🔥 Nuevas Capacidades
+## ðŸ”¥ Nuevas Capacidades
 
-### 📄 Conversores de Documentos
-- **TXT + HTML** 🌐 - Páginas web con estilos CSS
-- **TXT + DOC** 📄 - Documentos Microsoft Word  
-- **TXT + MD** 📝 - Archivos Markdown
-- **TXT + RTF** 📋 - Rich Text Format universal
-- **TXT + ODT** 📑 - OpenDocument Text
-- **TXT + TEX** 🎓 - LaTeX para académicos
+### ðŸ“„ Conversores de Documentos
+- **TXT + HTML** ðŸŒ - PÃ¡ginas web con estilos CSS
+- **TXT + DOC** ðŸ“„ - Documentos Microsoft Word  
+- **TXT + MD** ðŸ“ - Archivos Markdown
+- **TXT + RTF** ðŸ“‹ - Rich Text Format universal
+- **TXT + ODT** ðŸ“‘ - OpenDocument Text
+- **TXT + TEX** ðŸŽ“ - LaTeX para acadÃ©micos
 
-## 📊 Impacto
+## ðŸ“Š Impacto
 
-- **Antes:** 4 formatos de conversión
-- **Después:** 10 formatos de conversión
+- **Antes:** 4 formatos de conversiÃ³n
+- **DespuÃ©s:** 10 formatos de conversiÃ³n
 - **Mejora:** +150% de capacidades
 
-## 🏗️ Estructura del Proyecto
+## ðŸ—ï¸ Estructura del Proyecto
 
 ```
 anclora-nexus/
-├── frontend/                 # Aplicación React/TypeScript
-│   ├── src/
-│   │   ├── components/      # Componentes reutilizables
-│   │   ├── pages/          # Páginas principales
-│   │   ├── services/       # Lógica de negocio
-│   │   └── utils/          # Utilidades
-│   ├── public/             # Recursos estáticos
-│   └── package.json        # Dependencias frontend
-├── backend/                 # API Python/FastAPI
-│   ├── src/
-│   │   ├── models/         # Modelos de datos
-│   │   ├── routes/         # Endpoints API
-│   │   ├── services/       # Servicios de conversión
-│   │   └── utils/          # Utilidades backend
-│   ├── tests/              # Suite de pruebas backend
-│   │   ├── unit/           # Tests unitarios
-│   │   ├── integration/    # Tests de integración
-│   │   └── utils/          # Utilidades de testing
-│   ├── requirements.txt    # Dependencias Python
-│   └── main.py            # Punto de entrada
-├── docs/                    # Documentación
-├── scripts/                 # Scripts de automatización
-└── data/                   # Archivos de datos
+â”œâ”€â”€ frontend/                 # AplicaciÃ³n React/TypeScript
+â”‚   â”œâ”€â”€ src/
+â”‚   â”‚   â”œâ”€â”€ components/      # Componentes reutilizables
+â”‚   â”‚   â”œâ”€â”€ pages/          # PÃ¡ginas principales
+â”‚   â”‚   â”œâ”€â”€ services/       # LÃ³gica de negocio
+â”‚   â”‚   â””â”€â”€ utils/          # Utilidades
+â”‚   â”œâ”€â”€ public/             # Recursos estÃ¡ticos
+â”‚   â””â”€â”€ package.json        # Dependencias frontend
+â”œâ”€â”€ backend/                 # API Python/FastAPI
+â”‚   â”œâ”€â”€ src/
+â”‚   â”‚   â”œâ”€â”€ models/         # Modelos de datos
+â”‚   â”‚   â”œâ”€â”€ routes/         # Endpoints API
+â”‚   â”‚   â”œâ”€â”€ services/       # Servicios de conversiÃ³n
+â”‚   â”‚   â””â”€â”€ utils/          # Utilidades backend
+â”‚   â”œâ”€â”€ tests/              # Suite de pruebas backend
+â”‚   â”‚   â”œâ”€â”€ unit/           # Tests unitarios
+â”‚   â”‚   â”œâ”€â”€ integration/    # Tests de integraciÃ³n
+â”‚   â”‚   â””â”€â”€ utils/          # Utilidades de testing
+â”‚   â”œâ”€â”€ requirements.txt    # Dependencias Python
+â”‚   â””â”€â”€ main.py            # Punto de entrada
+â”œâ”€â”€ docs/                    # DocumentaciÃ³n
+â”œâ”€â”€ scripts/                 # Scripts de automatizaciÃ³n
+â””â”€â”€ data/                   # Archivos de datos
 ```
 
-## 🚀 Instalación y Configuración
+## ðŸš€ InstalaciÃ³n y ConfiguraciÃ³n
 
 ### Prerrequisitos
 - Node.js 18+ y npm/yarn
@@ -80,7 +80,7 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 python main.py
 
-La API expondrá un endpoint de métricas en `http://localhost:${PORT:-8000}/metrics` y mostrará logs según el nivel definido. El puerto puede configurarse mediante la variable de entorno `PORT` (por defecto `8000`).
+La API expondrÃ¡ un endpoint de mÃ©tricas en `http://localhost:${PORT:-8000}/metrics` y mostrarÃ¡ logs segÃºn el nivel definido. El puerto puede configurarse mediante la variable de entorno `PORT` (por defecto `8000`).
 ```
 
 ### Variables de entorno (Backend)
@@ -89,7 +89,7 @@ Antes de ejecutar el backend, configura las siguientes variables de entorno:
 
 - `SECRET_KEY`: clave usada por Flask para sesiones.
 - `JWT_SECRET_KEY`: clave para firmar tokens JWT.
-- `ALLOWED_ORIGINS`: lista separada por comas de orígenes permitidos para CORS (ej. `http://localhost:3000,http://localhost:5173`). El comodín `*` se ignora por seguridad.
+- `ALLOWED_ORIGINS`: lista separada por comas de orÃ­genes permitidos para CORS (ej. `http://localhost:3000,http://localhost:5173`). El comodÃ­n `*` se ignora por seguridad.
 - `FLASK_DEBUG`: establece `true` para habilitar el modo debug (opcional).
 - `LOG_LEVEL`: nivel de logs (`DEBUG`, `INFO`, `WARNING`, etc.). Opcional, por defecto `INFO`.
 
@@ -101,7 +101,7 @@ cd frontend && npm test
 # Backend
 cd backend && python -m pytest tests/
 
-# Ejecutar tests específicos
+# Ejecutar tests especÃ­ficos
 cd backend && python -m pytest tests/unit/ -v
 cd backend && python -m pytest tests/integration/ -v
 
@@ -112,81 +112,81 @@ cd frontend && npx vitest run
 cd frontend && npx vitest run --coverage
 ```
 
-## 🔧 Funcionalidades Principales
+## ðŸ”§ Funcionalidades Principales
 
-### Motor de Conversión
-- Conversión de archivos de texto a múltiples formatos
-- Procesamiento asíncrono para archivos grandes
-- Validación de entrada y manejo de errores
-- Cache inteligente para optimización
-- Normalización de codificación a UTF-8 previa a la conversión ([detalle](./docs/encoding_normalization.md))
+### Motor de ConversiÃ³n
+- ConversiÃ³n de archivos de texto a mÃºltiples formatos
+- Procesamiento asÃ­ncrono para archivos grandes
+- ValidaciÃ³n de entrada y manejo de errores
+- Cache inteligente para optimizaciÃ³n
+- NormalizaciÃ³n de codificaciÃ³n a UTF-8 previa a la conversiÃ³n ([detalle](./docs/encoding_normalization.md))
 
-### 📚 Anclora Press (Módulo Opcional)
-- **Importación**: Soporta .txt, .md, .doc, .docx, .pdf
-- **Editor Avanzado**: Herramientas profesionales para creación de libros
-- **Exportación Múltiple**: Formatos estándar de la industria editorial
-- **Publicación Directa**: Integración con plataformas de publicación
-- **Libros Digitales y Físicos**: Formatos optimizados para ambos medios
+### ðŸ“š Anclora Press (MÃ³dulo Opcional)
+- **ImportaciÃ³n**: Soporta .txt, .md, .doc, .docx, .pdf
+- **Editor Avanzado**: Herramientas profesionales para creaciÃ³n de libros
+- **ExportaciÃ³n MÃºltiple**: Formatos estÃ¡ndar de la industria editorial
+- **PublicaciÃ³n Directa**: IntegraciÃ³n con plataformas de publicaciÃ³n
+- **Libros Digitales y FÃ­sicos**: Formatos optimizados para ambos medios
 
-### Sistema de Créditos
-- Compra y gestión de créditos
-- Tracking de uso por conversión
-- Histórico de transacciones
+### Sistema de CrÃ©ditos
+- Compra y gestiÃ³n de crÃ©ditos
+- Tracking de uso por conversiÃ³n
+- HistÃ³rico de transacciones
 - Upgrades de plan
 
 ### Interfaz de Usuario
 - Dashboard intuitivo
 - Drag & drop para archivos
-- Previsualización de resultados
+- PrevisualizaciÃ³n de resultados
 - Descarga masiva
 
-## 🎯 Mejoras en Desarrollo
+## ðŸŽ¯ Mejoras en Desarrollo
 
-### 🔧 Tareas Pendientes
+### ðŸ”§ Tareas Pendientes
 
 1. **Retirar archivos temporales de CI**
    - Eliminar `temp_ci_fix.txt` y `.ci-rebuild-trigger`
    - Archivos usados solo para forzar reconstrucciones
 
-2. **Implementar recuperación de contraseña en Login.tsx**
-   - El enlace "olvidé mi contraseña" carece de lógica
-   - Implementar flujo completo de recuperación
+2. **Implementar recuperaciÃ³n de contraseÃ±a en Login.tsx**
+   - El enlace "olvidÃ© mi contraseÃ±a" carece de lÃ³gica
+   - Implementar flujo completo de recuperaciÃ³n
 
 3. **Completar ConversionEngine con formatos faltantes**
-   - PNG→WebP, GIF→MP4, SVG→PNG aún no implementados
-   - Expandir capacidades del motor de conversión
+   - PNGâ†’WebP, GIFâ†’MP4, SVGâ†’PNG aÃºn no implementados
+   - Expandir capacidades del motor de conversiÃ³n
 
-4. **Añadir pruebas para flujos de créditos**
-   - Faltan tests específicos para compras y upgrades
-   - Cobertura completa del sistema de créditos
+4. **AÃ±adir pruebas para flujos de crÃ©ditos**
+   - Faltan tests especÃ­ficos para compras y upgrades
+   - Cobertura completa del sistema de crÃ©ditos
 
-## 🧪 Testing
+## ðŸ§ª Testing
 
 ### Cobertura Actual
 - Frontend: Tests unitarios con Jest/React Testing Library
 - Backend: Tests con Pytest
-- Integración: Cypress para E2E
+- IntegraciÃ³n: Cypress para E2E
 
 ### Ejecutar Suite Completa
 ```bash
 npm run test:all
 ```
 
-## 🔒 Seguridad y Autenticación
+## ðŸ”’ Seguridad y AutenticaciÃ³n
 
-- JWT para autenticación
-- Validación de archivos subidos
-- Límites de tamaño y tipo de archivo
-- Sanitización de contenido
+- JWT para autenticaciÃ³n
+- ValidaciÃ³n de archivos subidos
+- LÃ­mites de tamaÃ±o y tipo de archivo
+- SanitizaciÃ³n de contenido
 
-## 📈 Monitoreo y Logs
+## ðŸ“ˆ Monitoreo y Logs
 
 - Logging estructurado
-- Métricas de uso expuestas en `/metrics`
+- MÃ©tricas de uso expuestas en `/metrics`
 - Monitoring de performance
 - Error tracking
 
-## 🤝 Contribuir
+## ðŸ¤ Contribuir
 
 1. Fork el repositorio
 2. Crear rama feature (`git checkout -b feature/AmazingFeature`)
@@ -194,39 +194,39 @@ npm run test:all
 4. Push a la rama (`git push origin feature/AmazingFeature`)
 5. Abrir Pull Request
 
-### Estándares de Código
+### EstÃ¡ndares de CÃ³digo
 - ESLint + Prettier para frontend
 - Black + isort para backend
 - Conventional Commits
 - Tests obligatorios para nuevas features
 
-## 📄 Licencia
+## ðŸ“„ Licencia
 
-Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
+Este proyecto estÃ¡ bajo la Licencia MIT. Ver `LICENSE` para mÃ¡s detalles.
 
-## 🆘 Soporte
+## ðŸ†˜ Soporte
 
-- 📧 Email: support@anclora.com
-- 📖 Docs: [documentación completa](./docs/)
-- 🐛 Issues: [GitHub Issues][def]
+- ðŸ“§ Email: support@anclora.com
+- ðŸ“– Docs: [documentaciÃ³n completa](./docs/)
+- ðŸ› Issues: [GitHub Issues][def]
 
-## 🔄 Changelog
+## ðŸ”„ Changelog
 
 ### v2.0.0 (En desarrollo) - Anclora Nexus
-- ✨ **Rebrand**: Anclora Metaform → Anclora Nexus
-- 📚 **Nuevo**: Módulo Anclora Press para creación de libros
-- ✨ Nuevos conversores de documentos
-- 🐛 Mejoras en sistema de créditos
-- 🧪 Ampliación suite de tests
-- 🔧 Refactoring del motor de conversión
+- âœ¨ **Rebrand**: Anclora Nexus â†’ Anclora Nexus
+- ðŸ“š **Nuevo**: MÃ³dulo Anclora Press para creaciÃ³n de libros
+- âœ¨ Nuevos conversores de documentos
+- ðŸ› Mejoras en sistema de crÃ©ditos
+- ðŸ§ª AmpliaciÃ³n suite de tests
+- ðŸ”§ Refactoring del motor de conversiÃ³n
 
-### v1.1.0 - Anclora Metaform
-- ✨ Sistema de créditos implementado
-- 🔒 Autenticación JWT
-- 📊 Dashboard de usuario
+### v1.1.0 - Anclora Nexus
+- âœ¨ Sistema de crÃ©ditos implementado
+- ðŸ”’ AutenticaciÃ³n JWT
+- ðŸ“Š Dashboard de usuario
 
 ---
 
-**¿Listo para reinventar tu contenido?** 🚀
+**Â¿Listo para reinventar tu contenido?** ðŸš€
 
 [def]: ../../issues

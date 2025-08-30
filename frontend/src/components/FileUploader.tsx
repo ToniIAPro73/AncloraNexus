@@ -1,4 +1,4 @@
-import React, { useState, useCallback, PropsWithChildren } from 'react';
+﻿import React, { useState, useCallback, PropsWithChildren } from 'react';
 import { IconUpload } from './Icons';
 
 interface FileUploaderProps {
@@ -124,7 +124,7 @@ export const FileUploader: React.FC<PropsWithChildren<FileUploaderProps>> = ({
             aria-hidden="true"
           />
           <p className="text-sm text-slate-600">
-            {isDragging ? 'Suelta los archivos aquí' : 'Arrastra y suelta tus archivos o haz clic para seleccionarlos'}
+            {isDragging ? 'Suelta los archivos aquÃ­' : 'Arrastra y suelta tus archivos o haz clic para seleccionarlos'}
           </p>
           {error && (
             <p role="alert" className="mt-2 text-xs text-red-600">

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
@@ -42,7 +42,7 @@ describe('Accessibility Tests', () => {
 
   it('should have accessible file input', () => {
     const { getByText } = render(<UniversalConverter />);
-    const fileInput = getByText('Haz clic o arrastra archivos aquí');
+    const fileInput = getByText('Haz clic o arrastra archivos aquÃ­');
     expect(fileInput).toBeInTheDocument();
   });
 
@@ -52,3 +52,4 @@ describe('Accessibility Tests', () => {
     expect(button).toBeInTheDocument();
   });
 });
+

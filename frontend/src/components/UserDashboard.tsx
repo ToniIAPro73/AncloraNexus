@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { useAuth } from '../hooks/useAuth';
 
 export const UserDashboard: React.FC = () => {
@@ -10,10 +10,11 @@ export const UserDashboard: React.FC = () => {
       <p className="text-sm text-slate-300">Nombre: {user.full_name || user.name}</p>
       <p className="text-sm text-slate-300">Email: {user.email}</p>
       <p className="text-sm text-slate-300">Plan: {user.plan || 'free'}</p>
-      <button className="mt-4 px-4 py-2 rounded bg-red-600 text-white" onClick={logout}>Cerrar sesión</button>
+      <button className="mt-4 px-4 py-2 rounded bg-red-600 text-white" onClick={logout}>Cerrar sesiÃ³n</button>
     </div>
   );
 };
 
 export default UserDashboard;
+
 

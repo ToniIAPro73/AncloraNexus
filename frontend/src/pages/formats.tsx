@@ -1,4 +1,4 @@
-import FormatsView from '../components/FormatsView';
+﻿import FormatsView from '../components/FormatsView';
 import { Footer } from '../components/Footer';
 
 export default function FormatsPage() {
@@ -9,3 +9,4 @@ export default function FormatsPage() {
     </>
   );
 }
+

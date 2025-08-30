@@ -1,7 +1,8 @@
-Este es un archivo de prueba para la conversión.
+﻿Este es un archivo de prueba para la conversiÃ³n.
 
-Vamos a probar si el sistema de conversión funciona correctamente.
+Vamos a probar si el sistema de conversiÃ³n funciona correctamente.
 
-El archivo será convertido de TXT a PDF usando fpdf2.
+El archivo serÃ¡ convertido de TXT a PDF usando fpdf2.
 
-¡Anclora Nexus funcionando! 🚀
+Â¡Anclora Nexus funcionando! ðŸš€
+

@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import '@testing-library/jest-dom/vitest';
@@ -13,7 +13,7 @@ describe('Header Component', () => {
   it('renders all navigation links', () => {
     render(<Header />);
     expect(screen.getByRole('link', { name: 'Convertir un archivo' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: '¿Cómo funciona?' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Â¿CÃ³mo funciona?' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Precios' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Contacto' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Darse de baja' })).toBeInTheDocument();
@@ -22,15 +22,15 @@ describe('Header Component', () => {
   it('renders the user button', () => {
     render(<Header />);
     // The main user trigger is a button
-    expect(screen.getByRole('button', { name: /Iniciar sesión/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Iniciar sesiÃ³n/i })).toBeInTheDocument();
   });
 
   it('toggles user menu on button click', () => {
     render(<Header />);
-    const userButton = screen.getByRole('button', { name: /Iniciar sesión/i });
+    const userButton = screen.getByRole('button', { name: /Iniciar sesiÃ³n/i });
     
     // Menu items exist but are not visible due to CSS classes.
-    const loginMenuItem = screen.getByRole('menuitem', { name: 'Iniciar sesión' });
+    const loginMenuItem = screen.getByRole('menuitem', { name: 'Iniciar sesiÃ³n' });
     const registerMenuItem = screen.getByRole('menuitem', { name: 'Registrarse' });
 
     expect(loginMenuItem).not.toBeVisible();
@@ -49,11 +49,11 @@ describe('Header Component', () => {
 
   it('closes the user menu when a menu item is clicked', () => {
     render(<Header />);
-    const userButton = screen.getByRole('button', { name: /Iniciar sesión/i });
+    const userButton = screen.getByRole('button', { name: /Iniciar sesiÃ³n/i });
     
     // Open menu
     fireEvent.click(userButton);
-    const loginMenuItem = screen.getByRole('menuitem', { name: 'Iniciar sesión' });
+    const loginMenuItem = screen.getByRole('menuitem', { name: 'Iniciar sesiÃ³n' });
     expect(loginMenuItem).toBeVisible();
 
     // Click a menu item
@@ -69,11 +69,11 @@ describe('Header Component', () => {
         <div data-testid="outside-element"></div>
       </div>
     );
-    const userButton = screen.getByRole('button', { name: /Iniciar sesión/i });
+    const userButton = screen.getByRole('button', { name: /Iniciar sesiÃ³n/i });
     
     // Open menu
     fireEvent.click(userButton);
-    const loginMenuItem = screen.getByRole('menuitem', { name: 'Iniciar sesión' });
+    const loginMenuItem = screen.getByRole('menuitem', { name: 'Iniciar sesiÃ³n' });
     expect(loginMenuItem).toBeVisible();
 
     // Click outside
@@ -81,3 +81,4 @@ describe('Header Component', () => {
     expect(loginMenuItem).not.toBeVisible();
   });
 });
+

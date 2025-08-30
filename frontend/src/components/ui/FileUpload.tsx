@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+﻿import React, { useRef } from 'react';
 
 interface Props { onFileSelect?: (files: File|File[]) => void; onFilesSelected?: (files: File[]) => void; isLoading?: boolean; multiple?: boolean; children?: React.ReactNode; maxFiles?: number; maxSizeMB?: number; acceptedFormats?: string[]; className?: string; dropzoneLabel?: string; supportedFormatsLabel?: string }
 export const FileUpload: React.FC<Props> = ({ onFileSelect, onFilesSelected, isLoading=false, multiple=false, children, className='' }) => {
@@ -16,3 +16,4 @@ export const FileUpload: React.FC<Props> = ({ onFileSelect, onFilesSelected, isL
     </div>
   );
 };
+

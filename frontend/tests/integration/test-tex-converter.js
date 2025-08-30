@@ -1,39 +1,39 @@
-/**
- * Script de Pruebas TEX Converter - Paquete de Integración
+﻿/**
+ * Script de Pruebas TEX Converter - Paquete de IntegraciÃ³n
  * Ejecuta: node test-tex-converter.js
  */
 
 const TxtToTexConverter = require('../../converters/TxtToTexConverter.js');
 const fs = require('fs');
 
-console.log('🎓 PRUEBAS DEL CONVERSOR TEX (LaTeX) - PAQUETE ANCLORA');
+console.log('ðŸŽ“ PRUEBAS DEL CONVERSOR TEX (LaTeX) - PAQUETE ANCLORA');
 console.log('=' .repeat(60));
 
 // Crear instancia del conversor
 const texConverter = new TxtToTexConverter();
 
-// Texto de prueba académico
-const academicSample = `ANÁLISIS COMPARATIVO DE ALGORITMOS DE MACHINE LEARNING
+// Texto de prueba acadÃ©mico
+const academicSample = `ANÃLISIS COMPARATIVO DE ALGORITMOS DE MACHINE LEARNING
 
 RESUMEN
-Este estudio presenta un análisis exhaustivo de diferentes algoritmos de aprendizaje automático aplicados a problemas de clasificación.
+Este estudio presenta un anÃ¡lisis exhaustivo de diferentes algoritmos de aprendizaje automÃ¡tico aplicados a problemas de clasificaciÃ³n.
 
-INTRODUCCIÓN
-El machine learning ha revolucionado múltiples campos de la ciencia y la tecnología.
+INTRODUCCIÃ“N
+El machine learning ha revolucionado mÃºltiples campos de la ciencia y la tecnologÃ­a.
 
 Objetivos del Estudio
 1. Comparar la eficiencia de algoritmos supervisados
-2. Evaluar la precisión en diferentes datasets
+2. Evaluar la precisiÃ³n en diferentes datasets
 3. Analizar la complejidad computacional
 
-METODOLOGÍA
+METODOLOGÃA
 Se utilizaron los siguientes algoritmos:
 - Support Vector Machines (SVM)
 - Random Forest
 - Neural Networks
 - Naive Bayes
 
-Métricas de Evaluación
+MÃ©tricas de EvaluaciÃ³n
     precision = TP / (TP + FP)
     recall = TP / (TP + FN)
     f1_score = 2 * (precision * recall) / (precision + recall)
@@ -41,40 +41,40 @@ Métricas de Evaluación
 RESULTADOS
 Los experimentos mostraron que **Random Forest** obtuvo el mejor rendimiento promedio.
 
-Análisis Estadístico
-La *significancia estadística* fue evaluada usando pruebas t-student.
+AnÃ¡lisis EstadÃ­stico
+La *significancia estadÃ­stica* fue evaluada usando pruebas t-student.
 
 CONCLUSIONES
-Los resultados sugieren que la elección del algoritmo depende del contexto específico.
+Los resultados sugieren que la elecciÃ³n del algoritmo depende del contexto especÃ­fico.
 
 REFERENCIAS
 [Mitchell1997] Machine Learning
 [Bishop2006] Pattern Recognition and Machine Learning`;
 
-// Función de prueba
+// FunciÃ³n de prueba
 function testTexConverter() {
-    console.log('\n📄 Probando conversión TXT → TEX...');
+    console.log('\nðŸ“„ Probando conversiÃ³n TXT â†’ TEX...');
     
     try {
         const result = texConverter.convert(academicSample, {
-            title: 'Análisis Comparativo de Algoritmos de ML',
+            title: 'AnÃ¡lisis Comparativo de Algoritmos de ML',
             author: 'Dr. Investigador',
             documentClass: 'article',
             language: 'spanish'
         });
         
         if (result.success) {
-            console.log('✅ Conversión exitosa');
-            console.log(`📏 Tamaño: ${result.content.length} caracteres`);
-            console.log(`📋 Título: ${result.metadata.title}`);
-            console.log(`👤 Autor: ${result.metadata.author}`);
+            console.log('âœ… ConversiÃ³n exitosa');
+            console.log(`ðŸ“ TamaÃ±o: ${result.content.length} caracteres`);
+            console.log(`ðŸ“‹ TÃ­tulo: ${result.metadata.title}`);
+            console.log(`ðŸ‘¤ Autor: ${result.metadata.author}`);
             
             // Validar LaTeX
             const validation = texConverter.validateLatex(result.content);
             if (validation.valid) {
-                console.log('✅ LaTeX válido');
+                console.log('âœ… LaTeX vÃ¡lido');
             } else {
-                console.log(`❌ LaTeX inválido: ${validation.error}`);
+                console.log(`âŒ LaTeX invÃ¡lido: ${validation.error}`);
                 return false;
             }
             
@@ -86,10 +86,10 @@ function testTexConverter() {
             
             const filename = `${outputDir}/sample_academic.tex`;
             fs.writeFileSync(filename, result.content);
-            console.log(`💾 Guardado como: ${filename}`);
+            console.log(`ðŸ’¾ Guardado como: ${filename}`);
             
             // Mostrar preview del LaTeX generado
-            console.log('\n📖 PREVIEW DEL LATEX GENERADO:');
+            console.log('\nðŸ“– PREVIEW DEL LATEX GENERADO:');
             console.log('-' .repeat(40));
             const lines = result.content.split('\n');
             const preview = lines.slice(0, 20).join('\n');
@@ -98,11 +98,11 @@ function testTexConverter() {
             
             return true;
         } else {
-            console.log(`❌ Error: ${result.error}`);
+            console.log(`âŒ Error: ${result.error}`);
             return false;
         }
     } catch (error) {
-        console.log(`💥 Excepción: ${error.message}`);
+        console.log(`ðŸ’¥ ExcepciÃ³n: ${error.message}`);
         return false;
     }
 }
@@ -110,35 +110,36 @@ function testTexConverter() {
 // Ejecutar prueba
 const success = testTexConverter();
 
-// Información del conversor
-console.log('\n📋 INFORMACIÓN DEL CONVERSOR TEX:');
+// InformaciÃ³n del conversor
+console.log('\nðŸ“‹ INFORMACIÃ“N DEL CONVERSOR TEX:');
 const info = texConverter.getInfo();
 console.log(`Nombre: ${info.name}`);
-console.log(`Versión: ${info.version}`);
-console.log(`Formato: ${info.inputFormat} → ${info.outputFormat}`);
+console.log(`VersiÃ³n: ${info.version}`);
+console.log(`Formato: ${info.inputFormat} â†’ ${info.outputFormat}`);
 
-console.log('\n🎯 CARACTERÍSTICAS ACADÉMICAS:');
+console.log('\nðŸŽ¯ CARACTERÃSTICAS ACADÃ‰MICAS:');
 info.features.forEach(feature => {
-    console.log(`  ✅ ${feature}`);
+    console.log(`  âœ… ${feature}`);
 });
 
-console.log('\n📝 ELEMENTOS SOPORTADOS:');
+console.log('\nðŸ“ ELEMENTOS SOPORTADOS:');
 info.supportedElements.forEach(element => {
-    console.log(`  📌 ${element}`);
+    console.log(`  ðŸ“Œ ${element}`);
 });
 
 // Resultado final
 if (success) {
-    console.log('\n🎉 ¡CONVERSOR TEX LISTO PARA INTEGRACIÓN!');
-    console.log('🎓 Perfecto para documentos académicos y científicos');
-    console.log('📚 Compatible con LaTeX estándar');
+    console.log('\nðŸŽ‰ Â¡CONVERSOR TEX LISTO PARA INTEGRACIÃ“N!');
+    console.log('ðŸŽ“ Perfecto para documentos acadÃ©micos y cientÃ­ficos');
+    console.log('ðŸ“š Compatible con LaTeX estÃ¡ndar');
 } else {
-    console.log('\n❌ Error en las pruebas del conversor TEX');
+    console.log('\nâŒ Error en las pruebas del conversor TEX');
 }
 
-console.log('\n🚀 PRÓXIMO PASO:');
+console.log('\nðŸš€ PRÃ“XIMO PASO:');
 console.log('Integrar TxtToTexConverter.js en tu proyecto Anclora');
 console.log('Actualizar UniversalConverter.tsx con soporte TEX');
 
 module.exports = { testTexConverter };
+
 

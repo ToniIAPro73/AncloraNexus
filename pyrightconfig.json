@@ -1,4 +1,4 @@
-{
+﻿{
     "include": [
         "backend",
         "backend/src"
@@ -22,3 +22,4 @@
     "reportGeneralTypeIssues": "information",
     "reportUndefinedVariable": "warning"
 }
+

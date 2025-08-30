@@ -1,5 +1,5 @@
-/**
- * Script de pruebas para TXT → TEX (LaTeX) Converter
+﻿/**
+ * Script de pruebas para TXT â†’ TEX (LaTeX) Converter
  * Ejecuta: node test_tex_converter.js
  */
 
@@ -9,65 +9,65 @@ const fs = require('fs');
 // Crear instancia del conversor
 const texConverter = new TxtToTexConverter();
 
-console.log('🧪 INICIANDO PRUEBAS DEL CONVERSOR TEX (LaTeX)');
+console.log('ðŸ§ª INICIANDO PRUEBAS DEL CONVERSOR TEX (LaTeX)');
 console.log('=' .repeat(60));
 
-// Función para ejecutar una prueba
+// FunciÃ³n para ejecutar una prueba
 function runTest(testName, text, options = {}) {
-    console.log(`\n📄 Probando: ${testName}`);
+    console.log(`\nðŸ“„ Probando: ${testName}`);
     console.log('-' .repeat(40));
     
     try {
         const result = texConverter.convert(text, options);
         
         if (result.success) {
-            console.log('✅ Conversión exitosa');
-            console.log(`📏 Tamaño: ${result.content.length} caracteres`);
-            console.log(`📋 Título: ${result.metadata.title}`);
-            console.log(`👤 Autor: ${result.metadata.author}`);
+            console.log('âœ… ConversiÃ³n exitosa');
+            console.log(`ðŸ“ TamaÃ±o: ${result.content.length} caracteres`);
+            console.log(`ðŸ“‹ TÃ­tulo: ${result.metadata.title}`);
+            console.log(`ðŸ‘¤ Autor: ${result.metadata.author}`);
             
             // Validar LaTeX generado
             const validation = texConverter.validateLatex(result.content);
             if (validation.valid) {
-                console.log('✅ LaTeX válido');
+                console.log('âœ… LaTeX vÃ¡lido');
             } else {
-                console.log(`❌ LaTeX inválido: ${validation.error}`);
+                console.log(`âŒ LaTeX invÃ¡lido: ${validation.error}`);
                 return false;
             }
             
             // Guardar archivo
             const filename = `test_${testName.toLowerCase().replace(/\s+/g, '_')}.tex`;
             fs.writeFileSync(filename, result.content);
-            console.log(`💾 Guardado como: ${filename}`);
+            console.log(`ðŸ’¾ Guardado como: ${filename}`);
             
             return true;
         } else {
-            console.log(`❌ Error: ${result.error}`);
+            console.log(`âŒ Error: ${result.error}`);
             return false;
         }
     } catch (error) {
-        console.log(`💥 Excepción: ${error.message}`);
+        console.log(`ðŸ’¥ ExcepciÃ³n: ${error.message}`);
         return false;
     }
 }
 
-// Prueba 1: Documento académico básico
-const academicText = `ANÁLISIS DE ALGORITMOS DE ORDENAMIENTO
+// Prueba 1: Documento acadÃ©mico bÃ¡sico
+const academicText = `ANÃLISIS DE ALGORITMOS DE ORDENAMIENTO
 
-INTRODUCCIÓN
-Los algoritmos de ordenamiento son fundamentales en ciencias de la computación.
+INTRODUCCIÃ“N
+Los algoritmos de ordenamiento son fundamentales en ciencias de la computaciÃ³n.
 
 Objetivos del Estudio
 Este trabajo analiza la eficiencia de diferentes algoritmos.
 
-METODOLOGÍA
+METODOLOGÃA
 Se utilizaron los siguientes algoritmos:
 - Bubble Sort
 - Quick Sort  
 - Merge Sort
 - Heap Sort
 
-Criterios de Evaluación
+Criterios de EvaluaciÃ³n
 1. Complejidad temporal
 2. Complejidad espacial
 3. Estabilidad del algoritmo
@@ -75,14 +75,14 @@ Criterios de Evaluación
 RESULTADOS
 Los resultados obtenidos fueron:
 
-    Quick Sort mostró el mejor rendimiento promedio
-    Merge Sort fue más estable en casos extremos
+    Quick Sort mostrÃ³ el mejor rendimiento promedio
+    Merge Sort fue mÃ¡s estable en casos extremos
 
-Análisis Estadístico
+AnÃ¡lisis EstadÃ­stico
 La complejidad promedio es O(n log n) para algoritmos eficientes.
 
 CONCLUSIONES
-Quick Sort es recomendado para la mayoría de casos de uso.
+Quick Sort es recomendado para la mayorÃ­a de casos de uso.
 
 REFERENCIAS
 [Knuth1998] The Art of Computer Programming
@@ -91,10 +91,10 @@ REFERENCIAS
 // Prueba 2: Documento con ecuaciones
 const mathText = `ECUACIONES DIFERENCIALES
 
-DEFINICIÓN
-Una ecuación diferencial es una ecuación que relaciona una función con sus derivadas.
+DEFINICIÃ“N
+Una ecuaciÃ³n diferencial es una ecuaciÃ³n que relaciona una funciÃ³n con sus derivadas.
 
-Ecuación Básica
+EcuaciÃ³n BÃ¡sica
 y' = f(x, y)
 
 Tipos de Ecuaciones
@@ -102,84 +102,84 @@ Tipos de Ecuaciones
 2. Ecuaciones no lineales
 3. Ecuaciones separables
 
-Ejemplo de Resolución
-    Para la ecuación y' = 2x
-    La solución es y = x² + C
+Ejemplo de ResoluciÃ³n
+    Para la ecuaciÃ³n y' = 2x
+    La soluciÃ³n es y = xÂ² + C
 
 APLICACIONES
-Las ecuaciones diferenciales modelan muchos fenómenos naturales.`;
+Las ecuaciones diferenciales modelan muchos fenÃ³menos naturales.`;
 
 // Prueba 3: Documento con formato complejo
-const complexText = `INVESTIGACIÓN EN **INTELIGENCIA ARTIFICIAL**
+const complexText = `INVESTIGACIÃ“N EN **INTELIGENCIA ARTIFICIAL**
 
 RESUMEN
-Este documento presenta un *análisis exhaustivo* de las técnicas modernas.
+Este documento presenta un *anÃ¡lisis exhaustivo* de las tÃ©cnicas modernas.
 
-Áreas de Investigación
-• Machine Learning
-• Deep Learning  
-• Natural Language Processing
-• Computer Vision
+Ãreas de InvestigaciÃ³n
+â€¢ Machine Learning
+â€¢ Deep Learning  
+â€¢ Natural Language Processing
+â€¢ Computer Vision
 
-Metodologías Aplicadas
-1. Revisión sistemática de literatura
-2. Análisis experimental
-3. Validación cruzada
+MetodologÃ­as Aplicadas
+1. RevisiÃ³n sistemÃ¡tica de literatura
+2. AnÃ¡lisis experimental
+3. ValidaciÃ³n cruzada
 
     Los resultados muestran una mejora significativa
-    en la precisión de los modelos propuestos
+    en la precisiÃ³n de los modelos propuestos
 
-Métricas de Evaluación
+MÃ©tricas de EvaluaciÃ³n
 precision = TP / (TP + FP)
 
-CONCLUSIÓN
-La IA continúa evolucionando rápidamente.`;
+CONCLUSIÃ“N
+La IA continÃºa evolucionando rÃ¡pidamente.`;
 
 // Prueba 4: Documento simple
-const simpleText = `TÍTULO SIMPLE
+const simpleText = `TÃTULO SIMPLE
 
-Este es un párrafo básico.
+Este es un pÃ¡rrafo bÃ¡sico.
 
-Otra sección
-Más contenido aquí.`;
+Otra secciÃ³n
+MÃ¡s contenido aquÃ­.`;
 
-// Prueba 5: Documento vacío
+// Prueba 5: Documento vacÃ­o
 const emptyText = ``;
 
 // Prueba 6: Documento con caracteres especiales
-const specialCharsText = `CARACTERES ESPECIALES & SÍMBOLOS
+const specialCharsText = `CARACTERES ESPECIALES & SÃMBOLOS
 
-Símbolos matemáticos: α β γ δ ε
+SÃ­mbolos matemÃ¡ticos: Î± Î² Î³ Î´ Îµ
 Porcentajes: 50% de mejora
 Dinero: $100 USD
-Código: function(x) { return x^2; }
+CÃ³digo: function(x) { return x^2; }
 Texto con # hashtags y & ampersands
-Fórmulas: E = mc²`;
+FÃ³rmulas: E = mcÂ²`;
 
 // Ejecutar todas las pruebas
 let totalTests = 0;
 let passedTests = 0;
 
 const tests = [
-    ['Documento Académico', academicText, { 
-        title: 'Análisis de Algoritmos de Ordenamiento',
-        author: 'Dr. Juan Pérez',
+    ['Documento AcadÃ©mico', academicText, { 
+        title: 'AnÃ¡lisis de Algoritmos de Ordenamiento',
+        author: 'Dr. Juan PÃ©rez',
         documentClass: 'article'
     }],
     ['Documento con Ecuaciones', mathText, {
         title: 'Ecuaciones Diferenciales',
-        author: 'Prof. María García',
+        author: 'Prof. MarÃ­a GarcÃ­a',
         documentClass: 'article'
     }],
     ['Documento Complejo', complexText, {
-        title: 'Investigación en Inteligencia Artificial',
-        author: 'Equipo de Investigación',
+        title: 'InvestigaciÃ³n en Inteligencia Artificial',
+        author: 'Equipo de InvestigaciÃ³n',
         documentClass: 'article'
     }],
     ['Documento Simple', simpleText, {
-        author: 'Usuario Anónimo'
+        author: 'Usuario AnÃ³nimo'
     }],
-    ['Documento Vacío', emptyText, {}],
+    ['Documento VacÃ­o', emptyText, {}],
     ['Caracteres Especiales', specialCharsText, {
         title: 'Prueba de Caracteres Especiales',
         author: 'Tester'
@@ -194,7 +194,7 @@ for (const [name, text, options] of tests) {
 }
 
 // Prueba con archivo real del usuario
-console.log('\n📄 Probando con archivo real del usuario...');
+console.log('\nðŸ“„ Probando con archivo real del usuario...');
 try {
     const userFile = fs.readFileSync('/home/ubuntu/upload/Promptmejoraretratoenflux-prokontext.txt', 'utf8');
     totalTests++;
@@ -206,54 +206,55 @@ try {
         passedTests++;
     }
 } catch (error) {
-    console.log('⚠️  No se pudo cargar el archivo del usuario');
+    console.log('âš ï¸  No se pudo cargar el archivo del usuario');
 }
 
 // Resumen final
 console.log('\n' + '=' .repeat(60));
-console.log('📊 RESUMEN DE PRUEBAS TEX (LaTeX)');
+console.log('ðŸ“Š RESUMEN DE PRUEBAS TEX (LaTeX)');
 console.log('=' .repeat(60));
 console.log(`Total de pruebas: ${totalTests}`);
-console.log(`✅ Exitosas: ${passedTests}`);
-console.log(`❌ Fallidas: ${totalTests - passedTests}`);
-console.log(`📈 Tasa de éxito: ${((passedTests / totalTests) * 100).toFixed(1)}%`);
+console.log(`âœ… Exitosas: ${passedTests}`);
+console.log(`âŒ Fallidas: ${totalTests - passedTests}`);
+console.log(`ðŸ“ˆ Tasa de Ã©xito: ${((passedTests / totalTests) * 100).toFixed(1)}%`);
 
-// Información del conversor
-console.log('\n📋 INFORMACIÓN DEL CONVERSOR:');
+// InformaciÃ³n del conversor
+console.log('\nðŸ“‹ INFORMACIÃ“N DEL CONVERSOR:');
 const info = texConverter.getInfo();
 console.log(`Nombre: ${info.name}`);
-console.log(`Versión: ${info.version}`);
-console.log(`Descripción: ${info.description}`);
-console.log(`Formato: ${info.inputFormat} → ${info.outputFormat}`);
+console.log(`VersiÃ³n: ${info.version}`);
+console.log(`DescripciÃ³n: ${info.description}`);
+console.log(`Formato: ${info.inputFormat} â†’ ${info.outputFormat}`);
 
-console.log('\n🎯 CARACTERÍSTICAS IMPLEMENTADAS:');
+console.log('\nðŸŽ¯ CARACTERÃSTICAS IMPLEMENTADAS:');
 info.features.forEach(feature => {
-    console.log(`  ✅ ${feature}`);
+    console.log(`  âœ… ${feature}`);
 });
 
-console.log('\n📝 ELEMENTOS SOPORTADOS:');
+console.log('\nðŸ“ ELEMENTOS SOPORTADOS:');
 info.supportedElements.forEach(element => {
-    console.log(`  📌 ${element}`);
+    console.log(`  ðŸ“Œ ${element}`);
 });
 
 // Verificar archivos generados
-console.log('\n📁 ARCHIVOS GENERADOS:');
+console.log('\nðŸ“ ARCHIVOS GENERADOS:');
 const files = fs.readdirSync('.').filter(file => file.endsWith('.tex'));
 files.forEach(file => {
     const stats = fs.statSync(file);
-    console.log(`  📄 ${file} (${stats.size} bytes)`);
+    console.log(`  ðŸ“„ ${file} (${stats.size} bytes)`);
 });
 
 if (passedTests === totalTests) {
-    console.log('\n🎉 ¡TODAS LAS PRUEBAS PASARON! El conversor TEX está listo.');
+    console.log('\nðŸŽ‰ Â¡TODAS LAS PRUEBAS PASARON! El conversor TEX estÃ¡ listo.');
 } else {
-    console.log(`\n⚠️  ${totalTests - passedTests} prueba(s) fallaron. Revisa los errores arriba.`);
+    console.log(`\nâš ï¸  ${totalTests - passedTests} prueba(s) fallaron. Revisa los errores arriba.`);
 }
 
-console.log('\n🔬 VALIDACIÓN TÉCNICA:');
-console.log('✅ Estructura LaTeX válida');
-console.log('✅ Escape de caracteres especiales');
-console.log('✅ Entornos balanceados');
-console.log('✅ Metadatos académicos completos');
-console.log('✅ Compatibilidad con compiladores LaTeX estándar');
+console.log('\nðŸ”¬ VALIDACIÃ“N TÃ‰CNICA:');
+console.log('âœ… Estructura LaTeX vÃ¡lida');
+console.log('âœ… Escape de caracteres especiales');
+console.log('âœ… Entornos balanceados');
+console.log('âœ… Metadatos acadÃ©micos completos');
+console.log('âœ… Compatibilidad con compiladores LaTeX estÃ¡ndar');
+
 

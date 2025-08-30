@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 interface LimitGuardProps {
   fileSizeMB: number;
@@ -14,4 +14,5 @@ export const LimitGuard: React.FC<LimitGuardProps> = ({ children }) => {
 
 export const UsageMeter: React.FC<{ className?: string; showDetails?: boolean }> = () => null;
 export const LimitWarning: React.FC<{ onUpgrade?: () => void; onDismiss?: () => void }> = () => null;
+
 

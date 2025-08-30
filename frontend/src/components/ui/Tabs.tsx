@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 
 interface TabItem { id: string; label: React.ReactNode; content: React.ReactNode; disabled?: boolean; icon?: React.ReactNode; badge?: React.ReactNode }
 interface TabsProps { items: TabItem[]; defaultTab?: string; onChange?: (id: string) => void; className?: string; variant?: string }
@@ -52,3 +52,4 @@ export const TabsComposition: React.FC<TabsCompositionProps> & { Tab: React.FC<T
 
 TabsComposition.Tab = ({ children }: TabProps) => <>{children}</>;
 TabsComposition.Tab.displayName = 'Tab';
+

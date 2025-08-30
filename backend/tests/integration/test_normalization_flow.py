@@ -1,4 +1,4 @@
-import io
+﻿import io
 from pathlib import Path
 
 import pytest
@@ -20,7 +20,7 @@ def test_upload_normalize_convert(client, auth_headers, monkeypatch):
 
     monkeypatch.setattr(conversion_module, "normalize_to_utf8", tracker)
 
-    content = "áéíóú".encode("latin1")
+    content = "Ã¡Ã©Ã­Ã³Ãº".encode("latin1")
     data = {
         "file": (io.BytesIO(content), "acentos.txt"),
         "target_format": "html",
@@ -44,4 +44,5 @@ def test_upload_normalize_convert(client, auth_headers, monkeypatch):
     )
     assert download_resp.status_code == 200
     download_resp.data.decode("utf-8")
+
 

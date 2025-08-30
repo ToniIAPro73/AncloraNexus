@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+﻿import React, { useState, useCallback } from 'react';
 import { 
   X, CheckCircle, AlertTriangle, 
   Loader2, Download, FilePlus, Zap, ExternalLink
@@ -175,7 +175,7 @@ export const useNotifications = () => {
     switch (status) {
       case 'started':
         return notify({
-          title: `Iniciando conversión`,
+          title: `Iniciando conversiÃ³n`,
           message: `Preparando ${fileName} para convertir${targetType ? ` a ${targetType.toUpperCase()}` : ''}`,
           type: 'info',
           data: {
@@ -204,7 +204,7 @@ export const useNotifications = () => {
         
       case 'completed':
         return notify({
-          title: `Conversión completada`,
+          title: `ConversiÃ³n completada`,
           message: `${fileName} ha sido convertido exitosamente${targetType ? ` a ${targetType.toUpperCase()}` : ''}`,
           type: 'success',
           data: {
@@ -231,8 +231,8 @@ export const useNotifications = () => {
         
       case 'error':
         return notify({
-          title: `Error en la conversión`,
-          message: errorMessage || `Ocurrió un error al convertir ${fileName}`,
+          title: `Error en la conversiÃ³n`,
+          message: errorMessage || `OcurriÃ³ un error al convertir ${fileName}`,
           type: 'error',
           data: {
             fileName,
@@ -462,3 +462,4 @@ export const PremiumFeatureNotification: React.FC<{
 //     </button>
 //   );
 // }
+

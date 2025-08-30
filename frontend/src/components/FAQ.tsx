@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { IconPlus, IconMinus } from './Icons';
 
 type FAQItemProps = {
@@ -32,31 +32,31 @@ type FAQData = {
 const faqData: FAQData = {
     Conversions: [
         {
-            question: '¿Qué tipos de archivos puedo convertir con?',
-            answer: 'En, estamos orgullosos de ofrecer una plataforma versátil que admite cientos de formatos en ocho tipos de archivos diferentes. No importa si estás tratando con imágenes, documentos, libros electrónicos, archivos de archivos (.zip, .rar ...), archivos de audio, archivos de video, presentaciones o fuentes, te tenemos cubierto.'
+            question: 'Â¿QuÃ© tipos de archivos puedo convertir con?',
+            answer: 'En, estamos orgullosos de ofrecer una plataforma versÃ¡til que admite cientos de formatos en ocho tipos de archivos diferentes. No importa si estÃ¡s tratando con imÃ¡genes, documentos, libros electrÃ³nicos, archivos de archivos (.zip, .rar ...), archivos de audio, archivos de video, presentaciones o fuentes, te tenemos cubierto.'
         },
-        { question: '¿Hay un límite de tamaño máximo para los archivos que se pueden convertir?', answer: 'Sí, el límite de tamaño depende de tu plan de suscripción. Los usuarios gratuitos pueden convertir archivos de hasta 100 MB, mientras que los suscriptores premium disfrutan de límites mucho más altos.' },
+        { question: 'Â¿Hay un lÃ­mite de tamaÃ±o mÃ¡ximo para los archivos que se pueden convertir?', answer: 'SÃ­, el lÃ­mite de tamaÃ±o depende de tu plan de suscripciÃ³n. Los usuarios gratuitos pueden convertir archivos de hasta 100 MB, mientras que los suscriptores premium disfrutan de lÃ­mites mucho mÃ¡s altos.' },
     ],
-    Suscribiéndose: [
+    SuscribiÃ©ndose: [
         {
-            question: '¿Cuánto cuesta la suscripción?',
-            answer: 'Únete por solo y disfruta de acceso ilimitado a nuestro servicio superior de conversión de archivos por un período de prueba de 24 horas. ¿Te encantó tu experiencia? Quédate con nosotros por una pequeña inversión de 47,90€ al mes para conversiones de archivos ilimitadas.'
+            question: 'Â¿CuÃ¡nto cuesta la suscripciÃ³n?',
+            answer: 'Ãšnete por solo y disfruta de acceso ilimitado a nuestro servicio superior de conversiÃ³n de archivos por un perÃ­odo de prueba de 24 horas. Â¿Te encantÃ³ tu experiencia? QuÃ©date con nosotros por una pequeÃ±a inversiÃ³n de 47,90â‚¬ al mes para conversiones de archivos ilimitadas.'
         },
-        { question: '¿Qué métodos de pago aceptan?', answer: 'Aceptamos todas las principales tarjetas de crédito (Visa, MasterCard, American Express) y PayPal.' },
-        { question: '¿Tengo que renovar mi suscripción manualmente cada mes?', answer: 'No, tu suscripción se renovará automáticamente al final de cada ciclo de facturación para garantizar un servicio ininterrumpido. Puedes cancelar en cualquier momento.' },
-        { question: '¿Ofrecen suscripciones a largo plazo como planes anuales o de por vida?', answer: 'Sí, ofrecemos planes anuales con un descuento significativo en comparación con el plan mensual. Por favor, contacta a nuestro soporte para más detalles sobre planes a largo plazo.' },
+        { question: 'Â¿QuÃ© mÃ©todos de pago aceptan?', answer: 'Aceptamos todas las principales tarjetas de crÃ©dito (Visa, MasterCard, American Express) y PayPal.' },
+        { question: 'Â¿Tengo que renovar mi suscripciÃ³n manualmente cada mes?', answer: 'No, tu suscripciÃ³n se renovarÃ¡ automÃ¡ticamente al final de cada ciclo de facturaciÃ³n para garantizar un servicio ininterrumpido. Puedes cancelar en cualquier momento.' },
+        { question: 'Â¿Ofrecen suscripciones a largo plazo como planes anuales o de por vida?', answer: 'SÃ­, ofrecemos planes anuales con un descuento significativo en comparaciÃ³n con el plan mensual. Por favor, contacta a nuestro soporte para mÃ¡s detalles sobre planes a largo plazo.' },
     ],
     Cuenta: [
-        { question: '¿Cómo puedo crear una cuenta?', answer: 'Crear una cuenta es un proceso sin complicaciones. Simplemente comience a utilizar nuestro convertidor de archivos después de que convierta su archivo, se le pedirá que cree una cuenta para continuar. ¡Es así de fácil!' },
-        { question: '¿Qué puedo hacer desde mi tablero?', answer: 'Desde tu tablero, puedes ver tu historial de conversiones, descargar archivos convertidos previamente, gestionar tu suscripción y actualizar la información de tu cuenta.' },
-        { question: '¿Cómo puedo cambiar mi información personal como el correo electrónico y la contraseña?', answer: 'Puedes actualizar tu información personal en la sección "Configuración de la cuenta" de tu tablero.' },
-        { question: '¿Qué debo hacer si olvidé mi contraseña?', answer: 'Si olvidas tu contraseña, haz clic en el enlace "¿Olvidaste tu contraseña?" en la página de inicio de sesión e introduce tu dirección de correo electrónico. Te enviaremos un enlace para restablecer tu contraseña.' },
-        { question: '¿Cómo puedo rastrear mis conversiones pasadas?', answer: 'Tu historial de conversiones está disponible en tu tablero. Mostramos una lista de todas tus conversiones recientes junto con la opción de descargar los archivos.' },
-        { question: '¿Qué tan segura es mi cuenta?', answer: 'Nos tomamos la seguridad muy en serio. Tu cuenta está protegida con cifrado estándar de la industria y nunca compartimos tus datos con terceros.' },
+        { question: 'Â¿CÃ³mo puedo crear una cuenta?', answer: 'Crear una cuenta es un proceso sin complicaciones. Simplemente comience a utilizar nuestro convertidor de archivos despuÃ©s de que convierta su archivo, se le pedirÃ¡ que cree una cuenta para continuar. Â¡Es asÃ­ de fÃ¡cil!' },
+        { question: 'Â¿QuÃ© puedo hacer desde mi tablero?', answer: 'Desde tu tablero, puedes ver tu historial de conversiones, descargar archivos convertidos previamente, gestionar tu suscripciÃ³n y actualizar la informaciÃ³n de tu cuenta.' },
+        { question: 'Â¿CÃ³mo puedo cambiar mi informaciÃ³n personal como el correo electrÃ³nico y la contraseÃ±a?', answer: 'Puedes actualizar tu informaciÃ³n personal en la secciÃ³n "ConfiguraciÃ³n de la cuenta" de tu tablero.' },
+        { question: 'Â¿QuÃ© debo hacer si olvidÃ© mi contraseÃ±a?', answer: 'Si olvidas tu contraseÃ±a, haz clic en el enlace "Â¿Olvidaste tu contraseÃ±a?" en la pÃ¡gina de inicio de sesiÃ³n e introduce tu direcciÃ³n de correo electrÃ³nico. Te enviaremos un enlace para restablecer tu contraseÃ±a.' },
+        { question: 'Â¿CÃ³mo puedo rastrear mis conversiones pasadas?', answer: 'Tu historial de conversiones estÃ¡ disponible en tu tablero. Mostramos una lista de todas tus conversiones recientes junto con la opciÃ³n de descargar los archivos.' },
+        { question: 'Â¿QuÃ© tan segura es mi cuenta?', answer: 'Nos tomamos la seguridad muy en serio. Tu cuenta estÃ¡ protegida con cifrado estÃ¡ndar de la industria y nunca compartimos tus datos con terceros.' },
     ],
 };
 
-const tabs = ['Conversions', 'Suscribiéndose', 'Cuenta'];
+const tabs = ['Conversions', 'SuscribiÃ©ndose', 'Cuenta'];
 
 export const FAQ: React.FC = () => {
     const [activeTab, setActiveTab] = useState(tabs[0]);
@@ -74,7 +74,7 @@ export const FAQ: React.FC = () => {
     return (
         <section className="w-full max-w-4xl mx-auto py-16 sm:py-24">
             <h2 className="text-h2 font-bold text-slate-800 tracking-tight text-center mb-12">
-                ¿Puede que tenga algunas preguntas?
+                Â¿Puede que tenga algunas preguntas?
             </h2>
             <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/50 ring-1 ring-slate-200/50 p-4 sm:p-8">
                 <div className="border-b border-slate-200">
@@ -108,8 +108,8 @@ export const FAQ: React.FC = () => {
             </div>
 
             <div className="mt-12 text-center bg-slate-100/70 rounded-lg p-8">
-                <h3 className="text-h3 font-bold text-slate-800">¿Todavía tienes una pregunta?</h3>
-                <p className="mt-2 text-slate-600">Si no puedes encontrar una respuesta a tu pregunta en nuestras preguntas frecuentes, siempre puedes contactarnos. ¡Estaremos encantados de responderte!</p>
+                <h3 className="text-h3 font-bold text-slate-800">Â¿TodavÃ­a tienes una pregunta?</h3>
+                <p className="mt-2 text-slate-600">Si no puedes encontrar una respuesta a tu pregunta en nuestras preguntas frecuentes, siempre puedes contactarnos. Â¡Estaremos encantados de responderte!</p>
                 <div className="mt-6">
                     <button className="px-6 py-3 border border-slate-300 text-slate-800 font-semibold rounded-lg hover:bg-white transition-colors">
                         Contacto
@@ -119,3 +119,4 @@ export const FAQ: React.FC = () => {
         </section>
     );
 };
+

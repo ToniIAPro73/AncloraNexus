@@ -1,4 +1,4 @@
-import os
+﻿import os
 import tempfile
 from src.models.conversion import validate_and_classify
 
@@ -16,7 +16,7 @@ def test_validate_and_classify_valid(tmp_path):
 
 def test_validate_and_classify_mojibake(tmp_path):
     p = tmp_path / "mojibake.txt"
-    data = "café".encode("latin-1")  # bytes invalidos en utf-8
+    data = "cafÃ©".encode("latin-1")  # bytes invalidos en utf-8
     write_bytes(str(p), data)
     assert validate_and_classify(str(p)) == "salvageable"
 

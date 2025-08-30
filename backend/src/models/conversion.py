@@ -1,4 +1,4 @@
-import os
+﻿import os
 import importlib
 import pkgutil
 import tempfile
@@ -15,13 +15,13 @@ TEXT_EXTENSIONS = {
 }
 
 class ConversionEngine:
-    """Motor de conversión de Anclora Metaform"""
+    """Motor de conversiÃ³n de Anclora Nexus"""
 
     def __init__(self):
-        self.name = 'Anclora Metaform Conversion Engine'
+        self.name = 'Anclora Nexus Conversion Engine'
         self.version = '1.0.0'
 
-        # Conversiones soportadas y sus costos en créditos
+        # Conversiones soportadas y sus costos en crÃ©ditos
         self.supported_conversions = {
             'txt': {
                 'html': 1,
@@ -71,12 +71,12 @@ class ConversionEngine:
             }
         }
 
-        # Registro dinámico de plugins
+        # Registro dinÃ¡mico de plugins
         self.conversion_methods = {}
         self.load_plugins()
 
     def load_plugins(self):
-        """Carga todos los plugins de conversión disponibles."""
+        """Carga todos los plugins de conversiÃ³n disponibles."""
         package = importlib.import_module('src.models.conversions')
         package_path = Path(package.__file__).parent
         for _, name, _ in pkgutil.iter_modules([str(package_path)]):
@@ -91,21 +91,21 @@ class ConversionEngine:
         return list(self.supported_conversions.get(source_format.lower(), {}).keys())
 
     def get_conversion_cost(self, source_format, target_format):
-        """Calcula el costo en créditos de una conversión"""
+        """Calcula el costo en crÃ©ditos de una conversiÃ³n"""
         source = source_format.lower().replace('.', '')
         target = target_format.lower().replace('.', '')
         return self.supported_conversions.get(source, {}).get(target, 2)
 
     def validate_file(self, file_path, max_size_mb=100):
-        """Valida un archivo antes de la conversión"""
+        """Valida un archivo antes de la conversiÃ³n"""
         if not os.path.exists(file_path):
             return False, "El archivo no existe"
         file_size = os.path.getsize(file_path)
         if file_size == 0:
-            return False, "El archivo está vacío"
+            return False, "El archivo estÃ¡ vacÃ­o"
         if file_size > max_size_mb * 1024 * 1024:
-            return False, f"El archivo es demasiado grande (máximo {max_size_mb}MB)"
-        return True, "Archivo válido"
+            return False, f"El archivo es demasiado grande (mÃ¡ximo {max_size_mb}MB)"
+        return True, "Archivo vÃ¡lido"
 
     def analyze_file(self, file_path, filename):
         """Analiza un archivo y genera recomendaciones"""
@@ -121,28 +121,28 @@ class ConversionEngine:
         if file_extension == 'txt':
             analysis['recommendations'] = [
                 'Para documentos formales, recomendamos PDF',
-                'Para web, HTML es la mejor opción',
+                'Para web, HTML es la mejor opciÃ³n',
                 'Para desarrolladores, Markdown es ideal'
             ]
         elif file_extension == 'pdf':
             analysis['recommendations'] = [
-                'Para edición, convierte a DOC',
-                'Para imágenes, JPG o PNG son ideales'
+                'Para ediciÃ³n, convierte a DOC',
+                'Para imÃ¡genes, JPG o PNG son ideales'
             ]
         elif file_extension in ['jpg', 'png']:
             analysis['recommendations'] = [
                 'Para documentos, PDF mantiene la calidad',
-                'Para web, considera optimización de tamaño'
+                'Para web, considera optimizaciÃ³n de tamaÃ±o'
             ]
 
         return analysis
 
     def find_conversion_path(self, src_format: str, dst_format: str):
-        """Busca una ruta de conversión usando BFS con hasta dos intermediarios.
+        """Busca una ruta de conversiÃ³n usando BFS con hasta dos intermediarios.
 
         Devuelve una lista de formatos que representa el camino desde src_format
-        hasta dst_format, inclusive. Si no se encuentra una ruta válida dentro
-        del límite de profundidad, devuelve None.
+        hasta dst_format, inclusive. Si no se encuentra una ruta vÃ¡lida dentro
+        del lÃ­mite de profundidad, devuelve None.
         """
         src = src_format.lower()
         dst = dst_format.lower()
@@ -150,7 +150,7 @@ class ConversionEngine:
         if src == dst:
             return [src]
 
-        max_depth = 3  # número máximo de pasos (edges): src -> a -> b -> dst
+        max_depth = 3  # nÃºmero mÃ¡ximo de pasos (edges): src -> a -> b -> dst
         queue = deque([(src, [src])])
         visited = {src}
 
@@ -171,7 +171,7 @@ class ConversionEngine:
         return None
 
     def convert_file(self, input_path, output_path, source_format, target_format):
-        """Realiza la conversión de archivo"""
+        """Realiza la conversiÃ³n de archivo"""
         try:
             source = source_format.lower().replace('.', '')
             logs = []
@@ -191,7 +191,7 @@ class ConversionEngine:
 
             path = self.find_conversion_path(source, target)
             if not path:
-                return False, f"Conversión {source_format} → {target_format} no implementada aún"
+                return False, f"ConversiÃ³n {source_format} â†’ {target_format} no implementada aÃºn"
 
             temp_files = []
             current_input = input_path
@@ -202,7 +202,7 @@ class ConversionEngine:
                     dst_fmt = path[i + 1]
                     step_method = self.conversion_methods.get((src_fmt, dst_fmt))
                     if not step_method:
-                        return False, f"Conversión {src_fmt} → {dst_fmt} no implementada"
+                        return False, f"ConversiÃ³n {src_fmt} â†’ {dst_fmt} no implementada"
 
                     if src_fmt in TEXT_EXTENSIONS:
                         log_entry = normalize_to_utf8(current_input)
@@ -230,7 +230,7 @@ class ConversionEngine:
                     if os.path.exists(tmp):
                         os.remove(tmp)
         except Exception as e:
-            return False, f"Error durante la conversión: {str(e)}"
+            return False, f"Error durante la conversiÃ³n: {str(e)}"
 
     def convert_batch(self, tasks):
         """Procesa un lote de conversiones."""
@@ -268,3 +268,4 @@ conversion_engine = ConversionEngine()
 
 def validate_and_classify(*args, **kwargs):
     return True, {}
+

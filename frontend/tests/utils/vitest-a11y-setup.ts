@@ -1,15 +1,15 @@
-/// <reference types="vitest/globals" />
+﻿/// <reference types="vitest/globals" />
 
 import { afterEach, vi } from 'vitest';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
 
-// Limpiar el DOM después de cada prueba
+// Limpiar el DOM despuÃ©s de cada prueba
 afterEach(() => {
   cleanup();
 });
 
-// Configuración global para accesibilidad
+// ConfiguraciÃ³n global para accesibilidad
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: vi.fn().mockImplementation(query => ({

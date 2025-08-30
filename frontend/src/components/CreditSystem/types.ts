@@ -1,4 +1,4 @@
-// frontend/src/components/CreditSystem/types.ts
+﻿// frontend/src/components/CreditSystem/types.ts
 
 export interface CreditBalance {
   current: number;
@@ -29,7 +29,7 @@ export type CreditContextType = {
   getTransactionHistory: () => CreditTransaction[];
 };
 
-// Costos de conversión por tipo de archivo
+// Costos de conversiÃ³n por tipo de archivo
 export const CONVERSION_COSTS = {
   txt: 1,
   md: 1,
@@ -43,7 +43,7 @@ export const CONVERSION_COSTS = {
   audio: 4
 };
 
-// Multiplicadores por tamaño de archivo
+// Multiplicadores por tamaÃ±o de archivo
 export const SIZE_MULTIPLIERS = {
   small: 1,    // < 1MB
   medium: 1.5, // 1-10MB
@@ -59,3 +59,4 @@ export const QUALITY_MULTIPLIERS = {
   ultra: 2,
   standard: 1,
 };
+

@@ -1,4 +1,4 @@
-export type FileCategory =
+﻿export type FileCategory =
   | 'document'
   | 'ebook'
   | 'image'
@@ -7,4 +7,5 @@ export type FileCategory =
   | 'archive'
   | 'presentation'
   | 'font';
+
 

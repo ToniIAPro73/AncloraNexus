@@ -1,16 +1,16 @@
-/**
- * Conversor TxtToHtmlConverter - Anclora Metaform
+﻿/**
+ * Conversor TxtToHtmlConverter - Anclora Nexus
  * Tu Contenido, Reinventado
  * Tu Contenido, Reinventado
  */
 
 class TxtToHtmlConverter {
   constructor() {
-    this.name = 'Anclora Metaform - TxtToHtmlConverter';
+    this.name = 'Anclora Nexus - TxtToHtmlConverter';
     this.version = '1.0.0';
-    this.brand = 'Anclora Metaform';
+    this.brand = 'Anclora Nexus';
     this.tagline = 'Tu Contenido, Reinventado';
-    this.brand = 'Anclora Metaform';
+    this.brand = 'Anclora Nexus';
     this.tagline = 'Tu Contenido, Reinventado';
     this.tagline = 'Tu Contenido, Reinventado';
   }
@@ -18,14 +18,14 @@ class TxtToHtmlConverter {
   /**
    * Convierte contenido de texto a HTML
    * @param {string} textContent - Contenido del archivo TXT
-   * @param {Object} options - Opciones de conversión
+   * @param {Object} options - Opciones de conversiÃ³n
    * @returns {string} - HTML generado
    */
   convert(textContent, options = {}) {
     try {
       // Validar entrada
       if (!textContent || typeof textContent !== 'string') {
-        throw new Error('Contenido de texto inválido');
+        throw new Error('Contenido de texto invÃ¡lido');
       }
 
       // Opciones por defecto
@@ -42,7 +42,7 @@ class TxtToHtmlConverter {
       // Escapar caracteres HTML
       const escapedContent = this.escapeHtml(textContent);
 
-      // Procesar contenido según opciones
+      // Procesar contenido segÃºn opciones
       let processedContent = escapedContent;
       
       if (config.preserveWhitespace) {
@@ -96,7 +96,7 @@ class TxtToHtmlConverter {
    * @returns {string} - Contenido formateado
    */
   preserveFormatting(content) {
-    // Convertir saltos de línea y espacios
+    // Convertir saltos de lÃ­nea y espacios
     return content
       .replace(/\n/g, '<br>\n')
       .replace(/  /g, '&nbsp;&nbsp;')
@@ -104,9 +104,9 @@ class TxtToHtmlConverter {
   }
 
   /**
-   * Añade números de línea al contenido
+   * AÃ±ade nÃºmeros de lÃ­nea al contenido
    * @param {string} content - Contenido
-   * @returns {string} - Contenido con números de línea
+   * @returns {string} - Contenido con nÃºmeros de lÃ­nea
    */
   addLineNumbers(content) {
     const lines = content.split('<br>');
@@ -121,7 +121,7 @@ class TxtToHtmlConverter {
   /**
    * Genera el HTML completo con estilos
    * @param {string} content - Contenido procesado
-   * @param {Object} config - Configuración
+   * @param {Object} config - ConfiguraciÃ³n
    * @returns {string} - HTML completo
    */
   generateHtml(content, config) {
@@ -160,7 +160,7 @@ class TxtToHtmlConverter {
   }
 
   /**
-   * Obtiene los estilos CSS según el tema
+   * Obtiene los estilos CSS segÃºn el tema
    * @param {string} theme - Tema seleccionado
    * @returns {string} - CSS
    */
@@ -277,19 +277,19 @@ class TxtToHtmlConverter {
   /**
    * Valida el archivo de entrada
    * @param {File} file - Archivo a validar
-   * @returns {Object} - Resultado de validación
+   * @returns {Object} - Resultado de validaciÃ³n
    */
   validateInput(file) {
     if (!file) {
-      return { valid: false, error: 'No se proporcionó archivo' };
+      return { valid: false, error: 'No se proporcionÃ³ archivo' };
     }
 
     if (file.size === 0) {
-      return { valid: false, error: 'El archivo está vacío' };
+      return { valid: false, error: 'El archivo estÃ¡ vacÃ­o' };
     }
 
     if (file.size > 50 * 1024 * 1024) { // 50MB
-      return { valid: false, error: 'El archivo es demasiado grande (máximo 50MB)' };
+      return { valid: false, error: 'El archivo es demasiado grande (mÃ¡ximo 50MB)' };
     }
 
     const allowedTypes = ['text/plain', 'text/txt', ''];
@@ -304,7 +304,7 @@ class TxtToHtmlConverter {
    * Procesa un archivo completo
    * @param {File} file - Archivo a procesar
    * @param {Object} options - Opciones
-   * @returns {Promise<Object>} - Resultado de la conversión
+   * @returns {Promise<Object>} - Resultado de la conversiÃ³n
    */
   async processFile(file, options = {}) {
     try {
@@ -358,4 +358,5 @@ if (typeof module !== 'undefined' && module.exports) {
 } else if (typeof window !== 'undefined') {
   window.TxtToHtmlConverter = TxtToHtmlConverter;
 }
+
 

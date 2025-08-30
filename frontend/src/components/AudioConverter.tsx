@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 /**
  * Basic placeholder component for future audio conversion features.
@@ -11,3 +11,4 @@ export const AudioConverter: React.FC = () => (
 );
 
 export default AudioConverter;
+

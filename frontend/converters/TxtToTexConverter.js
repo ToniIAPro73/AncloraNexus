@@ -1,24 +1,24 @@
-/**
- * Conversor TxtToTexConverter - Anclora Metaform
+﻿/**
+ * Conversor TxtToTexConverter - Anclora Nexus
  * Tu Contenido, Reinventado
  * 
- * Características:
- * - Estructura de documento académico estándar
- * - Detección automática de títulos y secciones
- * - Conversión de listas y enumeraciones
+ * CaracterÃ­sticas:
+ * - Estructura de documento acadÃ©mico estÃ¡ndar
+ * - DetecciÃ³n automÃ¡tica de tÃ­tulos y secciones
+ * - ConversiÃ³n de listas y enumeraciones
  * - Manejo de referencias y citas
  * - Escape correcto de caracteres especiales LaTeX
- * - Soporte para ecuaciones matemáticas básicas
- * - Metadatos académicos (autor, título, fecha)
+ * - Soporte para ecuaciones matemÃ¡ticas bÃ¡sicas
+ * - Metadatos acadÃ©micos (autor, tÃ­tulo, fecha)
  */
 
 class TxtToTexConverter {
     constructor() {
-        this.name = 'Anclora Metaform - TxtToTexConverter';
+        this.name = 'Anclora Nexus - TxtToTexConverter';
         this.version = '1.0.0';
-    this.brand = 'Anclora Metaform';
+    this.brand = 'Anclora Nexus';
     this.tagline = 'Tu Contenido, Reinventado';
-        this.description = 'Convierte archivos de texto a formato LaTeX para documentos académicos';
+        this.description = 'Convierte archivos de texto a formato LaTeX para documentos acadÃ©micos';
         
         // Caracteres especiales que necesitan escape en LaTeX
         this.specialChars = {
@@ -37,12 +37,12 @@ class TxtToTexConverter {
             '>': '\\textgreater{}'
         };
         
-        // Patrones para detección de elementos
+        // Patrones para detecciÃ³n de elementos
         this.patterns = {
-            title: /^[A-ZÁÉÍÓÚÑ][A-ZÁÉÍÓÚÑ\s]{3,}$/,
+            title: /^[A-ZÃÃ‰ÃÃ“ÃšÃ‘][A-ZÃÃ‰ÃÃ“ÃšÃ‘\s]{3,}$/,
             section: /^[A-Z][A-Za-z\s]{5,}:?\s*$/,
             subsection: /^[A-Z][a-z][A-Za-z\s]{3,}:?\s*$/,
-            bulletList: /^[\s]*[-•*]\s+(.+)$/,
+            bulletList: /^[\s]*[-â€¢*]\s+(.+)$/,
             numberedList: /^[\s]*\d+[\.\)]\s+(.+)$/,
             indentedText: /^[\s]{2,}(.+)$/,
             equation: /^[\s]*[a-zA-Z]\s*=\s*[^=]+$/,
@@ -72,19 +72,19 @@ class TxtToTexConverter {
     }
 
     /**
-     * Detecta el tipo de línea
+     * Detecta el tipo de lÃ­nea
      */
     detectLineType(line, lineIndex, lines) {
         const trimmed = line.trim();
         
         if (!trimmed) return 'empty';
         
-        // Título principal (primera línea no vacía en mayúsculas)
+        // TÃ­tulo principal (primera lÃ­nea no vacÃ­a en mayÃºsculas)
         if (lineIndex < 3 && this.patterns.title.test(trimmed)) {
             return 'title';
         }
         
-        // Secciones (líneas en mayúsculas o con formato de sección)
+        // Secciones (lÃ­neas en mayÃºsculas o con formato de secciÃ³n)
         if (this.patterns.section.test(trimmed)) {
             return 'section';
         }
@@ -94,7 +94,7 @@ class TxtToTexConverter {
             return 'subsection';
         }
         
-        // Listas con viñetas
+        // Listas con viÃ±etas
         if (this.patterns.bulletList.test(trimmed)) {
             return 'bulletList';
         }
@@ -104,7 +104,7 @@ class TxtToTexConverter {
             return 'numberedList';
         }
         
-        // Texto indentado (citas o código)
+        // Texto indentado (citas o cÃ³digo)
         if (this.patterns.indentedText.test(line)) {
             return 'indented';
         }
@@ -136,7 +136,7 @@ class TxtToTexConverter {
     }
 
     /**
-     * Genera el preámbulo LaTeX
+     * Genera el preÃ¡mbulo LaTeX
      */
     generatePreamble(options = {}) {
         const {
@@ -166,7 +166,7 @@ class TxtToTexConverter {
 \\usepackage{geometry}
 \\usepackage{setspace}
 
-% Configuración de página
+% ConfiguraciÃ³n de pÃ¡gina
 \\geometry{margin=2.5cm}
 \\onehalfspacing
 
@@ -175,7 +175,7 @@ class TxtToTexConverter {
 \\author{${this.escapeLatex(author)}}
 \\date{${date}}
 
-% Configuración de hyperref
+% ConfiguraciÃ³n de hyperref
 \\hypersetup{
     colorlinks=true,
     linkcolor=blue,
@@ -237,7 +237,7 @@ class TxtToTexConverter {
                     break;
                     
                 case 'title':
-                    // El título ya se maneja en el preámbulo, pero podemos agregar una sección
+                    // El tÃ­tulo ya se maneja en el preÃ¡mbulo, pero podemos agregar una secciÃ³n
                     break;
                     
                 case 'section':
@@ -313,23 +313,23 @@ class TxtToTexConverter {
     }
 
     /**
-     * Función principal de conversión
+     * FunciÃ³n principal de conversiÃ³n
      */
     convert(text, options = {}) {
         try {
             if (!text || typeof text !== 'string') {
                 return {
                     success: false,
-                    error: 'Texto de entrada inválido'
+                    error: 'Texto de entrada invÃ¡lido'
                 };
             }
 
-            // Extraer título del texto si no se proporciona
+            // Extraer tÃ­tulo del texto si no se proporciona
             const lines = text.split('\n').filter(line => line.trim());
             const firstLine = lines[0] || 'Documento';
             
             const defaultOptions = {
-                title: firstLine.length > 50 ? 'Documento Académico' : firstLine,
+                title: firstLine.length > 50 ? 'Documento AcadÃ©mico' : firstLine,
                 author: 'Autor',
                 documentClass: 'article',
                 fontSize: '12pt',
@@ -342,7 +342,7 @@ class TxtToTexConverter {
             // Generar documento LaTeX completo
             let latexContent = '';
             
-            // Preámbulo
+            // PreÃ¡mbulo
             latexContent += this.generatePreamble(finalOptions);
             
             // Contenido principal
@@ -362,7 +362,7 @@ class TxtToTexConverter {
                     generatedAt: new Date().toISOString(),
                     converter: this.name,
                     version: this.version
-    this.brand = 'Anclora Metaform';
+    this.brand = 'Anclora Nexus';
     this.tagline = 'Tu Contenido, Reinventado';
                 }
             };
@@ -370,13 +370,13 @@ class TxtToTexConverter {
         } catch (error) {
             return {
                 success: false,
-                error: `Error en conversión LaTeX: ${error.message}`
+                error: `Error en conversiÃ³n LaTeX: ${error.message}`
             };
         }
     }
 
     /**
-     * Valida si el contenido LaTeX generado es válido
+     * Valida si el contenido LaTeX generado es vÃ¡lido
      */
     validateLatex(latexContent) {
         const requiredElements = [
@@ -412,31 +412,31 @@ class TxtToTexConverter {
     }
 
     /**
-     * Obtiene información sobre el conversor
+     * Obtiene informaciÃ³n sobre el conversor
      */
     getInfo() {
         return {
             name: this.name,
             version: this.version,
-    this.brand = 'Anclora Metaform';
+    this.brand = 'Anclora Nexus';
     this.tagline = 'Tu Contenido, Reinventado';
             description: this.description,
             inputFormat: 'TXT',
             outputFormat: 'TEX',
             features: [
-                'Estructura de documento académico',
-                'Detección automática de secciones',
-                'Conversión de listas y enumeraciones',
+                'Estructura de documento acadÃ©mico',
+                'DetecciÃ³n automÃ¡tica de secciones',
+                'ConversiÃ³n de listas y enumeraciones',
                 'Manejo de citas y referencias',
                 'Escape de caracteres especiales',
-                'Soporte para ecuaciones básicas',
-                'Metadatos académicos completos',
-                'Validación de LaTeX generado'
+                'Soporte para ecuaciones bÃ¡sicas',
+                'Metadatos acadÃ©micos completos',
+                'ValidaciÃ³n de LaTeX generado'
             ],
             supportedElements: [
-                'Títulos y secciones',
-                'Párrafos normales',
-                'Listas con viñetas',
+                'TÃ­tulos y secciones',
+                'PÃ¡rrafos normales',
+                'Listas con viÃ±etas',
                 'Listas numeradas',
                 'Texto indentado (citas)',
                 'Ecuaciones simples',
@@ -453,4 +453,5 @@ if (typeof module !== 'undefined' && module.exports) {
 } else if (typeof window !== 'undefined') {
     window.TxtToTexConverter = TxtToTexConverter;
 }
+
 

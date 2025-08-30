@@ -1,11 +1,11 @@
-import pytest
+﻿import pytest
 
 
 @pytest.mark.integration
 @pytest.mark.auth
 class TestAuthRoutes:
     def test_register_and_login(self, client):
-        """Debe permitir registrar y luego iniciar sesión"""
+        """Debe permitir registrar y luego iniciar sesiÃ³n"""
         register_data = {
             'email': 'user@example.com',
             'password': 'Password1',

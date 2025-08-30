@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+﻿import { useState, useCallback } from 'react';
 import { useNotifications } from '../components/NotificationSystem';
 import ConversionService, {
   ConversionOptions,
@@ -45,7 +45,7 @@ export const useFileConversions = (): UseFileConversionsReturn => {
     notifySuccess 
   } = useNotifications();
 
-  // Convierte un único archivo
+  // Convierte un Ãºnico archivo
   const convertFile = useCallback(async (
     file: File, 
     targetFormat: string,
@@ -53,7 +53,7 @@ export const useFileConversions = (): UseFileConversionsReturn => {
   ): Promise<ConversionResult> => {
     const fileId = `file_${Math.random().toString(36).substr(2, 9)}`;
     
-    // Añadir archivo a la lista con estado pendiente
+    // AÃ±adir archivo a la lista con estado pendiente
     setFiles(prev => [...prev, {
       id: fileId,
       file,
@@ -63,7 +63,7 @@ export const useFileConversions = (): UseFileConversionsReturn => {
       startTime: new Date()
     }]);
     
-    // Notificar inicio de conversión
+    // Notificar inicio de conversiÃ³n
     const notifId = notifyFileConversion({
       status: 'started',
       fileName: file.name,
@@ -79,7 +79,7 @@ export const useFileConversions = (): UseFileConversionsReturn => {
         )
       );
       
-      // Iniciar conversión
+      // Iniciar conversiÃ³n
       const result = await ConversionService.convertFile(
         file,
         targetFormat,
@@ -92,7 +92,7 @@ export const useFileConversions = (): UseFileConversionsReturn => {
             )
           );
           
-          // Actualizar notificación
+          // Actualizar notificaciÃ³n
           updateNotification(notifId, {
             progress: progress.progress,
             message: `${Math.round(progress.progress)}% completado`
@@ -113,7 +113,7 @@ export const useFileConversions = (): UseFileConversionsReturn => {
         )
       );
       
-      // Notificar éxito
+      // Notificar Ã©xito
       notifyFileConversion({
         status: 'completed',
         fileName: file.name,
@@ -151,7 +151,7 @@ export const useFileConversions = (): UseFileConversionsReturn => {
     }
   }, [notifyFileConversion, updateNotification, notifyError]);
   
-  // Convierte múltiples archivos como lote
+  // Convierte mÃºltiples archivos como lote
   interface FileProgressInfo {
     fileId: string;
     fileName: string;
@@ -185,7 +185,7 @@ export const useFileConversions = (): UseFileConversionsReturn => {
       
       // Notificar inicio de lote
       notifySuccess(
-        'Conversión por lotes iniciada', 
+        'ConversiÃ³n por lotes iniciada', 
         `Procesando ${filesToConvert.length} archivos`
       );
       
@@ -220,7 +220,7 @@ export const useFileConversions = (): UseFileConversionsReturn => {
                 }
               };
             } else {
-              // Añadir nuevo archivo
+              // AÃ±adir nuevo archivo
               const fileToAdd = filesToConvert.find(
                 f => f.name === fileProgress.fileName
               );
@@ -262,10 +262,10 @@ export const useFileConversions = (): UseFileConversionsReturn => {
             };
           });
           
-          // Si el lote está completo, mostrar notificación
+          // Si el lote estÃ¡ completo, mostrar notificaciÃ³n
           if (batchStatus.overallProgress === 100) {
             notifySuccess(
-              'Conversión por lotes completada',
+              'ConversiÃ³n por lotes completada',
               `Completados: ${batchStatus.completed}, Fallidos: ${batchStatus.failed}`
             );
           }
@@ -274,18 +274,18 @@ export const useFileConversions = (): UseFileConversionsReturn => {
       
       return serviceBatchId;
     } catch (error) {
-      console.error('Error al iniciar conversión por lotes:', error);
+      console.error('Error al iniciar conversiÃ³n por lotes:', error);
       
       notifyError(
-        'Error en conversión por lotes',
-        'No se pudo iniciar el proceso de conversión por lotes'
+        'Error en conversiÃ³n por lotes',
+        'No se pudo iniciar el proceso de conversiÃ³n por lotes'
       );
       
-      throw new Error('No se pudo iniciar la conversión por lotes');
+      throw new Error('No se pudo iniciar la conversiÃ³n por lotes');
     }
   }, [notifySuccess, notifyError]);
   
-  // Reintenta una conversión fallida
+  // Reintenta una conversiÃ³n fallida
   const retryConversion = useCallback(async (fileId: string) => {
     const fileToRetry = files.find(f => f.id === fileId);
     
@@ -301,15 +301,15 @@ export const useFileConversions = (): UseFileConversionsReturn => {
         )
       );
       
-      // Reiniciar conversión
+      // Reiniciar conversiÃ³n
       await convertFile(fileToRetry.file, fileToRetry.targetFormat);
     } catch (error) {
-      console.error('Error al reintentar conversión:', error);
-      // El estado ya habrá sido actualizado por el método convertFile
+      console.error('Error al reintentar conversiÃ³n:', error);
+      // El estado ya habrÃ¡ sido actualizado por el mÃ©todo convertFile
     }
   }, [files, convertFile]);
   
-  // Cancela una conversión en progreso
+  // Cancela una conversiÃ³n en progreso
   const cancelConversion = useCallback(async (fileId: string): Promise<boolean> => {
     const fileToCancel = files.find(f => f.id === fileId);
     
@@ -333,7 +333,7 @@ export const useFileConversions = (): UseFileConversionsReturn => {
                 originalFormat: f.file.type.split('/').pop() || f.file.name.split('.').pop() || '',
                 targetFormat: f.targetFormat,
                 errorCode: 'CANCELLED',
-                errorMessage: 'Conversión cancelada por el usuario',
+                errorMessage: 'ConversiÃ³n cancelada por el usuario',
                 canRetry: true
               }
             } : f
@@ -343,7 +343,7 @@ export const useFileConversions = (): UseFileConversionsReturn => {
       
       return success;
     } catch (error) {
-      console.error('Error al cancelar conversión:', error);
+      console.error('Error al cancelar conversiÃ³n:', error);
       return false;
     }
   }, [files]);
@@ -369,3 +369,4 @@ export const useFileConversions = (): UseFileConversionsReturn => {
     clearCompleted
   };
 };
+

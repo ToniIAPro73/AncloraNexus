@@ -1,4 +1,4 @@
-{
+﻿{
   "compilerOptions": {
     "target": "ES2020",
     "experimentalDecorators": true,
@@ -58,3 +58,4 @@
     "src/components/FileComparison.tsx"
   ]
 }
+

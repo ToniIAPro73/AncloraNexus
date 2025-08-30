@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 
 interface IconProps {
   className?: string;
@@ -237,10 +237,11 @@ export const IconMastercard: React.FC<IconProps> = ({ className }) => (
 );
 
 
-// Icono faltante para navegación
+// Icono faltante para navegaciÃ³n
 export const IconArrowLeft: React.FC<IconProps> = ({ className = "w-6 h-6", ...props }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
   </svg>
 );
+
 

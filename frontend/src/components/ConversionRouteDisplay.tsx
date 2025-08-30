@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { ConversionPath } from '../utils/advancedConversionEngine';
 
 interface ConversionRouteDisplayProps {
@@ -88,16 +88,16 @@ export const ConversionRouteDisplay: React.FC<ConversionRouteDisplayProps> = ({
           ))}
         </div>
 
-        {/* Información adicional */}
+        {/* InformaciÃ³n adicional */}
         <div className="flex items-center justify-between text-sm text-gray-600">
-          <span>⏱️ ~{path.estimatedTime}s</span>
+          <span>â±ï¸ ~{path.estimatedTime}s</span>
           <span>{path.description}</span>
         </div>
 
         {/* Advertencia si existe */}
         {path.warningMessage && (
           <div className="mt-3 p-2 bg-yellow-50 border border-yellow-200 rounded text-sm text-yellow-800">
-            ⚠️ {path.warningMessage}
+            âš ï¸ {path.warningMessage}
           </div>
         )}
       </div>
@@ -107,7 +107,7 @@ export const ConversionRouteDisplay: React.FC<ConversionRouteDisplayProps> = ({
   return (
     <div className="space-y-4">
       <div className="text-lg font-semibold text-gray-800 mb-4">
-        Rutas de Conversión Disponibles
+        Rutas de ConversiÃ³n Disponibles
       </div>
 
       {/* Ruta principal */}
@@ -125,12 +125,12 @@ export const ConversionRouteDisplay: React.FC<ConversionRouteDisplayProps> = ({
         </div>
       )}
 
-      {/* Información adicional */}
+      {/* InformaciÃ³n adicional */}
       <div className="mt-6 p-4 bg-gray-50 rounded-lg">
         <div className="text-sm text-gray-600 space-y-2">
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 bg-green-500 rounded-full"></span>
-            <span><strong>Conversión directa:</strong> Máxima calidad y velocidad</span>
+            <span><strong>ConversiÃ³n directa:</strong> MÃ¡xima calidad y velocidad</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 bg-yellow-500 rounded-full"></span>
@@ -138,11 +138,12 @@ export const ConversionRouteDisplay: React.FC<ConversionRouteDisplayProps> = ({
           </div>
           <div className="flex items-center gap-2">
             <span className="w-3 h-3 bg-red-500 rounded-full"></span>
-            <span><strong>Ruta compleja:</strong> Calidad reducida, más tiempo</span>
+            <span><strong>Ruta compleja:</strong> Calidad reducida, mÃ¡s tiempo</span>
           </div>
         </div>
       </div>
     </div>
   );
 };
+
 

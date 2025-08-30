@@ -1,4 +1,4 @@
-# Archive Test Fixtures
+﻿# Archive Test Fixtures
 
 This file contains information about the archive test fixtures used in the test suite.
 

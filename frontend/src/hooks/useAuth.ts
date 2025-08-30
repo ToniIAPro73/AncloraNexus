@@ -1,4 +1,4 @@
-// src/hooks/useAuth.ts
+﻿// src/hooks/useAuth.ts
 import { useState, useEffect, useCallback } from 'react';
 
 interface User {
@@ -13,11 +13,11 @@ export const useAuth = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Simulamos cargar la información del usuario desde localStorage o una API
+  // Simulamos cargar la informaciÃ³n del usuario desde localStorage o una API
   useEffect(() => {
     const loadUser = async () => {
       try {
-        // En un caso real, esto vendría de una API o localStorage
+        // En un caso real, esto vendrÃ­a de una API o localStorage
         const savedUser = localStorage.getItem('anclora_user');
         
         if (savedUser) {
@@ -34,7 +34,7 @@ export const useAuth = () => {
           localStorage.setItem('anclora_user', JSON.stringify(testUser));
         }
       } catch (err) {
-        setError('Error al cargar la información del usuario');
+        setError('Error al cargar la informaciÃ³n del usuario');
         console.error(err);
       } finally {
         setIsLoading(false);
@@ -44,11 +44,11 @@ export const useAuth = () => {
     loadUser();
   }, []);
 
-  // Función para iniciar sesión
+  // FunciÃ³n para iniciar sesiÃ³n
   const login = useCallback(async (email: string) => {
     try {
       setIsLoading(true);
-      // En un caso real, esto sería una llamada a una API
+      // En un caso real, esto serÃ­a una llamada a una API
       // Simulamos una respuesta exitosa
       const mockUser = {
         id: Math.random().toString(36).substr(2, 9),
@@ -61,7 +61,7 @@ export const useAuth = () => {
       localStorage.setItem('anclora_user', JSON.stringify(mockUser));
       return true;
     } catch (err) {
-      setError('Error al iniciar sesión');
+      setError('Error al iniciar sesiÃ³n');
       console.error(err);
       return false;
     } finally {
@@ -69,16 +69,16 @@ export const useAuth = () => {
     }
   }, []);
 
-  // Función para cerrar sesión
+  // FunciÃ³n para cerrar sesiÃ³n
   const logout = useCallback(async () => {
     try {
       setIsLoading(true);
-      // En un caso real, esto podría incluir llamadas a una API
+      // En un caso real, esto podrÃ­a incluir llamadas a una API
       localStorage.removeItem('anclora_user');
       setUser(null);
       return true;
     } catch (err) {
-      setError('Error al cerrar sesión');
+      setError('Error al cerrar sesiÃ³n');
       console.error(err);
       return false;
     } finally {
@@ -86,7 +86,7 @@ export const useAuth = () => {
     }
   }, []);
 
-  // Función para actualizar el plan del usuario
+  // FunciÃ³n para actualizar el plan del usuario
   const updateUserPlan = useCallback((plan: 'free' | 'premium' | 'business') => {
     if (user) {
       const updatedUser = { ...user, plan };
@@ -104,3 +104,4 @@ export const useAuth = () => {
     updateUserPlan
   };
 };
+

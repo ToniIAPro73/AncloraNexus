@@ -1,11 +1,11 @@
-# ================================
-# ANCLORA METAFORM - CENTRALIZED IMPORTS
-# Fase 3: Optimización de imports
+﻿# ================================
+# ANCLORA Nexus - CENTRALIZED IMPORTS
+# Fase 3: OptimizaciÃ³n de imports
 # ================================
 
 """
 Imports centralizados para evitar redundancia
-y mejorar el mantenimiento del código.
+y mejorar el mantenimiento del cÃ³digo.
 """
 
 # === FLASK CORE ===
@@ -60,3 +60,4 @@ __all__ = [
     # Types
     'Optional', 'Tuple', 'Dict', 'List', 'Any'
 ]
+

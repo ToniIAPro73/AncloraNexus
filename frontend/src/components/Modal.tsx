@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+﻿import React, { useEffect, useRef } from 'react';
 
 interface ModalProps {
   isOpen: boolean;
@@ -59,7 +59,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
     <div className="modal-backdrop">
       <div ref={dialogRef} role="dialog" aria-modal="true" className="modal-content">
         <button onClick={onClose} aria-label="Cerrar" className="modal-close">
-          ×
+          Ã—
         </button>
         {children}
       </div>
@@ -68,3 +68,4 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
 };
 
 export default Modal;
+

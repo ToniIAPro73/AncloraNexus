@@ -1,4 +1,4 @@
-import io
+﻿import io
 from pathlib import Path
 
 import pytest
@@ -19,7 +19,7 @@ def test_full_conversion_flow_multiple_encodings(client, auth_headers, monkeypat
 
     monkeypatch.setattr(conversion_module, "normalize_to_utf8", tracker)
 
-    content = "áéíóú".encode(encoding)
+    content = "Ã¡Ã©Ã­Ã³Ãº".encode(encoding)
     data = {
         "file": (io.BytesIO(content), "acentos.txt"),
         "target_format": "html",
@@ -42,4 +42,5 @@ def test_full_conversion_flow_multiple_encodings(client, auth_headers, monkeypat
     )
     assert download_resp.status_code == 200
     download_resp.data.decode("utf-8")
+
 

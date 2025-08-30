@@ -1,9 +1,9 @@
-// Script de prueba para verificar la conexión con el backend
+﻿// Script de prueba para verificar la conexiÃ³n con el backend
 const API_BASE_URL = 'http://localhost:5000/api';
 
 async function testLogin() {
   try {
-    console.log('Probando conexión con el backend...');
+    console.log('Probando conexiÃ³n con el backend...');
     
     const response = await fetch(`${API_BASE_URL}/auth/login`, {
       method: 'POST',
@@ -21,16 +21,16 @@ async function testLogin() {
     console.log('Response:', data);
 
     if (response.ok) {
-      console.log('✅ Login exitoso');
+      console.log('âœ… Login exitoso');
       console.log('Token:', data.access_token);
       console.log('Usuario:', data.user);
     } else {
-      console.log('❌ Error en login:', data.error);
+      console.log('âŒ Error en login:', data.error);
     }
   } catch (error) {
-    console.log('❌ Error de conexión:', error.message);
+    console.log('âŒ Error de conexiÃ³n:', error.message);
   }
 }
 
-// Ejecutar la prueba si el backend está corriendo
+// Ejecutar la prueba si el backend estÃ¡ corriendo
 testLogin();
