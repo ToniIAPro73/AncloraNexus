@@ -47,7 +47,7 @@ if not app.config.get("SECRET_KEY") or not app.config.get("JWT_SECRET_KEY"):
 # ConfiguraciÃ³n de CORS
 CORS(
     app,
-    origins=app.config["ALLOWED_ORIGINS"],
+    origins=["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:5174", "http://localhost:5175"],
     supports_credentials=True,
     allow_headers=["Content-Type", "Authorization"],
 )
