@@ -23,24 +23,8 @@ from src.ws import socketio
 
 # Cargar variables de entorno tanto desde la raÃ­z del proyecto como desde backend/
 BASE_DIR = Path(__file__).resolve().parent.parent
-env_file_1 = BASE_DIR.parent / ".env"
-env_file_2 = BASE_DIR / ".env"
-
-print(f"Intentando cargar .env desde: {env_file_1}")
-print(f"Archivo existe: {env_file_1.exists()}")
-print(f"Intentando cargar .env desde: {env_file_2}")
-print(f"Archivo existe: {env_file_2.exists()}")
-
-load_dotenv(env_file_1)
-load_dotenv(env_file_2)
-
-# Debug: mostrar variables de entorno cargadas
-print("=== VARIABLES DE ENTORNO CARGADAS ===")
-print(f"PORT: {os.environ.get('PORT', 'NO SET')}")
-print(f"SECRET_KEY: {'SET' if os.environ.get('SECRET_KEY') else 'NO SET'}")
-print(f"JWT_SECRET_KEY: {'SET' if os.environ.get('JWT_SECRET_KEY') else 'NO SET'}")
-print(f"ALLOWED_ORIGINS: {os.environ.get('ALLOWED_ORIGINS', 'NO SET')}")
-print("=====================================")
+load_dotenv(BASE_DIR.parent / ".env")
+load_dotenv(BASE_DIR / ".env")
 
 # Configure Flask to serve the built frontend from the dist directory
 app = Flask(__name__, static_folder="../frontend/dist", static_url_path="")
