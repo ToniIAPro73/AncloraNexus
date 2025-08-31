@@ -1,6 +1,4 @@
 import json
-import matplotlib.pyplot as plt
-import pandas as pd
 from collections import defaultdict, Counter
 import numpy as np
 
@@ -20,7 +18,7 @@ def analyze_test_results():
     
     success_rate = (successful / total_tests) * 100 if total_tests > 0 else 0
     
-    print("ðŸ“Š ANÃLISIS DETALLADO DE RESULTADOS")
+    print("📊 ANÁLISIS DETALLADO DE RESULTADOS")
     print("=" * 50)
     print(f"Total de pruebas ejecutadas: {total_tests}")
     print(f"Pruebas exitosas: {successful} ({success_rate:.1f}%)")
@@ -40,7 +38,7 @@ def analyze_test_results():
         else:
             conversion_stats[conv_type]['failed'] += 1
     
-    print("\nðŸ”„ ANÃLISIS POR TIPO DE CONVERSIÃ“N")
+    print("\n📈 ANÁLISIS POR TIPO DE CONVERSIÓN")
     print("-" * 50)
     for conv_type, stats in sorted(conversion_stats.items()):
         success_rate = (stats['success'] / stats['total']) * 100
@@ -81,7 +79,7 @@ def analyze_test_results():
         else:
             category_stats[category]['failed'] += 1
     
-    print("\nðŸ“ ANÃLISIS POR CATEGORÃA DE ARCHIVO")
+    print("\n📁 ANÁLISIS POR CATEGORÍA DE ARCHIVO")
     print("-" * 50)
     for category, stats in sorted(category_stats.items()):
         success_rate = (stats['success'] / stats['total']) * 100
@@ -96,11 +94,11 @@ def analyze_test_results():
         min_duration = np.min(durations)
         max_duration = np.max(durations)
         
-        print("\nâ±ï¸ ANÃLISIS DE TIEMPOS DE CONVERSIÃ“N")
+        print("\n⏱️ ANÁLISIS DE TIEMPOS DE CONVERSIÓN")
         print("-" * 50)
         print(f"Tiempo promedio: {avg_duration:.2f} segundos")
-        print(f"Tiempo mÃ­nimo: {min_duration:.2f} segundos")
-        print(f"Tiempo mÃ¡ximo: {max_duration:.2f} segundos")
+        print(f"Tiempo mínimo: {min_duration:.2f} segundos")
+        print(f"Tiempo máximo: {max_duration:.2f} segundos")
     
     # AnÃ¡lisis de errores
     error_types = Counter()
@@ -108,34 +106,34 @@ def analyze_test_results():
         if test['status'] != 'success' and test['error_message']:
             error_types[test['error_message']] += 1
     
-    print("\nâŒ ANÃLISIS DE ERRORES")
+    print("\n❌ ANÁLISIS DE ERRORES")
     print("-" * 50)
     for error, count in error_types.most_common():
         print(f"{error}: {count} casos")
     
     # Recomendaciones
-    print("\nðŸ’¡ RECOMENDACIONES")
+    print("\n💡 RECOMENDACIONES")
     print("-" * 50)
-    
+
     if success_rate >= 80:
-        print("âœ… Excelente tasa de Ã©xito general")
+        print("✅ Excelente tasa de éxito general")
     elif success_rate >= 70:
-        print("âš ï¸ Tasa de Ã©xito aceptable, pero mejorable")
+        print("⚠️ Tasa de éxito aceptable, pero mejorable")
     else:
-        print("âŒ Tasa de Ã©xito baja, requiere atenciÃ³n")
-    
-    # Recomendaciones especÃ­ficas
+        print("❌ Tasa de éxito baja, requiere atención")
+
+    # Recomendaciones específicas
     if category_stats['corrupted']['failed'] > 0:
-        print("â€¢ Implementar mejor validaciÃ³n de archivos corruptos")
-    
+        print("• Implementar mejor validación de archivos corruptos")
+
     if category_stats['edge_case']['failed'] > 0:
-        print("â€¢ Mejorar manejo de casos extremos (archivos vacÃ­os)")
-    
+        print("• Mejorar manejo de casos extremos (archivos vacíos)")
+
     if any('malformed' in error for error in error_types.keys()):
-        print("â€¢ AÃ±adir validaciÃ³n de formato antes de conversiÃ³n")
-    
+        print("• Añadir validación de formato antes de conversión")
+
     if max_duration > 2.0:
-        print("â€¢ Optimizar conversiones de archivos grandes")
+        print("• Optimizar conversiones de archivos grandes")
     
     return {
         'success_rate': success_rate,

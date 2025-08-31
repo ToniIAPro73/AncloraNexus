@@ -8,7 +8,7 @@ import json
 import time
 import uuid
 from datetime import datetime
-from typing import Dict, Any, List
+from typing import Any
 
 class AncloraBackendTester:
     """Tester completo para el backend de Anclora Converter"""
@@ -19,6 +19,7 @@ class AncloraBackendTester:
         self.test_results = []
         self.auth_token = None
         self.test_user_id = None
+        self.test_email = None
         
     def log_test(self, test_name: str, success: bool, details: str = "", response_data: Any = None):
         """Registra el resultado de una prueba"""
@@ -31,7 +32,7 @@ class AncloraBackendTester:
         }
         self.test_results.append(result)
         
-        status = "âœ… PASS" if success else "âŒ FAIL"
+        status = "✅ PASS" if success else "❌ FAIL"
         print(f"{status} {test_name}: {details}")
         
         if not success and response_data:
@@ -97,10 +98,10 @@ class AncloraBackendTester:
         """Prueba el login de usuarios"""
         try:
             # Usar credenciales del usuario registrado
-            if not hasattr(self, 'test_email'):
+            if not hasattr(self, 'test_email') or not self.test_email:
                 self.log_test("User Login", False, "No hay usuario de prueba registrado")
                 return False
-            
+
             login_data = {
                 "email": self.test_email,
                 "password": "TestPassword123!"
@@ -140,7 +141,7 @@ class AncloraBackendTester:
                     self.log_test("Conversion Formats", True, f"{total_conversions} conversiones soportadas")
                     return True
                 else:
-                    self.log_test("Conversion Formats", False, "Estructura de respuesta invÃ¡lida", data)
+                    self.log_test("Conversion Formats", False, "Estructura de respuesta inválida", data)
                     return False
             else:
                 self.log_test("Conversion Formats", False, f"Status code: {response.status_code}")
@@ -210,7 +211,7 @@ class AncloraBackendTester:
             return False
     
     def test_leaderboard(self):
-        """Prueba la tabla de lÃ­deres"""
+        """Prueba la tabla de líderes"""
         try:
             response = self.session.get(f"{self.base_url}/api/rewards/leaderboard")
             
@@ -255,7 +256,7 @@ class AncloraBackendTester:
             return False
     
     def test_public_challenges(self):
-        """Prueba el endpoint de desafÃ­os pÃºblicos"""
+        """Prueba el endpoint de desafíos públicos"""
         try:
             response = self.session.get(f"{self.base_url}/api/rewards/challenges/public")
             
@@ -365,7 +366,7 @@ class AncloraBackendTester:
     
     def run_all_tests(self):
         """Ejecuta todas las pruebas"""
-        print("ðŸš€ Iniciando suite de pruebas del backend Anclora Converter")
+        print("🚀 Iniciando suite de pruebas del backend Anclora Converter")
         print("=" * 60)
         
         start_time = time.time()
@@ -391,21 +392,21 @@ class AncloraBackendTester:
         
         # Resumen de resultados
         print("\n" + "=" * 60)
-        print("ðŸ“Š RESUMEN DE PRUEBAS")
+        print("📊 RESUMEN DE PRUEBAS")
         print("=" * 60)
-        
+
         total_tests = len(self.test_results)
         passed_tests = sum(1 for result in self.test_results if result['success'])
         failed_tests = total_tests - passed_tests
-        
+
         print(f"Total de pruebas: {total_tests}")
-        print(f"âœ… Exitosas: {passed_tests}")
-        print(f"âŒ Fallidas: {failed_tests}")
-        print(f"â±ï¸ DuraciÃ³n: {duration:.2f} segundos")
-        print(f"ðŸ“ˆ Tasa de Ã©xito: {(passed_tests/total_tests)*100:.1f}%")
+        print(f"✅ Exitosas: {passed_tests}")
+        print(f"❌ Fallidas: {failed_tests}")
+        print(f"⏱️ Duración: {duration:.2f} segundos")
+        print(f"📈 Tasa de éxito: {(passed_tests/total_tests)*100:.1f}%")
         
         if failed_tests > 0:
-            print("\nâŒ PRUEBAS FALLIDAS:")
+            print("\n❌ PRUEBAS FALLIDAS:")
             for result in self.test_results:
                 if not result['success']:
                     print(f"  - {result['test_name']}: {result['details']}")
@@ -427,6 +428,6 @@ if __name__ == "__main__":
     with open('/home/ubuntu/backend_test_results.json', 'w') as f:
         json.dump(results, f, indent=2, default=str)
     
-    print(f"\nðŸ’¾ Resultados guardados en: /home/ubuntu/backend_test_results.json")
+    print(f"\n💾 Resultados guardados en: /home/ubuntu/backend_test_results.json")
 
 

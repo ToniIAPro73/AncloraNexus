@@ -71,7 +71,8 @@ export const FileUploader: React.FC<PropsWithChildren<FileUploaderProps>> = ({
 
   const handleClick = () => {
     if (!isLoading) {
-      document.getElementById('file-input-child')?.click();
+      const inputId = children ? 'file-input-child' : 'file-input';
+      document.getElementById(inputId)?.click();
     }
   };
 

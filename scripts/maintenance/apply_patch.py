@@ -2,7 +2,7 @@
 
 """
 A self-contained **pure-Python 3.9+** utility for applying human-readable
-â€œpseudo-diffâ€ patch files to a collection of text files.
+"pseudo-diff" patch files to a collection of text files.
 """
 
 from __future__ import annotations
@@ -355,7 +355,7 @@ def peek_next_section(
 
 
 # --------------------------------------------------------------------------- #
-#  Patch â†’ Commit and Commit application
+#  Patch → Commit and Commit application
 # --------------------------------------------------------------------------- #
 def _get_updated_file(text: str, action: PatchAction, path: str) -> str:
     if action.type is not ActionType.UPDATE:

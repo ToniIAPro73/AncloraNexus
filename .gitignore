@@ -105,3 +105,9 @@ debug_*.py
 fix_*.py
 monkey_patch.py
 simple_patch.py
+
+# Generated type definitions
+frontend/vite-env.d.ts
+
+# Temporary component variants
+frontend/src/components/LandingPage*.tsx
