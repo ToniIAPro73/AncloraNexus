@@ -1,4 +1,4 @@
-﻿# Document Test Fixtures
+# Document Test Fixtures
 
 This file contains information about the document test fixtures used in the test suite.
 

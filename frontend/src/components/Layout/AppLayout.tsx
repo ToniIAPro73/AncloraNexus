@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Sidebar from './Sidebar';
 import { Header } from './Header';
 import { CreditProvider, CreditBalance, CreditHistory } from '@/components/CreditSystem';

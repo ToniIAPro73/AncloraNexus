@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Script de Pruebas Automatizadas - Todos los Conversores
  * Ejecuta: node test-all-converters.js
  */

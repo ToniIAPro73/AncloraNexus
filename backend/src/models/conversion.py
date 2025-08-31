@@ -1,4 +1,4 @@
-﻿import os
+import os
 import importlib
 import pkgutil
 import tempfile

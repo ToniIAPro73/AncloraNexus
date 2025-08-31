@@ -1,4 +1,4 @@
-﻿# ðŸŽ¨ Anclora Nexus - Frontend
+# ðŸŽ¨ Anclora Nexus - Frontend
 
 ## Requisitos
 - Node.js 18+

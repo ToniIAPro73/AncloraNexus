@@ -1,4 +1,4 @@
-﻿import os
+import os
 from pathlib import Path
 import chardet
 from src.models.conversion import conversion_engine

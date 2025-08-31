@@ -1,10 +1,10 @@
-﻿import { useState } from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/Card';
-import { 
-  FileUp, Settings, BarChart, FileStack, MessagesSquare, 
-  FileSearch, Sliders
-} from 'lucide-react';
+import React, { useState } from 'react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
+import { Button } from './ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { Badge } from './ui/badge';
+import { Separator } from './ui/separator';
 
 // Import our new components (corrected imports)
 // Note: These components should be updated to import from './ui' instead of './UI'
@@ -24,7 +24,7 @@ export const AdvancedFeaturesDemo = () => {
   // Dummy data for demonstration
   const demoUser = {
     id: 'user-123',
-    name: 'Ana GarcÃ­a',
+    name: 'Ana García',
     email: 'ana@example.com',
     isPremium: true
   };
@@ -44,8 +44,8 @@ export const AdvancedFeaturesDemo = () => {
     },
     {
       id: 'compression',
-      name: 'CompresiÃ³n',
-      description: 'Nivel de compresiÃ³n a aplicar',
+      name: 'Compresión',
+      description: 'Nivel de compresión a aplicar',
       type: 'slider' as const,
       default: 70,
       min: 0,
@@ -54,208 +54,215 @@ export const AdvancedFeaturesDemo = () => {
       unit: '%'
     },
     {
-      id: 'format',
-      name: 'Formato interno',
-      description: 'Formato de codificaciÃ³n interno para el archivo',
+      id: 'encoding',
+      name: 'Codificación',
+      description: 'Formato de codificación interno para el archivo',
       type: 'select' as const,
       default: 'standard',
       options: [
-        { value: 'standard', label: 'EstÃ¡ndar' },
-        { value: 'progressive', label: 'Progresivo' },
-        { value: 'optimized', label: 'Optimizado' }
+        { value: 'standard', label: 'Estándar' },
+        { value: 'high', label: 'Alta' },
+        { value: 'lossless', label: 'Sin pérdida' }
       ]
     },
     {
       id: 'metadata',
       name: 'Conservar Metadatos',
-      description: 'Mantiene la informaciÃ³n de metadatos del archivo original',
+      description: 'Mantiene la información de metadatos del archivo original',
       type: 'toggle' as const,
       default: true
     },
     {
-      id: 'smart-crop',
-      name: 'Recorte inteligente',
-      description: 'Utiliza IA para recortar automÃ¡ticamente la imagen',
+      id: 'autocrop',
+      name: 'Recorte Inteligente',
+      description: 'Utiliza IA para recortar automáticamente la imagen',
       type: 'toggle' as const,
-      default: false,
-      isPremium: true
+      default: false
     }
   ];
   
-  // Sample presets for Advanced Settings
+  // Sample conversion presets
   const conversionPresets = [
     {
-      id: 'high-quality',
-      name: 'Alta calidad',
+      id: 'web-optimized',
+      name: 'Web Optimizado',
+      description: 'Ideal para subir a sitios web',
       settings: {
-        quality: 95,
-        compression: 40,
-        format: 'standard',
-        metadata: true
-      }
-    },
-    {
-      id: 'balanced',
-      name: 'Equilibrado',
-      settings: {
-        quality: 80,
-        compression: 70,
-        format: 'optimized',
-        metadata: true
+        quality: 75,
+        compression: 80,
+        encoding: 'standard',
+        metadata: false,
+        autocrop: false
       }
     },
     {
       id: 'small-size',
-      name: 'TamaÃ±o reducido',
+      name: 'Tamaño reducido',
+      description: 'Máxima compresión para ahorrar espacio',
       settings: {
         quality: 60,
         compression: 90,
-        format: 'progressive',
-        metadata: false
+        encoding: 'high',
+        metadata: false,
+        autocrop: true
+      }
+    },
+    {
+      id: 'high-quality',
+      name: 'Alta calidad',
+      description: 'Preserva la calidad original',
+      settings: {
+        quality: 95,
+        compression: 30,
+        encoding: 'lossless',
+        metadata: true,
+        autocrop: false
       }
     }
   ];
   
-  // Handlers for component events
-  const handleApplySettings = (settings: Record<string, any>) => {
-    console.log('Applied settings:', settings);
-  };
-  
-  const handleSavePreset = (name: string, settings: Record<string, any>) => {
-    console.log('Saved preset:', name, settings);
-  };
-  
-  const handleSelectPreset = (presetId: string) => {
-    console.log('Selected preset:', presetId);
-  };
-  
-  const handleRequestConversion = (from: string, to: string) => {
-    console.log(`Requested conversion from ${from} to ${to}`);
-  };
-  
-  const handleRequestFormatInfo = (format: string) => {
-    console.log(`Requested info about ${format} format`);
-    setActiveTab('formats');
+  // Render the appropriate component based on active tab
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case 'batch':
+        return <BatchConversion />;
+      case 'settings':
+        return <AdvancedSettings settings={conversionSettings} presets={conversionPresets} />;
+      case 'analytics':
+        return <UsageAnalytics userId={demoUser.id} />;
+      case 'formats':
+        return <FormatComparison />;
+      case 'assistant':
+        return <ConversionAssistant />;
+      case 'optimization':
+        return <ConversionOptimization />;
+      default:
+        return <BatchConversion />;
+    }
   };
   
   return (
-    <div className="container mx-auto p-4 space-y-8">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-xl font-bold">
-            Anclora Nexus - Funciones Avanzadas
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid grid-cols-3 md:grid-cols-6 mb-6">
-              <TabsTrigger value="batch" className="flex flex-col items-center py-2">
-                <FileStack className="h-5 w-5 mb-1" />
-                <span>Lote</span>
-              </TabsTrigger>
-              <TabsTrigger value="settings" className="flex flex-col items-center py-2">
-                <Settings className="h-5 w-5 mb-1" />
-                <span>ConfiguraciÃ³n</span>
-              </TabsTrigger>
-              <TabsTrigger value="analytics" className="flex flex-col items-center py-2">
-                <BarChart className="h-5 w-5 mb-1" />
-                <span>AnalÃ­tica</span>
-              </TabsTrigger>
-              <TabsTrigger value="formats" className="flex flex-col items-center py-2">
-                <FileSearch className="h-5 w-5 mb-1" />
-                <span>Formatos</span>
-              </TabsTrigger>
-              <TabsTrigger value="assistant" className="flex flex-col items-center py-2">
-                <MessagesSquare className="h-5 w-5 mb-1" />
-                <span>Asistente</span>
-              </TabsTrigger>
-              <TabsTrigger value="optimization" className="flex flex-col items-center py-2">
-                <Sliders className="h-5 w-5 mb-1" />
-                <span>OptimizaciÃ³n</span>
-              </TabsTrigger>
-            </TabsList>
-            
-            <TabsContent value="batch" className="mt-4">
-              <div className="max-w-5xl mx-auto">
-                <BatchConversion />
-              </div>
-            </TabsContent>
-            
-            <TabsContent value="settings" className="mt-4">
-              <div className="max-w-5xl mx-auto">
-                <AdvancedSettings 
-                  formatFrom="PDF"
-                  formatTo="DOCX"
-                  settings={conversionSettings}
-                  onChange={handleApplySettings}
-                  isPremiumUser={demoUser.isPremium}
-                  onSavePreset={handleSavePreset}
-                  presets={conversionPresets}
-                  onSelectPreset={handleSelectPreset}
-                />
-              </div>
-            </TabsContent>
-            
-            <TabsContent value="analytics" className="mt-4">
-              <UsageAnalytics 
-                isPremiumUser={demoUser.isPremium}
-              />
-            </TabsContent>
-            
-            <TabsContent value="formats" className="mt-4">
-              <FormatComparison 
-                onSelectFormat={(formatId) => console.log(`Selected format: ${formatId}`)}
-              />
-            </TabsContent>
-            
-            <TabsContent value="assistant" className="mt-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="md:col-span-2">
-                  <Card className="h-full">
-                    <CardHeader>
-                      <CardTitle>Ãrea de Trabajo</CardTitle>
-                    </CardHeader>
-                    <CardContent className="h-[400px] flex items-center justify-center bg-slate-800/50 rounded border border-dashed border-slate-700">
-                      <div className="text-center">
-                        <FileUp className="h-12 w-12 text-slate-500 mx-auto mb-4" />
-                        <p className="text-slate-400">Arrastra archivos aquÃ­ para comenzar una conversiÃ³n</p>
-                      </div>
-                    </CardContent>
-                  </Card>
+    <div className="container mx-auto p-4 max-w-6xl">
+      <div className="flex flex-col space-y-4">
+        <div className="flex justify-between items-center">
+          <div>
+            <h1 className="text-2xl font-bold">Panel de Control Avanzado</h1>
+            <p className="text-slate-500 dark:text-slate-400">Herramientas avanzadas para conversión de archivos</p>
+          </div>
+          
+          <div className="flex items-center space-x-4">
+            <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950 dark:text-emerald-300 dark:border-emerald-800">
+              Premium
+            </Badge>
+            <Avatar>
+              <AvatarImage src="https://i.pravatar.cc/150?u=a042581f4e29026704d" />
+              <AvatarFallback>AG</AvatarFallback>
+            </Avatar>
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-12 gap-4">
+          {/* Sidebar */}
+          <div className="col-span-12 md:col-span-3 lg:col-span-2">
+            <Card>
+              <CardContent className="p-2">
+                <div className="space-y-1 py-2">
+                  <Button 
+                    variant={activeTab === 'batch' ? 'default' : 'ghost'} 
+                    className="w-full justify-start" 
+                    onClick={() => setActiveTab('batch')}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M20 7h-3V4c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v3H4c-1.1 0-2 .9-2 2v9c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2z"/>
+                    </svg>
+                    <span>Procesamiento por lotes</span>
+                  </Button>
+                  <Button 
+                    variant={activeTab === 'settings' ? 'default' : 'ghost'} 
+                    className="w-full justify-start" 
+                    onClick={() => setActiveTab('settings')}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                    </svg>
+                    <span>Configuración</span>
+                  </Button>
+                  <Button 
+                    variant={activeTab === 'analytics' ? 'default' : 'ghost'} 
+                    className="w-full justify-start" 
+                    onClick={() => setActiveTab('analytics')}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M18 20V10M12 20V4M6 20v-6"/>
+                    </svg>
+                    <span>Analítica</span>
+                  </Button>
+                  <Button 
+                    variant={activeTab === 'formats' ? 'default' : 'ghost'} 
+                    className="w-full justify-start" 
+                    onClick={() => setActiveTab('formats')}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                    </svg>
+                    <span>Formatos</span>
+                  </Button>
+                  <Button 
+                    variant={activeTab === 'optimization' ? 'default' : 'ghost'} 
+                    className="w-full justify-start" 
+                    onClick={() => setActiveTab('optimization')}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M18.36 6.64a9 9 0 1 1-12.73 0"/>
+                      <line x1="12" y1="2" x2="12" y2="12"/>
+                    </svg>
+                    <span>Optimización</span>
+                  </Button>
                 </div>
-                <div className="h-[550px]">
-                  <ConversionAssistant 
-                    userName={demoUser.name}
-                    onRequestConversion={handleRequestConversion}
-                    onRequestFormatInfo={handleRequestFormatInfo}
-                    isPremium={demoUser.isPremium}
-                  />
-                </div>
-              </div>
-            </TabsContent>
-            
-            <TabsContent value="optimization" className="mt-4">
-              <ConversionOptimization 
-                fileName="informe_anual_2023.pdf"
-                fileSize={4500000}
-                fileType="pdf"
-                isPremiumUser={demoUser.isPremium}
-                onApplyOptimizations={(settings) => console.log('Applied optimizations:', settings)}
-                onDownload={() => console.log('Download optimized file')}
-              />
-            </TabsContent>
-          </Tabs>
-        </CardContent>
-      </Card>
-      
-      <div className="text-center text-sm text-slate-500">
-        <p>
-          Anclora Nexus - Plataforma avanzada de conversiÃ³n de archivos
-        </p>
+              </CardContent>
+            </Card>
+          </div>
+          
+          {/* Main Content */}
+          <div className="col-span-12 md:col-span-9 lg:col-span-10">
+            <Card className="h-full">
+              <CardHeader>
+                <CardTitle>Área de Trabajo</CardTitle>
+                <CardDescription>
+                  {activeTab === 'batch' && 'Convierte múltiples archivos simultáneamente'}
+                  {activeTab === 'settings' && 'Personaliza las opciones de conversión'}
+                  {activeTab === 'analytics' && 'Analiza tu uso y estadísticas'}
+                  {activeTab === 'formats' && 'Compara diferentes formatos de archivo'}
+                  {activeTab === 'assistant' && 'Asistente inteligente de conversión'}
+                  {activeTab === 'optimization' && 'Optimiza tus archivos automáticamente'}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {activeTab === 'batch' && (
+                  <div className="flex items-center justify-center h-64 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg">
+                    <div className="text-center">
+                      <p className="text-slate-400">Arrastra archivos aquí para comenzar una conversión</p>
+                      <Button className="mt-4">Seleccionar archivos</Button>
+                    </div>
+                  </div>
+                )}
+                
+                {renderTabContent()}
+              </CardContent>
+              <CardFooter className="flex justify-between">
+                <p className="text-sm text-slate-500 dark:text-slate-400">
+                  Anclora Nexus - Plataforma avanzada de conversión de archivos
+                </p>
+                <Button variant="outline" size="sm">
+                  Ayuda
+                </Button>
+              </CardFooter>
+            </Card>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
-
-export default AdvancedFeaturesDemo;
-

@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 Suite de pruebas completa para el backend de Anclora Converter
 """

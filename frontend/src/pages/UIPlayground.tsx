@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import {
   Avatar,
   Badge,
@@ -38,7 +38,7 @@ export const UIPlayground: React.FC = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex flex-wrap gap-2">
-            <Button onClick={() => showToast({ title: 'AcciÃ³n', message: 'Primario', type: 'success' })}>Primary</Button>
+            <Button onClick={() => showToast({ title: 'Acción', message: 'Primario', type: 'success' })}>Primary</Button>
             <Button variant="secondary">Secondary</Button>
             <Button variant="outline">Outline</Button>
             <Button variant="ghost">Ghost</Button>
@@ -76,13 +76,13 @@ export const UIPlayground: React.FC = () => {
           <div className="mt-4">
             <TabsComposition value={activeTab} onChange={setActiveTab}>
               <TabsComposition.Tab value="one" label="Uno">
-                <div>ComposiciÃ³n 1</div>
+                <div>Composición 1</div>
               </TabsComposition.Tab>
               <TabsComposition.Tab value="two" label="Dos">
-                <div>ComposiciÃ³n 2</div>
+                <div>Composición 2</div>
               </TabsComposition.Tab>
               <TabsComposition.Tab value="three" label="Tres">
-                <div>ComposiciÃ³n 3</div>
+                <div>Composición 3</div>
               </TabsComposition.Tab>
             </TabsComposition>
           </div>
@@ -116,8 +116,8 @@ export const UIPlayground: React.FC = () => {
             <Dropdown
               trigger={<Button variant="outline">Dropdown</Button>}
               items={[
-                { id: 'a', label: 'AcciÃ³n A' },
-                { id: 'b', label: 'AcciÃ³n B' },
+                { id: 'a', label: 'Acción A' },
+                { id: 'b', label: 'Acción B' },
                 { id: 'c', label: 'Deshabilitado', disabled: true },
               ]}
               withDividers
@@ -143,7 +143,7 @@ export const UIPlayground: React.FC = () => {
             value={selectValue}
             onChange={setSelectValue}
             label="Formato"
-            placeholder="Seleccioneâ€¦"
+            placeholder="Seleccione…"
           />
           <FileUpload multiple onFilesSelected={(files) => showToast({ title: `Subidos ${files.length} archivo(s)`, type: 'info' })}>
             <div className="px-4 py-10 rounded-md border border-dashed border-slate-600 text-center hover:bg-slate-800/30 cursor-pointer">
@@ -170,16 +170,16 @@ export const UIPlayground: React.FC = () => {
           setModalOpen(false);
           showToast({ title: 'Confirmado', type: 'success' });
         }}
-        title="Confirmar acciÃ³n"
-        message="Â¿Deseas confirmar esta acciÃ³n?"
-        confirmText="SÃ­"
+  title="Confirmar acción"
+  message="¿Deseas confirmar esta acción?"
+  confirmText="Sí"
         cancelText="No"
       />
     </div>
   );
 };
 
-// OpciÃ³n de montaje aislado con provider si se quiere usar standalone
+// Opción de montaje aislado con provider si se quiere usar standalone
 export const UIPlaygroundWithProvider: React.FC = () => (
   <ToastProvider>
     <UIPlayground />

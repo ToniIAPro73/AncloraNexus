@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Conversor TxtToOdtConverter - Anclora Nexus
  * Tu Contenido, Reinventado
  */

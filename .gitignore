@@ -84,3 +84,24 @@ node_modules/
 .coverage
 temp_ci_fix.txt
 .venv/
+
+# Build artifacts
+frontend/dist/
+
+# Cache directories
+.idx/
+.vite/
+.zencoder/
+
+# Database files
+backend/src/models/database/*.db
+
+# Screenshots and images (temporary)
+*.png
+docs/**/*.png
+
+# Temporary scripts
+debug_*.py
+fix_*.py
+monkey_patch.py
+simple_patch.py

@@ -1,4 +1,4 @@
-﻿import os, shutil, tempfile, uuid
+import os, shutil, tempfile, uuid
 from datetime import datetime
 from fpdf import FPDF
 from PIL import Image, ImageDraw

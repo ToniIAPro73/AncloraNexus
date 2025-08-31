@@ -1,4 +1,4 @@
-﻿# ðŸ§ª GuÃ­a de Pruebas - Nuevos Conversores Anclora
+# ðŸ§ª GuÃ­a de Pruebas - Nuevos Conversores Anclora
 
 ## ðŸ“‹ Resumen de Pruebas
 Esta guÃ­a te ayudarÃ¡ a verificar que todos los nuevos conversores funcionan correctamente en tu entorno.

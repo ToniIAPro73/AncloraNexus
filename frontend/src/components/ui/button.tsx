@@ -1,4 +1,4 @@
-﻿export { Button } from './ButtonComponent';
+export { Button } from './ButtonComponent';
 export type { ButtonProps } from './ButtonComponent';
 
 

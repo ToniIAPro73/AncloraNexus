@@ -1,4 +1,4 @@
-﻿# ðŸŽ¨ GuÃ­a de Branding - Anclora Nexus
+# ðŸŽ¨ GuÃ­a de Branding - Anclora Nexus
 
 ![Anclora Nexus Logo](./assets/anclora_Nexus_logo.png)
 

@@ -1,4 +1,4 @@
-﻿// Script de prueba para verificar la conexiÃ³n con el backend
+// Script de prueba para verificar la conexiÃ³n con el backend
 const API_BASE_URL = 'http://localhost:5000/api';
 
 async function testLogin() {

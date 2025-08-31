@@ -1,4 +1,4 @@
-﻿ARCHIVO DE PRUEBA GRANDE - INICIO
+ARCHIVO DE PRUEBA GRANDE - INICIO
 
 Este es un archivo de texto diseÃ±ado para probar la conversiÃ³n de archivos grandes.
 Contiene mÃºltiples pÃ¡rrafos repetidos para simular un documento extenso.

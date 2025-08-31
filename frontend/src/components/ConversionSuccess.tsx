@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { IconCheck, IconDownload, IconRefresh } from './Icons';
 
 interface ConversionSuccessProps {

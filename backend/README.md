@@ -1,4 +1,4 @@
-﻿# ðŸ› ï¸ Anclora Nexus - Backend
+# ðŸ› ï¸ Anclora Nexus - Backend
 
 ## Requisitos
 - Python 3.10+

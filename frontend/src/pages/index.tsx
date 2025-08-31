@@ -1,4 +1,4 @@
-﻿import { GetServerSideProps } from "next";
+import { GetServerSideProps } from "next";
 
 export const getServerSideProps: GetServerSideProps = async () => {
   return {

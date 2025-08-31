@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Card, CardHeader, CardContent, CardTitle } from './ui/Card';
 import { Button, Badge } from './ui-components';
 import { Settings, Sliders, RotateCw, Lock, Unlock, Info, Save, RefreshCw, ChevronDown, ChevronUp } from 'lucide-react';

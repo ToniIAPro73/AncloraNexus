@@ -1,4 +1,4 @@
-﻿import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import path from 'path';
 import fs from 'fs/promises';
 import ffmpeg from '@ts-ffmpeg/fluent-ffmpeg'; // Para validaciÃ³n de media

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Script de pruebas para TxtToRtfConverter
  * Prueba con documentos reales y casos edge
  */

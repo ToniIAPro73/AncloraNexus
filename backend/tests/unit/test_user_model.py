@@ -1,4 +1,4 @@
-﻿import pytest
+import pytest
 import bcrypt
 from datetime import datetime, date
 from src.models.user import User, db

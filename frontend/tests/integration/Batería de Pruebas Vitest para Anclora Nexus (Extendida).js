@@ -1,4 +1,4 @@
-﻿/**
+/**
  * BATERÃA DE PRUEBAS EXHAUSTIVA PARA ANCLORA Nexus (VERSIÃ“N EXTENDIDA)
  * ----------------------------------------------------------------------
  * Plataforma: Vitest (https://vitest.dev/)

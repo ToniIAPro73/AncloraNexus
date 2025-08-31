@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { IconAudio, IconVideo, IconImage, IconFile, IconArchive, IconPresentation, IconArrowRight, IconEbook } from './Icons';
 import { FileCategory } from '../utils/conversionMaps';
 import AccessibleIcon from './AccessibleIcon';

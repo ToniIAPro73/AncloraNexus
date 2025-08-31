@@ -1,4 +1,4 @@
-﻿// frontend/src/components/NewApp.tsx
+// frontend/src/components/NewApp.tsx
 import React, { useState } from 'react';
 import { AuthProvider, ProtectedRoute, UserProfile } from '../auth/AuthContext';
 import { CreditProvider } from './CreditSystem';
@@ -13,7 +13,7 @@ interface NewAppProps {
   onBackToLanding?: () => void;
 }
 
-// Componente placeholder para las secciones que aÃºn no estÃ¡n implementadas
+// Componente placeholder para las secciones que aún no están implementadas
 const PlaceholderSection: React.FC<{ title: string; icon: string; description: string }> = ({ 
   title, 
   icon, 
@@ -28,13 +28,13 @@ const PlaceholderSection: React.FC<{ title: string; icon: string; description: s
         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-        PrÃ³ximamente disponible
+        Próximamente disponible
       </div>
     </div>
   </div>
 );
 
-// Componente principal de la aplicaciÃ³n autenticada
+// Componente principal de la aplicación autenticada
 const AuthenticatedApp: React.FC<NewAppProps> = ({ onBackToLanding: _onBackToLanding }) => {
   const [activeTab, setActiveTab] = useState('converter');
 
@@ -55,8 +55,8 @@ const AuthenticatedApp: React.FC<NewAppProps> = ({ onBackToLanding: _onBackToLan
         return (
           <PlaceholderSection
             title="Formatos Compatibles"
-            icon="ðŸ“"
-            description="Explora todos los formatos de archivo compatibles con nuestro conversor inteligente. MÃ¡s de 45 formatos disponibles."
+            icon="📄"
+            description="Explora todos los formatos de archivo compatibles con nuestro conversor inteligente. Más de 45 formatos disponibles."
           />
         );
       
@@ -70,8 +70,8 @@ const AuthenticatedApp: React.FC<NewAppProps> = ({ onBackToLanding: _onBackToLan
         return (
           <PlaceholderSection
             title="Planes y Precios"
-            icon="ðŸ“‹"
-            description="Descubre nuestros planes de suscripciÃ³n diseÃ±ados para satisfacer todas tus necesidades de conversiÃ³n."
+            icon="📋"
+            description="Descubre nuestros planes de suscripción diseñados para satisfacer todas tus necesidades de conversión."
           />
         );
       
@@ -79,8 +79,8 @@ const AuthenticatedApp: React.FC<NewAppProps> = ({ onBackToLanding: _onBackToLan
         return (
           <PlaceholderSection
             title="Preguntas Frecuentes"
-            icon="â“"
-            description="Encuentra respuestas a las preguntas mÃ¡s comunes sobre nuestro servicio de conversiÃ³n."
+            icon="❓"
+            description="Encuentra respuestas a las preguntas más comunes sobre nuestro servicio de conversión."
           />
         );
       
@@ -88,7 +88,7 @@ const AuthenticatedApp: React.FC<NewAppProps> = ({ onBackToLanding: _onBackToLan
         return (
           <PlaceholderSection
             title="Valoraciones"
-            icon="â­"
+            icon="⭐"
             description="Comparte tu experiencia y lee las valoraciones de otros usuarios de Anclora Nexus."
           />
         );
@@ -96,18 +96,18 @@ const AuthenticatedApp: React.FC<NewAppProps> = ({ onBackToLanding: _onBackToLan
       case 'config':
         return (
           <PlaceholderSection
-            title="ConfiguraciÃ³n"
-            icon="âš™ï¸"
-            description="Personaliza tu experiencia con Anclora Nexus segÃºn tus preferencias."
+            title="Configuración"
+            icon="⚙️"
+            description="Personaliza tu experiencia con Anclora Nexus según tus preferencias."
           />
         );
       
       case 'stats':
         return (
           <PlaceholderSection
-            title="EstadÃ­sticas"
-            icon="ðŸ“ˆ"
-            description="Visualiza estadÃ­sticas detalladas sobre tus conversiones y uso del servicio."
+            title="Estadísticas"
+            icon="📈"
+            description="Visualiza estadísticas detalladas sobre tus conversiones y uso del servicio."
           />
         );
       
@@ -126,7 +126,7 @@ const AuthenticatedApp: React.FC<NewAppProps> = ({ onBackToLanding: _onBackToLan
   );
 };
 
-// Componente principal de la aplicaciÃ³n
+// Componente principal de la aplicación
 const NewApp: React.FC<NewAppProps> = ({ onBackToLanding }) => {
   return (
     <ThemeProvider>
@@ -142,5 +142,3 @@ const NewApp: React.FC<NewAppProps> = ({ onBackToLanding }) => {
 };
 
 export default NewApp;
-
-

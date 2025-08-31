@@ -1,9 +1,9 @@
-﻿{
-  "name": "anclora-Nexus-frontend",
+{
+  "name": "anclora-nexus-frontend",
   "private": true,
   "version": "1.2.0",
   "type": "module",
-  "description": "Tu Contenido, Reinventado - Frontend para conversiÃ³n inteligente de archivos",
+  "description": "Tu Contenido, Reinventado - Frontend para conversión inteligente de archivos",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

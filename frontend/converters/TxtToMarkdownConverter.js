@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Conversor TxtToMarkdownConverter - Anclora Nexus
  * Tu Contenido, Reinventado
  */

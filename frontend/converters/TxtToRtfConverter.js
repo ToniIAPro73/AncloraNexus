@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Conversor TxtToRtfConverter - Anclora Nexus
  * Tu Contenido, Reinventado
  */

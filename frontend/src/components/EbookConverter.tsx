@@ -1,4 +1,4 @@
-﻿import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { IconEbook, IconUpload, IconDownload, IconRefresh, IconSparkles, IconCheck, IconX } from './Icons';
 import { EbookConversionService } from '../services/ebookConversionService';
 import { EbookValidationService } from '../services/ebookValidationService';

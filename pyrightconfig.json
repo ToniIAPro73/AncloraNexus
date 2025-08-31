@@ -1,4 +1,4 @@
-﻿{
+{
     "include": [
         "backend",
         "backend/src"

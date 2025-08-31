@@ -1,4 +1,4 @@
-﻿# ðŸš€ Instrucciones de InstalaciÃ³n - Anclora Nexus
+# ðŸš€ Instrucciones de InstalaciÃ³n - Anclora Nexus
 
 ![Anclora Nexus](../assets/anclora_Nexus_logo.png)
 

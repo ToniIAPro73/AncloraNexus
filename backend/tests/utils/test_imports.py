@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """Script para verificar que todas las importaciones funcionen correctamente."""
 
 import sys

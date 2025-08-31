@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { Card, TabsComposition } from './ui';
 // ensure TabsComposition import through barrel
 import { useNotifications, BatchOperationNotification, PremiumFeatureNotification } from './NotificationSystem';

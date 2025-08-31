@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Script de pruebas para TXT â†’ TEX (LaTeX) Converter
  * Ejecuta: node test_tex_converter.js
  */

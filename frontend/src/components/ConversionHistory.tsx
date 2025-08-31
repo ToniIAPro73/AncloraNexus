@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { apiService, formatFileSize } from '../services/api';
 import { useAuth } from '../hooks/useAuth';
 
@@ -133,7 +133,7 @@ export const ConversionHistory: React.FC = () => {
         </p>
       </div>
 
-      {/* EstadÃ­sticas */}
+      {/* Estadísticas */}
       {user && (
         <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl border border-slate-700/50 p-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
@@ -143,11 +143,11 @@ export const ConversionHistory: React.FC = () => {
             </div>
             <div>
               <div className="text-2xl font-bold text-green-400">{user.credits || 0}</div>
-              <div className="text-slate-400">CrÃ©ditos Disponibles</div>
+              <div className="text-slate-400">Créditos Disponibles</div>
             </div>
             <div>
               <div className="text-2xl font-bold text-purple-400">{user.credits_used_this_month || 0}</div>
-              <div className="text-slate-400">CrÃ©ditos Usados Este Mes</div>
+              <div className="text-slate-400">Créditos Usados Este Mes</div>
             </div>
           </div>
         </div>
@@ -209,9 +209,9 @@ export const ConversionHistory: React.FC = () => {
         {conversions.length === 0 ? (
           <div className="text-center py-12">
             <div className="text-4xl mb-4 opacity-50">ðŸ“</div>
-            <p className="text-slate-400 mb-4">No hay conversiones aÃºn</p>
+            <p className="text-slate-400 mb-4">No hay conversiones aún</p>
             <p className="text-slate-500 text-sm">
-              Cuando realices tu primera conversiÃ³n, aparecerÃ¡ aquÃ­
+              Cuando realices tu primera conversión, aparecerÃ¡ aquÃ­
             </p>
           </div>
         ) : (
@@ -236,13 +236,13 @@ export const ConversionHistory: React.FC = () => {
                       {conversion.original_filename}
                     </p>
                     <p className="text-slate-400 text-sm">
-                      {conversion.original_format.toUpperCase()} â†’ {conversion.target_format.toUpperCase()} â€¢ 
-                      {formatFileSize(conversion.file_size)} â€¢ 
+                      {conversion.original_format.toUpperCase()} → {conversion.target_format.toUpperCase()} • 
+                      {formatFileSize(conversion.file_size)} • 
                       {conversion.credits_used} crÃ©ditos
                     </p>
                     <p className="text-slate-500 text-xs">
                       {formatDate(conversion.created_at)}
-                      {conversion.processing_time && ` â€¢ ${conversion.processing_time.toFixed(1)}s`}
+                      {conversion.processing_time && ` • ${conversion.processing_time.toFixed(1)}s`}
                     </p>
                   </div>
                 </div>
@@ -278,7 +278,7 @@ export const ConversionHistory: React.FC = () => {
           </div>
         )}
 
-        {/* PaginaciÃ³n */}
+        {/* Paginación */}
         {pagination.pages > 1 && (
           <div className="flex justify-center items-center space-x-4 mt-6">
             <button
@@ -289,7 +289,7 @@ export const ConversionHistory: React.FC = () => {
               Anterior
             </button>
             <span className="text-slate-300">
-              PÃ¡gina {page} de {pagination.pages}
+              Página {page} de {pagination.pages}
             </span>
             <button
               onClick={() => pagination.has_next && setPage(page + 1)}
@@ -301,7 +301,7 @@ export const ConversionHistory: React.FC = () => {
           </div>
         )}
 
-        {/* BotÃ³n de actualizar */}
+        {/* Botón de actualizar */}
         <div className="mt-6 text-center">
           <button
             onClick={() => loadConversions(page)}

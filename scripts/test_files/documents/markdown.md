@@ -1,4 +1,4 @@
-﻿# Documento de Prueba en Markdown
+# Documento de Prueba en Markdown
 
 Este es un documento de prueba en formato Markdown para evaluar la conversiÃ³n de archivos.
 

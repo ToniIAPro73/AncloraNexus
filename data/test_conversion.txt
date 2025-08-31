@@ -1,4 +1,4 @@
-﻿Este es un archivo de prueba para la conversiÃ³n.
+Este es un archivo de prueba para la conversiÃ³n.
 
 Vamos a probar si el sistema de conversiÃ³n funciona correctamente.
 

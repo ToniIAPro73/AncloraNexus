@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Card, CardHeader, CardContent, CardTitle } from './ui';
 import { Button, Badge } from './ui';
 import { ArrowRight, Check, Info, HelpCircle, Star, Download, FileSearch, FileQuestion } from 'lucide-react';

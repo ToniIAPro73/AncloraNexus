@@ -1,4 +1,4 @@
-﻿import sqlite3
+import sqlite3
 
 # Conectar a la base de datos
 conn = sqlite3.connect('C:\\Users\\Usuario\\Workspace\\01_Proyectos\\Anclora_Nexus\\backend\\src\\models\\database\\app.db')

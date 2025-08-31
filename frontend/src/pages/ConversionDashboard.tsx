@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { Header } from '../components/Header';
 import { Card } from '../components/ui-components';
 import { useAuth } from '../hooks/useAuth';
@@ -6,7 +6,7 @@ import { useFileConversions } from '../hooks/useFileConversions';
 import { ToastProvider } from '../components/ui/Toast';
 import { ConversionOptions } from '../services/ConversionService';
 
-// Componente para la pÃ¡gina principal de conversiÃ³n
+// Componente para la página principal de conversión
 export function ConversionDashboard() {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [targetFormat, setTargetFormat] = useState('pdf');
@@ -28,7 +28,7 @@ export function ConversionDashboard() {
     clearCompleted 
   } = useFileConversions();
   
-  // Manejador de selecciÃ³n de archivos
+  // Manejador de selección de archivos
   const handleFileSelection = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const newFiles = Array.from(event.target.files);
@@ -36,7 +36,7 @@ export function ConversionDashboard() {
     }
   };
   
-  // Iniciar conversiÃ³n de un archivo
+  // Iniciar conversión de un archivo
   const handleConvertSingleFile = async () => {
     if (selectedFiles.length === 0) return;
     
@@ -47,25 +47,25 @@ export function ConversionDashboard() {
       // Remover el archivo convertido de la lista de seleccionados
       setSelectedFiles(prev => prev.filter(f => f !== file));
     } catch (error) {
-      console.error("Error en la conversiÃ³n:", error);
+  console.error("Error en la conversión:", error);
     }
   };
   
-  // Iniciar conversiÃ³n por lotes
+  // Iniciar conversión por lotes
   const handleBatchConversion = async () => {
     if (selectedFiles.length === 0) return;
     
     try {
       await convertBatch(selectedFiles, targetFormat, options);
       
-      // Limpiar la lista de seleccionados despuÃ©s de iniciar el lote
+  // Limpiar la lista de seleccionados después de iniciar el lote
       setSelectedFiles([]);
     } catch (error) {
-      console.error("Error en la conversiÃ³n por lotes:", error);
+      console.error("Error en la conversión por lotes:", error);
     }
   };
   
-  // Cambiar opciones de conversiÃ³n
+  // Cambiar opciones de conversión
   const updateOption = (key: keyof ConversionOptions, value: any) => {
     setOptions(prev => ({
       ...prev,
@@ -83,9 +83,9 @@ export function ConversionDashboard() {
         
         <main className="flex-1 p-4 md:p-6">
           <div className="max-w-7xl mx-auto">
-            <h1 className="text-3xl font-bold mb-6">ConversiÃ³n de Archivos</h1>
+            <h1 className="text-3xl font-bold mb-6">Conversión de Archivos</h1>
             
-            {/* SecciÃ³n de carga de archivos */}
+            {/* Sección de carga de archivos */}
             <Card className="mb-6 p-6">
               <h2 className="text-xl font-semibold mb-4">Selecciona archivos para convertir</h2>
               
@@ -108,13 +108,13 @@ export function ConversionDashboard() {
                   <div 
                     key={index}
                     className="bg-accent/50 rounded-md px-3 py-1 text-sm flex items-center gap-2"
-                  >
+                    >
                     <span>{file.name}</span>
                     <button 
                       onClick={() => setSelectedFiles(prev => prev.filter((_, i) => i !== index))}
                       className="text-red-500 hover:text-red-700"
                     >
-                      Ã—
+                      ×
                     </button>
                   </div>
                 ))}
@@ -227,7 +227,7 @@ export function ConversionDashboard() {
                             {file.file.size / 1024 < 1000 
                               ? `${Math.round(file.file.size / 1024)} KB` 
                               : `${Math.round(file.file.size / (1024 * 1024) * 10) / 10} MB`} 
-                            â€¢ {file.status === 'completed' ? 'Completado' : 
+                            • {file.status === 'completed' ? 'Completado' : 
                                file.status === 'processing' ? 'Procesando' : 
                                file.status === 'failed' ? 'Error' : 'Pendiente'}
                           </p>
@@ -297,10 +297,10 @@ export function ConversionDashboard() {
               </Card>
             )}
             
-            {/* Lotes de conversiÃ³n */}
+            {/* Lotes de conversión */}
             {Object.keys(batches).length > 0 && (
               <Card className="p-6">
-                <h2 className="text-xl font-semibold mb-4">Lotes de conversiÃ³n</h2>
+                <h2 className="text-xl font-semibold mb-4">Lotes de conversión</h2>
 
                 <div className="space-y-6">
                   {Object.entries(batches).map(([batchId, batch]) => (
@@ -314,11 +314,11 @@ export function ConversionDashboard() {
                       
                       <div className="flex gap-4 text-sm mb-2">
                         <span>{batch.totalFiles} archivos</span>
-                        <span>â€¢</span>
+                        <span>•</span>
                         <span>{batch.completed} completados</span>
-                        <span>â€¢</span>
+                        <span>•</span>
                         <span>{batch.failed} fallidos</span>
-                        <span>â€¢</span>
+                        <span>•</span>
                         <span>{batch.inProgress} en proceso</span>
                       </div>
 

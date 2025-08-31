@@ -1,4 +1,4 @@
-﻿// frontend/src/components/CreditSystem/types.ts
+// frontend/src/components/CreditSystem/types.ts
 
 export interface CreditBalance {
   current: number;

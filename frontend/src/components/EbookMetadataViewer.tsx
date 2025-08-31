@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { IconEbook, IconSettings, IconCheck, IconX, IconUser, IconCalendar, IconGlobe } from './Icons';
 import { EbookMetadata, EbookValidationResult } from '../types/ebook';
 

@@ -1,4 +1,4 @@
-﻿// frontend/src/components/CreditSystem/index.tsx
+// frontend/src/components/CreditSystem/index.tsx
 import React, { createContext, useContext, useState, ReactNode, useMemo } from "react";
 import { 
   CreditBalance as CreditBalanceType, 

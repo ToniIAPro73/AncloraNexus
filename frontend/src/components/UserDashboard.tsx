@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { useAuth } from '../hooks/useAuth';
 
 export const UserDashboard: React.FC = () => {

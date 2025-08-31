@@ -1,4 +1,4 @@
-﻿import React, { useState } from "react";
+import React, { useState } from "react";
 import { FileText, Upload, Download, ArrowRight } from "lucide-react";
 
 const ConversorInteligente = () => {
@@ -15,7 +15,7 @@ const ConversorInteligente = () => {
   const handleConvert = () => {
     if (selectedFile && targetFormat) {
       console.log(`Converting ${selectedFile.name} to ${targetFormat}`);
-      // AquÃ­ irÃ­a la lÃ³gica de conversiÃ³n
+      // Aquí iría la lógica de conversión
     }
   };
 
@@ -27,7 +27,7 @@ const ConversorInteligente = () => {
         </h2>
         
         <div className="grid md:grid-cols-2 gap-8">
-          {/* SecciÃ³n de archivo origen */}
+          {/* Sección de archivo origen */}
           <div className="space-y-6">
             <h3 className="text-xl font-semibold text-gray-700 flex items-center gap-2">
               <Upload className="text-emerald-600" size={24} />
@@ -55,7 +55,7 @@ const ConversorInteligente = () => {
                 <div className="space-y-4">
                   <FileText className="mx-auto h-16 w-16 text-emerald-500" />
                   <div>
-                    <p className="text-gray-600 mb-2">Arrastra tu archivo aquÃ­</p>
+                    <p className="text-gray-600 mb-2">Arrastra tu archivo aquí</p>
                     <p className="text-sm text-gray-500 mb-4">o haz clic para seleccionar</p>
                   </div>
                   <input
@@ -76,7 +76,7 @@ const ConversorInteligente = () => {
             </div>
           </div>
 
-          {/* SecciÃ³n de formato destino */}
+          {/* Sección de formato destino */}
           <div className="space-y-6">
             <h3 className="text-xl font-semibold text-gray-700 flex items-center gap-2">
               <Download className="text-emerald-600" size={24} />
@@ -90,11 +90,11 @@ const ConversorInteligente = () => {
                 className="w-full p-4 border border-gray-200 bg-gradient-to-br from-white via-gray-50 to-emerald-50/20 rounded-lg focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400 text-lg transition-all duration-300 shadow-sm hover:shadow-md"
               >
                 <option value="">Selecciona formato de destino...</option>
-                <option value="pdf">PDF - Documento PortÃ¡til</option>
+                <option value="pdf">PDF - Documento Portátil</option>
                 <option value="docx">DOCX - Microsoft Word</option>
-                <option value="epub">EPUB - Libro ElectrÃ³nico</option>
+                <option value="epub">EPUB - Libro Electrónico</option>
                 <option value="txt">TXT - Texto Plano</option>
-                <option value="html">HTML - PÃ¡gina Web</option>
+                <option value="html">HTML - Página Web</option>
                 <option value="md">Markdown - Texto Estructurado</option>
               </select>
               
@@ -110,7 +110,7 @@ const ConversorInteligente = () => {
           </div>
         </div>
 
-        {/* InformaciÃ³n adicional */}
+        {/* Información adicional */}
         <div className="mt-8 p-6 bg-gradient-to-br from-emerald-50 via-white to-teal-50/50 rounded-lg border border-emerald-100 shadow-sm">
           <h4 className="font-semibold bg-gradient-to-r from-emerald-700 to-teal-700 bg-clip-text text-transparent mb-2">Formatos Soportados</h4>
           <p className="text-gray-600 text-sm">
@@ -124,4 +124,3 @@ const ConversorInteligente = () => {
 };
 
 export default ConversorInteligente;
-

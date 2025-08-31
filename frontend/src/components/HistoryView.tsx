@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 
 // TODO: Integrar con el backend para obtener el historial real de conversiones
 // TODO: Reemplazar el contenido estÃ¡tico con la informaciÃ³n recibida de la API

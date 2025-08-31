@@ -1,4 +1,4 @@
-﻿Este es un archivo de texto simple para pruebas de conversiÃ³n.
+Este es un archivo de texto simple para pruebas de conversiÃ³n.
 Contiene texto bÃ¡sico en espaÃ±ol con acentos: Ã¡Ã©Ã­Ã³Ãº
 Y algunos caracteres especiales: Ã±, Â¿, Â¡
 

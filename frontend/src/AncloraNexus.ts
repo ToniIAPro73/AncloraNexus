@@ -1,4 +1,4 @@
-﻿export class AncloraNexus {
+export class AncloraNexus {
   webOptimizeBatch(_arg0: { inputs: string[]; formats: string[]; sizes: { width: number; suffix: string; }[]; quality: { webp: number; jpg: number; }; }) {
     throw new Error('Method not implemented.');
   }

@@ -1,4 +1,4 @@
-﻿import argparse
+import argparse
 from pathlib import Path
 
 from .encoding_normalizer import detect_encoding, normalize_to_utf8, repair_mojibake, undo_normalization

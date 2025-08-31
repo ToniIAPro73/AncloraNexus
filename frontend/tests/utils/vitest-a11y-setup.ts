@@ -1,4 +1,4 @@
-﻿/// <reference types="vitest/globals" />
+/// <reference types="vitest/globals" />
 
 import { afterEach, vi } from 'vitest';
 import { cleanup } from '@testing-library/react';

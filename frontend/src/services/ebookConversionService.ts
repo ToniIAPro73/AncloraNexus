@@ -1,4 +1,4 @@
-﻿import type { EbookFile, EbookConversionJob } from '../types/ebook';
+import type { EbookFile, EbookConversionJob } from '../types/ebook';
 
 export const EbookConversionService = {
   getInstance() {

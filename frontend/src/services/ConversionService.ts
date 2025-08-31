@@ -1,15 +1,15 @@
-﻿import axios from 'axios';
+import axios from 'axios';
 
 export interface ConversionOptions {
-  quality?: number; // 1-100 para formatos con compresiÃ³n
-  compress?: boolean; // Aplicar compresiÃ³n adicional
+  quality?: number; // 1-100 para formatos con compresión
+  compress?: boolean; // Aplicar compresión adicional
   preserveMetadata?: boolean; // Conservar metadatos del archivo original
   pageRange?: string; // Para documentos, ej: "1-5,8,11-13"
   password?: string; // Para documentos protegidos
   watermark?: string; // Texto para marca de agua
-  outputColorSpace?: 'rgb' | 'cmyk' | 'grayscale'; // Para imÃ¡genes y PDF
-  resolution?: number; // DPI para imÃ¡genes
-  format?: string; // Formato especÃ­fico dentro de un tipo general
+  outputColorSpace?: 'rgb' | 'cmyk' | 'grayscale'; // Para imágenes y PDF
+  resolution?: number; // DPI para imágenes
+  format?: string; // Formato específico dentro de un tipo general
 }
 
 export interface ConversionProgress {
@@ -28,10 +28,10 @@ export interface ConversionResult {
   originalFormat: string;
   targetFormat: string;
   downloadUrl: string;
-  expiresAt: Date; // Fecha de expiraciÃ³n de la URL de descarga
+  expiresAt: Date; // Fecha de expiración de la URL de descarga
   fileSize: number;
   previewUrl?: string;
-  conversionTime: number; // Tiempo en ms que tomÃ³ la conversiÃ³n
+  conversionTime: number; // Tiempo en ms que tomó la conversión
   metadata?: {
     pageCount?: number;
     dimensions?: { width: number; height: number };
@@ -73,8 +73,8 @@ export class ConversionService {
    * Convierte un archivo al formato especificado
    * @param file Archivo a convertir
    * @param targetFormat Formato objetivo
-   * @param options Opciones de conversiÃ³n
-   * @param onProgress Callback para reportar progreso
+  * @param options Opciones de conversión
+  * @param onProgress Callback para reportar progreso
    */
   static async convertFile(
     file: File,
@@ -109,7 +109,7 @@ export class ConversionService {
         }
       });
       
-      // Iniciar polling para obtener el estado de la conversiÃ³n
+    // Iniciar polling para obtener el estado de la conversión
       return await this.pollConversionStatus(
         response.data.conversionId,
         fileId,
@@ -119,11 +119,11 @@ export class ConversionService {
         onProgress
       );
     } catch (error) {
-      console.error('Error en la conversiÃ³n:', error);
+      console.error('Error en la conversión:', error);
       
       const errorMessage = axios.isAxiosError(error) && error.response
         ? error.response.data?.message || 'Error en el servidor'
-        : 'Error de conexiÃ³n';
+        : 'Error de conexión';
       
       const errorCode = axios.isAxiosError(error) && error.response
         ? error.response.status.toString()
@@ -142,7 +142,7 @@ export class ConversionService {
   }
   
   /**
-   * Consulta periÃ³dicamente el estado de una conversiÃ³n hasta que se completa
+   * Consulta periódicamente el estado de una conversión hasta que se completa
    */
   private static async pollConversionStatus(
     conversionId: string,
@@ -154,13 +154,13 @@ export class ConversionService {
   ): Promise<ConversionResult> {
     let retries = 0;
     
-    // Para simular progreso durante el polling
-    let lastProgress = 50; // Empezamos en 50% despuÃ©s de la carga
+  // Para simular progreso durante el polling
+  let lastProgress = 50; // Empezamos en 50% después de la carga
     const progressIncrement = 5;
     
-    while (retries < this.MAX_RETRIES * 10) { // Aumentamos el nÃºmero de intentos para la simulaciÃ³n
+    while (retries < this.MAX_RETRIES * 10) { // Aumentamos el número de intentos para la simulación
       try {
-        // En un entorno de producciÃ³n, esto serÃ­a una llamada real a la API
+  // En un entorno de producción, esto sería una llamada real a la API
         // Simulamos el proceso para desarrollo
         await new Promise(resolve => setTimeout(resolve, 500));
         
@@ -177,7 +177,7 @@ export class ConversionService {
           });
         }
         
-        // DespuÃ©s de alcanzar cierto umbral, simulamos la finalizaciÃ³n
+  // Después de alcanzar cierto umbral, simulamos la finalización
         if (lastProgress >= 95 && Math.random() > 0.5) {
           // Simulamos la respuesta final
           return {
@@ -187,7 +187,7 @@ export class ConversionService {
             targetFormat,
             downloadUrl: `https://anclora.nexus/download/${conversionId}`,
             expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 horas
-            fileSize: Math.floor(Math.random() * 10000000), // TamaÃ±o aleatorio
+            fileSize: Math.floor(Math.random() * 10000000), // Tamaño aleatorio
             previewUrl: `https://anclora.nexus/preview/${conversionId}`,
             conversionTime: Math.floor(Math.random() * 10000), // Tiempo aleatorio
             metadata: {
@@ -205,13 +205,13 @@ export class ConversionService {
         retries++;
       } catch (error) {
         if (retries >= this.MAX_RETRIES) {
-          throw {
+            throw {
             fileId,
             fileName,
             originalFormat,
             targetFormat,
             errorCode: 'POLLING_FAILED',
-            errorMessage: 'No se pudo obtener el estado de la conversiÃ³n',
+            errorMessage: 'No se pudo obtener el estado de la conversión',
             canRetry: true
           } as ConversionError;
         }
@@ -227,13 +227,13 @@ export class ConversionService {
       originalFormat,
       targetFormat,
       errorCode: 'CONVERSION_TIMEOUT',
-      errorMessage: 'La conversiÃ³n ha excedido el tiempo mÃ¡ximo de espera',
+      errorMessage: 'La conversión ha excedido el tiempo máximo de espera',
       canRetry: true
     } as ConversionError;
   }
   
   /**
-   * Inicia una conversiÃ³n por lotes
+   * Inicia una conversión por lotes
    */
   static async startBatchConversion(
     files: File[],
@@ -243,7 +243,7 @@ export class ConversionService {
     onBatchProgress?: (batchStatus: BatchConversionStatus) => void
   ): Promise<string> {
     try {
-      // En un entorno real, enviarÃ­amos todos los archivos o sus referencias
+  // En un entorno real, enviaríamos todos los archivos o sus referencias
       // Para desarrollo, simulamos una respuesta exitosa
       const batchId = `batch_${Math.random().toString(36).substr(2, 9)}`;
       
@@ -259,8 +259,8 @@ export class ConversionService {
       
       return batchId;
     } catch (error) {
-      console.error('Error al iniciar conversiÃ³n por lotes:', error);
-      throw new Error('No se pudo iniciar la conversiÃ³n por lotes');
+  console.error('Error al iniciar conversión por lotes:', error);
+  throw new Error('No se pudo iniciar la conversión por lotes');
     }
   }
   
@@ -288,7 +288,7 @@ export class ConversionService {
       chunks.push(files.slice(i, i + concurrency));
     }
     
-    // ActualizaciÃ³n inicial de estado
+  // Actualización inicial de estado
     onBatchProgress?.({
       batchId,
       totalFiles,
@@ -300,7 +300,7 @@ export class ConversionService {
       startedAt
     });
     
-    // Procesamos los chunks secuencialmente
+  // Procesamos los chunks secuencialmente
     for (const chunk of chunks) {
       const inProgress = chunk.length;
       const pending = totalFiles - completed - failed - inProgress;
@@ -328,7 +328,7 @@ export class ConversionService {
             (progress) => {
               onFileProgress?.(progress);
               
-              // Actualizamos el estado del lote con cada actualizaciÃ³n de archivo
+                // Actualizamos el estado del lote con cada actualización de archivo
               const currentProgress = (completed + failed) * 100 / totalFiles;
               const fileContribution = 1 / totalFiles * progress.progress;
               
@@ -355,7 +355,7 @@ export class ConversionService {
       }));
     }
     
-    // ActualizaciÃ³n final de estado
+  // Actualización final de estado
     onBatchProgress?.({
       batchId,
       totalFiles,
@@ -370,11 +370,11 @@ export class ConversionService {
   }
   
   /**
-   * Obtiene el estado de una conversiÃ³n por lotes
+   * Obtiene el estado de una conversión por lotes
    */
   static async getBatchStatus(batchId: string): Promise<BatchConversionStatus> {
     try {
-      // En un entorno real, esto serÃ­a una llamada a la API
+  // En un entorno real, esto sería una llamada a la API
       const response = await axios.get(`${this.API_URL}/batch/${batchId}`);
       return response.data;
     } catch (error) {
@@ -384,7 +384,7 @@ export class ConversionService {
   }
   
   /**
-   * Cancela una conversiÃ³n o lote en progreso
+   * Cancela una conversión o lote en progreso
    */
   static async cancelConversion(id: string): Promise<boolean> {
     try {
@@ -392,16 +392,16 @@ export class ConversionService {
       const response = await axios.post(`${this.API_URL}/cancel/${id}`);
       return response.data.success;
     } catch (error) {
-      console.error('Error al cancelar la conversiÃ³n:', error);
+      console.error('Error al cancelar la conversión:', error);
       return false;
     }
   }
   
   /**
-   * Comprueba si un formato es compatible para conversiÃ³n
+   * Comprueba si un formato es compatible para conversión
    */
   static isFormatSupported(sourceFormat: string, targetFormat: string): boolean {
-    // Mapa de formatos soportados para conversiÃ³n
+    // Mapa de formatos soportados para conversión
     const supportedConversions: Record<string, string[]> = {
       pdf: ['docx', 'txt', 'jpg', 'png', 'epub', 'html'],
       docx: ['pdf', 'txt', 'html', 'epub', 'markdown'],
@@ -409,10 +409,10 @@ export class ConversionService {
       png: ['jpg', 'webp', 'pdf', 'gif', 'svg'],
       mp4: ['mp3', 'gif', 'webm', 'avi'],
       mp3: ['wav', 'ogg', 'flac'],
-      // MÃ¡s formatos...
+      // Más formatos...
     };
     
-    // Normalizamos los formatos (eliminamos punto y convertimos a minÃºsculas)
+    // Normalizamos los formatos (eliminamos punto y convertimos a minúsculas)
     const normalizedSource = sourceFormat.replace('.', '').toLowerCase();
     const normalizedTarget = targetFormat.replace('.', '').toLowerCase();
     
@@ -420,14 +420,14 @@ export class ConversionService {
   }
   
   /**
-   * Estima el tiempo de conversiÃ³n para un archivo
+   * Estima el tiempo de conversión para un archivo
    */
   static estimateConversionTime(file: File, targetFormat: string): number {
-    // En un entorno real, esto podrÃ­a basarse en datos histÃ³ricos o heurÃ­sticas
+    // En un entorno real, esto podría basarse en datos históricos o heurísticas
     const baseTime = 5000; // 5 segundos base
     const sizeMultiplier = file.size / (1024 * 1024) * 1000; // 1 segundo por MB
     
-    // Factores adicionales segÃºn el formato
+  // Factores adicionales según el formato
     const formatFactors: Record<string, number> = {
       pdf: 1.5,
       docx: 1.2,
@@ -445,13 +445,13 @@ export class ConversionService {
   }
 }
 
-// Exportamos tambiÃ©n el mock para entorno de desarrollo
+// Exportamos también el mock para entorno de desarrollo
 export class ConversionServiceMock extends ConversionService {
-  // MÃ©todos especÃ­ficos para mock si son necesarios
+  // Métodos específicos para mock si son necesarios
 }
 
-// Exportamos la implementaciÃ³n adecuada segÃºn el entorno
-export default process.env.NODE_ENV === 'development' 
-  ? ConversionServiceMock 
+// Exportamos la implementación adecuada según el entorno
+export default process.env.NODE_ENV === 'development'
+  ? ConversionServiceMock
   : ConversionService;
 

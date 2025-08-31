@@ -1,4 +1,4 @@
-﻿Archivo con caracteres especiales problemÃ¡ticos:
+Archivo con caracteres especiales problemÃ¡ticos:
 
 Caracteres de control:
 	- TabulaciÃ³n

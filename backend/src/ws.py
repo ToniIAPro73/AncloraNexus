@@ -1,4 +1,4 @@
-﻿from enum import Enum
+from enum import Enum
 from typing import Union
 
 from flask_socketio import SocketIO

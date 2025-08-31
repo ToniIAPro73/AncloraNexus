@@ -1,4 +1,4 @@
-﻿import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Card, CardHeader, CardContent, CardTitle } from './ui/Card';
 import { Button } from './ui-components';
 import { MessageCircle, Send, Bot, Sparkles, Trash, Copy, User, ChevronDown, ChevronRight } from 'lucide-react';
@@ -35,7 +35,7 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: `Â¡Hola ${userName}! Soy tu asistente de conversiÃ³n de Anclora Nexus. Puedo ayudarte a elegir el mejor formato para tus archivos o resolver dudas sobre conversiones. Â¿En quÃ© puedo ayudarte hoy?`,
+  text: `¡Hola ${userName}! Soy tu asistente de conversión de Anclora Nexus. Puedo ayudarte a elegir el mejor formato para tus archivos o resolver dudas sobre conversiones. ¿En qué puedo ayudarte hoy?`,
       isUser: false,
       timestamp: new Date(),
     }
@@ -52,18 +52,18 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
   const initialSuggestions: Suggestion[] = [
     {
       id: 'suggest-1',
-      text: 'Â¿QuÃ© formato es mejor para compartir documentos?',
-      action: () => handleSendMessage('Â¿QuÃ© formato es mejor para compartir documentos?')
+  text: '¿Qué formato es mejor para compartir documentos?',
+  action: () => handleSendMessage('¿Qué formato es mejor para compartir documentos?')
     },
     {
       id: 'suggest-2',
-      text: 'Â¿CÃ³mo puedo convertir varios archivos a la vez?',
-      action: () => handleSendMessage('Â¿CÃ³mo puedo convertir varios archivos a la vez?')
+  text: '¿Cómo puedo convertir varios archivos a la vez?',
+  action: () => handleSendMessage('¿Cómo puedo convertir varios archivos a la vez?')
     },
     {
       id: 'suggest-3',
-      text: 'Â¿CuÃ¡l es la diferencia entre JPG y PNG?',
-      action: () => handleSendMessage('Â¿CuÃ¡l es la diferencia entre JPG y PNG?')
+  text: '¿Cuál es la diferencia entre JPG y PNG?',
+  action: () => handleSendMessage('¿Cuál es la diferencia entre JPG y PNG?')
     }
   ];
 
@@ -157,7 +157,7 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
             });
           }
         } else {
-          botResponse = 'Para convertir un archivo, necesito saber el formato de origen y el formato de destino. Â¿QuÃ© tipo de archivo quieres convertir y a quÃ© formato?';
+          botResponse = 'Para convertir un archivo, necesito saber el formato de origen y el formato de destino. ¿Qué tipo de archivo quieres convertir y a qué formato?';
           
           newSuggestions = [
             { id: 'format-1', text: 'PDF a Word', action: () => onRequestConversion ? onRequestConversion('pdf', 'docx') : null },
@@ -176,25 +176,25 @@ export const ConversionAssistant: React.FC<ConversionAssistantProps> = ({
             if (onRequestFormatInfo) {
               newSuggestions.push({
                 id: `info-${format}-${Date.now()}`,
-                text: `MÃ¡s sobre ${format.toUpperCase()}`,
+                text: `Más sobre ${format.toUpperCase()}`,
                 action: () => onRequestFormatInfo(format)
               });
             }
           });
         } else if (lowerText.includes('compartir') || lowerText.includes('enviar')) {
-          botResponse = 'Para compartir documentos, el formato PDF es generalmente la mejor opciÃ³n porque mantiene el formato exacto y puede ser visualizado en prÃ¡cticamente cualquier dispositivo. Si necesitas que el destinatario pueda editar el documento, considera usar DOCX (Word) o una alternativa como Google Docs con permisos de ediciÃ³n.';
+          botResponse = 'Para compartir documentos, el formato PDF es generalmente la mejor opción porque mantiene el formato exacto y puede ser visualizado en prácticamente cualquier dispositivo. Si necesitas que el destinatario pueda editar el documento, considera usar DOCX (Word) o una alternativa como Google Docs con permisos de edición.';
           
           newSuggestions = [
             { id: 'share-1', text: 'Convertir a PDF', action: () => onRequestConversion ? onRequestConversion('', 'pdf') : null },
-            { id: 'share-2', text: 'MÃ¡s sobre PDF', action: () => onRequestFormatInfo ? onRequestFormatInfo('pdf') : null },
-            { id: 'share-3', text: 'Comparar PDF y DOCX', action: () => handleSendMessage('Â¿CuÃ¡l es la diferencia entre PDF y DOCX?') }
+            { id: 'share-2', text: 'Más sobre PDF', action: () => onRequestFormatInfo ? onRequestFormatInfo('pdf') : null },
+            { id: 'share-3', text: 'Comparar PDF y DOCX', action: () => handleSendMessage('¿Cuál es la diferencia entre PDF y DOCX?') }
           ];
         } else if (lowerText.includes('imagen') || lowerText.includes('foto')) {
-          botResponse = 'Para imÃ¡genes, el mejor formato depende del uso:\n\nâ€¢ JPG: Ideal para fotografÃ­as y imÃ¡genes con muchos colores\nâ€¢ PNG: Mejor para grÃ¡ficos, capturas de pantalla o imÃ¡genes con transparencia\nâ€¢ SVG: Perfecto para logos e iconos que necesitan escalarse a diferentes tamaÃ±os\nâ€¢ WebP: Formato moderno con buena compresiÃ³n para web';
+          botResponse = 'Para imágenes, el mejor formato depende del uso:\n\n• JPG: Ideal para fotografías y imágenes con muchos colores\n• PNG: Mejor para gráficos, capturas de pantalla o imágenes con transparencia\n• SVG: Perfecto para logos e iconos que necesitan escalarse a diferentes tamaños\n• WebP: Formato moderno con buena compresión para web';
           
           newSuggestions = [
-            { id: 'img-1', text: 'MÃ¡s sobre JPG', action: () => onRequestFormatInfo ? onRequestFormatInfo('jpg') : null },
-            { id: 'img-2', text: 'MÃ¡s sobre PNG', action: () => onRequestFormatInfo ? onRequestFormatInfo('png') : null },
+            { id: 'img-1', text: 'Más sobre JPG', action: () => onRequestFormatInfo ? onRequestFormatInfo('jpg') : null },
+            { id: 'img-2', text: 'Más sobre PNG', action: () => onRequestFormatInfo ? onRequestFormatInfo('png') : null },
             { id: 'img-3', text: 'Convertir una imagen', action: () => handleSendMessage('Quiero convertir una imagen') }
           ];
         } else {

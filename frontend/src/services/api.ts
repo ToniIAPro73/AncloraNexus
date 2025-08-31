@@ -1,4 +1,4 @@
-﻿// --- TIPOS DE DATOS (Interfaces) ---
+// --- TIPOS DE DATOS (Interfaces) ---
 import type { User } from '../types/User';
 import { io, type Socket } from 'socket.io-client';
 
@@ -13,7 +13,7 @@ export interface RegisterData {
   password?: string;
 }
 
-// --- LÃ“GICA DEL SERVICIO DE API ---
+// --- LÓGICA DEL SERVICIO DE API ---
 
 // URL base de la API configurable mediante variable de entorno
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api';
@@ -41,7 +41,7 @@ const clearToken = () => {
 
 // --- OBJETO apiService (con todas las funciones reales) ---
 export const apiService = {
-  // --- Funciones de AutenticaciÃ³n ---
+  // --- Funciones de Autenticación ---
   login: async (data: LoginData): Promise<{ user: User; token: string }> => {
     console.log('Iniciando login con:', API_BASE_URL, data.email);
     try {
@@ -57,7 +57,7 @@ export const apiService = {
       
       if (!response.ok) {
         console.error('Error en login:', responseData);
-        throw new Error(responseData.error || 'Error en el inicio de sesiÃ³n');
+  throw new Error(responseData.error || 'Error en el inicio de sesión');
       }
       
       setAuthToken(responseData.access_token);
@@ -91,7 +91,7 @@ export const apiService = {
     });
     if (!response.ok) {
       const data = await response.json().catch(() => ({}));
-      throw new Error(data.error || 'Error solicitando recuperaciÃ³n de contraseÃ±a');
+  throw new Error(data.error || 'Error solicitando recuperación de contraseña');
     }
   },
 
@@ -103,12 +103,12 @@ export const apiService = {
     });
     if (!response.ok) {
       const data = await response.json().catch(() => ({}));
-      throw new Error(data.error || 'Error restableciendo la contraseÃ±a');
+  throw new Error(data.error || 'Error restableciendo la contraseña');
     }
   },
 
   logout: () => {
-    console.log('Cerrando sesiÃ³n...');
+  console.log('Cerrando sesión...');
     clearToken();
   },
 
@@ -133,8 +133,8 @@ export const apiService = {
   },
 
   getProfile: async (): Promise<User> => {
-    const token = getAuthToken();
-    if (!token) throw new Error('No hay token de autenticaciÃ³n');
+  const token = getAuthToken();
+  if (!token) throw new Error('No hay token de autenticación');
     
     const response = await fetch(`${API_BASE_URL}/auth/profile`, {
         headers: { 'Authorization': `Bearer ${token}` },
@@ -149,7 +149,7 @@ export const apiService = {
 
   clearToken,
 
-  // --- Funciones de ConversiÃ³n ---
+  // --- Funciones de Conversión ---
   convertFile: async (payload: { file: File; target_format: string; }): Promise<any> => {
     const token = getAuthToken();
     const formData = new FormData();
@@ -162,7 +162,7 @@ export const apiService = {
         body: formData,
     });
     const data = await response.json();
-    if (!response.ok) throw new Error(data.error || 'Error en la conversiÃ³n');
+  if (!response.ok) throw new Error(data.error || 'Error en la conversión');
     return data;
   },
 
@@ -214,7 +214,7 @@ export const apiService = {
       },
       body: JSON.stringify({ amount }),
     });
-    if (!response.ok) throw new Error('Error comprando crÃ©ditos');
+  if (!response.ok) throw new Error('Error comprando créditos');
     return response.json();
   },
 
@@ -239,7 +239,7 @@ export const apiService = {
 
 // --- Funciones de Ayuda (Helpers) ---
 export const getConversionCost = (fromFormat: string, toFormat: string): number => {
-  // LÃ³gica bÃ¡sica de costos basada en complejidad de conversiÃ³n
+  // Lógica básica de costos basada en complejidad de conversión
   const formatComplexity: Record<string, number> = {
     'txt': 1,
     'md': 1,
@@ -253,7 +253,7 @@ export const getConversionCost = (fromFormat: string, toFormat: string): number 
   const fromComplexity = formatComplexity[fromFormat.toLowerCase()] || 2;
   const toComplexity = formatComplexity[toFormat.toLowerCase()] || 2;
   
-  // Costo base + complejidad de conversiÃ³n
+  // Costo base + complejidad de conversión
   return Math.max(1, Math.floor((fromComplexity + toComplexity) / 2));
 };
 export const formatFileSize = (bytes: number, decimals = 2): string => {

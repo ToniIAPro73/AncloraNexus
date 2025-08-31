@@ -1,4 +1,4 @@
-﻿Archivo de prueba con caracteres Unicode complejos:
+Archivo de prueba con caracteres Unicode complejos:
 
 Emojis: ðŸš€ ðŸŽ¯ ðŸ’Ž ðŸ“Š ðŸ”§ âš¡ ðŸŒŸ ðŸŽ¨ ðŸ“± ðŸ’»
 SÃ­mbolos matemÃ¡ticos: âˆ‘ âˆ† Ï€ âˆž â‰¤ â‰¥ â‰  Â± âˆš âˆ«

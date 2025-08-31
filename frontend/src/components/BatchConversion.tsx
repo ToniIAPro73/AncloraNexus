@@ -1,4 +1,4 @@
-﻿// Stub para evitar errores de importaciÃ³n en desarrollo
+// Stub para evitar errores de importaciÃ³n en desarrollo
 import React from 'react';
 
 export interface BatchConversionProps {

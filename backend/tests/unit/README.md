@@ -1,4 +1,4 @@
-﻿# Unit Tests
+# Unit Tests
 
 This directory contains unit tests for the backend components.
 

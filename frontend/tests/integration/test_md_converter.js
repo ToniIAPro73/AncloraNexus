@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Script de pruebas para TxtToMarkdownConverter
  * Prueba con documentos reales y casos edge
  */

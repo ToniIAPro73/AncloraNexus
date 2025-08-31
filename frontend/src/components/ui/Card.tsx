@@ -1,25 +1,132 @@
-﻿import React from 'react';
+import React, { forwardRef, memo } from 'react';
 
+/**si
+ * Props for the Card component
+ */
 interface CardProps {
+  /** The content to be rendered inside the card */
   children: React.ReactNode;
+  /** Additional CSS classes for styling */
   className?: string;
-  variant?: string;
+  /** Variant style for the card (e.g., 'default', 'elevated') */
+  variant?: 'default' | 'elevated' | 'outlined' | 'dark';
+  /** Whether to apply a border glow effect */
   borderGlow?: boolean;
 }
 
-export const Card: React.FC<CardProps> = ({ children, className = '' }) => (
-  <div className={`rounded-xl border border-slate-700 bg-slate-800/50 shadow ${className}`}>{children}</div>
-);
+/**
+ * Card component - A flexible container component with customizable styling
+ */
+export const Card = memo(forwardRef<HTMLDivElement, CardProps>(
+  ({ children, className = '', variant = 'default', borderGlow = false }, ref) => {
+    // Build className safely
+    const baseClasses = 'rounded-xl border bg-slate-800/50 shadow';
+    const variantClasses = {
+      default: 'border-slate-700',
+      elevated: 'border-slate-600 shadow-lg',
+      outlined: 'border-slate-500 bg-transparent',
+      dark: 'border-slate-800 bg-slate-900/50',
+    };
+    const glowClass = borderGlow ? 'border-glow' : '';
+    const combinedClassName = `${baseClasses} ${variantClasses[variant]} ${glowClass} ${className}`.trim();
 
-export const CardHeader: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className = '' }) => (
-  <div className={`p-4 border-b border-slate-700 ${className}`}>{children}</div>
-);
+    return (
+      <div
+        ref={ref}
+        className={combinedClassName}
+        role="region"
+        aria-label="Card container"
+      >
+        {children || null}
+      </div>
+    );
+  }
+));
 
-export const CardTitle: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className = '' }) => (
-  <h3 className={`text-lg font-medium text-white ${className}`}>{children}</h3>
-);
+Card.displayName = 'Card';
 
-export const CardContent: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className = '' }) => (
-  <div className={`p-4 ${className}`}>{children}</div>
-);
+/**
+ * Props for CardHeader component
+ */
+interface CardHeaderProps {
+  /** The content to be rendered in the header */
+  children: React.ReactNode;
+  /** Additional CSS classes */
+  className?: string;
+}
 
+/**
+ * CardHeader component - Header section of the card
+ */
+export const CardHeader = memo(forwardRef<HTMLDivElement, CardHeaderProps>(
+  ({ children, className = '' }, ref) => (
+    <div
+      ref={ref}
+      className={`p-4 border-b border-slate-700 ${className}`.trim()}
+      role="banner"
+    >
+      {children || null}
+    </div>
+  )
+));
+
+CardHeader.displayName = 'CardHeader';
+
+/**
+ * Props for CardTitle component
+ */
+interface CardTitleProps {
+  /** The title text or element */
+  children: React.ReactNode;
+  /** Additional CSS classes */
+  className?: string;
+  /** HTML heading level for accessibility */
+  level?: 1 | 2 | 3 | 4 | 5 | 6;
+}
+
+/**
+ * CardTitle component - Title element within the card
+ */
+export const CardTitle = memo(forwardRef<HTMLElement, CardTitleProps>(
+  ({ children, className = '', level = 3 }, ref) => {
+    const HeadingTag = `h${level}` as keyof JSX.IntrinsicElements;
+
+    return React.createElement(
+      HeadingTag,
+      {
+        ref,
+        className: `text-lg font-medium text-white ${className}`.trim(),
+      },
+      children || ''
+    );
+  }
+));
+
+CardTitle.displayName = 'CardTitle';
+
+/**
+ * Props for CardContent component
+ */
+interface CardContentProps {
+  /** The main content of the card */
+  children: React.ReactNode;
+  /** Additional CSS classes */
+  className?: string;
+}
+
+/**
+ * CardContent component - Main content area of the card
+ */
+export const CardContent = memo(forwardRef<HTMLDivElement, CardContentProps>(
+  ({ children, className = '' }, ref) => (
+    <div
+      ref={ref}
+      className={`p-4 ${className}`.trim()}
+      role="main"
+    >
+      {children || null}
+    </div>
+  )
+));
+
+CardContent.displayName = 'CardContent';

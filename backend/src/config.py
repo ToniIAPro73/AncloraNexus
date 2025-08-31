@@ -1,4 +1,4 @@
-﻿# ================================
+# ================================
 # ANCLORA Nexus - CENTRALIZED CONFIGURATION
 # Fase 3: Arquitectura optimizada
 # ================================

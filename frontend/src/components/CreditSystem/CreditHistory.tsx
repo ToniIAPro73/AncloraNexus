@@ -1,4 +1,4 @@
-﻿    // frontend/src/components/CreditSystem/CreditHistory.tsx
+    // frontend/src/components/CreditSystem/CreditHistory.tsx
     import React from 'react';
     import { useCreditSystem } from './index';
 

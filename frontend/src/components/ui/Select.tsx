@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 
 export interface SelectItem { id: string|number; label: React.ReactNode; icon?: React.ReactNode }
 export const Select: React.FC<{ items: SelectItem[]; value: string|number|null; onChange: (v: string|number|null)=>void; label?: string; placeholder?: string; fullWidth?: boolean; className?: string }>

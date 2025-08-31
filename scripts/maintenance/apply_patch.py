@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 
 """
 A self-contained **pure-Python 3.9+** utility for applying human-readable

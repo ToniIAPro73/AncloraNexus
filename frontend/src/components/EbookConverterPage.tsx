@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { EbookConverter } from './EbookConverter';
 import { EbookFormatSelector } from './EbookFormatSelector';
 import { EbookMetadataViewer } from './EbookMetadataViewer';

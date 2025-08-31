@@ -1,4 +1,4 @@
-﻿import React, { useState, useCallback, PropsWithChildren } from 'react';
+import React, { useState, useCallback, PropsWithChildren } from 'react';
 import { IconUpload } from './Icons';
 
 interface FileUploaderProps {

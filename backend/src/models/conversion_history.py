@@ -1,4 +1,4 @@
-﻿from datetime import datetime
+from datetime import datetime
 from .user import db
 
 class ConversionHistory(db.Model):

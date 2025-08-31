@@ -1,4 +1,4 @@
-﻿# Image Test Fixtures
+# Image Test Fixtures
 
 This file contains information about the image test fixtures used in the test suite.
 

@@ -1,9 +1,9 @@
-﻿// tailwind.config.js
+// tailwind.config.js
 module.exports = {
   content: [
     './src/**/*.{js,ts,jsx,tsx}',
     './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
+    './src/components/**/*.{js,ts,jsx,tsx}',
   ],
   darkMode: 'class', // Usar clase CSS para modo oscuro
   theme: {
@@ -27,7 +27,7 @@ module.exports = {
           700: '#3E4C59',
           900: '#1F2933',
         },
-        // Paleta de alto contraste (ratio â‰¥ 7:1)
+        // High contrast palette
         hc: {
           background: '#000000', // Negro
           foreground: '#FFFFFF', // Blanco

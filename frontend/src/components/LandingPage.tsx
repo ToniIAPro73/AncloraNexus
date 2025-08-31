@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FileText, Zap, Shield, ArrowRight, Download, Upload, Settings, CheckCircle, BookOpen, Moon, Sun, Monitor, Menu, X, Cpu, Lock, Layers, Database, Globe, Package, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface LandingPageProps {
@@ -71,7 +71,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
       ]
     },
     {
-      title: "ImÃ¡genes & grÃ¡ficos",
+  title: "Imágenes & gráficos",
       icon: <Upload className="w-12 h-12 mx-auto text-teal-600 dark:text-teal-400" />,
       conversions: [
         { from: 'PNG', to: 'JPG' },
@@ -82,7 +82,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
       ]
     },
     {
-      title: "Audio & vÃ­deo",
+      title: "Audio & vídeo",
       icon: <Cpu className="w-12 h-12 mx-auto text-cyan-600 dark:text-cyan-400" />,
       conversions: [
         { from: 'MP4', to: 'MP3' },
@@ -109,32 +109,32 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
     }
   ];
 
-  // CaracterÃ­sticas avanzadas con efectos hover
+  // Características avanzadas con efectos hover
   const advancedFeatures = [
     {
       icon: <Settings className="w-16 h-16 text-teal-600 dark:text-teal-400" />,
-      title: "ConversiÃ³n universal",
-      description: "Convierte entre mÃ¡s de 200 formatos sin perder calidad. Desde documentos hasta vÃ­deo."
+      title: "Conversión universal",
+      description: "Convierte entre más de 200 formatos sin perder calidad. Desde documentos hasta vídeo."
     },
     {
       icon: <Cpu className="w-16 h-16 text-emerald-600 dark:text-emerald-400" />,
       title: "IA inteligente",
-      description: "Reconoce contenido y estructura, aplica OCR avanzado y optimiza tus archivos automÃ¡ticamente."
+  description: "Reconoce contenido y estructura, aplica OCR avanzado y optimiza tus archivos automáticamente."
     },
     {
       icon: <Zap className="w-16 h-16 text-cyan-600 dark:text-cyan-400" />,
       title: "Velocidad extrema",
-      description: "Procesa archivos de cualquier tamaÃ±o en segundos gracias a una infraestructura distribuida."
+  description: "Procesa archivos de cualquier tamaño en segundos gracias a una infraestructura distribuida."
     },
     {
       icon: <Lock className="w-16 h-16 text-green-600 dark:text-green-400" />,
       title: "Seguridad total",
-      description: "Cifrado de extremo a extremo y cumplimiento con GDPR. Tus datos siempre estÃ¡n protegidos."
+  description: "Cifrado de extremo a extremo y cumplimiento con GDPR. Tus datos siempre están protegidos."
     },
     {
       icon: <Layers className="w-16 h-16 text-teal-700 dark:text-teal-300" />,
       title: "Procesamiento por lotes",
-      description: "Convierte miles de archivos simultÃ¡neamente con reglas personalizadas y monitorizaciÃ³n en tiempo real."
+  description: "Convierte miles de archivos simultáneamente con reglas personalizadas y monitorización en tiempo real."
     },
     {
       icon: <Database className="w-16 h-16 text-emerald-700 dark:text-emerald-300" />,
@@ -148,25 +148,25 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
     {
       number: 1,
       title: "Sube tu archivo",
-      description: "Arrastra o selecciona cualquier archivo desde tu dispositivo. Soporte para mÃ¡s de 200 formatos.",
+  description: "Arrastra o selecciona cualquier archivo desde tu dispositivo. Soporte para más de 200 formatos.",
       icon: <Upload className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
     },
     {
       number: 2,
       title: "Procesamiento IA",
-      description: "Nuestra inteligencia artificial analiza y optimiza tu contenido automÃ¡ticamente.",
+      description: "Nuestra inteligencia artificial analiza y optimiza tu contenido automáticamente.",
       icon: <Cpu className="w-8 h-8 text-teal-600 dark:text-teal-400" />
     },
     {
       number: 3,
-      title: "ConversiÃ³n segura",
-      description: "Convertimos tu archivo con mÃ¡xima calidad y seguridad garantizada.",
+      title: "Conversión segura",
+      description: "Convertimos tu archivo con máxima calidad y seguridad garantizada.",
       icon: <Shield className="w-8 h-8 text-green-600 dark:text-green-400" />
     },
     {
       number: 4,
       title: "Descarga inmediata",
-      description: "ObtÃ©n tu archivo convertido al instante y con la mejor calidad posible.",
+      description: "Obtén tu archivo convertido al instante y con la mejor calidad posible.",
       icon: <Download className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
     }
   ];
@@ -174,12 +174,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
   const plans = [
     {
       name: "Starter",
-      price: "â‚¬9",
+      price: "€9",
       period: "/mes",
       features: [
         "1000 conversiones/mes",
         "Archivos hasta 50 MB",
-        "Formatos bÃ¡sicos",
+        "Formatos básicos",
         "Soporte por email"
       ],
       popular: false,
@@ -187,7 +187,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
     },
     {
       name: "Professional",
-      price: "â‚¬29",
+      price: "€29",
       period: "/mes",
       features: [
         "10.000 conversiones/mes",
@@ -202,14 +202,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
     },
     {
       name: "Enterprise",
-      price: "â‚¬99",
+      price: "€99",
       period: "/mes",
       features: [
         "Conversiones ilimitadas",
         "Archivos hasta 5 GB",
         "Formatos personalizados",
         "API dedicada",
-        "IntegraciÃ³n custom",
+        "Integración custom",
         "Soporte 24/7"
       ],
       popular: false,
@@ -219,20 +219,20 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
 
   const faqs = [
     {
-      question: "Â¿QuÃ© formatos puedo convertir?",
-      answer: "Soportamos mÃ¡s de 200 formatos incluyendo documentos (PDF, Word, Excel, PowerPoint), imÃ¡genes (JPG, PNG, SVG, WebP), audio y vÃ­deo (MP4, MP3, WAV), archivos comprimidos y muchos mÃ¡s."
+      question: "¿Qué formatos puedo convertir?",
+  answer: "Soportamos más de 200 formatos incluyendo documentos (PDF, Word, Excel, PowerPoint), imágenes (JPG, PNG, SVG, WebP), audio y vídeo (MP4, MP3, WAV), archivos comprimidos y muchos más."
     },
     {
-      question: "Â¿Es seguro subir mis archivos?",
-      answer: "Absolutamente. Utilizamos cifrado de extremo a extremo, cumplimos con GDPR y todos los archivos se eliminan automÃ¡ticamente de nuestros servidores tras la conversiÃ³n."
+      question: "¿Es seguro subir mis archivos?",
+      answer: "Absolutamente. Utilizamos cifrado de extremo a extremo, cumplimos con GDPR y todos los archivos se eliminan automáticamente de nuestros servidores tras la conversión."
     },
     {
-      question: "Â¿Hay lÃ­mites en el tamaÃ±o de archivo?",
-      answer: "Depende de tu plan. El plan Starter permite archivos hasta 50 MB, Professional hasta 500 MB y Enterprise hasta 5 GB. Para archivos mÃ¡s grandes, contacta con nosotros."
+      question: "¿Hay límites en el tamaño de archivo?",
+      answer: "Depende de tu plan. El plan Starter permite archivos hasta 50 MB, Professional hasta 500 MB y Enterprise hasta 5 GB. Para archivos más grandes, contacta con nosotros."
     },
     {
-      question: "Â¿Puedo usar la API?",
-      answer: "SÃ­, desde el plan Professional tienes acceso completo a nuestra API RESTful con documentaciÃ³n completa, SDKs y webhooks para integrar nuestras capacidades en tus sistemas."
+      question: "¿Puedo usar la API?",
+      answer: "Sí, desde el plan Professional tienes acceso completo a nuestra API RESTful con documentación completa, SDKs y webhooks para integrar nuestras capacidades en tus sistemas."
     }
   ];
 
@@ -254,7 +254,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
             {/* Navigation - Centro */}
             <nav className="hidden lg:flex space-x-6">
               <a href="#proceso" className="text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors text-sm">Proceso</a>
-              <a href="#caracteristicas" className="text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors text-sm">CaracterÃ­sticas</a>
+              <a href="#caracteristicas" className="text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors text-sm">Características</a>
               <a href="#conversiones" className="text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors text-sm">Conversiones</a>
               <a href="#precios" className="text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors text-sm">Precios</a>
               <a href="#faq" className="text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors text-sm">FAQ</a>
@@ -295,7 +295,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
                       className="w-full px-4 py-2 text-left flex items-center space-x-2 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100"
                     >
                       <Monitor className="w-4 h-4" />
-                      <span>AutomÃ¡tico</span>
+                      <span>Automático</span>
                     </button>
                   </div>
                 )}
@@ -325,7 +325,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
           <div className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
             <div className="px-4 py-3 space-y-3">
               <a href="#proceso" className="block text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400">Proceso</a>
-              <a href="#caracteristicas" className="block text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400">CaracterÃ­sticas</a>
+              <a href="#caracteristicas" className="block text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400">Características</a>
               <a href="#conversiones" className="block text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400">Conversiones</a>
               <a href="#precios" className="block text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400">Precios</a>
               <a href="#faq" className="block text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400">FAQ</a>
@@ -358,8 +358,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
           </h1>
           
           <p className="text-xl md:text-2xl text-emerald-100 mb-12 max-w-3xl mx-auto leading-relaxed">
-            La plataforma mÃ¡s avanzada para convertir documentos, imÃ¡genes, audio y vÃ­deo. 
-            MÃ¡s de 200 formatos soportados con IA integrada.
+            La plataforma más avanzada para convertir documentos, imágenes, audio y vídeo. 
+            Más de 200 formatos soportados con IA integrada.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -400,7 +400,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
                   Nuestro proceso
                 </h2>
                 <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                  ConversiÃ³n inteligente en 4 pasos simples
+                  Conversión inteligente en 4 pasos simples
                 </p>
               </div>
               
@@ -447,7 +447,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
             </div>
           </section>
 
-          {/* CaracterÃ­sticas avanzadas */}
+          {/* Características avanzadas */}
           <section id="caracteristicas" className="py-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center mb-16">
@@ -455,7 +455,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
                   Capacidades avanzadas
                 </h2>
                 <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                  TecnologÃ­a de vanguardia para todas tus necesidades de conversiÃ³n
+                  Tecnología de vanguardia para todas tus necesidades de conversión
                 </p>
               </div>
               
@@ -480,15 +480,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
             </div>
           </section>
 
-          {/* Conversiones mÃ¡s frecuentes */}
+          {/* Conversiones más frecuentes */}
           <section id="conversiones" className="py-20 bg-gradient-to-br from-emerald-50/50 to-teal-50/50 dark:from-emerald-900/20 dark:to-teal-900/20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center mb-16">
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-                  Conversiones mÃ¡s frecuentes
+                  Conversiones más frecuentes
                 </h2>
                 <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                  Accede rÃ¡pidamente a las conversiones mÃ¡s populares organizadas por categorÃ­as
+                  Accede rápidamente a las conversiones más populares organizadas por categorías
                 </p>
               </div>
               
@@ -537,7 +537,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
                   Planes y precios
                 </h2>
                 <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                  Elige el plan perfecto para tus necesidades de conversiÃ³n
+                  Elige el plan perfecto para tus necesidades de conversión
                 </p>
               </div>
               
@@ -589,7 +589,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
                     <button 
                       onClick={(e) => {
                         e.stopPropagation();
-                        // AquÃ­ irÃ­a la lÃ³gica de compra/contrataciÃ³n
+                        // Aquí iría la lógica de compra/contratación
                         console.log(`Seleccionando plan: ${plan.name}`);
                       }}
                       className={`w-full py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 ${
@@ -614,7 +614,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
                   Preguntas frecuentes
                 </h2>
                 <p className="text-xl text-gray-600 dark:text-gray-300">
-                  Resolvemos tus dudas mÃ¡s comunes
+                  Resolvemos tus dudas más comunes
                 </p>
               </div>
               
@@ -643,10 +643,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
           <section id="contacto" className="py-20 bg-gradient-to-br from-emerald-50/50 to-teal-50/50 dark:from-emerald-900/20 dark:to-teal-900/20">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-                Â¿Necesitas ayuda?
+                ¿Necesitas ayuda?
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto">
-                Nuestro equipo estÃ¡ aquÃ­ para ayudarte. ContÃ¡ctanos para resolver cualquier duda o problema.
+                Nuestro equipo está aquí para ayudarte. Contáctanos para resolver cualquier duda o problema.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
@@ -657,14 +657,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
                 
                 <button className="group px-8 py-4 bg-white/80 dark:bg-gray-800/80 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-teal-50 dark:hover:from-emerald-900/20 dark:hover:to-teal-900/20 text-gray-900 dark:text-white border-2 border-emerald-200 dark:border-emerald-700 hover:border-emerald-300 dark:hover:border-emerald-600 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 backdrop-blur-sm flex items-center space-x-3">
                   <BookOpen className="w-6 h-6 group-hover:scale-110 transition-transform" />
-                  <span>Ver documentaciÃ³n</span>
+                  <span>Ver documentación</span>
                 </button>
               </div>
               
               <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
                 <div className="p-6 bg-white/80 dark:bg-gray-800/80 rounded-xl shadow-lg border border-emerald-200/30 dark:border-emerald-700/20">
-                  <h3 className="font-bold text-gray-900 dark:text-white mb-2">Soporte tÃ©cnico</h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">Para problemas tÃ©cnicos y consultas sobre la plataforma</p>
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-2">Soporte técnico</h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-4">Para problemas técnicos y consultas sobre la plataforma</p>
                   <p className="text-emerald-600 dark:text-emerald-400 font-medium">soporte@anclora.com</p>
                 </div>
                 
@@ -700,7 +700,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
             <div>
               <h3 className="font-bold mb-4 text-emerald-400">Producto</h3>
               <ul className="space-y-2 text-gray-300">
-                <li><a href="#caracteristicas" className="hover:text-emerald-400 transition-colors">CaracterÃ­sticas</a></li>
+                <li><a href="#caracteristicas" className="hover:text-emerald-400 transition-colors">Características</a></li>
                 <li><a href="#conversiones" className="hover:text-emerald-400 transition-colors">Conversiones</a></li>
                 <li><a href="#precios" className="hover:text-emerald-400 transition-colors">Precios</a></li>
                 <li><a href="#" className="hover:text-emerald-400 transition-colors">API</a></li>
@@ -712,7 +712,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
               <ul className="space-y-2 text-gray-300">
                 <li><a href="#faq" className="hover:text-emerald-400 transition-colors">FAQ</a></li>
                 <li><a href="#contacto" className="hover:text-emerald-400 transition-colors">Contacto</a></li>
-                <li><a href="#" className="hover:text-emerald-400 transition-colors">DocumentaciÃ³n</a></li>
+                <li><a href="#" className="hover:text-emerald-400 transition-colors">Documentación</a></li>
                 <li><a href="#" className="hover:text-emerald-400 transition-colors">Estado del servicio</a></li>
               </ul>
             </div>
@@ -720,11 +720,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
           
           <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400">
-              Â© 2024 Anclora. Todos los derechos reservados.
+              © 2024 Anclora. Todos los derechos reservados.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">Privacidad</a>
-              <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">TÃ©rminos</a>
+              <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">Términos</a>
               <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">Cookies</a>
             </div>
           </div>

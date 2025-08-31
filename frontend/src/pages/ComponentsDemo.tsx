@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import {
   Button,
   Card,
@@ -51,9 +51,9 @@ const ComponentsDemo = () => {
       content: (
         <ButtonsSection 
           onShowToast={() => {
-            showToast({
-              title: 'OperaciÃ³n completada',
-              message: 'AcciÃ³n realizada correctamente',
+                    showToast({
+                      title: 'Operación completada',
+                      message: 'Acción realizada correctamente',
               type: 'success'
             });
           }}
@@ -63,7 +63,7 @@ const ComponentsDemo = () => {
     },
     {
       id: 'dialogs',
-      label: 'DiÃ¡logos',
+      label: 'Diálogos',
       badge: <Badge variant="primary" size="sm">Nuevo</Badge>,
       content: (
         <DialogsSection
@@ -86,9 +86,9 @@ const ComponentsDemo = () => {
   
   const dropdownItems = [
     { id: 'profile', label: 'Mi Perfil', icon: <User size={16} /> },
-    { id: 'settings', label: 'ConfiguraciÃ³n', icon: <Settings size={16} /> },
+    { id: 'settings', label: 'Configuración', icon: <Settings size={16} /> },
     { id: 'notifications', label: 'Notificaciones', icon: <Bell size={16} /> },
-    { id: 'logout', label: 'Cerrar SesiÃ³n', icon: <Trash size={16} />, disabled: false }
+    { id: 'logout', label: 'Cerrar Sesión', icon: <Trash size={16} />, disabled: false }
   ];
   
   const selectOptions = [
@@ -113,7 +113,7 @@ const ComponentsDemo = () => {
         
         <Card variant="default" className="mb-8 animate-in fade-in slide-in-from-bottom duration-700">
           <CardHeader>
-            <CardTitle>GuÃ­a de Componentes</CardTitle>
+            <CardTitle>Guía de Componentes</CardTitle>
           </CardHeader>
           <CardContent>
             <Tabs 
@@ -143,7 +143,7 @@ const ComponentsDemo = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <h3 className="text-lg font-medium text-white">SelecciÃ³n de formato</h3>
+                <h3 className="text-lg font-medium text-white">Selección de formato</h3>
                 <Select
                   items={selectOptions}
                   value={selectedFormat}
@@ -175,23 +175,23 @@ const ComponentsDemo = () => {
                 items={[
                   {
                     id: 'section1',
-                    title: 'InformaciÃ³n General',
+                    title: 'Información General',
                     icon: <Info size={18} />,
                     content: (
                       <div className="text-sm text-slate-300">
-                        <p>Esta secciÃ³n contiene informaciÃ³n general sobre la plataforma.</p>
+                        <p>Esta sección contiene información general sobre la plataforma.</p>
                       </div>
                     )
                   },
                   {
                     id: 'section2',
-                    title: 'ConfiguraciÃ³n Avanzada',
+                    title: 'Configuración Avanzada',
                     icon: <Settings size={18} />,
                     content: (
                       <div className="text-sm text-slate-300">
                         <p>Ajustes avanzados para usuarios experimentados.</p>
                         <div className="mt-2">
-                          <Button size="sm" variant="outline">Cambiar configuraciÃ³n</Button>
+                          <Button size="sm" variant="outline">Cambiar configuración</Button>
                         </div>
                       </div>
                     )
@@ -219,7 +219,7 @@ const ComponentsDemo = () => {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title="ConfiguraciÃ³n de ConversiÃ³n"
+        title="Configuración de Conversión"
         size="md"
         footer={
           <>
@@ -231,7 +231,7 @@ const ComponentsDemo = () => {
               onClick={() => {
                 setIsModalOpen(false);
                 showToast({
-                  title: 'ConfiguraciÃ³n guardada',
+                  title: 'Configuración guardada',
                   message: 'Los cambios han sido aplicados correctamente',
                   type: 'success'
                 });
@@ -256,7 +256,7 @@ const ComponentsDemo = () => {
           
           <div>
             <label className="block text-sm font-medium text-slate-300 mb-1">
-              CompresiÃ³n
+              Compresión
             </label>
             <input 
               type="range" 
@@ -276,14 +276,14 @@ const ComponentsDemo = () => {
         onConfirm={() => {
           setIsConfirmModalOpen(false);
           showToast({
-            title: 'AcciÃ³n confirmada',
-            message: 'La operaciÃ³n se ha completado correctamente',
+            title: 'Acción confirmada',
+            message: 'La operación se ha completado correctamente',
             type: 'success'
           });
         }}
-        title="Confirmar acciÃ³n"
-        message="Â¿EstÃ¡s seguro de que deseas realizar esta acciÃ³n? Esta operaciÃ³n no se puede deshacer."
-        confirmText="SÃ­, continuar"
+        title="Confirmar acción"
+        message="¿Estás seguro de que deseas realizar esta acción? Esta operación no se puede deshacer."
+        confirmText="Sí, continuar"
         cancelText="Cancelar"
         confirmVariant="primary"
       />
@@ -312,7 +312,7 @@ const ButtonsSection = ({ onShowToast, onOpenModal }: {
       <h3 className="text-lg font-medium text-white mb-3">Botones con iconos</h3>
       <div className="flex flex-wrap gap-3">
         <Button iconLeft={<Plus size={16} />}>Nuevo</Button>
-        <Button iconRight={<ChevronDown size={16} />}>MÃ¡s opciones</Button>
+        <Button iconRight={<ChevronDown size={16} />}>Más opciones</Button>
         <Button variant="outline" iconLeft={<Download size={16} />}>Descargar</Button>
         <Button variant="ghost" iconLeft={<Edit size={16} />}>Editar</Button>
       </div>
@@ -333,17 +333,17 @@ const ButtonsSection = ({ onShowToast, onOpenModal }: {
 const DialogsSection = ({ onOpenConfirmModal, onShowToast }: { onOpenConfirmModal: () => void; onShowToast: (options: any) => void }) => (
   <div className="space-y-6">
     <div>
-      <h3 className="text-lg font-medium text-white mb-3">Tipos de diÃ¡logos</h3>
+      <h3 className="text-lg font-medium text-white mb-3">Tipos de diálogos</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card variant="dark">
           <CardHeader>
-            <CardTitle>Modal de confirmaciÃ³n</CardTitle>
+            <CardTitle>Modal de confirmación</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-slate-300 mb-3">
-              Ãštil para confirmar acciones importantes o irreversibles
+              Útil para confirmar acciones importantes o irreversibles
             </p>
-            <Button onClick={onOpenConfirmModal}>Mostrar confirmaciÃ³n</Button>
+            <Button onClick={onOpenConfirmModal}>Mostrar confirmación</Button>
           </CardContent>
         </Card>
         
@@ -361,8 +361,8 @@ const DialogsSection = ({ onOpenConfirmModal, onShowToast }: { onOpenConfirmModa
                 size="sm"
                 onClick={() => {
                   onShowToast({
-                    title: 'InformaciÃ³n',
-                    message: 'Esta es una notificaciÃ³n informativa',
+                    title: 'Información',
+                    message: 'Esta es una notificación informativa',
                     type: 'info'
                   });
                 }}
@@ -374,13 +374,13 @@ const DialogsSection = ({ onOpenConfirmModal, onShowToast }: { onOpenConfirmModa
                 size="sm"
                 onClick={() => {
                   onShowToast({
-                    title: 'Ã‰xito',
-                    message: 'OperaciÃ³n completada correctamente',
+                    title: 'Éxito',
+                    message: 'Operación completada correctamente',
                     type: 'success'
                   });
                 }}
               >
-                Ã‰xito
+                Éxito
               </Button>
               <Button
                 variant="outline"
@@ -388,7 +388,7 @@ const DialogsSection = ({ onOpenConfirmModal, onShowToast }: { onOpenConfirmModa
                 onClick={() => {
                   onShowToast({
                     title: 'Advertencia',
-                    message: 'Debes revisar esta informaciÃ³n',
+                    message: 'Debes revisar esta información',
                     type: 'warning'
                   });
                 }}
@@ -441,13 +441,13 @@ const ComponentsSection = () => (
         <Dropdown
           trigger={
             <Button iconRight={<ChevronDown size={16} />} variant="outline">
-              MenÃº
+              Menú
             </Button>
           }
           items={[
-            { id: '1', label: 'OpciÃ³n 1', icon: <Settings size={16} /> },
-            { id: '2', label: 'OpciÃ³n 2', icon: <User size={16} /> },
-            { id: '3', label: 'OpciÃ³n 3', disabled: true, icon: <Bell size={16} /> },
+            { id: '1', label: 'Opción 1', icon: <Settings size={16} /> },
+            { id: '2', label: 'Opción 2', icon: <User size={16} /> },
+            { id: '3', label: 'Opción 3', disabled: true, icon: <Bell size={16} /> },
             { id: '4', label: 'Eliminar', icon: <Trash size={16} className="text-red-500" /> }
           ]}
           align="left"
@@ -485,7 +485,7 @@ const ComponentsSection = () => (
           },
           {
             id: 'tab3',
-            label: 'ConfiguraciÃ³n',
+            label: 'Configuración',
             disabled: true,
             content: <div className="p-4">Contenido del tab 3</div>
           }
@@ -520,8 +520,8 @@ const TooltipsSection = () => (
         <Tooltip 
           content={
             <div className="p-1">
-              <p className="font-medium text-white">TÃ­tulo del tooltip</p>
-              <p className="text-xs text-slate-300 mt-1">DescripciÃ³n adicional con mÃ¡s detalles</p>
+              <p className="font-medium text-white">Título del tooltip</p>
+              <p className="text-xs text-slate-300 mt-1">Descripción adicional con más detalles</p>
             </div>
           } 
           position="top"

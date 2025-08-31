@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Anclora — Brand & Design System · Guía / Guide (A4)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  /* ===== Tokens ===== */
+  :root{
+    /* Paleta base Anclora (archivo original + twine) */
+    --brand-700:#213A57; --brand-600:#0B6477; --brand-500:#14919B; --brand-400:#0AD1C8; --brand-300:#45DFB1; --brand-200:#80ED99;
+    /* Extensión de paleta (foto del cañón / variaciones turquesa) */
+    --sea-600:#0A675F; --sea-500:#0AB6A1; --sea-450:#0A9A8A; --sea-700:#1C5440;
+    --sage-400:#A3B390; --ivory-50:#FCF9D9;
+    /* Neutros y superficies */
+    --surface-0:#FFFFFF; --surface-25:#FBFDFB; --surface-50:#F8FAFC; --surface-900:#081B1B; --surface-800:#0D1F22;
+    --text-900:#0F172A; --text-700:#334155; --text-inv:#F8FAFC;
+    /* Gradientes oceánicos */
+    --grad-ocean: linear-gradient(120deg,#80ED99 0%,#45DFB1 22%,#0AD1C8 45%,#14919B 65%,#0B6477 82%,#213A57 100%);
+    --grad-ocean-dark:  linear-gradient(120deg,#213A57 0%,#0B6477 25%,#14919B 50%,#0AD1C8 70%,#45DFB1 85%,#80ED99 100%);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;background:#e5e7eb;margin:0}
+  body{font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text-900)}
+  a{color:inherit}
+  svg{display:block}
+  /* ===== A4 pages ===== */
+  @page{size:A4;margin:0}
+  .doc{padding:24px;display:flex;flex-direction:column;gap:24px}
+  .page{width:210mm;height:297mm;margin:0 auto;border-radius:16px;overflow:hidden;position:relative;box-shadow:0 8px 24px rgba(0,0,0,.15);background:#fff}
+  .pad{padding:22mm;position:relative;z-index:2}
+  .bar{font-family:"Space Grotesk",Inter,sans-serif;letter-spacing:.06em;font-weight:700;color:var(--brand-700);border-top:8px solid var(--brand-700);border-bottom:1px solid #e5e7eb;padding:8mm 22mm 6mm;background:rgba(255,255,255,.85);backdrop-filter:saturate(120%) blur(2px)}
+  h1{font-family:"Space Grotesk",Inter,sans-serif;font-size:22pt;margin:0 0 4mm;font-weight:700;letter-spacing:.01em}
+  h2{font-size:14pt;margin:0 0 3mm}
+  p,li{font-size:11pt;line-height:1.6}
+  .muted{color:var(--text-700)}
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:6mm}
+  .tile{border-radius:12mm;display:grid;place-items:center;aspect-ratio:1/1;box-shadow:0 6px 18px rgba(0,0,0,.12)}
+  .tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:6mm}
+  .swatch{height:28mm;border-radius:8mm;padding:4mm;color:#fff;display:flex;align-items:flex-end;justify-content:space-between;font-weight:700}
+  .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--surface-50);font-size:9pt}
+  .card{border-radius:8mm;padding:10mm;background:rgba(255,255,255,.9);box-shadow:0 6px 18px rgba(0,0,0,.08);border:1px solid #E2E8F0}
+  .ok{outline:4px solid #22c55e55}
+  .bad{outline:4px solid #ef444455}
+  .btn{display:inline-flex;align-items:center;gap:4mm;border-radius:6mm;padding:5mm 8mm;font-weight:600;font-size:11pt;border:1px solid transparent}
+  .btn.primary{background:var(--brand-600);color:#fff}
+  .btn.primary:hover{background:var(--brand-500)}
+  .wordmark{font-family:"Space Grotesk",Inter,sans-serif;font-weight:700}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:10pt;border:1px solid #e2e8f0;background:rgba(255,255,255,.75)}
+  .row{display:flex;gap:6mm;flex-wrap:wrap}
+  .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:6mm}
+
+  /* ===== Fondos solicitados ===== */
+  /* Fallback gradient por si la imagen no carga */
+  .fallback-grad{background:var(--grad-ocean-dark)}
+  /* Portada: image-set con variantes por espacios/acentos */
+  .cover{color:var(--text-inv);background:
+      image-set(
+        url('Propuesta%20s%C3%B3lo%20del%20fondo.png') type("image/png"),
+        url('Propuesta%20solo%20del%20fondo.png') type("image/png"),
+        url('Propuesta%20s%C3%B3lo%20del%20fondo.PNG') type("image/png"),
+        url('Propuesta%20solo%20del%20fondo.PNG') type("image/png"),
+        url('Propuesta%20s%C3%B3lo%20del%20fondo.jpg') type("image/jpeg"),
+        url('Propuesta sólo del fondo.png') type("image/png")
+      ) center/cover no-repeat;
+  }
+  .cover::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.32),rgba(0,0,0,.26) 60%,rgba(0,0,0,.22));}
+  /* Resto de páginas: mismo archivo, más claro manteniendo el degradado */
+  .bg-ocean{background:
+      image-set(
+        url('Propuesta%20s%C3%B3lo%20del%20fondo.png') type("image/png"),
+        url('Propuesta%20solo%20del%20fondo.png') type("image/png"),
+        url('Propuesta sólo del fondo.png') type("image/png")
+      ) center/cover no-repeat;
+  }
+  .bg-ocean::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.82),rgba(255,255,255,.88));}
+
+  /* Lockup superior izquierda en portada */
+  .lockup{display:flex;align-items:center;gap:8mm}
+  .cover-lockup{position:absolute;top:18mm;left:22mm;z-index:3}
+  .cover-name{font-size:16pt;letter-spacing:.02em;color:var(--brand-200);font-weight:700}
+  .cover-claim{font-size:11pt;color:#D8FFE9;opacity:.95}
+  .cover-title{position:absolute;left:22mm;bottom:26mm;z-index:3;color:#fff}
+  .cover-title h1{font-size:34pt;margin:0 0 4mm}
+  .cover-title .subtitle{font-size:12pt;opacity:.9}
+
+  /* ===== UI idioma ===== */
+  .toolbar{position:fixed;top:12px;right:18px;z-index:9999;display:flex;gap:8px}
+  .lang-btn{background:#fff;border:1px solid #e2e8f0;border-radius:999px;padding:8px 12px;font-weight:600;cursor:pointer}
+  .lang-btn.active{background:var(--brand-300);color:#053b34;border-color:transparent}
+  .lang.es{display:unset}
+  .lang.en{display:none}
+  /* Forzar visibilidad/ocultación por idioma */
+  [data-lang="en"] .lang.es{display:none !important}
+  [data-lang="en"] .lang.en{display:unset !important}
+  [data-lang="es"] .lang.en{display:none !important}
+  [data-lang="es"] .lang.es{display:unset !important}
+  .page.compact .pad{padding:14mm}
+  /* Ajustes específicos de la página de colores */
+  .colors-page .tiles{grid-template-columns:repeat(3,1fr);gap:10mm}
+  .colors-page .swatch{height:18mm;border-radius:6mm;padding:3mm;font-size:10pt}
+  .colors-page h2{margin:6mm 0 3mm}
+  .colors-page .group{margin-top:8mm}
+  .colors-page .card{min-height:26mm}
+  .colors-page p.muted{margin-bottom:2mm}
+  /* Ajustes de la página de logotipo */
+  .logo-page .card{padding:8mm;overflow:hidden}
+  .logo-page .logo-figure{display:flex;gap:10mm;align-items:center}
+  .logo-page .logo-figure{display:flex;gap:10mm;align-items:center;flex-wrap:wrap}
+  .logo-page .logo-figure svg{width:44mm;height:44mm}
+  .logo-page .misuse-row{display:grid !important;grid-template-columns:repeat(2,minmax(240px,1fr));gap:8mm;align-items:start;justify-items:start;margin-top:8mm}
+  /* ===== Arquitectura espaciosa ===== */
+  .arch-page .pad{padding:18mm}
+  .arch-list{display:flex;flex-direction:column;gap:6mm}
+  /* Fallback por si algún navegador ignora gap en flex */
+  .arch-list > * + *{margin-top:6mm}
+  .arch-list .arch-item + .arch-item{margin-top:6mm !important}
+  .arch-item{--accent:var(--brand-300);border-radius:14mm;padding:12mm;background:rgba(255,255,255,.96);border:1px solid #E2E8F0;box-shadow:0 6px 12px rgba(0,0,0,.08);position:relative;overflow:hidden;border-left:6px solid var(--accent);margin:0;isolation:isolate}
+  .arch-item h3{margin:0 0 2mm;font-size:12.5pt}
+  .arch-item p{margin:0}
+.arch-item.nexus{--accent:#0AD1C8;background:linear-gradient(180deg,rgba(10,209,200,.10),rgba(255,255,255,.94));border-color:rgba(10,209,200,.35)}
+  .arch-item.kairon{--accent:#14919B;background:linear-gradient(180deg,rgba(20,145,155,.10),rgba(255,255,255,.94));border-color:rgba(20,145,155,.35)}
+  .arch-item.guardian{--accent:#80ED99;background:linear-gradient(180deg,rgba(128,237,153,.12),rgba(255,255,255,.94));border-color:rgba(128,237,153,.40)}
+.chips{display:flex;flex-wrap:wrap;gap:6mm}
+  .frame-accent{border-left:6px solid #0AD1C8;background:linear-gradient(180deg,rgba(10,209,200,.08),rgba(255,255,255,.95))}
+  .frame-accent-2{border-left:6px solid #14919B;background:linear-gradient(180deg,rgba(20,145,155,.08),rgba(255,255,255,.95))}
+.row-frame{border-left:6px solid #14919B;background:linear-gradient(180deg,rgba(20,145,155,.08),rgba(255,255,255,.95));padding:8mm;border-radius:8mm}
+.logo-page h2{margin-bottom:8mm}
+  .logo-page .misuse-row{display:grid !important;grid-template-columns:repeat(2,minmax(220px,1fr));gap:8mm;margin-top:8mm;align-items:start}
+  .chip{white-space:normal;line-height:1.3;overflow-wrap:anywhere}
+  .chip.bad{border-color:#ef4444;background:rgba(239,68,68,.08)}
+.logo-page .misuse-row{display:grid !important;grid-template-columns:repeat(2,minmax(240px,1fr)) !important;gap:10mm !important;align-items:start;justify-items:start;width:100%}
+</style>
+</head>
+<body>
+  <!-- Precarga de imagen de fondo (varias rutas) -->
+  <img src="Propuesta%20s%C3%B3lo%20del%20fondo.png" alt="" style="display:none"/>
+  <img src="Propuesta sólo del fondo.png" alt="" style="display:none"/>
+
+  <div class="toolbar">
+    <button class="lang-btn" id="btnES">ES</button>
+    <button class="lang-btn" id="btnEN">EN</button>
+  </div>
+
+  <!-- ===== Símbolos: icono corporativo Anclora ===== -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <symbol id="GlyphAColor" viewBox="0 0 256 256">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%"  stop-color="#80ED99"/>
+            <stop offset="22%" stop-color="#45DFB1"/>
+            <stop offset="45%" stop-color="#0AD1C8"/>
+            <stop offset="65%" stop-color="#14919B"/>
+            <stop offset="82%" stop-color="#0B6477"/>
+            <stop offset="100%" stop-color="#213A57"/>
+          </linearGradient>
+          <style>.fill{fill:url(#g)}.wave{stroke:#0AD1C8;stroke-width:12;stroke-linecap:round;fill:none}</style>
+        </defs>
+        <path class="fill" fill-rule="evenodd" d="M128 24 L222 208 L190 208 L160 150 L96 150 L66 208 L34 208 Z M128 60 L172 208 L148 208 L128 168 L108 208 L84 208 Z"/>
+        <path class="wave" d="M80 142 Q128 126 176 142"/>
+      </symbol>
+      <symbol id="GlyphAMono" viewBox="0 0 256 256">
+        <path fill="currentColor" fill-rule="evenodd" d="M128 24 L222 208 L190 208 L160 150 L96 150 L66 208 L34 208 Z M128 60 L172 208 L148 208 L128 168 L108 208 L84 208 Z"/>
+        <path d="M80 142 Q128 126 176 142" stroke="currentColor" stroke-width="12" stroke-linecap="round" fill="none"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <main class="doc">
+    <!-- 01 Portada corporativa (marca madre) -->
+    <section class="page cover fallback-grad">
+      <div class="cover-lockup lockup">
+        <div class="tile" style="width:20mm;height:20mm;border-radius:7mm;background:rgba(255,255,255,.1);box-shadow:none">
+          <svg width="15mm" height="15mm" aria-hidden><use href="#GlyphAColor"/></svg>
+        </div>
+        <div>
+          <div class="cover-name">Anclora</div>
+          <div class="cover-claim lang es">Guía corporativa global (aplicable a todas las líneas)</div>
+          <div class="cover-claim lang en">Corporate master guide (applies to all product lines)</div>
+        </div>
+      </div>
+      <div class="cover-title">
+        <div class="lang es">
+          <h1>Guía de Marca & Sistema de Diseño</h1>
+          <div class="subtitle">Edición A4 · Paleta ampliada · Fondos oceánicos</div>
+        </div>
+        <div class="lang en">
+          <h1>Brand Guide & Design System</h1>
+          <div class="subtitle">A4 Edition · Expanded palette · Ocean backgrounds</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 Índice (ES/EN) -->
+    <section class="page bg-ocean"><div class="bar lang es">TABLA DE CONTENIDOS</div><div class="bar lang en">TABLE OF CONTENTS</div><div class="pad">
+      <div class="lang es">
+        <ol style="font-size:12pt;line-height:1.9">
+          <li>Mensaje de Marca</li>
+          <li>Arquitectura de Marca (Anclora & Líneas)</li>
+          <li>Logo (variantes, zona de seguridad, tamaños)</li>
+          <li>Usos incorrectos</li>
+          <li>Colores y Gradientes (AMPLIADO)</li>
+          <li>Tipografía y escala</li>
+          <li>Componentes UI & estados</li>
+          <li>Accesibilidad (WCAG)</li>
+          <li>SEO, Rendimiento y Motion</li>
+          <li>Assets & Handoff</li>
+        </ol>
+      </div>
+      <div class="lang en">
+        <ol style="font-size:12pt;line-height:1.9">
+          <li>Brand Message</li>
+          <li>Brand Architecture (Anclora & Lines)</li>
+          <li>Logo (variants, clear space, sizes)</li>
+          <li>Misuse matrix</li>
+          <li>Colors & Gradients (EXPANDED)</li>
+          <li>Typography & scale</li>
+          <li>UI Components & states</li>
+          <li>Accessibility (WCAG)</li>
+          <li>SEO, Performance & Motion</li>
+          <li>Assets & Handoff</li>
+        </ol>
+      </div>
+    </div></section>
+
+    <!-- 03 Mensaje de marca -->
+    <section class="page bg-ocean">
+      <div class="bar lang es">MENSAJE DE MARCA</div>
+      <div class="bar lang en">BRAND MESSAGE</div>
+      <div class="pad">
+        <div class="lang es">
+          <p><strong>Propósito:</strong> crear un ecosistema de productos que usan IA para <em>convertir</em>, <em>organizar</em> y <em>cuidar</em> la información de las personas y equipos.</p>
+          <p class="muted">Esta guía establece los principios visuales y de experiencia que deberán aplicar todas las líneas de producto Anclora.</p>
+        </div>
+        <div class="lang en">
+          <p><strong>Purpose:</strong> build an AI‑powered product ecosystem to <em>convert</em>, <em>organize</em> and <em>take care</em> of people’s and teams’ information.</p>
+          <p class="muted">This guide defines the visual and experience principles required across all Anclora product lines.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 Arquitectura de marca -->
+    <section class="page bg-ocean arch-page">
+      <div class="bar lang es">ARQUITECTURA DE MARCA</div>
+      <div class="bar lang en">BRAND ARCHITECTURE</div>
+      <div class="pad">
+        <div class="lang es arch-list">
+          <div class="arch-item nexus">
+            <h3>Anclora Nexus</h3>
+            <p>Conversor inteligente de archivos que <strong>incluye</strong> la funcionalidad de creación, edición y exportación de libros electrónicos (antes «Anclora Press»). Todo impulsado por IA.</p>
+          </div>
+          <div class="arch-item kairon">
+            <h3>Anclora Kairon</h3>
+            <p>Gestor de tareas avanzado con asistente de IA y control de presupuesto.</p>
+          </div>
+          <div class="arch-item guardian">
+            <h3>Anclora Guardian</h3>
+            <p>Bienestar y productividad — medición del estado actual y recomendaciones.</p>
+          </div>
+          <div class="card frame-accent">
+            <p class="muted"><strong>Norma de identidad común:</strong> todas las líneas adoptan logotipo, colores base, tipografía y patrones UI de Anclora. Se permite un color de <em>acento</em> por línea (no dominante) para diferenciar producto.</p>
+          </div>
+        </div>
+
+        <div class="lang en arch-list">
+          <div class="arch-item nexus">
+            <h3>Anclora Nexus</h3>
+            <p>Intelligent file converter that <strong>includes</strong> ebooks authoring, editing & export (formerly “Anclora Press”). Fully AI‑powered.</p>
+          </div>
+          <div class="arch-item kairon">
+            <h3>Anclora Kairon</h3>
+            <p>Advanced task manager with AI assistant and budgeting control.</p>
+          </div>
+          <div class="arch-item guardian">
+            <h3>Anclora Guardian</h3>
+            <p>Well‑being & productivity — current state measurement and guidance.</p>
+          </div>
+          <div class="card frame-accent">
+            <p class="muted"><strong>Shared identity rule:</strong> all lines inherit Anclora’s logo, core colors, type and UI patterns. One non‑dominant <em>accent</em> color per line may be used for differentiation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 Logo -->
+    <section class="page bg-ocean compact logo-page">
+      <div class="bar lang es">LOGOTIPO — VARIANTES, ZONA DE SEGURIDAD Y TAMAÑOS</div>
+      <div class="bar lang en">LOGO — VARIANTS, CLEAR SPACE & SIZES</div>
+      <div class="pad">
+        <div class="grid">
+          <div class="card frame-accent" style="grid-column:span 6">
+            <h2 class="lang es">Primario a color</h2>
+            <h2 class="lang en">Primary full color</h2>
+            <div class="logo-figure"><svg aria-hidden><use href="#GlyphAColor"/></svg></div>
+          </div>
+          <div class="card frame-accent-2" style="grid-column:span 6">
+            <h2 class="lang es">Monocromo</h2>
+            <h2 class="lang en">Monochrome</h2>
+            <div class="logo-figure">
+              <div style="color:var(--brand-700)"><svg aria-hidden><use href="#GlyphAMono"/></svg></div>
+              <div style="color:var(--surface-0);background:var(--brand-700);padding:6mm;border-radius:6mm"><svg aria-hidden><use href="#GlyphAMono"/></svg></div>
+            </div>
+          </div>
+          <div class="card frame-accent" style="grid-column:span 12"><p class="lang es"><strong>Zona de seguridad:</strong> 0.5× del ancho de la A alrededor. <strong>Tamaño mínimo:</strong> 14px en UI, 8mm en impresión.</p>
+            <p class="lang en"><strong>Clear space:</strong> 0.5× A width around. <strong>Minimum size:</strong> 14px in UI, 8mm in print.</p>
+          </div>
+          <div class="card frame-accent-2" style="grid-column:span 12"><h2 class="lang es">Usos incorrectos</h2>
+            <h2 class="lang en">Misuse</h2>
+            <div class="misuse-row lang es" style="display:grid;grid-template-columns:repeat(2,minmax(240px,1fr));gap:10mm;align-items:start;justify-items:start">
+              <span class="chip bad">No distorsionar</span>
+              <span class="chip bad">No cambiar colores base</span>
+              <span class="chip bad">No usar sombras fuertes</span>
+              <span class="chip bad">No sobre patrones sin overlay</span>
+            </div>
+            <div class="misuse-row lang en" style="display:grid;grid-template-columns:repeat(2,minmax(240px,1fr));gap:10mm;align-items:start;justify-items:start">
+              <span class="chip bad">Do not distort</span>
+              <span class="chip bad">Do not change core colors</span>
+              <span class="chip bad">Avoid heavy drop‑shadows</span>
+              <span class="chip bad">Do not place on busy backgrounds without overlay</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 Paleta ampliada -->
+    <section class="page bg-ocean compact colors-page"><div class="bar lang es">COLORES — PALETA AMPLIADA</div><div class="bar lang en">COLORS — EXPANDED PALETTE</div><div class="pad">
+      <p class="muted lang es">La paleta integra: (1) gama Anclora azul‑verde, (2) variantes turquesa/verde de los archivos adjuntos y (3) neutros cálidos.</p>
+      <p class="muted lang en">Palette integrates: (1) Anclora blue‑green core, (2) turquoise/green variants from attachments and (3) warm neutrals.</p>
+
+      <div class="group">
+        <h2 class="lang es">Primarios (Anclora)</h2><h2 class="lang en">Primary (Anclora)</h2>
+        <div class="tiles">
+          <div class="swatch" style="background:#213A57">#213A57 <span>brand-700</span></div>
+          <div class="swatch" style="background:#0B6477">#0B6477 <span>brand-600</span></div>
+          <div class="swatch" style="background:#14919B">#14919B <span>brand-500</span></div>
+          <div class="swatch" style="background:#0AD1C8;color:#073a37">#0AD1C8 <span>brand-400</span></div>
+          <div class="swatch" style="background:#45DFB1;color:#063a2b">#45DFB1 <span>brand-300</span></div>
+          <div class="swatch" style="background:#80ED99;color:#08452f">#80ED99 <span>brand-200</span></div>
+        </div>
+        <div class="row" style="margin-top:4mm">
+          <span class="chip lang es">Regla 60·30·10</span>
+          <span class="chip">Contraste mínimo texto AA 4.5:1</span>
+        </div>
+      </div>
+
+      <div class="group">
+        <h2 class="lang es">Extensiones marinas</h2>
+        <h2 class="lang en">Marine extensions</h2>
+        <div class="tiles">
+          <div class="swatch" style="background:#0AB6A1;color:#083e39">#0AB6A1 <span>sea-500</span></div>
+          <div class="swatch" style="background:#0A9A8A;color:#063b36">#0A9A8A <span>sea-450</span></div>
+          <div class="swatch" style="background:#0A675F">#0A675F <span>sea-600</span></div>
+          <div class="swatch" style="background:#1C5440">#1C5440 <span>sea-700</span></div>
+          <div class="swatch" style="background:#A3B390;color:#213A57">#A3B390 <span>sage-400</span></div>
+          <div class="swatch" style="background:#FCF9D9;color:#213A57">#FCF9D9 <span>ivory-50</span></div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h2 class="lang es">Gradientes</h2>
+        <h2 class="lang en">Gradients</h2>
+        <div class="grid" style="grid-template-columns:1fr 1fr;gap:8mm">
+          <div class="card" style="background:var(--grad-ocean);color:#043;min-height:32mm">Ocean</div>
+          <div class="card" style="background:var(--grad-ocean-dark);color:#fff;min-height:32mm">Ocean‑dark</div>
+        </div>
+      </div>
+    </div></section>
+
+
+    
+
+    <!-- 07 Tipografía -->
+    <section class="page bg-ocean"><div class="bar lang es">TIPOGRAFÍA Y ESCALA</div><div class="bar lang en">TYPOGRAPHY & SCALE</div><div class="pad">
+      <div class="grid">
+        <div class="card frame-accent" style="grid-column:span 7">
+          <h2>Inter — Sistema / System</h2>
+          <ul class="lang es">
+            <li>H1: 34pt / 1.15 — títulos de portada</li>
+            <li>H2: 14pt / 1.3 — secciones</li>
+            <li>Párrafo: 11pt / 1.6 — ancho recomendado 60–75 caracteres</li>
+            <li>Botones: 11pt / Semibold</li>
+          </ul>
+          <ul class="lang en">
+            <li>H1: 34pt / 1.15 — cover titles</li>
+            <li>H2: 14pt / 1.3 — section headings</li>
+            <li>Body: 11pt / 1.6 — preferred line length 60–75 characters</li>
+            <li>Buttons: 11pt / Semibold</li>
+          </ul>
+        </div>
+        <div class="card frame-accent-2" style="grid-column:span 5">
+          <h2>Space Grotesk — Headlines</h2>
+          <p class="muted lang es">Para wordmarks y grandes titulares. Usar tracking +0.02em.</p>
+          <p class="muted lang en">For wordmarks and large headlines. Use tracking +0.02em.</p>
+        </div>
+      </div>
+    </div></section>
+
+    <!-- 08 Componentes UI -->
+    <section class="page bg-ocean"><div class="bar lang es">COMPONENTES UI & ESTADOS</div><div class="bar lang en">UI COMPONENTS & STATES</div><div class="pad">
+      <div class="card frame-accent">
+        <div class="lang es">
+          <button class="btn primary" style="margin-right:6mm">Primario</button>
+          <button class="btn" style="border-color:var(--brand-500);color:var(--brand-600);margin-right:6mm">Borde</button>
+          <button class="btn" style="background:#A3B390;color:#213A57">Suave</button>
+        </div>
+        <div class="lang en">
+          <button class="btn primary" style="margin-right:6mm">Primary</button>
+          <button class="btn" style="border-color:var(--brand-500);color:var(--brand-600);margin-right:6mm">Outline</button>
+          <button class="btn" style="background:#A3B390;color:#213A57">Subtle</button>
+        </div>
+      </div>
+      <div class="row row-frame" style="margin-top:6mm">
+        <span class="chip lang es">Hover = +8% luminosidad</span>
+        <span class="chip lang es">Active = -6% luminosidad</span>
+        <span class="chip lang es">Focus visible 3px #0AD1C8</span>
+        <span class="chip lang en">Hover = +8% lightness</span>
+        <span class="chip lang en">Active = -6% lightness</span>
+        <span class="chip lang en">Focus visible 3px #0AD1C8</span>
+      </div>
+    </div></section>
+
+
+    
+
+
+    
+
+    <!-- 09 Accesibilidad -->
+    <section class="page bg-ocean"><div class="bar lang es">ACCESIBILIDAD (WCAG)</div><div class="bar lang en">ACCESSIBILITY (WCAG)</div><div class="pad">
+      <ul class="lang es">
+        <li>Contraste mínimo AA (4.5:1 texto normal, 3:1 titulares grandes).</li>
+        <li>Teclado: todos los controles navegables; enfoque visible.</li>
+        <li>Animación: respetar <code>prefers-reduced-motion</code>.</li>
+        <li>Semántica: usar etiquetas HTML correctas y <code>aria-*</code> cuando proceda.</li>
+        <li>Alternativas: textos alt descriptivos y mensajes de error claros.</li>
+      </ul>
+      <ul class="lang en">
+        <li>Minimum contrast AA (4.5:1 body text, 3:1 large headings).</li>
+        <li>Keyboard: all controls navigable; visible focus.</li>
+        <li>Motion: honor <code>prefers-reduced-motion</code>.</li>
+        <li>Semantics: proper HTML tags and <code>aria-*</code> when needed.</li>
+        <li>Alternatives: descriptive alt text and clear error messages.</li>
+      </ul>
+    </div></section>
+
+    <!-- 10 SEO, Performance, Motion -->
+    <!-- 10 SEO, Performance, Motion -->
+    <section class="page bg-ocean"><div class="bar lang es">SEO, RENDIMIENTO & MOTION</div><div class="bar lang en">SEO, PERFORMANCE & MOTION</div><div class="pad">
+      <div class="grid">
+        <div class="card frame-accent" style="grid-column:span 6">
+          <h2>SEO</h2>
+          <ul class="lang es">
+            <li>Estructura semántica (H1–H6), metatítulos y descripciones optimizadas.</li>
+            <li>URLs legibles, sitemap y Open Graph.</li>
+          </ul>
+          <ul class="lang en">
+            <li>Semantic structure (H1–H6), optimized meta titles & descriptions.</li>
+            <li>Human‑readable URLs, sitemap and Open Graph.</li>
+          </ul>
+        </div>
+        <div class="card frame-accent-2" style="grid-column:span 6">
+          <h2 class="lang es">Rendimiento</h2>
+          <h2 class="lang en">Performance</h2>
+          <ul class="lang es">
+            <li>Fuentes con <code>font-display:swap</code>.</li>
+            <li>Imágenes modernas (AVIF/WebP) y compresión.</li>
+            <li>Carga diferida de scripts y recursos.</li>
+          </ul>
+          <ul class="lang en">
+            <li>Fonts with <code>font-display:swap</code>.</li>
+            <li>Modern images (AVIF/WebP) and compression.</li>
+            <li>Defer & lazy‑load scripts and assets.</li>
+          </ul>
+        </div>
+      </div>
+    </div></section>
+
+    <!-- 11 Assets & Handoff -->
+    <section class="page bg-ocean"><div class="bar lang es">ASSETS & ENTREGA</div><div class="bar lang en">ASSETS & HANDOFF</div><div class="pad">
+      <ul class="lang es">
+        <li>Archivos: SVG (logo), PNG 2x/3x, PDF impresión.</li>
+        <li>Tokens: variables CSS/Design (colores, tipografías, espaciados).</li>
+        <li>Versionado del documento y CHANGELOG.</li>
+      </ul>
+      <ul class="lang en">
+        <li>Files: SVG (logo), PNG 2x/3x, print‑ready PDF.</li>
+        <li>Tokens: design/CSS variables (colors, type, spacing).</li>
+        <li>Document versioning and CHANGELOG.</li>
+      </ul>
+    </div></section>
+
+  </main>
+
+<script>
+  // Toggle idiomas
+  const root=document.documentElement; const btnES=document.getElementById('btnES'); const btnEN=document.getElementById('btnEN');
+  function setLang(l){root.setAttribute('data-lang',l); btnES.classList.toggle('active',l==='es'); btnEN.classList.toggle('active',l==='en'); document.documentElement.lang=l;}
+  btnES.addEventListener('click',()=>setLang('es')); btnEN.addEventListener('click',()=>setLang('en')); setLang('es');
+</script>
+</body>
+</html>

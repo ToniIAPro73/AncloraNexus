@@ -1,4 +1,4 @@
-﻿import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { 
   X, CheckCircle, AlertTriangle, 
   Loader2, Download, FilePlus, Zap, ExternalLink
@@ -175,7 +175,7 @@ export const useNotifications = () => {
     switch (status) {
       case 'started':
         return notify({
-          title: `Iniciando conversiÃ³n`,
+          title: `Iniciando conversión`,
           message: `Preparando ${fileName} para convertir${targetType ? ` a ${targetType.toUpperCase()}` : ''}`,
           type: 'info',
           data: {
@@ -204,7 +204,7 @@ export const useNotifications = () => {
         
       case 'completed':
         return notify({
-          title: `ConversiÃ³n completada`,
+          title: `Conversión completada`,
           message: `${fileName} ha sido convertido exitosamente${targetType ? ` a ${targetType.toUpperCase()}` : ''}`,
           type: 'success',
           data: {

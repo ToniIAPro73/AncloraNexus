@@ -1,4 +1,4 @@
-﻿# ================================
+# ================================
 # ANCLORA Nexus - BACKEND DEPENDENCIES
 # Optimizado - Fase 2 de consolidación
 # ================================

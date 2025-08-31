@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Debug del problema con texto largo en DOC converter
  */
 

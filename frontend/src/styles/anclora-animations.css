@@ -1,6 +1,6 @@
-﻿/* Animaciones personalizadas para Anclora Nexus */
+/* Animaciones personalizadas para Anclora Nexus */
 
-/* AnimaciÃ³n de fondo con ondas */
+/* Animación de fondo con ondas */
 @keyframes wave-animation {
   0% {
     transform: translateX(-100%) translateY(0) rotate(0deg);
@@ -80,7 +80,7 @@
   box-shadow: 0 12px 40px rgba(0, 110, 230, 0.2);
 }
 
-/* AnimaciÃ³n de pulso para elementos activos */
+/* Animación de pulso para elementos activos */
 @keyframes pulse-primary {
   0%, 100% {
     box-shadow: 0 0 0 0 rgba(0, 110, 230, 0.7);

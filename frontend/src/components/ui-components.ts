@@ -1,4 +1,4 @@
-﻿// This file centralizes UI component imports to avoid case-sensitivity issues
+// This file centralizes UI component imports to avoid case-sensitivity issues
 // Import components from the ui folder with proper casing
 
 import { Card, CardContent, CardHeader, CardTitle } from './ui/Card';

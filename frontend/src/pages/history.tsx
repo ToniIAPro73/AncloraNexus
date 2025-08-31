@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import HistoryView from '../components/HistoryView';
 import { MainLayout } from '../components/Layout/MainLayout';
 

@@ -1,4 +1,4 @@
-﻿import pytest
+import pytest
 from src.models.user import User, Conversion, CreditTransaction, db
 
 

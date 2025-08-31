@@ -1,4 +1,4 @@
-﻿import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 
 interface ConversionAppProps {
   onBackToLanding: () => void;

@@ -1,4 +1,4 @@
-﻿export const EbookValidationService = {
+export const EbookValidationService = {
   getInstance() {
     return {
       validateEbook: async (_file: File) => {

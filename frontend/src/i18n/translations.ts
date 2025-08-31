@@ -1,4 +1,4 @@
-﻿export const resources = {
+export const resources = {
   en: {
     translation: {
       header: {
@@ -58,7 +58,7 @@
         ariaLabel: 'Encabezado principal',
         title: 'Conversor Inteligente',
         subtitle: 'Convierte archivos con inteligencia artificial avanzada',
-        credits: '{{count}} crÃ©ditos',
+  credits: '{{count}} créditos',
         defaultName: 'Usuario',
         defaultEmail: 'usuario@ejemplo.com',
         highContrast: 'Contraste alto'
@@ -67,14 +67,14 @@
         skipLink: 'Ir al contenido principal',
         heroTitle: 'Anclora Nexus',
         heroSubtitle: 'Tu Contenido, Reinventado',
-        featuresTitle: 'CaracterÃ­sticas',
+  featuresTitle: 'Características',
         features: {
           smartConversion: {
-            title: 'ConversiÃ³n Inteligente',
-            desc: 'Transforma tus archivos a mÃºltiples formatos con IA.'
+            title: 'Conversión Inteligente',
+            desc: 'Transforma tus archivos a múltiples formatos con IA.'
           },
           intuitiveDesign: {
-            title: 'DiseÃ±o Intuitivo',
+            title: 'Diseño Intuitivo',
             desc: 'Interfaz sencilla y optimizada para tu flujo de trabajo.'
           },
           multiplatformSupport: {
@@ -86,21 +86,21 @@
         pricing: {
           free: {
             title: 'Gratis',
-            desc: 'Funcionalidades bÃ¡sicas sin costo.',
+            desc: 'Funcionalidades básicas sin costo.',
             cta: 'Comenzar'
           },
           pro: {
             title: 'Pro',
-            desc: 'ConversiÃ³n ilimitada y funciones avanzadas.',
+            desc: 'Conversión ilimitada y funciones avanzadas.',
             cta: 'Elegir Pro'
           },
           enterprise: {
             title: 'Empresa',
             desc: 'Soluciones personalizadas para equipos.',
-            cta: 'ContÃ¡ctanos'
+            cta: 'Contáctanos'
           }
         },
-        ctaTitle: 'Â¿Listo para transformar tu contenido?',
+  ctaTitle: '¿Listo para transformar tu contenido?',
         ctaButton: 'Ir a la App'
       }
     }

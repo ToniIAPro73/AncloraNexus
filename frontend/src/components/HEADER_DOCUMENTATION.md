@@ -1,4 +1,4 @@
-﻿# Componente Header para Anclora Nexus
+# Componente Header para Anclora Nexus
 
 Este componente implementa la barra de navegaciÃ³n principal para la aplicaciÃ³n Anclora Nexus, integrÃ¡ndose con el sistema de notificaciones y proporcionando acceso a las funciones principales de la aplicaciÃ³n.
 

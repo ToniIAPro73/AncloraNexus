@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { ConversionPath } from '../utils/advancedConversionEngine';
 
 interface ConversionRouteDisplayProps {

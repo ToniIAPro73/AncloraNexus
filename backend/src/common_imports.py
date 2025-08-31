@@ -1,4 +1,4 @@
-﻿# ================================
+# ================================
 # ANCLORA Nexus - CENTRALIZED IMPORTS
 # Fase 3: OptimizaciÃ³n de imports
 # ================================

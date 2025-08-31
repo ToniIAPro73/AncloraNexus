@@ -1,4 +1,4 @@
-﻿// src/hooks/useAuth.ts
+// src/hooks/useAuth.ts
 import { useState, useEffect, useCallback } from 'react';
 
 interface User {
@@ -6,6 +6,14 @@ interface User {
   name: string;
   email: string;
   plan: 'free' | 'premium' | 'business';
+  total_conversions?: number;
+  credits?: number;
+  credits_used_this_month?: number;
+  credits_used_today?: number;
+  full_name?: string;
+  plan_info?: {
+    name: string;
+  };
 }
 
 export const useAuth = () => {

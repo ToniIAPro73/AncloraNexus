@@ -1,4 +1,4 @@
-﻿// NotificationIntegration.tsx
+// NotificationIntegration.tsx
 // This file demonstrates how to integrate the NotificationSystem with existing components
 
 import { useNotifications, BatchOperationNotification, PremiumFeatureNotification } from './NotificationSystem';

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Conversor TxtToHtmlConverter - Anclora Nexus
  * Tu Contenido, Reinventado
  * Tu Contenido, Reinventado

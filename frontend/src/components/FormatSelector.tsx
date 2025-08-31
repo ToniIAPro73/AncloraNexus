@@ -1,4 +1,4 @@
-﻿import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { IconChevronDown, IconSearch, IconFile, IconEbook, IconImage, IconAudio, IconVideo, IconArchive, IconPresentation, IconFont } from './Icons';
 import { FileCategory } from '../utils/conversionMaps';
 

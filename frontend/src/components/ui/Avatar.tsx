@@ -1,4 +1,4 @@
-﻿import React, { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 
 export const Avatar = forwardRef<HTMLDivElement, { children?: React.ReactNode; className?: string }>(
   ({ children, className = '' }, ref) => (

@@ -1,4 +1,4 @@
-﻿# Media Test Fixtures
+# Media Test Fixtures
 
 This file contains information about the media test fixtures used in the test suite.
 

@@ -1,4 +1,4 @@
-﻿export type FileCategory =
+export type FileCategory =
   | 'document'
   | 'ebook'
   | 'image'

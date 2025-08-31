@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { AuthService } from '../services/authService';
 import { apiService } from '../services/api';
 
@@ -38,8 +38,8 @@ export const Register: React.FC<RegisterProps> = ({
   };
 
   const getPasswordStrengthText = (strength: number): string => {
-    if (strength < 25) return 'Muy dÃ©bil';
-    if (strength < 50) return 'DÃ©bil';
+    if (strength < 25) return 'Muy débil';
+    if (strength < 50) return 'Débil';
     if (strength < 75) return 'Media';
     return 'Fuerte';
   };
@@ -58,13 +58,13 @@ export const Register: React.FC<RegisterProps> = ({
 
     // Validaciones
     if (formData.password !== formData.confirmPassword) {
-      setError('Las contraseÃ±as no coinciden');
+      setError('Las contraseñas no coinciden');
       setIsLoading(false);
       return;
     }
 
     if (passwordStrength < 50) {
-      setError('La contraseÃ±a debe ser mÃ¡s fuerte');
+      setError('La contraseña debe ser más fuerte');
       setIsLoading(false);
       return;
     }
@@ -111,7 +111,7 @@ export const Register: React.FC<RegisterProps> = ({
       [name]: type === 'checkbox' ? checked : value
     }));
 
-    // Actualizar fuerza de contraseÃ±a
+    // Actualizar fuerza de contraseña
     if (name === 'password') {
       setPasswordStrength(validatePassword(value));
     }
@@ -127,7 +127,7 @@ export const Register: React.FC<RegisterProps> = ({
         <div className="register-header">
           <h2 className="register-title text-h2">Crear Cuenta</h2>
           <p className="register-subtitle">
-            Ãšnete a Anclora Converter y comienza a convertir archivos
+            Únete a Anclora Converter y comienza a convertir archivos
           </p>
           {onClose && (
             <button 
@@ -135,7 +135,7 @@ export const Register: React.FC<RegisterProps> = ({
               className="register-close-btn"
               aria-label="Cerrar"
             >
-              Ã—
+              ×
             </button>
           )}
         </div>
@@ -235,7 +235,7 @@ export const Register: React.FC<RegisterProps> = ({
 
           <div className="form-group">
             <label htmlFor="password" className="form-label">
-              ContraseÃ±a
+              Contraseña
             </label>
             <div className="password-input-container">
               <input
@@ -247,7 +247,7 @@ export const Register: React.FC<RegisterProps> = ({
                 required
                 disabled={isLoading}
                 className="form-input"
-                placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
+                placeholder="••••••••"
                 autoComplete="new-password"
                 minLength={6}
                 aria-describedby={error ? 'register-error' : undefined}
@@ -256,7 +256,7 @@ export const Register: React.FC<RegisterProps> = ({
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="password-toggle"
-                aria-label={showPassword ? 'Ocultar contraseÃ±a' : 'Mostrar contraseÃ±a'}
+                aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
               >
                 {showPassword ? 'ðŸ‘ï¸' : 'ðŸ‘ï¸â€ðŸ—¨ï¸'}
               </button>
@@ -286,7 +286,7 @@ export const Register: React.FC<RegisterProps> = ({
 
           <div className="form-group">
             <label htmlFor="confirmPassword" className="form-label">
-              Confirmar contraseÃ±a
+              Confirmar contraseña
             </label>
             <input
               type="password"
@@ -297,7 +297,7 @@ export const Register: React.FC<RegisterProps> = ({
               required
               disabled={isLoading}
               className="form-input"
-              placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
+              placeholder="••••••••"
               autoComplete="new-password"
               aria-describedby={`${error ? 'register-error ' : ''}${
                 formData.confirmPassword && formData.password !== formData.confirmPassword
@@ -312,7 +312,7 @@ export const Register: React.FC<RegisterProps> = ({
                 aria-live="polite"
                 className="field-error"
               >
-                Las contraseÃ±as no coinciden
+                Las contraseñas no coinciden
               </span>
             )}
           </div>
@@ -339,11 +339,11 @@ export const Register: React.FC<RegisterProps> = ({
           <div className="terms-text">
             Al crear una cuenta, aceptas nuestros{' '}
             <a href="/terms" target="_blank" className="terms-link">
-              TÃ©rminos de Servicio
+              Términos de Servicio
             </a>{' '}
             y{' '}
             <a href="/privacy" target="_blank" className="terms-link">
-              PolÃ­tica de Privacidad
+              Política de Privacidad
             </a>
           </div>
 
@@ -375,12 +375,12 @@ export const Register: React.FC<RegisterProps> = ({
         <div className="register-footer">
           {onSwitchToLogin && (
             <p className="switch-auth">
-              Â¿Ya tienes cuenta?{' '}
+              ¿Ya tienes cuenta?{' '}
               <button 
                 onClick={onSwitchToLogin}
                 className="link-button primary"
               >
-                Inicia sesiÃ³n
+                Inicia sesión
               </button>
             </p>
           )}

@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { IconSparkles, IconShieldCheck, IconInfinity } from './Icons';
 
 interface FeatureCardProps {

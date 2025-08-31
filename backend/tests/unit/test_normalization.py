@@ -1,4 +1,4 @@
-﻿import os
+import os
 import tempfile
 from src.models.conversion import conversion_engine
 

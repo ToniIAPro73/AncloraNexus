@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Script de Pruebas TEX Converter - Paquete de IntegraciÃ³n
  * Ejecuta: node test-tex-converter.js
  */

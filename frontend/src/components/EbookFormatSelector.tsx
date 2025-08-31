@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { IconEbook, IconCheck, IconSettings } from './Icons';
 
 interface EbookFormatSelectorProps {

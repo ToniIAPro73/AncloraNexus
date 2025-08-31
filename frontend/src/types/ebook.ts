@@ -1,4 +1,4 @@
-﻿export interface EbookFile {
+export interface EbookFile {
   name: string;
   size: number;
   format?: string;

@@ -1,4 +1,4 @@
-﻿export * from './Badge';
+export * from './Badge';
 export * from './Accordion';
 export * from './Avatar';
 export { Button } from './button';
