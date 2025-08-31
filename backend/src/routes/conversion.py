@@ -6,7 +6,6 @@ from src.models.conversion import conversion_engine, validate_and_classify
 from src.models.conversion_history import ConversionHistory
 from src.models.conversion_log import ConversionLog
 import os
-import tempfile
 import uuid
 from datetime import datetime
 import time
@@ -17,8 +16,8 @@ from src.ws import emit_progress, Phase
 
 conversion_bp = Blueprint('conversion', __name__)
 
-UPLOAD_FOLDER = '/tmp/anclora_uploads'
-OUTPUT_FOLDER = '/tmp/anclora_outputs'
+UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), '..', '..', 'temp', 'uploads')
+OUTPUT_FOLDER = os.path.join(os.path.dirname(__file__), '..', '..', 'temp', 'outputs')
 BACKUP_FOLDER = Path(__file__).resolve().parents[2] / 'backups'
 
 # Crear directorios si no existen
@@ -60,14 +59,14 @@ def analyze_file():
             return jsonify({'error': 'No se proporcionÃ³ ningÃºn archivo'}), 400
         
         file = request.files['file']
-        if file.filename == '':
+        if not file.filename or file.filename == '':
             return jsonify({'error': 'No se seleccionÃ³ ningÃºn archivo'}), 400
         
         if not allowed_file(file.filename):
             return jsonify({'error': 'Tipo de archivo no soportado'}), 400
         
         # Guardar archivo temporalmente
-        filename = secure_filename(file.filename)
+        filename = secure_filename(file.filename or "")
         temp_path = os.path.join(UPLOAD_FOLDER, f"{uuid.uuid4()}_{filename}")
         file.save(temp_path)
         
