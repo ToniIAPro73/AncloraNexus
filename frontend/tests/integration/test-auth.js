@@ -1,5 +1,5 @@
 // Script de prueba para verificar la conexiÃ³n con el backend
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'http://localhost:8000/api';
 
 async function testLogin() {
   try {
@@ -11,8 +11,8 @@ async function testLogin() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        email: 'test@example.com',
-        password: 'TestPassword123',
+        email: 'ancloratest@dominio.com',
+        password: 'Alcloratest123',
       }),
     });
 
