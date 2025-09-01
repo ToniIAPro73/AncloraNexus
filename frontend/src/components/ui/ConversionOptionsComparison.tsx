@@ -177,32 +177,7 @@ export const ConversionOptionsComparison: React.FC<ConversionOptionsComparisonPr
 
   return (
     <div className={`space-y-6 ${className}`}>
-      {/* Header con recomendación */}
-      <div className="bg-slate-800/30 rounded-lg p-4 border border-slate-700">
-        <div className="flex items-start gap-3">
-          <div className={`p-2 rounded-lg ${
-            analysis.recommendation.confidence === 'high' ? 'bg-green-500/20' :
-            analysis.recommendation.confidence === 'medium' ? 'bg-yellow-500/20' : 'bg-blue-500/20'
-          }`}>
-            <Info size={20} className={
-              analysis.recommendation.confidence === 'high' ? 'text-green-400' :
-              analysis.recommendation.confidence === 'medium' ? 'text-yellow-400' : 'text-blue-400'
-            } />
-          </div>
-          <div className="flex-1">
-            <h3 className="font-medium text-white mb-1">Recomendación del Sistema</h3>
-            <p className="text-sm text-slate-300">{analysis.recommendation.reason}</p>
-            <div className="flex items-center gap-2 mt-2">
-              <span className="text-xs bg-slate-700 px-2 py-1 rounded">
-                Confianza: {analysis.recommendation.confidence}
-              </span>
-              <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded">
-                Recomendado: {analysis.recommendation.type === 'direct' ? 'Conversión Directa' : 'Secuencia Optimizada'}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+
 
       {/* Comparación de opciones */}
       <div className="grid md:grid-cols-2 gap-6">

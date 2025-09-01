@@ -80,10 +80,17 @@ export const FileUploader: React.FC<PropsWithChildren<FileUploaderProps>> = ({
     handleFile(e.target.files);
   };
   
-  // If children are provided, we use a simpler wrapper.
+  // If children are provided, we use a wrapper with full drag & drop support
   if (children) {
       return (
-          <div onClick={handleClick} className="cursor-pointer">
+          <div
+            onClick={handleClick}
+            className="cursor-pointer"
+            onDragEnter={handleDragEnter}
+            onDragLeave={handleDragLeave}
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
+          >
               <input
                 id="file-input-child"
                 type="file"
