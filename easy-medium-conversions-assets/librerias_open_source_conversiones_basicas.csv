@@ -1,0 +1,35 @@
+Categoria,Libreria,Lenguaje,Funcionalidad_Principal,Formatos_Entrada,Formatos_Salida,Facilidad_Uso,Popularidad
+Documentos Office,python-docx,Python,Crear/editar documentos Word (.docx),DOCX,DOCX,Fácil,Muy Alta
+Documentos Office,openpyxl,Python,Leer/escribir archivos Excel (.xlsx),"XLSX, XLSM",XLSX,Fácil,Muy Alta
+Documentos Office,xlsxwriter,Python,Crear archivos Excel con formato,Datos Python,XLSX,Medio,Alta
+Documentos Office,pandas,Python,Análisis datos tabulares (CSV/Excel),"CSV, XLSX, JSON, SQL","CSV, XLSX, JSON, HTML",Fácil,Muy Alta
+Documentos Office,xlrd,Python,Leer archivos Excel antiguos (.xls),XLS,Datos Python,Fácil,Alta
+Documentos Office,xlwings,Python,Automatización Excel desde Python,XLSX (Excel activo),Excel (via COM),Medio,Alta
+Documentos Office,pyexcel,Python,API unificada para múltiples formatos,"CSV, XLS, XLSX, ODS","CSV, XLS, XLSX, ODS",Fácil,Media
+Documentos Office,docxtpl,Python,Plantillas Word con variables,DOCX,DOCX,Medio,Media
+Documentos Office,docx2pdf,Python,Convertir DOCX a PDF,DOCX,PDF,Fácil,Media
+Documentos Office,xlslim,Python,Excel como Jupyter notebook,XLSX,Excel,Difícil,Baja
+PDFs,PyPDF2,Python,"Manipular PDFs (fusionar, dividir)",PDF,PDF,Fácil,Muy Alta
+PDFs,PyPDF4,Python,Versión mejorada de PyPDF2,PDF,PDF,Fácil,Alta
+PDFs,pdfplumber,Python,Extraer tablas de PDFs,PDF,"CSV, texto",Medio,Alta
+PDFs,PDFMiner,Python,Extraer texto y metadatos PDF,PDF,"Texto, XML, HTML",Difícil,Alta
+PDFs,reportlab,Python,Generar PDFs desde Python,Datos Python,PDF,Medio,Alta
+Imágenes,Pillow (PIL),Python,Procesamiento básico de imágenes,"JPG, PNG, GIF, BMP, TIFF","JPG, PNG, GIF, BMP, TIFF",Fácil,Muy Alta
+Imágenes,OpenCV-Python,Python,Visión por computador avanzada,Múltiples formatos imagen/video,Múltiples formatos,Difícil,Muy Alta
+Imágenes,scikit-image,Python,Procesamiento científico imágenes,Múltiples formatos científicos,Múltiples formatos,Medio,Alta
+Datos estructurados,json,Python,Manipulación datos JSON,JSON string/file,JSON,Fácil,Muy Alta
+Datos estructurados,csv,Python,Leer/escribir archivos CSV,CSV file,CSV,Fácil,Muy Alta
+Datos estructurados,xmltodict,Python,Convertir XML a diccionarios,XML string/file,Dict Python,Fácil,Alta
+Datos estructurados,PyYAML,Python,Leer/escribir archivos YAML,YAML string/file,YAML,Fácil,Alta
+Web/HTML,BeautifulSoup4,Python,Parsing HTML/XML,"HTML, XML",Datos estructurados,Fácil,Muy Alta
+Web/HTML,html2text,Python,Convertir HTML a texto plano,HTML,"Texto plano, Markdown",Fácil,Alta
+Web/HTML,weasyprint,Python,HTML/CSS a PDF,"HTML, CSS",PDF,Medio,Media
+JavaScript - General,pdf-lib,JavaScript,Crear/modificar PDFs browser,"PDF, datos JS",PDF,Medio,Alta
+JavaScript - General,xlsx,JavaScript,Leer/escribir archivos Excel,"CSV, JSON",XLSX,Fácil,Alta
+JavaScript - General,html2canvas,JavaScript,Capturar HTML como imagen,HTML elements,"PNG, JPG",Fácil,Alta
+C/C++ - Imágenes,OpenCV,C/C++,Visión computador multiplataforma,Múltiples formatos imagen/video,Múltiples formatos,Difícil,Muy Alta
+C/C++ - Imágenes,CImg,C/C++,Procesamiento imágenes C++,Múltiples formatos imagen,Múltiples formatos imagen,Difícil,Media
+C/C++ - Imágenes,ImageLib,C/C++,Librería imágenes orientada objetos,Múltiples formatos imagen,Múltiples formatos imagen,Difícil,Baja
+Multi-lenguaje,Pandoc,Haskell/CLI,Conversor universal documentos,50+ formatos documentos,50+ formatos documentos,Medio,Muy Alta
+Multi-lenguaje,LibreOffice SDK,Java/C++,Automatización Office multiplataforma,"DOC, DOCX, XLS, XLSX, PPT","PDF, DOC, XLS, etc.",Difícil,Media
+Multi-lenguaje,ImageMagick,C/CLI,Manipulación imágenes CLI,Múltiples formatos imagen,Múltiples formatos imagen,Medio,Alta

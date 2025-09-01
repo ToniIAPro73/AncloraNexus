@@ -372,6 +372,11 @@ export const NewConversorInteligente: React.FC = () => {
       if (result.success) {
         setConversionResult(result);
         setCurrentStep(5); // Mostrar descarga en el mismo frame
+
+        // Auto-reset después de 30 segundos para mejorar UX
+        setTimeout(() => {
+          handleReset();
+        }, 30000);
       } else {
         setError(result.error || 'Error en la conversión');
         setCurrentStep(3); // Volver a configuración
@@ -491,6 +496,22 @@ export const NewConversorInteligente: React.FC = () => {
     setSelectedConversionOption(null);
     setIsAnalyzing(false);
   }, []);
+
+  // Función para manejar la descarga y reset automático
+  const handleDownload = useCallback((downloadUrl: string, filename: string) => {
+    // Crear un enlace temporal para la descarga
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Reset automático después de la descarga
+    setTimeout(() => {
+      handleReset();
+    }, 2000);
+  }, [handleReset]);
 
   // Import more icons if necessary from lucide-react package
   const popularConversions = [
@@ -968,14 +989,16 @@ export const NewConversorInteligente: React.FC = () => {
                 </div>
 
                 {/* Botón de descarga prominente */}
-                <a
-                  href={`http://localhost:8000/api/conversion/guest-download/${conversionResult.download_id}`}
-                  download={conversionResult.output_filename}
+                <button
+                  onClick={() => handleDownload(
+                    `http://localhost:8000/api/conversion/guest-download/${conversionResult.download_id}`,
+                    conversionResult.output_filename
+                  )}
                   className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white py-3 px-6 rounded-lg transition-all duration-300 font-medium flex items-center justify-center gap-3 shadow-lg shadow-green-500/20"
                 >
                   <Download size={20} />
                   📥 Descargar {conversionResult.output_filename}
-                </a>
+                </button>
 
                 {/* Botón para convertir otro archivo */}
                 <button

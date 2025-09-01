@@ -35,6 +35,13 @@ markdown==3.8.2
 requests==2.32.5
 odfpy==1.4.1
 
+# === HIGH-QUALITY HTML TO PDF ===
+# Bibliotecas para conversión HTML a PDF de alta calidad
+weasyprint==62.3
+playwright==1.40.0
+pdfkit==1.0.0
+beautifulsoup4==4.13.5
+
 # === AI FEATURES (Optional) ===
 # Descomenta para habilitar funciones de IA
 # google-generativeai==0.8.3

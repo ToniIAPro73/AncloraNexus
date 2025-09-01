@@ -1,0 +1,24 @@
+{
+  "alerts": {
+    "email_enabled": false,
+    "email_smtp_server": "smtp.gmail.com",
+    "email_smtp_port": 587,
+    "email_username": "",
+    "email_password": "",
+    "email_recipients": [],
+    "cooldown_minutes": 30
+  },
+  "thresholds": {
+    "error_rate_threshold": 0.1,
+    "response_time_threshold": 30.0,
+    "cpu_threshold": 80.0,
+    "memory_threshold": 80.0,
+    "disk_threshold": 90.0,
+    "queue_size_threshold": 50
+  },
+  "monitoring": {
+    "metrics_interval_seconds": 300,
+    "cleanup_days": 30,
+    "performance_window_hours": 24
+  }
+}

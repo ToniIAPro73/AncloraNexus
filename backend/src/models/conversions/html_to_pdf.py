@@ -1,7 +1,16 @@
 import os, shutil, tempfile, uuid
 import re
+import time
 from html import unescape
 import logging
+
+# Import production monitoring
+try:
+    from ...services.production_monitoring import log_conversion
+    MONITORING_AVAILABLE = True
+except ImportError:
+    MONITORING_AVAILABLE = False
+    logging.warning("Production monitoring no disponible")
 
 # Try to import weasyprint for better HTML to PDF conversion
 try:
@@ -12,29 +21,294 @@ except (ImportError, OSError) as e:
     WEASYPRINT_AVAILABLE = False
     logging.warning(f"WeasyPrint no disponible: {str(e)}")
 
+# Try to import Pandoc for high-quality HTML to PDF conversion
+try:
+    from .pandoc_engine import PANDOC_AVAILABLE, convert_with_pandoc
+    PANDOC_HTML_PDF_AVAILABLE = PANDOC_AVAILABLE
+except ImportError:
+    PANDOC_HTML_PDF_AVAILABLE = False
+    logging.warning("Pandoc engine no disponible para HTML→PDF")
+
+# Try to import Playwright for browser-based HTML to PDF conversion
+try:
+    from playwright.sync_api import sync_playwright
+    PLAYWRIGHT_AVAILABLE = True
+except ImportError:
+    PLAYWRIGHT_AVAILABLE = False
+    logging.warning("Playwright no disponible para HTML→PDF")
+
+# Try to import pdfkit (wkhtmltopdf wrapper) for high-quality HTML to PDF
+try:
+    import pdfkit
+    PDFKIT_AVAILABLE = True
+except ImportError:
+    PDFKIT_AVAILABLE = False
+    logging.warning("pdfkit/wkhtmltopdf no disponible para HTML→PDF")
+
+# Import HTML complexity analyzer for intelligent method selection
+try:
+    from .html_complexity_analyzer import HTMLComplexityAnalyzer
+    COMPLEXITY_ANALYZER_AVAILABLE = True
+except ImportError:
+    COMPLEXITY_ANALYZER_AVAILABLE = False
+    logging.warning("Analizador de complejidad HTML no disponible")
+
+# Import essential converter for budget-friendly conversions
+try:
+    from .essential_converter import EssentialConverter
+    ESSENTIAL_CONVERTER_AVAILABLE = True
+except ImportError:
+    ESSENTIAL_CONVERTER_AVAILABLE = False
+    logging.warning("Conversor esencial no disponible")
+
 # Fallback to FPDF if weasyprint is not available
 from fpdf import FPDF
 
 CONVERSION = ('html', 'pdf')
 
 def convert(input_path, output_path):
-    """Convierte HTML a PDF con mejor calidad"""
+    """Convierte HTML a PDF usando selección inteligente de método basada en complejidad"""
+
+    # Generar ID único para esta conversión
+    conversion_id = str(uuid.uuid4())
+    start_time = time.time()
+
+    # Calcular tamaño del archivo de entrada
     try:
-        # Intentar conversión con WeasyPrint primero (mejor calidad)
-        if WEASYPRINT_AVAILABLE:
-            try:
-                return convert_with_weasyprint(input_path, output_path)
-            except Exception as e:
-                logging.warning(f"WeasyPrint falló: {str(e)}, usando fallback")
-                # Si WeasyPrint falla, usar fallback
-                return convert_with_fpdf_enhanced(input_path, output_path)
+        input_size_mb = os.path.getsize(input_path) / (1024 * 1024)
+    except:
+        input_size_mb = 0.0
+
+    try:
+        # Analizar complejidad del HTML para seleccionar el mejor método
+        if COMPLEXITY_ANALYZER_AVAILABLE:
+            analyzer = HTMLComplexityAnalyzer()
+            analysis = analyzer.analyze_html_file(input_path)
+
+            logging.info(f"Análisis HTML: {analysis['complexity_level']} (Score: {analysis['complexity_score']})")
+            logging.info(f"Método recomendado: {analysis['recommended_method']}")
+            logging.info(f"Razón: {analysis['reasoning']}")
+
+            # Intentar conversión con métodos en orden de prioridad recomendado
+            method_used = None
+            for method in analysis['method_priority']:
+                success, message = try_conversion_method(method, input_path, output_path)
+                method_used = method
+                if success:
+                    duration = time.time() - start_time
+                    final_message = f"{message} | Análisis: {analysis['complexity_level']} | Tiempo estimado: {analysis['estimated_time']}"
+
+                    # Log de monitoreo para conversión exitosa
+                    if MONITORING_AVAILABLE:
+                        log_conversion(
+                            conversion_id=conversion_id,
+                            input_format="html",
+                            output_format="pdf",
+                            file_size_mb=input_size_mb,
+                            duration_seconds=duration,
+                            method_used=method,
+                            success=True,
+                            user_id=None
+                        )
+
+                    return True, final_message
+                else:
+                    logging.warning(f"Método {method} falló: {message}")
+
+            # Si todos los métodos recomendados fallan, usar fallback
+            success, message = convert_with_fpdf_enhanced(input_path, output_path)
+            duration = time.time() - start_time
+            method_used = "fpdf_fallback"
+
+            # Log de monitoreo
+            if MONITORING_AVAILABLE:
+                log_conversion(
+                    conversion_id=conversion_id,
+                    input_format="html",
+                    output_format="pdf",
+                    file_size_mb=input_size_mb,
+                    duration_seconds=duration,
+                    method_used=method_used,
+                    success=success,
+                    error_message=None if success else message,
+                    user_id=None
+                )
+
+            return success, message
+
         else:
-            # Usar conversión mejorada con FPDF
-            return convert_with_fpdf_enhanced(input_path, output_path)
+            # Fallback al sistema anterior si no hay analizador
+            logging.warning("Analizador no disponible, usando orden de prioridad fijo")
+            success, message = convert_with_fixed_priority(input_path, output_path)
+            duration = time.time() - start_time
+
+            # Log de monitoreo
+            if MONITORING_AVAILABLE:
+                log_conversion(
+                    conversion_id=conversion_id,
+                    input_format="html",
+                    output_format="pdf",
+                    file_size_mb=input_size_mb,
+                    duration_seconds=duration,
+                    method_used="fixed_priority",
+                    success=success,
+                    error_message=None if success else message,
+                    user_id=None
+                )
+
+            return success, message
 
     except Exception as e:
-        logging.error(f"Error en conversión HTML→PDF: {str(e)}")
-        return False, f"Error en conversión HTML→PDF: {str(e)}"
+        duration = time.time() - start_time
+        error_message = f"Error en conversión HTML→PDF: {str(e)}"
+        logging.error(error_message)
+
+        # Log de monitoreo para error
+        if MONITORING_AVAILABLE:
+            log_conversion(
+                conversion_id=conversion_id,
+                input_format="html",
+                output_format="pdf",
+                file_size_mb=input_size_mb,
+                duration_seconds=duration,
+                method_used="unknown",
+                success=False,
+                error_message=error_message,
+                user_id=None
+            )
+
+        return False, error_message
+
+def try_conversion_method(method: str, input_path: str, output_path: str) -> tuple:
+    """Intenta conversión con un método específico"""
+    try:
+        if method == 'playwright' and PLAYWRIGHT_AVAILABLE:
+            return convert_with_playwright(input_path, output_path)
+        elif method == 'wkhtmltopdf' and PDFKIT_AVAILABLE:
+            return convert_with_wkhtmltopdf(input_path, output_path)
+        elif method == 'pandoc' and PANDOC_HTML_PDF_AVAILABLE:
+            return convert_with_pandoc_html(input_path, output_path)
+        elif method == 'weasyprint' and WEASYPRINT_AVAILABLE:
+            return convert_with_weasyprint(input_path, output_path)
+        elif method == 'fpdf':
+            return convert_with_fpdf_enhanced(input_path, output_path)
+        else:
+            return False, f"Método {method} no disponible"
+    except Exception as e:
+        return False, f"Error en método {method}: {str(e)}"
+
+def convert_with_fixed_priority(input_path: str, output_path: str) -> tuple:
+    """Sistema de conversión con prioridad fija (fallback)"""
+    methods = [
+        ('playwright', PLAYWRIGHT_AVAILABLE, convert_with_playwright),
+        ('wkhtmltopdf', PDFKIT_AVAILABLE, convert_with_wkhtmltopdf),
+        ('pandoc', PANDOC_HTML_PDF_AVAILABLE, convert_with_pandoc_html),
+        ('weasyprint', WEASYPRINT_AVAILABLE, convert_with_weasyprint),
+        ('fpdf', True, convert_with_fpdf_enhanced)
+    ]
+
+    for method_name, available, method_func in methods:
+        if available:
+            try:
+                success, message = method_func(input_path, output_path)
+                if success:
+                    return success, f"{message} (prioridad fija)"
+                else:
+                    logging.warning(f"{method_name} falló: {message}")
+            except Exception as e:
+                logging.warning(f"{method_name} falló: {str(e)}")
+
+    return False, "Todos los métodos de conversión fallaron"
+
+def convert_with_playwright(input_path, output_path):
+    """Conversión HTML a PDF usando Playwright (máxima fidelidad para HTML moderno)"""
+    try:
+        with sync_playwright() as p:
+            # Usar Chromium para mejor compatibilidad CSS
+            browser = p.chromium.launch()
+            page = browser.new_page()
+
+            # Configurar viewport para A4
+            page.set_viewport_size({"width": 794, "height": 1123})  # A4 en pixels a 96 DPI
+
+            # Cargar el archivo HTML
+            page.goto(f"file://{os.path.abspath(input_path)}")
+
+            # Esperar a que se carguen todos los recursos
+            page.wait_for_load_state("networkidle")
+
+            # Generar PDF con configuraciones optimizadas
+            page.pdf(
+                path=output_path,
+                format="A4",
+                margin={
+                    "top": "20mm",
+                    "bottom": "20mm",
+                    "left": "20mm",
+                    "right": "20mm"
+                },
+                print_background=True,  # Incluir fondos CSS
+                prefer_css_page_size=True,  # Respetar CSS @page
+                display_header_footer=False
+            )
+
+            browser.close()
+
+        return True, "Conversión exitosa con Playwright (máxima fidelidad HTML moderno)"
+
+    except Exception as e:
+        return False, f"Error en conversión Playwright HTML→PDF: {str(e)}"
+
+def convert_with_wkhtmltopdf(input_path, output_path):
+    """Conversión HTML a PDF usando wkhtmltopdf (excelente calidad CSS)"""
+    try:
+        # Configuraciones optimizadas para wkhtmltopdf
+        options = {
+            'page-size': 'A4',
+            'margin-top': '20mm',
+            'margin-right': '20mm',
+            'margin-bottom': '20mm',
+            'margin-left': '20mm',
+            'encoding': "UTF-8",
+            'no-outline': None,
+            'enable-local-file-access': None,
+            'print-media-type': None,
+            'disable-smart-shrinking': None,
+            'javascript-delay': 1000,
+            'load-error-handling': 'ignore',
+            'load-media-error-handling': 'ignore'
+        }
+
+        # Convertir HTML a PDF
+        pdfkit.from_file(input_path, output_path, options=options)
+
+        return True, "Conversión exitosa con wkhtmltopdf (excelente calidad CSS)"
+
+    except Exception as e:
+        return False, f"Error en conversión wkhtmltopdf HTML→PDF: {str(e)}"
+
+def convert_with_pandoc_html(input_path, output_path):
+    """Conversión HTML a PDF usando Pandoc (buena calidad estructurada)"""
+    try:
+        # Usar Pandoc con configuraciones optimizadas para HTML complejos
+        success, message = convert_with_pandoc(
+            input_path, output_path, 'html', 'pdf',
+            extra_args=[
+                '--pdf-engine=xelatex',  # Motor LaTeX para mejor tipografía
+                '--variable', 'geometry:margin=20mm',
+                '--variable', 'fontsize=11pt',
+                '--variable', 'documentclass=article',
+                '--standalone'
+            ]
+        )
+
+        if success:
+            return True, "Conversión exitosa con Pandoc (buena calidad estructurada)"
+        else:
+            return False, f"Error en Pandoc: {message}"
+
+    except Exception as e:
+        return False, f"Error en conversión Pandoc HTML→PDF: {str(e)}"
 
 def convert_with_weasyprint(input_path, output_path):
     """Conversión HTML a PDF usando WeasyPrint (preserva CSS y formato)"""
@@ -52,7 +326,7 @@ def convert_with_weasyprint(input_path, output_path):
     except Exception as e:
         logging.warning(f"WeasyPrint falló: {str(e)}, usando fallback")
         # Si WeasyPrint falla, usar fallback
-        return convert_with_fpdf(input_path, output_path)
+        return convert_with_fpdf_enhanced(input_path, output_path)
 
 def convert_with_fpdf_enhanced(input_path, output_path):
     """Conversión HTML a PDF usando FPDF mejorado"""

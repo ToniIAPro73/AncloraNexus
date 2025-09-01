@@ -1,0 +1,16 @@
+Caso_Uso,Libreria_Recomendada,Alternativa_Open_Source,Dificultad_Implementacion,Rendimiento,Ventajas_Principales,Limitaciones
+Word a PDF básico,python-docx + docx2pdf,LibreOffice SDK,Fácil,Alto,"Mantiene formato original, rápido","Solo DOCX moderno, no DOC antiguo"
+Excel a CSV masivo,pandas,openpyxl,Fácil,Muy Alto,"Optimizado para big data, memoria eficiente",Memoria intensivo con datasets grandes
+PDF a Excel (tablas),pdfplumber + pandas,tabula-py,Medio,Medio,Preserva estructura tabular compleja,"OCR limitado, tablas complejas fallan"
+Imágenes a diferentes formatos,Pillow,ImageMagick CLI,Fácil,Alto,"Múltiples formatos, optimizaciones automáticas","No vectoriales avanzados, no AI upscaling"
+HTML a PDF con estilos,weasyprint,Pandoc,Medio,Medio,"CSS completo, layouts complejos","Rendering lento, JavaScript limitado"
+JSON a Excel reportes,pandas + openpyxl,pyexcel,Fácil,Alto,"Pivot tables, formatos automáticos",Sin formatos complejos Excel avanzados
+CSV a gráficos/dashboards,matplotlib + pandas,plotly + dash,Medio,Alto,"Visualizaciones interactivas, web-ready","Curva aprendizaje, dependencias pesadas"
+Web scraping a documentos,BeautifulSoup4 + requests,scrapy,Medio,Medio,"Anti-blocking, parseo robusto","Rate limiting, legal issues"
+Automatización reportes Office,python-docx + xlsxwriter,LibreOffice UNO API,Medio,Medio,"Templates reutilizables, branded docs",Dependencias COM en Windows
+Documentos con plantillas dinámicas,docxtpl + Jinja2,python-docx + jinja2,Medio,Alto,"Variables dinámicas, logic templates",Lógica template limitada vs full programming
+Extracción texto de PDFs,PyPDF2 + PDFMiner,pdfplumber,Difícil,Bajo,Acceso raw a contenido PDF,Textos con layout complejo problemáticos
+Manipulación imágenes batch,Pillow + os,OpenCV-Python,Fácil,Alto,"Operaciones paralelas, filtros avanzados",No inteligencia contextual automática
+Conversión formatos legacy,Pandoc CLI,LibreOffice CLI,Fácil,Alto,Máxima compatibilidad formatos,"CLI dependency, no programmatic control"
+APIs REST a documentos,requests + pandas,httpx + json,Fácil,Alto,"Pipelines automatizados, escalables","Rate limits APIs, authentication complexity"
+Análisis datos no estructurados,pandas + nltk,spaCy + pandas,Difícil,Medio,"NLP avanzado, machine learning ready","Modelos pre-entrenados, domain adaptation"
