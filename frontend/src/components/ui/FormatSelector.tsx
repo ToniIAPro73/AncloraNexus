@@ -147,7 +147,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
+                className={`w-full flex items-center gap-3 px-3 py-2 pr-4 rounded-lg text-sm transition-colors ${
                   selectedCategory === category.id
                     ? document.documentElement.classList.contains('dark')
                       ? 'bg-primary/30 text-white border border-primary/50 shadow-lg'
@@ -159,9 +159,9 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
               >
                 <span className="text-lg">{category.icon}</span>
                 <span className="flex-1 text-left">{category.name}</span>
-                <span className={`text-xs px-2 py-1 rounded-full min-w-[24px] text-center font-medium transition-colors duration-300 ${
+                <span className={`text-sm px-3 py-1.5 rounded-full min-w-[36px] h-[28px] flex items-center justify-center font-semibold transition-colors duration-300 shrink-0 ${
                   selectedCategory === category.id
-                    ? 'bg-primary text-white'
+                    ? 'bg-primary text-white shadow-lg'
                     : document.documentElement.classList.contains('dark')
                       ? 'bg-slate-600 text-slate-200'
                       : 'bg-gray-200 text-gray-700'
@@ -236,36 +236,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
       </div>
 
       {/* Footer con información */}
-      {selectedFormat && (
-        <div className={`p-4 border-t transition-colors duration-300 ${
-          document.documentElement.classList.contains('dark')
-            ? 'border-slate-700 bg-slate-800/30'
-            : 'border-gray-200 bg-gray-50/50'
-        }`}>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <span className="text-2xl">{formatDefinitions[selectedFormat]?.icon}</span>
-              <div>
-                <div className={`font-medium transition-colors duration-300 ${
-                  document.documentElement.classList.contains('dark')
-                    ? 'text-white'
-                    : 'text-gray-900'
-                }`}>
-                  {sourceFormat.toUpperCase()} → {selectedFormat.toUpperCase()}
-                </div>
-                <div className={`text-sm transition-colors duration-300 ${
-                  document.documentElement.classList.contains('dark')
-                    ? 'text-slate-400'
-                    : 'text-gray-600'
-                }`}>
-                  {formatDefinitions[selectedFormat]?.description}
-                </div>
-              </div>
-            </div>
-            <ChevronRight size={20} className="text-primary" />
-          </div>
-        </div>
-      )}
+
     </div>
   );
 };

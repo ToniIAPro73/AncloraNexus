@@ -243,18 +243,38 @@ export const NewConversorInteligente: React.FC = () => {
   }, [currentStep]);
 
   // Funciones para el tema
-  const isDark = theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  const [systemDark, setSystemDark] = useState(false);
+
+  // Detectar preferencia del sistema
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    setSystemDark(mediaQuery.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setSystemDark(e.matches);
+      if (theme === 'auto') {
+        applyTheme('auto');
+      }
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, [theme]);
+
+  const isDark = theme === 'dark' || (theme === 'auto' && systemDark);
 
   const applyTheme = (newTheme: 'light' | 'dark' | 'auto') => {
     let effectiveTheme = newTheme;
     if (newTheme === 'auto') {
-      effectiveTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      effectiveTheme = systemDark ? 'dark' : 'light';
     }
 
     if (effectiveTheme === 'dark') {
       document.documentElement.classList.add('dark');
+      document.body.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
+      document.body.classList.remove('dark');
     }
   };
 
@@ -266,11 +286,11 @@ export const NewConversorInteligente: React.FC = () => {
   };
 
   // Inicializar tema al cargar
-  React.useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | 'auto' || 'dark';
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | 'auto' || 'auto';
     setTheme(savedTheme);
     applyTheme(savedTheme);
-  }, []);
+  }, [systemDark]);
 
   const handleFileSelect = useCallback((file: File) => {
     if (!file) return;
