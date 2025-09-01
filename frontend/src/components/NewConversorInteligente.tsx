@@ -1,5 +1,5 @@
 // frontend/src/components/NewConversorInteligente.tsx
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent, Badge, StepProgress, Progress } from './ui';
 import { FileUploader } from './FileUploader';
 import { FormatSelector } from './ui/FormatSelector';
@@ -426,6 +426,42 @@ export const NewConversorInteligente: React.FC = () => {
               <Settings size={28} className="text-white animate-pulse" />
             </div>
           </div>
+
+          <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold leading-tight transition-colors duration-300 ${
+            isDark ? 'text-white' : 'text-gray-900'
+          }`}>
+            Conversor <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-400 to-secondary">Inteligente</span>
+          </h1>
+
+          <p className={`text-lg max-w-2xl mx-auto transition-colors duration-300 ${
+            isDark ? 'text-slate-300' : 'text-gray-600'
+          }`}>
+            Convierte cualquier archivo a múltiples formatos con nuestra tecnología de inteligencia artificial avanzada
+          </p>
+
+          <div className="flex flex-wrap gap-2 justify-center pt-2">
+            <Badge variant="default" className={`border backdrop-blur-sm transition-colors duration-300 ${
+              isDark
+                ? 'bg-slate-800/50 border-slate-600 text-slate-200'
+                : 'bg-gray-100/80 border-gray-300 text-gray-700'
+            }`}>
+              IA avanzada
+            </Badge>
+            <Badge variant="default" className={`border backdrop-blur-sm transition-colors duration-300 ${
+              isDark
+                ? 'bg-slate-800/50 border-slate-600 text-slate-200'
+                : 'bg-gray-100/80 border-gray-300 text-gray-700'
+            }`}>
+              Conversión rápida
+            </Badge>
+            <Badge variant="default" className={`border backdrop-blur-sm transition-colors duration-300 ${
+              isDark
+                ? 'bg-slate-800/50 border-slate-600 text-slate-200'
+                : 'bg-gray-100/80 border-gray-300 text-gray-700'
+            }`}>
+              +200 formatos
+            </Badge>
+          </div>
         </div>
 
         {/* Selector de tema */}
@@ -484,27 +520,6 @@ export const NewConversorInteligente: React.FC = () => {
               </button>
             </div>
           )}
-        </div>
-      </div>
-        
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
-          Conversor <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-400 to-secondary">Inteligente</span>
-        </h1>
-        
-        <p className="text-slate-300 text-lg max-w-2xl mx-auto">
-          Convierte cualquier archivo a múltiples formatos con nuestra tecnología de inteligencia artificial avanzada
-        </p>
-        
-        <div className="flex flex-wrap gap-2 justify-center pt-2">
-          <Badge variant="default" className="bg-slate-800/50 border border-slate-600 backdrop-blur-sm">
-            IA avanzada
-          </Badge>
-          <Badge variant="default" className="bg-slate-800/50 border border-slate-600 backdrop-blur-sm">
-            Conversión rápida
-          </Badge>
-          <Badge variant="default" className="bg-slate-800/50 border border-slate-600 backdrop-blur-sm">
-            +200 formatos
-          </Badge>
         </div>
       </div>
 
