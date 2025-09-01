@@ -65,15 +65,80 @@ details summary::-webkit-details-marker {
   display: none;
 }
 
+/* Estilos para el proceso de segmentación curvo */
+.process-flow-container {
+  position: relative;
+  min-height: 800px;
+}
+
+.process-step {
+  position: absolute;
+  z-index: 10;
+}
+
+.process-bubble {
+  position: relative;
+  max-width: 320px;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.process-bubble::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+}
+
+.process-bubble.bubble-right::before {
+  left: -12px;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-right: 12px solid currentColor;
+}
+
+.process-bubble.bubble-left::before {
+  right: -12px;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 12px solid currentColor;
+}
+
 /* Estilos responsivos */
 @media (max-width: 768px) {
   .hero h1 {
     font-size: 3rem;
     line-height: 1.1;
   }
-  
+
   .hero p {
     font-size: 1.125rem;
+  }
+
+  .process-flow-container {
+    min-height: 600px;
+  }
+
+  .process-step {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    margin-bottom: 2rem;
+  }
+
+  .process-bubble {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .process-bubble::before {
+    display: none;
   }
 }
 

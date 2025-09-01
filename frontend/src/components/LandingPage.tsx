@@ -143,31 +143,35 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
     }
   ];
 
-  // Proceso innovador en tonos verdosos
+  // Proceso innovador en 4 pasos con diseño de tarjetas
   const processSteps = [
     {
       number: 1,
       title: "Sube tu archivo",
-  description: "Arrastra o selecciona cualquier archivo desde tu dispositivo. Soporte para más de 200 formatos.",
-      icon: <Upload className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
+      description: "Arrastra o selecciona cualquier archivo desde tu dispositivo. Soporte para más de 200 formatos.",
+      icon: <Upload className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />,
+      color: "from-emerald-500 to-teal-500"
     },
     {
       number: 2,
       title: "Procesamiento IA",
       description: "Nuestra inteligencia artificial analiza y optimiza tu contenido automáticamente.",
-      icon: <Cpu className="w-8 h-8 text-teal-600 dark:text-teal-400" />
+      icon: <Cpu className="w-8 h-8 text-teal-600 dark:text-teal-400" />,
+      color: "from-teal-500 to-cyan-500"
     },
     {
       number: 3,
       title: "Conversión segura",
       description: "Convertimos tu archivo con máxima calidad y seguridad garantizada.",
-      icon: <Shield className="w-8 h-8 text-green-600 dark:text-green-400" />
+      icon: <Shield className="w-8 h-8 text-green-600 dark:text-green-400" />,
+      color: "from-cyan-500 to-blue-500"
     },
     {
       number: 4,
       title: "Descarga inmediata",
       description: "Obtén tu archivo convertido al instante y con la mejor calidad posible.",
-      icon: <Download className="w-8 h-8 text-cyan-600 dark:text-cyan-400" />
+      icon: <Download className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
+      color: "from-blue-500 to-emerald-500"
     }
   ];
 
@@ -403,41 +407,44 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
                   Conversión inteligente en 4 pasos simples
                 </p>
               </div>
-              
-              <div className="grid grid-cols-1 lg:grid-cols-7 gap-8 items-center">
+
+              {/* Diseño de tarjetas con flechas como en la referencia */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4 items-center">
                 {processSteps.map((step, index) => (
                   <React.Fragment key={index}>
-                    <div className="lg:col-span-1 relative group">
-                      <div className="p-8 bg-gradient-to-br from-white/90 to-emerald-50/70 dark:from-gray-800/90 dark:to-emerald-900/30 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-emerald-200/50 dark:border-emerald-700/30 backdrop-blur-sm">
-                        <div className="text-center">
-                          <div className="mb-6">
-                            <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full flex items-center justify-center mx-auto shadow-lg group-hover:scale-110 transition-transform duration-300 mb-4">
-                              <span className="text-2xl font-bold text-white">{step.number}</span>
-                            </div>
-                            <div className="w-12 h-12 bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/30 dark:to-teal-900/30 rounded-full flex items-center justify-center shadow-md mx-auto">
-                              {step.icon}
-                            </div>
+                    {/* Tarjeta del paso */}
+                    <div className="relative group">
+                      <div className="p-8 bg-gradient-to-br from-gray-800/90 to-gray-900/90 dark:from-gray-700/90 dark:to-gray-800/90 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-600/50 dark:border-gray-500/50 backdrop-blur-sm min-h-[320px] flex flex-col">
+                        {/* Círculo numerado en la parte superior */}
+                        <div className="text-center mb-6">
+                          <div className={`w-16 h-16 bg-gradient-to-br ${step.color} rounded-full flex items-center justify-center mx-auto shadow-lg group-hover:scale-110 transition-transform duration-300 mb-4`}>
+                            <span className="text-2xl font-bold text-white">{step.number}</span>
                           </div>
-                          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+
+                          {/* Icono debajo del número */}
+                          <div className="w-12 h-12 bg-gradient-to-br from-emerald-100/20 to-teal-100/20 dark:from-emerald-900/30 dark:to-teal-900/30 rounded-full flex items-center justify-center shadow-md mx-auto">
+                            {step.icon}
+                          </div>
+                        </div>
+
+                        {/* Contenido del paso */}
+                        <div className="text-center flex-1 flex flex-col justify-center">
+                          <h3 className="text-xl font-bold text-white mb-4">
                             {step.title}
                           </h3>
-                          <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                          <p className="text-gray-300 leading-relaxed text-sm">
                             {step.description}
                           </p>
                         </div>
                       </div>
                     </div>
-                    
-                    {/* Elegant connector arrow */}
+
+                    {/* Flecha conectora - solo en desktop */}
                     {index < processSteps.length - 1 && (
-                      <div className="lg:col-span-1 hidden lg:flex justify-center items-center py-8">
-                        <div className="flex flex-col items-center space-y-2">
-                          <div className="w-16 h-0.5 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full opacity-60"></div>
-                          <div className="relative">
-                            <ArrowRight className="w-8 h-8 text-emerald-500 dark:text-emerald-400 animate-pulse drop-shadow-lg" />
-                            <div className="absolute -inset-2 bg-emerald-400/20 rounded-full blur-sm"></div>
-                          </div>
-                          <div className="w-16 h-0.5 bg-gradient-to-r from-teal-500 to-emerald-400 rounded-full opacity-60"></div>
+                      <div className="hidden lg:flex justify-center items-center">
+                        <div className="relative">
+                          <ArrowRight className="w-8 h-8 text-emerald-500 dark:text-emerald-400 animate-pulse drop-shadow-lg" />
+                          <div className="absolute -inset-2 bg-emerald-400/20 rounded-full blur-sm"></div>
                         </div>
                       </div>
                     )}
