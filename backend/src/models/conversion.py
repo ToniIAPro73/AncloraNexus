@@ -82,6 +82,53 @@ class ConversionEngine:
                 'md': 1,
                 'doc': 3,
                 'docx': 3
+            },
+            # === NUEVAS CONVERSIONES IMPLEMENTADAS ===
+            'csv': {
+                'html': 1,
+                'pdf': 2,
+                'json': 1,
+                'txt': 1
+            },
+            'json': {
+                'html': 1,
+                'csv': 1,
+                'txt': 1,
+                'pdf': 2
+            },
+            'epub': {
+                'html': 2,
+                'pdf': 3,
+                'txt': 2,
+                'md': 2
+            },
+            'rtf': {
+                'docx': 2,
+                'pdf': 2,
+                'txt': 1,
+                'html': 2
+            },
+            'odt': {
+                'pdf': 2,
+                'docx': 3,
+                'txt': 2,
+                'html': 2
+            },
+            'webp': {
+                'jpg': 1,
+                'png': 1,
+                'gif': 2,
+                'pdf': 2
+            },
+            'tiff': {
+                'jpg': 1,
+                'png': 1,
+                'pdf': 2
+            },
+            'bmp': {
+                'jpg': 1,
+                'png': 1,
+                'pdf': 2
             }
         }
 
@@ -108,6 +155,19 @@ class ConversionEngine:
     def get_supported_formats(self, source_format):
         """Obtiene los formatos de destino soportados para un formato origen"""
         return list(self.supported_conversions.get(source_format.lower(), {}).keys())
+
+    def get_all_supported_formats(self):
+        """Obtiene todos los formatos soportados (entrada y salida)"""
+        input_formats = set(self.supported_conversions.keys())
+        output_formats = set()
+
+        for targets in self.supported_conversions.values():
+            output_formats.update(targets.keys())
+
+        return {
+            'input': input_formats,
+            'output': output_formats
+        }
 
     def get_conversion_cost(self, source_format, target_format):
         """Calcula el costo en crÃ©ditos de una conversiÃ³n"""

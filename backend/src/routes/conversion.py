@@ -25,7 +25,14 @@ try:
     from src.services.error_messages import error_translator
     VALIDATION_SYSTEMS_AVAILABLE = True
 except ImportError:
-    VALIDATION_SYSTEMS_AVAILABLE = False, validate_and_classify
+    VALIDATION_SYSTEMS_AVAILABLE = False
+
+# Importar optimizador de conversiones
+try:
+    from src.services.conversion_optimizer import conversion_optimizer
+    OPTIMIZER_AVAILABLE = True
+except ImportError:
+    OPTIMIZER_AVAILABLE = False, validate_and_classify
 from src.models.conversion_history import ConversionHistory
 from src.models.conversion_log import ConversionLog
 import os
@@ -36,7 +43,13 @@ import hashlib
 import shutil
 from pathlib import Path
 from src.ws import emit_progress, Phase
-from src.services.ai_conversion_engine import ai_conversion_engine
+# Importar motor de IA si está disponible
+try:
+    from src.services.ai_conversion_engine import ai_conversion_engine
+    AI_ENGINE_AVAILABLE = True
+except ImportError:
+    AI_ENGINE_AVAILABLE = False
+    ai_conversion_engine = None
 from src.services.intelligent_conversion_sequences import intelligent_sequences
 from src.services.ai_quality_assessment import ai_quality_assessor
 from src.services.file_preview_service import file_preview_service
@@ -70,10 +83,83 @@ def allowed_file(filename):
 @conversion_bp.route('/supported-formats', methods=['GET'])
 def get_supported_formats():
     """Obtiene todos los formatos soportados"""
-    return jsonify({
-        'supported_conversions': conversion_engine.supported_conversions,
-        'allowed_extensions': list(ALLOWED_EXTENSIONS)
-    }), 200
+    try:
+        # Obtener formatos del motor de conversión
+        supported = conversion_engine.get_all_supported_formats()
+
+        return jsonify({
+            'success': True,
+            'supported_conversions': conversion_engine.supported_conversions,
+            'input': sorted(list(supported['input'])),
+            'output': sorted(list(supported['output'])),
+            'total_input': len(supported['input']),
+            'total_output': len(supported['output']),
+            'allowed_extensions': list(ALLOWED_EXTENSIONS),
+            'new_formats': ['csv', 'json', 'epub', 'rtf', 'odt', 'webp', 'tiff', 'bmp']
+        }), 200
+
+    except Exception as e:
+        return jsonify({'error': f'Error obteniendo formatos: {str(e)}'}), 500
+
+# Alias para compatibilidad
+@conversion_bp.route('/formats', methods=['GET'])
+def get_formats_alias():
+    """Alias para /supported-formats"""
+    return get_supported_formats()
+
+@conversion_bp.route('/analyze-conversion', methods=['POST'])
+def analyze_conversion():
+    """Analiza opciones de conversión directa vs optimizada"""
+    try:
+        data = request.get_json()
+        source_format = data.get('source_format', '').lower()
+        target_format = data.get('target_format', '').lower()
+
+        if not source_format or not target_format:
+            return jsonify({'error': 'Se requieren source_format y target_format'}), 400
+
+        # Verificar que la conversión sea soportada
+        if source_format not in conversion_engine.supported_conversions:
+            return jsonify({'error': f'Formato de origen {source_format} no soportado'}), 400
+
+        if target_format not in conversion_engine.supported_conversions.get(source_format, {}):
+            return jsonify({'error': f'Conversión {source_format}→{target_format} no soportada'}), 400
+
+        # Obtener costo base
+        base_cost = conversion_engine.supported_conversions[source_format][target_format]
+
+        # Análisis de opciones si el optimizador está disponible
+        if OPTIMIZER_AVAILABLE:
+            analysis = conversion_optimizer.analyze_conversion_options(source_format, target_format, base_cost)
+            compatibility = conversion_optimizer.get_format_compatibility_score(source_format, target_format)
+
+            return jsonify({
+                'success': True,
+                'source_format': source_format,
+                'target_format': target_format,
+                'analysis': analysis,
+                'compatibility': compatibility,
+                'has_optimized_sequence': analysis.get('optimized') is not None
+            })
+        else:
+            # Análisis básico sin optimizador
+            return jsonify({
+                'success': True,
+                'source_format': source_format,
+                'target_format': target_format,
+                'analysis': {
+                    'direct': {
+                        'cost': base_cost,
+                        'quality': 75,
+                        'description': f'Conversión directa {source_format.upper()} → {target_format.upper()}',
+                        'recommended': True
+                    }
+                },
+                'has_optimized_sequence': False
+            })
+
+    except Exception as e:
+        return jsonify({'error': f'Error analizando conversión: {str(e)}'}), 500
 
 @conversion_bp.route('/guest-convert', methods=['POST'])
 def guest_convert_file():
@@ -85,6 +171,8 @@ def guest_convert_file():
 
         file = request.files['file']
         target_format = request.form.get('target_format')
+        conversion_type = request.form.get('conversion_type', 'direct')  # 'direct' o 'optimized'
+        conversion_sequence = request.form.get('conversion_sequence')  # JSON string con secuencia
 
         if not file.filename or not target_format:
             return jsonify({'error': 'Archivo y formato destino son requeridos'}), 400
@@ -163,11 +251,38 @@ def guest_convert_file():
             output_filename = f"{filename.rsplit('.', 1)[0]}.{target_format}"
             output_path = os.path.join(OUTPUT_FOLDER, f"guest_{uuid.uuid4()}_{output_filename}")
 
-            # Realizar conversión
+            # Realizar conversión (directa o con secuencia)
             start_time = time.time()
-            success, message = conversion_engine.convert_file(
-                input_path, output_path, source_format, target_format
-            )
+
+            # Información adicional para el resultado
+            conversion_info = {
+                'type': conversion_type,
+                'sequence': None
+            }
+
+            if conversion_type == 'optimized' and conversion_sequence:
+                # Procesar secuencia optimizada
+                import json
+                try:
+                    sequence_steps = json.loads(conversion_sequence)
+                    conversion_info['sequence'] = sequence_steps
+                    # Por ahora, usar conversión directa pero registrar la secuencia
+                    # TODO: Implementar conversión por pasos en el futuro
+                    success, message = conversion_engine.convert_file(
+                        input_path, output_path, source_format, target_format
+                    )
+                except json.JSONDecodeError:
+                    # Si hay error en JSON, usar conversión directa
+                    conversion_info['type'] = 'direct'
+                    success, message = conversion_engine.convert_file(
+                        input_path, output_path, source_format, target_format
+                    )
+            else:
+                # Conversión directa
+                success, message = conversion_engine.convert_file(
+                    input_path, output_path, source_format, target_format
+                )
+
             processing_time = time.time() - start_time
 
             if success and os.path.exists(output_path):
@@ -188,7 +303,9 @@ def guest_convert_file():
                     'output_filename': output_filename,
                     'processing_time': round(processing_time, 2),
                     'file_size': os.path.getsize(output_path),
-                    'download_url': f'/api/conversion/guest-download/{download_id}'
+                    'download_url': f'/api/conversion/guest-download/{download_id}',
+                    'conversion_type': conversion_info['type'],
+                    'conversion_sequence': conversion_info['sequence']
                 }), 200
             else:
                 # Usar traductor de errores si está disponible
@@ -556,6 +673,9 @@ def guest_download_file(download_id):
 @conversion_bp.route('/ai-analyze', methods=['POST'])
 def ai_analyze_file():
     """Análisis inteligente de archivo con IA"""
+    if not AI_ENGINE_AVAILABLE:
+        return jsonify({'error': 'Motor de IA no disponible. Instale: pip install google-generativeai'}), 503
+
     try:
         if 'file' not in request.files:
             return jsonify({'error': 'No se proporcionó ningún archivo'}), 400
@@ -625,6 +745,9 @@ def ai_analyze_file():
 @conversion_bp.route('/ai-conversion-paths', methods=['POST'])
 def get_ai_conversion_paths():
     """Obtiene rutas de conversión optimizadas con IA"""
+    if not AI_ENGINE_AVAILABLE:
+        return jsonify({'error': 'Motor de IA no disponible. Instale: pip install google-generativeai'}), 503
+
     try:
         if 'file' not in request.files:
             return jsonify({'error': 'No se proporcionó ningún archivo'}), 400
@@ -691,6 +814,9 @@ def get_ai_conversion_paths():
 @conversion_bp.route('/ai-convert-intelligent', methods=['POST'])
 def ai_convert_intelligent():
     """Conversión inteligente con secuencias optimizadas por IA"""
+    if not AI_ENGINE_AVAILABLE:
+        return jsonify({'error': 'Motor de IA no disponible. Instale: pip install google-generativeai'}), 503
+
     try:
         if 'file' not in request.files:
             return jsonify({'error': 'No se proporcionó ningún archivo'}), 400
@@ -1222,6 +1348,8 @@ def csv_preview():
 
     except Exception as e:
         return jsonify({'error': f'Error generando preview: {str(e)}'}), 500
+
+
 
 @conversion_bp.route('/system/pandoc-status', methods=['GET'])
 def pandoc_status():

@@ -1,8 +1,11 @@
 // frontend/src/components/NewConversorInteligente.tsx
 import React, { useState, useCallback } from 'react';
-import { Card, CardHeader, CardTitle, CardContent, Badge, FileUpload, StepProgress, Progress } from './ui';
-import { 
-  FileUp, FileBarChart, Settings, Download, ArrowRight, Check, Loader
+import { Card, CardHeader, CardTitle, CardContent, Badge, StepProgress, Progress } from './ui';
+import { FileUploader } from './FileUploader';
+import { FormatSelector } from './ui/FormatSelector';
+import { ConversionOptionsComparison } from './ui/ConversionOptionsComparison';
+import {
+  FileUp, FileBarChart, Settings, Download, ArrowRight, Check, Loader, X
 } from 'lucide-react';
 
 interface ConversionStepProps {
@@ -151,28 +154,180 @@ export const NewConversorInteligente: React.FC = () => {
   const [targetFormat, setTargetFormat] = useState<string>('');
   const [isConverting, setIsConverting] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
-  // Simplified file handling using our FileUpload component
+  const [conversionResult, setConversionResult] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [availableFormats, setAvailableFormats] = useState<string[]>([]);
+  const [conversionAnalysis, setConversionAnalysis] = useState<any>(null);
+  const [selectedConversionOption, setSelectedConversionOption] = useState<'direct' | 'optimized' | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+
+  // Obtener formatos soportados basados en el archivo seleccionado
+  const getAvailableFormats = useCallback((file: File) => {
+    const extension = file.name.split('.').pop()?.toLowerCase() || '';
+
+    // Mapeo de formatos soportados por tipo de archivo
+    const formatMap: Record<string, string[]> = {
+      // Documentos
+      'txt': ['pdf', 'docx', 'html', 'md', 'rtf'],
+      'pdf': ['docx', 'txt', 'html', 'jpg', 'png'],
+      'doc': ['pdf', 'docx', 'txt', 'html', 'md'],
+      'docx': ['pdf', 'txt', 'html', 'md', 'rtf'],
+      'rtf': ['pdf', 'docx', 'txt', 'html'],
+      'odt': ['pdf', 'docx', 'txt', 'html'],
+      'md': ['pdf', 'docx', 'html', 'txt'],
+      'html': ['pdf', 'docx', 'txt', 'md'],
+
+      // Datos
+      'csv': ['html', 'pdf', 'json', 'txt'],
+      'json': ['html', 'csv', 'txt'],
+
+      // Libros electrónicos
+      'epub': ['pdf', 'html', 'txt', 'md'],
+
+      // Imágenes
+      'jpg': ['png', 'gif', 'webp', 'pdf', 'bmp'],
+      'jpeg': ['png', 'gif', 'webp', 'pdf', 'bmp'],
+      'png': ['jpg', 'gif', 'webp', 'pdf', 'bmp'],
+      'gif': ['jpg', 'png', 'webp', 'pdf'],
+      'webp': ['jpg', 'png', 'gif', 'pdf'],
+      'tiff': ['jpg', 'png', 'pdf'],
+      'bmp': ['jpg', 'png', 'pdf']
+    };
+
+    return formatMap[extension] || ['pdf', 'txt', 'html'];
+  }, []);
+
   const handleFileSelect = useCallback((file: File) => {
     if (!file) return;
     setSelectedFile(file);
     setCurrentStep(2);
-    
-    // Simular análisis
+    setError(null);
+
+    // Obtener formatos disponibles para este archivo
+    const formats = getAvailableFormats(file);
+    setAvailableFormats(formats);
+
+    // Simular análisis (2 segundos)
     setTimeout(() => {
       setCurrentStep(3);
+      // Auto-seleccionar primer formato disponible
+      if (formats.length > 0) {
+        setTargetFormat(formats[0]);
+      }
     }, 2000);
-  }, []);
+  }, [getAvailableFormats]);
 
-  const handleConvert = useCallback(() => {
-    if (!selectedFile || !targetFormat) return;
+  const handleConvert = useCallback(async () => {
+    if (!selectedFile || !targetFormat || !selectedConversionOption) return;
+
     setIsConverting(true);
     setCurrentStep(4);
-    
-    // Simular conversión
-    setTimeout(() => {
+    setError(null);
+
+    try {
+      // Conversión real usando la API
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+      formData.append('target_format', targetFormat);
+
+      // Agregar información sobre la opción de conversión seleccionada
+      if (conversionAnalysis && selectedConversionOption) {
+        const selectedOption = conversionAnalysis[selectedConversionOption];
+        if (selectedOption && selectedOption.steps) {
+          formData.append('conversion_sequence', JSON.stringify(selectedOption.steps));
+          formData.append('conversion_type', selectedConversionOption);
+        }
+      }
+
+      const response = await fetch('http://localhost:8000/api/conversion/guest-convert', {
+        method: 'POST',
+        body: formData
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setConversionResult(result);
+        setCurrentStep(5); // Paso de descarga
+      } else {
+        setError(result.error || 'Error en la conversión');
+        setCurrentStep(3); // Volver a configuración
+      }
+    } catch (err) {
+      setError('Error de conexión con el servidor');
+      setCurrentStep(3);
+    } finally {
       setIsConverting(false);
-    }, 3000);
+    }
   }, [selectedFile, targetFormat]);
+
+  // Función para obtener descripción del formato
+  const getFormatDescription = (format: string): string => {
+    const descriptions: Record<string, string> = {
+      'pdf': 'Documento Portátil',
+      'docx': 'Microsoft Word',
+      'txt': 'Texto Plano',
+      'html': 'Página Web',
+      'md': 'Markdown',
+      'rtf': 'Texto Enriquecido',
+      'csv': 'Datos Tabulares',
+      'json': 'Datos JSON',
+      'epub': 'Libro Electrónico',
+      'odt': 'OpenDocument',
+      'jpg': 'Imagen JPEG',
+      'png': 'Imagen PNG',
+      'gif': 'Imagen GIF',
+      'webp': 'Imagen WebP',
+      'bmp': 'Imagen Bitmap'
+    };
+    return descriptions[format] || 'Formato';
+  };
+
+  // Función para analizar opciones de conversión
+  const analyzeConversionOptions = useCallback(async (sourceFormat: string, targetFormat: string) => {
+    if (!sourceFormat || !targetFormat) return;
+
+    setIsAnalyzing(true);
+
+    try {
+      const response = await fetch('http://localhost:8000/api/conversion/analyze-conversion', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          source_format: sourceFormat,
+          target_format: targetFormat
+        })
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setConversionAnalysis(result.analysis);
+        // Auto-seleccionar opción recomendada
+        setSelectedConversionOption(result.analysis.recommendation.type);
+      } else {
+        setError(result.error || 'Error analizando opciones de conversión');
+      }
+    } catch (err) {
+      setError('Error de conexión al analizar opciones');
+    } finally {
+      setIsAnalyzing(false);
+    }
+  }, []);
+
+  // Manejar selección de formato con análisis automático
+  const handleFormatSelection = useCallback(async (format: string) => {
+    setTargetFormat(format);
+    setConversionAnalysis(null);
+    setSelectedConversionOption(null);
+
+    if (selectedFile) {
+      const sourceFormat = selectedFile.name.split('.').pop()?.toLowerCase() || '';
+      await analyzeConversionOptions(sourceFormat, format);
+    }
+  }, [selectedFile, analyzeConversionOptions]);
 
   // Import more icons if necessary from lucide-react package
   const popularConversions = [
@@ -237,15 +392,24 @@ export const NewConversorInteligente: React.FC = () => {
           isCompleted={currentStep > 1}
         >
           {currentStep === 1 ? (
-            <FileUpload 
-              onFilesSelected={(files) => files[0] && handleFileSelect(files[0])}
-              maxFiles={1}
-              maxSizeMB={50}
-              acceptedFormats={["TXT", "PDF", "DOC", "HTML", "MD"]}
-              className="animate-in fade-in duration-500"
-              dropzoneLabel="Arrastra tu archivo aquí o haz clic para seleccionar"
-              supportedFormatsLabel="Formatos soportados"
-            />
+            <FileUploader
+              onFileSelect={(file) => handleFileSelect(file as File)}
+              acceptedFiles=".txt,.pdf,.doc,.docx,.html,.md,.csv,.json,.epub,.rtf,.odt,.jpg,.jpeg,.png,.gif,.webp,.tiff,.bmp"
+              multiple={false}
+              isLoading={false}
+            >
+              <div className="p-8 text-center animate-in fade-in duration-500">
+                <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                  <FileUp size={32} className="text-primary" />
+                </div>
+                <p className="text-lg font-medium text-white mb-2">
+                  Arrastra tu archivo aquí o haz clic para seleccionar
+                </p>
+                <p className="text-sm text-slate-400">
+                  Formatos soportados: TXT, PDF, DOC, DOCX, HTML, MD, CSV, JSON, EPUB, RTF, ODT, JPG, PNG, GIF, WEBP, TIFF, BMP
+                </p>
+              </div>
+            </FileUploader>
           ) : (
             <div className="animate-in fade-in duration-300">
               <div className="flex items-center gap-3 mb-3 bg-slate-800/40 p-3 rounded-lg">
@@ -311,32 +475,52 @@ export const NewConversorInteligente: React.FC = () => {
           {currentStep >= 3 ? (
             <div className="space-y-4">
               <div>
-                <label className="block text-sm text-gray-400 mb-2">Formato de salida</label>
-                <select
-                  value={targetFormat}
-                  onChange={(e) => setTargetFormat(e.target.value)}
-                  className="w-full bg-slate-700/50 border border-slate-600 rounded-lg p-2 text-white text-sm focus:border-primary focus:outline-none"
-                  disabled={currentStep > 3}
-                >
-                  <option value="">Seleccionar formato</option>
-                  <option value="jpg">JPG</option>
-                  <option value="png">PNG</option>
-                  <option value="pdf">PDF</option>
-                  <option value="gif">GIF</option>
-                </select>
+                <label className="block text-sm text-gray-400 mb-4">Seleccionar formato de salida</label>
+                <FormatSelector
+                  availableFormats={availableFormats}
+                  selectedFormat={targetFormat}
+                  onFormatSelect={handleFormatSelection}
+                  sourceFormat={selectedFile.name.split('.').pop()?.toLowerCase() || ''}
+                />
               </div>
+
+              {/* Análisis de opciones de conversión */}
+              {isAnalyzing && (
+                <div className="p-4 bg-slate-800/30 rounded-lg border border-slate-700">
+                  <div className="flex items-center gap-3">
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary"></div>
+                    <span className="text-slate-300">Analizando opciones de conversión...</span>
+                  </div>
+                </div>
+              )}
+
+              {conversionAnalysis && !isAnalyzing && targetFormat && (
+                <div>
+                  <ConversionOptionsComparison
+                    analysis={conversionAnalysis}
+                    onOptionSelect={setSelectedConversionOption}
+                    selectedOption={selectedConversionOption}
+                    onPreview={(option) => {
+                      // TODO: Implementar preview
+                      console.log('Preview:', option);
+                    }}
+                  />
+                </div>
+              )}
               
-              {targetFormat && currentStep === 3 && (
+              {targetFormat && selectedConversionOption && currentStep === 3 && (
                 <div>
                   <div className="flex justify-between items-center text-xs text-gray-400 mb-3">
                     <span>Costo:</span>
-                    <span className="text-primary font-medium">0 créditos</span>
+                    <span className="text-primary font-medium">
+                      {conversionAnalysis?.[selectedConversionOption]?.cost || 0} créditos
+                    </span>
                   </div>
                   <button
                     onClick={handleConvert}
                     className="w-full bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded-lg transition-colors text-button font-medium"
                   >
-                    Iniciar Conversión
+                    Iniciar Conversión {selectedConversionOption === 'optimized' ? 'Optimizada' : 'Directa'}
                   </button>
                 </div>
               )}
@@ -348,11 +532,11 @@ export const NewConversorInteligente: React.FC = () => {
           )}
         </ConversionStep>
 
-        {/* Paso 4: Descargar */}
+        {/* Paso 4: Convertir */}
         <ConversionStep
           number={4}
-          title="Descargar"
-          icon="📥"
+          title="Convertir"
+          icon="🔄"
           isActive={currentStep === 4}
           isCompleted={currentStep > 4}
         >
@@ -365,21 +549,68 @@ export const NewConversorInteligente: React.FC = () => {
                 <p className="text-gray-300 text-sm">Convirtiendo archivo...</p>
                 <p className="text-xs text-gray-500 mt-1">Esto puede tomar unos segundos</p>
               </div>
-            ) : (
+            ) : error ? (
               <div className="text-center py-4 space-y-4">
-                <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto">
-                  <Check size={32} className="text-green-500" />
+                <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mx-auto">
+                  <X size={32} className="text-red-500" />
                 </div>
-                <h3 className="text-xl font-medium text-white mb-4">¡Conversión completada!</h3>
-                <button className="bg-primary hover:bg-primary-dark text-white py-2 px-6 rounded-lg transition-colors text-button font-medium flex items-center justify-center gap-2 mx-auto">
-                  <Download size={18} />
-                  Descargar archivo
+                <h3 className="text-lg font-medium text-white mb-2">Error en conversión</h3>
+                <p className="text-sm text-red-400 mb-4">{error}</p>
+                <button
+                  onClick={() => {
+                    setError(null);
+                    setCurrentStep(3);
+                  }}
+                  className="bg-slate-600 hover:bg-slate-500 text-white py-2 px-4 rounded-lg transition-colors text-sm"
+                >
+                  Intentar nuevamente
                 </button>
-                <p className="text-xs text-gray-500 mt-2">
-                  El archivo estará disponible durante 24 horas
-                </p>
+              </div>
+            ) : (
+              <div className="text-center py-4">
+                <p className="text-gray-300 text-sm mb-4">Listo para convertir</p>
+                <button
+                  onClick={handleConvert}
+                  disabled={!targetFormat}
+                  className="bg-primary hover:bg-primary-dark disabled:bg-gray-600 text-white py-2 px-6 rounded-lg transition-colors text-sm font-medium"
+                >
+                  Iniciar Conversión
+                </button>
               </div>
             )
+          ) : (
+            <div className="text-sm text-gray-500 text-center py-4">
+              Esperando configuración...
+            </div>
+          )}
+        </ConversionStep>
+
+        {/* Paso 5: Descargar */}
+        <ConversionStep
+          number={5}
+          title="Descargar"
+          icon="📥"
+          isActive={currentStep === 5}
+          isCompleted={false}
+        >
+          {currentStep === 5 && conversionResult ? (
+            <div className="text-center py-4 space-y-4">
+              <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto">
+                <Check size={32} className="text-green-500" />
+              </div>
+              <h3 className="text-xl font-medium text-white mb-4">¡Conversión completada!</h3>
+              <a
+                href={`http://localhost:8000/api/conversion/guest-download/${conversionResult.download_id}`}
+                download={conversionResult.output_filename}
+                className="bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-lg transition-colors text-button font-medium flex items-center justify-center gap-2 mx-auto"
+              >
+                <Download size={18} />
+                Descargar {conversionResult.output_filename}
+              </a>
+              <p className="text-xs text-gray-500 mt-2">
+                El archivo estará disponible durante 24 horas
+              </p>
+            </div>
           ) : (
             <div className="text-sm text-gray-500 text-center py-4">
               Esperando conversión...
