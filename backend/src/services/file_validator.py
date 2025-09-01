@@ -36,7 +36,7 @@ class FileValidator:
             
             # Texto y datos
             'txt': [],  # Sin signature específica
-            'html': [b'<!DOCTYPE', b'<html', b'<HTML'],
+            'html': [b'<!DOCTYPE', b'<!doctype', b'<html', b'<HTML'],
             'xml': [b'<?xml'],
             'json': [b'{', b'['],
             'csv': [],  # Sin signature específica

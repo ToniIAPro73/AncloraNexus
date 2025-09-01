@@ -5,7 +5,7 @@ import { FileUploader } from './FileUploader';
 import { FormatSelector } from './ui/FormatSelector';
 import { ConversionOptionsComparison } from './ui/ConversionOptionsComparison';
 import {
-  FileUp, FileBarChart, Settings, Download, ArrowRight, Check, Loader, X, Sun, Moon, Monitor
+  FileUp, FileBarChart, Settings, Download, ArrowRight, Check, Loader, X, Sun, Moon, Monitor, RefreshCw
 } from 'lucide-react';
 
 interface ConversionStepProps {
@@ -427,9 +427,35 @@ export const NewConversorInteligente: React.FC = () => {
       const result = await response.json();
 
       if (result.success) {
-        setConversionAnalysis(result.analysis);
-        // Auto-seleccionar opción recomendada
-        setSelectedConversionOption(result.analysis.recommendation.type);
+        // Asegurar que siempre tengamos al menos una opción directa
+        const analysis = result.analysis || {};
+
+        // Si no hay análisis completo, crear uno básico
+        if (!analysis.direct) {
+          analysis.direct = {
+            steps: [sourceFormat, targetFormat],
+            cost: 2, // Costo por defecto
+            quality: 85,
+            description: `Conversión directa ${sourceFormat.toUpperCase()} → ${targetFormat.toUpperCase()}`,
+            advantages: ['Conversión rápida', 'Proceso simple'],
+            time_estimate: '30-60 segundos',
+            recommended: true
+          };
+        }
+
+        // Asegurar que hay una recomendación
+        if (!analysis.recommendation) {
+          analysis.recommendation = {
+            type: 'direct',
+            reason: 'Conversión directa disponible',
+            confidence: 'high'
+          };
+        }
+
+        setConversionAnalysis(analysis);
+        // Auto-seleccionar opción recomendada (con fallback a 'direct')
+        const recommendedType = analysis.recommendation?.type || 'direct';
+        setSelectedConversionOption(recommendedType);
       } else {
         setError(result.error || 'Error analizando opciones de conversión');
       }
@@ -451,6 +477,20 @@ export const NewConversorInteligente: React.FC = () => {
       await analyzeConversionOptions(sourceFormat, format);
     }
   }, [selectedFile, analyzeConversionOptions]);
+
+  // Función para resetear el conversor al estado inicial
+  const handleReset = useCallback(() => {
+    setSelectedFile(null);
+    setTargetFormat('');
+    setIsConverting(false);
+    setCurrentStep(1);
+    setConversionResult(null);
+    setError(null);
+    setAvailableFormats([]);
+    setConversionAnalysis(null);
+    setSelectedConversionOption(null);
+    setIsAnalyzing(false);
+  }, []);
 
   // Import more icons if necessary from lucide-react package
   const popularConversions = [
@@ -936,6 +976,19 @@ export const NewConversorInteligente: React.FC = () => {
                   <Download size={20} />
                   📥 Descargar {conversionResult.output_filename}
                 </a>
+
+                {/* Botón para convertir otro archivo */}
+                <button
+                  onClick={handleReset}
+                  className={`w-full py-2 px-4 rounded-lg transition-all duration-300 font-medium flex items-center justify-center gap-2 ${
+                    isDark
+                      ? 'bg-slate-700 hover:bg-slate-600 text-slate-300 hover:text-white border border-slate-600'
+                      : 'bg-gray-100 hover:bg-gray-200 text-gray-700 hover:text-gray-900 border border-gray-300'
+                  }`}
+                >
+                  <RefreshCw size={16} />
+                  Convertir otro archivo
+                </button>
 
                 <p className={`text-xs text-center ${
                   isDark ? 'text-slate-400' : 'text-gray-600'
