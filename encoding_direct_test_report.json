@@ -1,0 +1,12 @@
+{
+  "passed": 9,
+  "failed": 0,
+  "details": {
+    "utf8_detection": "passed",
+    "latin1_detection": "passed",
+    "normalization": "passed",
+    "bom": "passed",
+    "undo": "passed",
+    "logs": "passed"
+  }
+}

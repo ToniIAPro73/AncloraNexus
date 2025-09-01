@@ -14,8 +14,21 @@ FRONTEND_ROOT = PROJECT_ROOT / 'frontend'
 DOCS_ROOT = PROJECT_ROOT / 'docs'
 
 # === UPLOAD & OUTPUT DIRECTORIES ===
-UPLOAD_FOLDER = '/tmp/anclora_uploads'
-OUTPUT_FOLDER = '/tmp/anclora_outputs'
+import tempfile
+import platform
+
+# Usar rutas apropiadas según el sistema operativo
+if platform.system() == 'Windows':
+    TEMP_BASE = os.path.join(tempfile.gettempdir(), 'anclora')
+    UPLOAD_FOLDER = os.path.join(TEMP_BASE, 'uploads')
+    OUTPUT_FOLDER = os.path.join(TEMP_BASE, 'outputs')
+else:
+    UPLOAD_FOLDER = '/tmp/anclora_uploads'
+    OUTPUT_FOLDER = '/tmp/anclora_outputs'
+
+# Crear directorios si no existen
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 BACKUP_FOLDER = BACKEND_ROOT / 'backups'
 
 # === ALLOWED FILE EXTENSIONS ===

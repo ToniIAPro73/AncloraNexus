@@ -1,0 +1,12 @@
+{
+  "passed": 6,
+  "failed": 0,
+  "details": {
+    "fake_docx": "correctly_rejected",
+    "corrupt_docx": "correctly_rejected",
+    "valid_docx": "converted_successfully",
+    "mixed_bom": "handled_correctly",
+    "null_bytes": "handled",
+    "corrupt_zip": "correctly_rejected"
+  }
+}

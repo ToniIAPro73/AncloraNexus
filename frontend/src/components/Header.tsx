@@ -114,10 +114,19 @@ export function Header({ onMenuToggle, userPlan = 'free' }: HeaderProps) {
           >
             Documentación
           </Link>
-          <Link 
-            to="/ui" 
+          <Link
+            to="/ui"
             className="text-sm font-medium hover:text-primary transition-colors"
           >
+            UI Playground
+          </Link>
+          <Link
+            to="/ai-demo"
+            className="text-sm font-medium hover:text-primary transition-colors flex items-center space-x-1 bg-gradient-to-r from-purple-500 to-blue-500 text-white px-3 py-1 rounded-full"
+          >
+            <span>🤖</span>
+            <span>Motor IA</span>
+          </Link>
             UI Playground
           </Link>
         </nav>

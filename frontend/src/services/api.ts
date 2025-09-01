@@ -16,8 +16,8 @@ export interface RegisterData {
 // --- LÓGICA DEL SERVICIO DE API ---
 
 // URL base de la API configurable mediante variable de entorno
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api';
-const WS_BASE_URL = import.meta.env.VITE_WS_BASE_URL || 'http://localhost:3001';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
+const WS_BASE_URL = import.meta.env.VITE_WS_BASE_URL || 'http://localhost:8000';
 
 console.log('API_BASE_URL:', API_BASE_URL);
 console.log('WS_BASE_URL:', WS_BASE_URL);
@@ -159,14 +159,35 @@ export const apiService = {
     const formData = new FormData();
     formData.append('file', payload.file);
     formData.append('target_format', payload.target_format);
-    
-    const response = await fetch(`${API_BASE_URL}/conversion/convert`, { // Asumiendo que esta es la ruta
+
+    const endpoint = token ? '/conversion/convert' : '/conversion/guest-convert';
+    const headers: Record<string, string> = {};
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: 'POST',
-        headers: { 'Authorization': `Bearer ${token}` },
+        headers,
         body: formData,
     });
     const data = await response.json();
-  if (!response.ok) throw new Error(data.error || 'Error en la conversión');
+    if (!response.ok) throw new Error(data.error || 'Error en la conversión');
+    return data;
+  },
+
+  // Nueva función para conversión de invitados
+  guestConvertFile: async (payload: { file: File; target_format: string; }): Promise<any> => {
+    const formData = new FormData();
+    formData.append('file', payload.file);
+    formData.append('target_format', payload.target_format);
+
+    const response = await fetch(`${API_BASE_URL}/conversion/guest-convert`, {
+        method: 'POST',
+        body: formData,
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Error en la conversión');
     return data;
   },
 

@@ -1,0 +1,28 @@
+{
+  "cli_tests": {
+    "dry_run": "failed",
+    "normalize": "failed",
+    "bom": "failed",
+    "undo": "skipped"
+  },
+  "integration_tests": {
+    "auto_normalize": "error"
+  },
+  "edge_cases": {
+    "utf16_bom": "passed",
+    "mojibake": "not_detected",
+    "binary": "detected_as_ISO-8859-1"
+  },
+  "log_validation": {
+    "exists": true,
+    "last_entry": {
+      "path": "C:\\Users\\Usuario\\AppData\\Local\\Temp\\anclora_uploads\\guest_d5262266-c3cd-4f15-ba68-2cd97d697493_test_simple.txt",
+      "backup": "C:\\Users\\Usuario\\AppData\\Local\\Temp\\anclora_uploads\\guest_d5262266-c3cd-4f15-ba68-2cd97d697493_test_simple.txt.bak",
+      "from": "ascii",
+      "to": "utf-8",
+      "timestamp": "2025-09-01T06:31:57.467550+00:00Z"
+    }
+  },
+  "total_passed": 3,
+  "total_failed": 4
+}

@@ -68,12 +68,31 @@ class ConversionEngine:
                 'pdf': 4,
                 'txt': 3,
                 'html': 4
+            },
+            'md': {
+                'html': 1,
+                'pdf': 2,
+                'txt': 1,
+                'doc': 3,
+                'docx': 3
+            },
+            'html': {
+                'pdf': 2,
+                'txt': 1,
+                'md': 1,
+                'doc': 3,
+                'docx': 3
             }
         }
 
         # Registro dinÃ¡mico de plugins
         self.conversion_methods = {}
         self.load_plugins()
+
+        # Integración con servicios de IA
+        self.ai_enabled = True
+        self.quality_threshold = 0.8  # Umbral mínimo de calidad IA
+        self.enable_intelligent_sequences = True
 
     def load_plugins(self):
         """Carga todos los plugins de conversiÃ³n disponibles."""
@@ -261,6 +280,62 @@ class ConversionEngine:
                 'message': message
             })
         return results
+
+    async def convert_with_ai_optimization(self, input_path, output_path, source_format, target_format,
+                                         optimization_type='balanced'):
+        """Conversión con optimización IA"""
+        try:
+            # Importar servicios de IA (lazy loading para evitar errores de importación circular)
+            from src.services.ai_conversion_engine import ai_conversion_engine
+            from src.services.intelligent_conversion_sequences import intelligent_sequences
+
+            if not self.ai_enabled:
+                # Fallback a conversión estándar
+                return self.convert_file(input_path, output_path, source_format, target_format)
+
+            # Análisis IA del archivo
+            filename = os.path.basename(input_path)
+            file_analysis = await ai_conversion_engine.analyze_file_with_ai(input_path, filename)
+
+            # Obtener rutas de conversión optimizadas
+            conversion_paths = await ai_conversion_engine.get_optimal_conversion_paths(
+                source_format, target_format, file_analysis
+            )
+
+            if not conversion_paths:
+                # Fallback a conversión estándar
+                return self.convert_file(input_path, output_path, source_format, target_format)
+
+            # Seleccionar ruta basada en tipo de optimización
+            if optimization_type == 'quality':
+                selected_path = max(conversion_paths, key=lambda p: p.quality_score)
+            elif optimization_type == 'speed':
+                selected_path = max(conversion_paths, key=lambda p: p.speed_score)
+            else:  # balanced
+                selected_path = max(conversion_paths, key=lambda p:
+                    (p.quality_score * 0.5 + p.speed_score * 0.3 + p.ai_confidence * 0.2))
+
+            # Ejecutar secuencia inteligente si tiene pasos intermedios
+            if selected_path.intermediate_steps:
+                sequence_result = await intelligent_sequences.execute_intelligent_sequence(
+                    input_path, target_format, selected_path
+                )
+
+                if sequence_result.success:
+                    # Mover resultado final a la ruta de salida
+                    import shutil
+                    shutil.move(sequence_result.final_output_path, output_path)
+                    return True, f"Conversión IA exitosa: {selected_path.description}"
+                else:
+                    return False, f"Error en secuencia IA: {sequence_result.error_message}"
+            else:
+                # Conversión directa optimizada
+                return self.convert_file(input_path, output_path, source_format, target_format)
+
+        except Exception as e:
+            print(f"Error en conversión IA: {e}")
+            # Fallback a conversión estándar
+            return self.convert_file(input_path, output_path, source_format, target_format)
 
 
 conversion_engine = ConversionEngine()

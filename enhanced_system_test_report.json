@@ -1,0 +1,88 @@
+{
+  "timestamp": 1756708161.9851236,
+  "success_rate": 6.666666666666667,
+  "results": {
+    "total_tests": 15,
+    "passed": 1,
+    "failed": 11,
+    "conversions": {
+      "docx→pdf": {
+        "status": "failed",
+        "message": "Error HTTP 500"
+      },
+      "docx→html": {
+        "status": "failed",
+        "message": "Error HTTP 500"
+      },
+      "docx→txt": {
+        "status": "failed",
+        "message": "Error HTTP 500"
+      },
+      "html→pdf": {
+        "status": "passed",
+        "message": "Conversión y descarga exitosas"
+      }
+    },
+    "new_formats": {
+      "rtf→docx": {
+        "status": "failed",
+        "message": "Error HTTP 400"
+      },
+      "epub→html": {
+        "status": "failed",
+        "message": "Error HTTP 400"
+      },
+      "csv→html": {
+        "status": "failed",
+        "message": "Error HTTP 400"
+      },
+      "json→html": {
+        "status": "failed",
+        "message": "Error HTTP 400"
+      },
+      "webp→jpg": {
+        "status": "failed",
+        "message": "Error HTTP 400"
+      },
+      "tiff→jpg": {
+        "status": "failed",
+        "message": "Error HTTP 400"
+      },
+      "odt→pdf": {
+        "status": "failed",
+        "message": "Error HTTP 400"
+      },
+      "rst→html": {
+        "status": "failed",
+        "message": "Error HTTP 400"
+      }
+    },
+    "credit_system": {
+      "txt→pdf": {
+        "credits": 0,
+        "file_size_mb": 0.0,
+        "quality": "standard",
+        "details": {}
+      },
+      "docx→pdf": {
+        "credits": 0,
+        "file_size_mb": 5.0,
+        "quality": "high",
+        "details": {}
+      },
+      "epub→html": {
+        "credits": 0,
+        "file_size_mb": 50.0,
+        "quality": "standard",
+        "details": {}
+      }
+    },
+    "pandoc_integration": {},
+    "performance": {
+      "txt_to_html": {
+        "time_seconds": 4.11,
+        "success": true
+      }
+    }
+  }
+}

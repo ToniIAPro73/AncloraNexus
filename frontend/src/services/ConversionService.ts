@@ -65,7 +65,7 @@ export interface BatchConversionStatus {
 }
 
 export class ConversionService {
-  private static API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+  private static API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
   private static MAX_RETRIES = 3;
   private static RETRY_DELAY = 2000; // ms
 
@@ -89,11 +89,22 @@ export class ConversionService {
     formData.append('options', JSON.stringify(options));
     
     try {
-      const response = await axios.post(`${this.API_URL}/convert`, formData, {
+      // Check if user is authenticated
+      const token = localStorage.getItem('auth_token');
+      const endpoint = token ? '/conversion/convert' : '/conversion/guest-convert';
+      const headers: Record<string, string> = {
+        'Content-Type': 'multipart/form-data'
+      };
+
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
+      const response = await axios.post(`${this.API_URL}${endpoint}`, formData, {
         onUploadProgress: (progressEvent) => {
           if (progressEvent.total) {
             const uploadProgress = Math.round((progressEvent.loaded * 50) / progressEvent.total);
-            
+
             onProgress?.({
               fileId,
               fileName: file.name,
@@ -104,20 +115,42 @@ export class ConversionService {
             });
           }
         },
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+        headers
       });
-      
-    // Iniciar polling para obtener el estado de la conversión
-      return await this.pollConversionStatus(
-        response.data.conversionId,
-        fileId,
-        file.name,
-        file.type.split('/').pop() || file.name.split('.').pop() || '',
-        targetFormat,
-        onProgress
-      );
+
+      // Handle different response formats for authenticated vs guest users
+      if (response.data.success) {
+        // Guest conversion completed immediately
+        onProgress?.({
+          fileId,
+          fileName: file.name,
+          progress: 100,
+          stage: 'download'
+        });
+
+        return {
+          fileId,
+          fileName: file.name,
+          originalFormat: file.type.split('/').pop() || file.name.split('.').pop() || '',
+          targetFormat,
+          downloadUrl: `${this.API_URL}${response.data.download_url}`,
+          expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours
+          fileSize: response.data.file_size || 0,
+          conversionTime: response.data.processing_time * 1000 || 0
+        };
+      } else if (response.data.conversionId) {
+        // Authenticated user - start polling for conversion status
+        return await this.pollConversionStatus(
+          response.data.conversionId,
+          fileId,
+          file.name,
+          file.type.split('/').pop() || file.name.split('.').pop() || '',
+          targetFormat,
+          onProgress
+        );
+      } else {
+        throw new Error('Respuesta inesperada del servidor');
+      }
     } catch (error) {
       console.error('Error en la conversión:', error);
       
