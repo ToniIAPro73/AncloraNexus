@@ -27,6 +27,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const isDark = document.documentElement.classList.contains('dark');
 
   // Definición completa de formatos con categorías
   const formatDefinitions: Record<string, FormatOption> = {
@@ -59,7 +60,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
   // Categorías con iconos
   const categories = [
     { id: 'All', name: 'Todos', icon: '⚡', count: 0 },
-    { id: 'Document', name: 'Documentos', icon: '📄', count: 0 },
+    { id: 'Document', name: 'Docs', icon: '📄', count: 0 },
     { id: 'Image', name: 'Imágenes', icon: '🖼️', count: 0 },
     { id: 'Ebook', name: 'Libros', icon: '📚', count: 0 },
     { id: 'Data', name: 'Datos', icon: '📊', count: 0 },
@@ -105,19 +106,19 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
 
   return (
     <div className={`rounded-xl border transition-colors duration-300 ${
-      document.documentElement.classList.contains('dark')
+      isDark
         ? 'bg-slate-800/50 border-slate-700'
         : 'bg-white/90 border-gray-200 shadow-lg'
     } ${className}`}>
       {/* Header con búsqueda */}
       <div className={`p-4 border-b transition-colors duration-300 ${
-        document.documentElement.classList.contains('dark')
+        isDark
           ? 'border-slate-700'
           : 'border-gray-200'
       }`}>
         <div className="relative">
           <Search size={18} className={`absolute left-3 top-1/2 transform -translate-y-1/2 transition-colors duration-300 ${
-            document.documentElement.classList.contains('dark')
+            isDark
               ? 'text-slate-400'
               : 'text-gray-400'
           }`} />
@@ -127,7 +128,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className={`w-full border rounded-lg pl-10 pr-4 py-2 text-sm focus:border-primary focus:outline-none transition-colors duration-300 ${
-              document.documentElement.classList.contains('dark')
+              isDark
                 ? 'bg-slate-700/50 border-slate-600 text-white placeholder-slate-400'
                 : 'bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-500'
             }`}
@@ -138,7 +139,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
       <div className="flex">
         {/* Sidebar de categorías */}
         <div className={`w-48 border-r p-4 transition-colors duration-300 ${
-          document.documentElement.classList.contains('dark')
+          isDark
             ? 'border-slate-700'
             : 'border-gray-200'
         }`}>
@@ -149,10 +150,10 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
                 onClick={() => setSelectedCategory(category.id)}
                 className={`w-full flex items-center gap-3 px-3 py-2 pr-4 rounded-lg text-sm transition-colors ${
                   selectedCategory === category.id
-                    ? document.documentElement.classList.contains('dark')
+                    ? isDark
                       ? 'bg-primary/30 text-white border border-primary/50 shadow-lg'
                       : 'bg-primary/20 text-primary border border-primary/30 shadow-md'
-                    : document.documentElement.classList.contains('dark')
+                    : isDark
                       ? 'text-slate-300 hover:bg-slate-700/50'
                       : 'text-gray-600 hover:bg-gray-100'
                 }`}
@@ -162,7 +163,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
                 <span className={`text-sm px-3 py-1.5 rounded-full min-w-[36px] h-[28px] flex items-center justify-center font-semibold transition-colors duration-300 shrink-0 ${
                   selectedCategory === category.id
                     ? 'bg-primary text-white shadow-lg'
-                    : document.documentElement.classList.contains('dark')
+                    : isDark
                       ? 'bg-slate-600 text-slate-200'
                       : 'bg-gray-200 text-gray-700'
                 }`}>
@@ -183,10 +184,10 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
                   onClick={() => onFormatSelect(format.id)}
                   className={`relative p-4 rounded-lg border-2 transition-all hover:scale-105 ${
                     selectedFormat === format.id
-                      ? document.documentElement.classList.contains('dark')
+                      ? isDark
                         ? 'border-primary bg-primary/10 shadow-lg shadow-primary/20'
                         : 'border-primary bg-primary/5 shadow-lg shadow-primary/10'
-                      : document.documentElement.classList.contains('dark')
+                      : isDark
                         ? 'border-slate-600 bg-slate-700/30 hover:border-slate-500'
                         : 'border-gray-300 bg-gray-50 hover:border-gray-400 hover:bg-gray-100'
                   }`}
@@ -201,12 +202,12 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
                   <div className="text-center">
                     <div className="text-2xl mb-2">{format.icon}</div>
                     <div className={`font-bold text-sm mb-1 transition-colors duration-300 ${
-                      document.documentElement.classList.contains('dark')
+                      isDark
                         ? 'text-white'
                         : 'text-gray-900'
                     }`}>{format.name}</div>
                     <div className={`text-xs transition-colors duration-300 ${
-                      document.documentElement.classList.contains('dark')
+                      isDark
                         ? 'text-slate-400'
                         : 'text-gray-600'
                     }`}>{format.description}</div>
@@ -223,7 +224,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
             </div>
           ) : (
             <div className={`text-center py-8 transition-colors duration-300 ${
-              document.documentElement.classList.contains('dark')
+              isDark
                 ? 'text-slate-400'
                 : 'text-gray-500'
             }`}>

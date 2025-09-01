@@ -25,7 +25,8 @@ const ConversionStep: React.FC<ConversionStepProps> = ({
   isCompleted,
   children
 }) => {
-  const stepVariant = isActive ? 'elevated' : isCompleted ? 'default' : 'dark';
+  const isDark = document.documentElement.classList.contains('dark');
+  const stepVariant = isActive ? 'elevated' : isCompleted ? 'default' : isDark ? 'dark' : 'light';
   const glowEffect = isActive || isCompleted;
 
   return (
@@ -38,11 +39,13 @@ const ConversionStep: React.FC<ConversionStepProps> = ({
         <div className="flex items-center">
           <div className={`
             w-10 h-10 rounded-full flex items-center justify-center text-base font-bold
-            ${isCompleted 
-              ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg shadow-green-500/20' 
-              : isActive 
-                ? 'bg-gradient-to-r from-primary to-secondary text-white shadow-lg shadow-primary/20' 
-                : 'bg-slate-800 text-slate-400 border border-slate-700/50'
+            ${isCompleted
+              ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg shadow-green-500/20'
+              : isActive
+                ? 'bg-gradient-to-r from-primary to-secondary text-white shadow-lg shadow-primary/20'
+                : isDark
+                  ? 'bg-slate-800 text-slate-400 border border-slate-700/50'
+                  : 'bg-gray-200 text-gray-600 border border-gray-300'
             }
           `}>
             {isCompleted ? <Check size={18} /> : number}
@@ -64,7 +67,9 @@ const ConversionStep: React.FC<ConversionStepProps> = ({
             </CardTitle>
             
             <div className="flex items-center mt-1">
-              <span className="text-slate-400 mr-2 flex items-center">
+              <span className={`mr-2 flex items-center ${
+                isDark ? 'text-slate-400' : 'text-gray-500'
+              }`}>
                 {icon}
               </span>
             </div>
@@ -74,11 +79,13 @@ const ConversionStep: React.FC<ConversionStepProps> = ({
         {/* Indicador de progreso */}
         <div className={`
           w-3 h-3 rounded-full transition-all
-          ${isCompleted 
-            ? 'bg-green-500' 
-            : isActive 
-              ? 'bg-primary animate-pulse' 
-              : 'bg-slate-700'
+          ${isCompleted
+            ? 'bg-green-500'
+            : isActive
+              ? 'bg-primary animate-pulse'
+              : isDark
+                ? 'bg-slate-700'
+                : 'bg-gray-300'
           }
         `} />
       </CardHeader>
@@ -108,12 +115,17 @@ const PopularConversion: React.FC<PopularConversionProps> = ({
   cost,
   onClick,
   popular = false
-}) => (
-  <Card variant="dark">
-    <div 
-      className="cursor-pointer hover:bg-slate-800/60 group"
-      onClick={onClick}
-    >
+}) => {
+  const isDark = document.documentElement.classList.contains('dark');
+
+  return (
+    <Card variant={isDark ? "dark" : "default"}>
+      <div
+        className={`cursor-pointer group transition-colors ${
+          isDark ? 'hover:bg-slate-800/60' : 'hover:bg-gray-100/60'
+        }`}
+        onClick={onClick}
+      >
     <CardContent className="p-4 flex flex-col items-center">
       <div className="flex items-center justify-center mb-3 relative">
         {popular && (
@@ -124,22 +136,36 @@ const PopularConversion: React.FC<PopularConversionProps> = ({
           </div>
         )}
         <div className="h-14 flex items-center">
-          <div className="w-12 h-12 flex items-center justify-center bg-slate-700 rounded-lg group-hover:bg-slate-600 transition-colors">
+          <div className={`w-12 h-12 flex items-center justify-center rounded-lg transition-colors ${
+            isDark
+              ? 'bg-slate-700 group-hover:bg-slate-600'
+              : 'bg-gray-200 group-hover:bg-gray-300'
+          }`}>
             {fromIcon}
           </div>
-          <ArrowRight size={18} className="mx-2 text-slate-500 group-hover:text-primary transition-colors" />
-          <div className="w-12 h-12 flex items-center justify-center bg-slate-700 rounded-lg group-hover:bg-slate-600 transition-colors">
+          <ArrowRight size={18} className={`mx-2 group-hover:text-primary transition-colors ${
+            isDark ? 'text-slate-500' : 'text-gray-400'
+          }`} />
+          <div className={`w-12 h-12 flex items-center justify-center rounded-lg transition-colors ${
+            isDark
+              ? 'bg-slate-700 group-hover:bg-slate-600'
+              : 'bg-gray-200 group-hover:bg-gray-300'
+          }`}>
             {toIcon}
           </div>
         </div>
       </div>
       
       <div className="text-center mt-2">
-        <h4 className="text-base font-medium text-white">
-          {from} <span className="text-slate-400">→</span> {to}
+        <h4 className={`text-base font-medium ${
+          isDark ? 'text-white' : 'text-gray-900'
+        }`}>
+          {from} <span className={isDark ? 'text-slate-400' : 'text-gray-500'}>→</span> {to}
         </h4>
         <div className="flex items-center justify-center mt-2">
-          <Badge variant="default" size="sm" className="bg-slate-700">
+          <Badge variant="default" size="sm" className={
+            isDark ? 'bg-slate-700' : 'bg-gray-200 text-gray-700'
+          }>
             {cost} créditos
           </Badge>
         </div>
@@ -147,7 +173,8 @@ const PopularConversion: React.FC<PopularConversionProps> = ({
     </CardContent>
     </div>
   </Card>
-);
+  );
+};
 
 export const NewConversorInteligente: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -435,8 +462,8 @@ export const NewConversorInteligente: React.FC = () => {
   ];
 
   return (
-    <div className={`max-w-7xl mx-auto space-y-8 transition-colors duration-300 ${
-      isDark ? 'text-white' : 'text-gray-900'
+    <div className={`max-w-7xl mx-auto space-y-8 transition-colors duration-300 min-h-screen ${
+      isDark ? 'bg-slate-900 text-white' : 'bg-gray-50 text-gray-900'
     }`}>
       {/* Header principal con selector de tema */}
       <div className="flex justify-between items-start mb-8">
@@ -572,7 +599,9 @@ export const NewConversorInteligente: React.FC = () => {
                   border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-all duration-300
                   ${isDragging
                     ? 'border-primary bg-primary/10 scale-105 shadow-lg shadow-primary/20'
-                    : 'border-slate-600 hover:border-primary/60 hover:bg-slate-800/30'
+                    : isDark
+                      ? 'border-slate-600 hover:border-primary/60 hover:bg-slate-800/30'
+                      : 'border-gray-300 hover:border-primary/60 hover:bg-gray-100/30'
                   }
                 `}
                 onDragEnter={handleDragEnter}
@@ -605,7 +634,9 @@ export const NewConversorInteligente: React.FC = () => {
                     {isDragging ? '📁 Suelta tu archivo aquí' : 'Arrastra tu archivo aquí o haz clic para seleccionar'}
                   </p>
 
-                  <p className="text-sm text-slate-400">
+                  <p className={`text-sm ${
+                    isDark ? 'text-slate-400' : 'text-gray-600'
+                  }`}>
                     Formatos soportados: TXT, PDF, DOC, DOCX, HTML, MD, CSV, JSON, EPUB, RTF, ODT, JPG, PNG, GIF, WEBP, TIFF, BMP
                   </p>
 
@@ -619,28 +650,44 @@ export const NewConversorInteligente: React.FC = () => {
             ) : currentStep === 2 ? (
               <div className="space-y-4">
                 {/* Archivo seleccionado */}
-                <div className="flex items-center gap-3 mb-4 bg-slate-800/40 p-3 rounded-lg">
+                <div className={`flex items-center gap-3 mb-4 p-3 rounded-lg ${
+                  isDark ? 'bg-slate-800/40' : 'bg-gray-100/60'
+                }`}>
                   <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
                     <FileUp size={20} className="text-primary" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-white truncate">{selectedFile?.name}</p>
-                    <p className="text-xs text-slate-400">
+                    <p className={`font-medium truncate ${
+                      isDark ? 'text-white' : 'text-gray-900'
+                    }`}>{selectedFile?.name}</p>
+                    <p className={`text-xs ${
+                      isDark ? 'text-slate-400' : 'text-gray-600'
+                    }`}>
                       {selectedFile && (selectedFile.size / 1024 / 1024).toFixed(2)} MB
                     </p>
                   </div>
                 </div>
 
                 {/* Análisis IA en progreso */}
-                <div className="bg-slate-800/30 border border-slate-700 rounded-lg p-4">
+                <div className={`border rounded-lg p-4 ${
+                  isDark
+                    ? 'bg-slate-800/30 border-slate-700'
+                    : 'bg-gray-100/50 border-gray-300'
+                }`}>
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-8 h-8 border-3 border-primary border-t-transparent rounded-full animate-spin"></div>
                     <div>
-                      <p className="text-white font-medium">🤖 Análisis IA en progreso</p>
-                      <p className="text-xs text-slate-400">Analizando estructura y optimizaciones...</p>
+                      <p className={`font-medium ${
+                        isDark ? 'text-white' : 'text-gray-900'
+                      }`}>🤖 Análisis IA en progreso</p>
+                      <p className={`text-xs ${
+                        isDark ? 'text-slate-400' : 'text-gray-600'
+                      }`}>Analizando estructura y optimizaciones...</p>
                     </div>
                   </div>
-                  <div className="w-full bg-slate-700 rounded-full h-2">
+                  <div className={`w-full rounded-full h-2 ${
+                    isDark ? 'bg-slate-700' : 'bg-gray-300'
+                  }`}>
                     <div className="bg-gradient-to-r from-primary to-secondary h-2 rounded-full animate-progress"></div>
                   </div>
                 </div>
@@ -648,17 +695,25 @@ export const NewConversorInteligente: React.FC = () => {
             ) : (
               <div className="space-y-4">
                 {/* Archivo seleccionado */}
-                <div className="flex items-center gap-3 mb-4 bg-slate-800/40 p-3 rounded-lg">
+                <div className={`flex items-center gap-3 mb-4 p-3 rounded-lg ${
+                  isDark ? 'bg-slate-800/40' : 'bg-gray-100/60'
+                }`}>
                   <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
                     <FileUp size={20} className="text-primary" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-white truncate">{selectedFile?.name}</p>
-                    <p className="text-xs text-slate-400">
+                    <p className={`font-medium truncate ${
+                      isDark ? 'text-white' : 'text-gray-900'
+                    }`}>{selectedFile?.name}</p>
+                    <p className={`text-xs ${
+                      isDark ? 'text-slate-400' : 'text-gray-600'
+                    }`}>
                       {selectedFile && (selectedFile.size / 1024 / 1024).toFixed(2)} MB
                     </p>
                   </div>
-                  <div className="text-xs text-slate-400 flex items-center">
+                  <div className={`text-xs flex items-center ${
+                    isDark ? 'text-slate-400' : 'text-gray-600'
+                  }`}>
                     <Check size={14} className="text-green-500 mr-1" />
                     Listo
                   </div>
@@ -707,12 +762,20 @@ export const NewConversorInteligente: React.FC = () => {
 
                 {/* Análisis de opciones de conversión */}
                 {isAnalyzing && (
-                  <div className="p-6 bg-slate-800/30 rounded-lg border border-slate-700">
+                  <div className={`p-6 rounded-lg border ${
+                    isDark
+                      ? 'bg-slate-800/30 border-slate-700'
+                      : 'bg-gray-100/50 border-gray-300'
+                  }`}>
                     <div className="flex items-center gap-3">
                       <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
                       <div>
-                        <span className="text-slate-300 font-medium">Analizando opciones de conversión...</span>
-                        <p className="text-xs text-slate-400 mt-1">Optimizando ruta de conversión con IA</p>
+                        <span className={`font-medium ${
+                          isDark ? 'text-slate-300' : 'text-gray-700'
+                        }`}>Analizando opciones de conversión...</span>
+                        <p className={`text-xs mt-1 ${
+                          isDark ? 'text-slate-400' : 'text-gray-600'
+                        }`}>Optimizando ruta de conversión con IA</p>
                       </div>
                     </div>
                   </div>
@@ -735,8 +798,14 @@ export const NewConversorInteligente: React.FC = () => {
                 )}
 
                 {targetFormat && selectedConversionOption && currentStep === 3 && (
-                  <div className="bg-slate-800/40 p-4 rounded-lg border border-slate-700">
-                    <div className="flex justify-between items-center text-sm text-gray-300 mb-4">
+                  <div className={`p-4 rounded-lg border ${
+                    isDark
+                      ? 'bg-slate-800/40 border-slate-700'
+                      : 'bg-gray-100/50 border-gray-300'
+                  }`}>
+                    <div className={`flex justify-between items-center text-sm mb-4 ${
+                      isDark ? 'text-gray-300' : 'text-gray-700'
+                    }`}>
                       <span>Costo estimado:</span>
                       <span className="text-primary font-bold text-lg">
                         {conversionAnalysis?.[selectedConversionOption]?.cost || 0} créditos
@@ -753,10 +822,12 @@ export const NewConversorInteligente: React.FC = () => {
               </div>
             ) : (
               <div className="text-center py-8">
-                <div className="w-16 h-16 mx-auto mb-4 bg-slate-800/40 rounded-full flex items-center justify-center">
-                  <Settings size={32} className="text-slate-500" />
+                <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center ${
+                  isDark ? 'bg-slate-800/40' : 'bg-gray-200/60'
+                }`}>
+                  <Settings size={32} className={isDark ? 'text-slate-500' : 'text-gray-400'} />
                 </div>
-                <p className="text-slate-400">Esperando análisis del archivo...</p>
+                <p className={isDark ? 'text-slate-400' : 'text-gray-600'}>Esperando análisis del archivo...</p>
               </div>
             )}
           </ConversionStep>
@@ -779,15 +850,23 @@ export const NewConversorInteligente: React.FC = () => {
                     <div className="w-16 h-16 mx-auto mb-4 bg-primary/20 rounded-full flex items-center justify-center">
                       <Loader size={32} className="text-primary animate-spin" />
                     </div>
-                    <h3 className="text-lg font-medium text-white mb-2">🔄 Convirtiendo...</h3>
-                    <p className="text-sm text-slate-400">Procesando tu archivo</p>
+                    <h3 className={`text-lg font-medium mb-2 ${
+                      isDark ? 'text-white' : 'text-gray-900'
+                    }`}>🔄 Convirtiendo...</h3>
+                    <p className={`text-sm ${
+                      isDark ? 'text-slate-400' : 'text-gray-600'
+                    }`}>Procesando tu archivo</p>
                   </div>
 
-                  <div className="w-full bg-slate-700 rounded-full h-3">
+                  <div className={`w-full rounded-full h-3 ${
+                    isDark ? 'bg-slate-700' : 'bg-gray-300'
+                  }`}>
                     <div className="bg-gradient-to-r from-primary to-secondary h-3 rounded-full animate-progress"></div>
                   </div>
 
-                  <div className="text-xs text-slate-400 text-center">
+                  <div className={`text-xs text-center ${
+                    isDark ? 'text-slate-400' : 'text-gray-600'
+                  }`}>
                     Esto puede tomar unos segundos...
                   </div>
                 </div>
@@ -805,17 +884,23 @@ export const NewConversorInteligente: React.FC = () => {
                       setError(null);
                       setCurrentStep(3);
                     }}
-                    className="bg-slate-600 hover:bg-slate-500 text-white py-2 px-4 rounded-lg transition-colors text-sm font-medium"
+                    className={`py-2 px-4 rounded-lg transition-colors text-sm font-medium text-white ${
+                      isDark
+                        ? 'bg-slate-600 hover:bg-slate-500'
+                        : 'bg-gray-600 hover:bg-gray-500'
+                    }`}
                   >
                     🔄 Intentar nuevamente
                   </button>
                 </div>
               ) : (
                 <div className="text-center py-4">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-slate-800/40 rounded-full flex items-center justify-center">
-                    <ArrowRight size={32} className="text-slate-500" />
+                  <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center ${
+                    isDark ? 'bg-slate-800/40' : 'bg-gray-200/60'
+                  }`}>
+                    <ArrowRight size={32} className={isDark ? 'text-slate-500' : 'text-gray-400'} />
                   </div>
-                  <p className="text-slate-400">Esperando configuración...</p>
+                  <p className={isDark ? 'text-slate-400' : 'text-gray-600'}>Esperando configuración...</p>
                 </div>
               )
             ) : currentStep === 5 && conversionResult ? (
@@ -852,16 +937,20 @@ export const NewConversorInteligente: React.FC = () => {
                   📥 Descargar {conversionResult.output_filename}
                 </a>
 
-                <p className="text-xs text-slate-400 text-center">
+                <p className={`text-xs text-center ${
+                  isDark ? 'text-slate-400' : 'text-gray-600'
+                }`}>
                   ⏰ El archivo estará disponible durante 24 horas
                 </p>
               </div>
             ) : (
               <div className="text-center py-8">
-                <div className="w-16 h-16 mx-auto mb-4 bg-slate-800/40 rounded-full flex items-center justify-center">
-                  <Settings size={32} className="text-slate-500" />
+                <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center ${
+                  isDark ? 'bg-slate-800/40' : 'bg-gray-200/60'
+                }`}>
+                  <Settings size={32} className={isDark ? 'text-slate-500' : 'text-gray-400'} />
                 </div>
-                <p className="text-slate-400">Esperando configuración...</p>
+                <p className={isDark ? 'text-slate-400' : 'text-gray-600'}>Esperando configuración...</p>
               </div>
             )}
           </ConversionStep>
@@ -880,8 +969,12 @@ export const NewConversorInteligente: React.FC = () => {
           </p>
           </div>
           <div className="flex items-center">
-            <Badge variant="outline" className="border-slate-700">
-              <span className="text-slate-400 text-sm">Actualizado hace 2 días</span>
+            <Badge variant="outline" className={
+              isDark ? 'border-slate-700' : 'border-gray-300'
+            }>
+              <span className={`text-sm ${
+                isDark ? 'text-slate-400' : 'text-gray-600'
+              }`}>Actualizado hace 2 días</span>
             </Badge>
           </div>
         </div>

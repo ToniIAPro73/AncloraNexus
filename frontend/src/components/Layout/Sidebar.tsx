@@ -126,22 +126,19 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
       {/* Logo y título */}
       <div className="flex items-center justify-between p-4 border-b border-slate-700/50">
         {!isCollapsed && (
-          <div className="flex items-center gap-3">
-            <img 
-              src="/images/logos/logo-anclora-nexus.png" 
-              alt="Anclora Nexus" 
-              className="h-10 w-auto"
+          <div className="flex items-center">
+            <img
+              src="/images/logos/anclora-nexus-logo.svg"
+              alt="Anclora Nexus"
+              className="h-12 w-auto"
             />
-            <h1 className="text-xl font-bold text-gradient bg-gradient-to-r from-teal-400 to-emerald-600 bg-clip-text text-transparent">
-              Anclora Nexus
-            </h1>
           </div>
         )}
         {isCollapsed && (
-          <img 
-            src="/images/logos/logo-anclora-nexus.png" 
-            alt="Anclora Nexus" 
-            className="h-8 w-auto mx-auto"
+          <img
+            src="/images/logos/anclora-nexus-logo.svg"
+            alt="Anclora Nexus"
+            className="h-10 w-auto mx-auto"
           />
         )}
         <button
