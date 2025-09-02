@@ -107,6 +107,19 @@ def get_formats_alias():
     """Alias para /supported-formats"""
     return get_supported_formats()
 
+def normalize_image_format(format_str: str) -> str:
+    """Normaliza formatos de imagen comunes"""
+    format_str = format_str.lower().strip()
+
+    # Normalización de formatos comunes
+    format_mapping = {
+        'jpeg': 'jpg',
+        'tiff': 'tif',
+        'tif': 'tiff'  # También permitir tif → tiff si es necesario
+    }
+
+    return format_mapping.get(format_str, format_str)
+
 @conversion_bp.route('/analyze-conversion', methods=['POST', 'OPTIONS'])
 def analyze_conversion():
     """Analiza opciones de conversión directa vs optimizada"""
@@ -144,10 +157,11 @@ def analyze_conversion():
             print(f"❌ DEBUG: No se pudo parsear el JSON")
             return jsonify({'error': 'No se pudo parsear el JSON'}), 400
 
-        source_format = data.get('source_format', '').lower().strip()
-        target_format = data.get('target_format', '').lower().strip()
+        # Normalizar formatos (jpeg → jpg, etc.)
+        source_format = normalize_image_format(data.get('source_format', ''))
+        target_format = normalize_image_format(data.get('target_format', ''))
 
-        print(f"🔍 DEBUG: source_format: '{source_format}', target_format: '{target_format}'")
+        print(f"🔍 DEBUG: source_format normalizado: '{source_format}', target_format normalizado: '{target_format}'")
 
         if not source_format or not target_format:
             return jsonify({'error': 'Se requieren source_format y target_format'}), 400
@@ -268,7 +282,10 @@ def guest_convert_file():
 
         # Obtener información del archivo
         filename = secure_filename(file.filename)
-        source_format = filename.rsplit('.', 1)[1].lower()
+        source_format = normalize_image_format(filename.rsplit('.', 1)[1].lower())
+
+        # Normalizar también el formato de destino
+        target_format = normalize_image_format(target_format)
 
         # Validar que la conversión sea soportada
         if source_format not in conversion_engine.supported_conversions:
