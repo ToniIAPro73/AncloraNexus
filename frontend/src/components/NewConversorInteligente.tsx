@@ -186,6 +186,7 @@ export const NewConversorInteligente: React.FC = () => {
   const [availableFormats, setAvailableFormats] = useState<string[]>([]);
   const [conversionAnalysis, setConversionAnalysis] = useState<any>(null);
   const [selectedConversionOption, setSelectedConversionOption] = useState<'direct' | 'optimized' | null>(null);
+  const [shouldAutoConvert, setShouldAutoConvert] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark' | 'auto'>('dark');
@@ -457,6 +458,20 @@ export const NewConversorInteligente: React.FC = () => {
         // Auto-seleccionar opción recomendada (con fallback a 'direct')
         const recommendedType = analysis.recommendation?.type || 'direct';
         setSelectedConversionOption(recommendedType);
+
+        // 🎯 LÓGICA DE CONVERSIÓN AUTOMÁTICA
+        // Activar conversión automática si:
+        // 1. La recomendación es directa Y
+        // 2. (No hay opción optimizada O la diferencia de calidad es < 10%)
+        const shouldActivateAutoConvert =
+          recommendedType === 'direct' &&
+          (!analysis.optimized ||
+           (analysis.optimized.quality - analysis.direct.quality) < 10);
+
+        if (shouldActivateAutoConvert) {
+          setShouldAutoConvert(true);
+          setCurrentStep(3); // Saltar al paso 3 automáticamente
+        }
       } else {
         setError(result.error || 'Error analizando opciones de conversión');
       }
@@ -472,6 +487,8 @@ export const NewConversorInteligente: React.FC = () => {
     setTargetFormat(format);
     setConversionAnalysis(null);
     setSelectedConversionOption(null);
+    setShouldAutoConvert(false);
+    setCurrentStep(2); // Resetear al paso 2
 
     if (selectedFile) {
       const sourceFormat = selectedFile.name.split('.').pop()?.toLowerCase() || '';
@@ -836,47 +853,17 @@ export const NewConversorInteligente: React.FC = () => {
 
                 {conversionAnalysis && !isAnalyzing && targetFormat && (
                   <div className="space-y-4">
-                    {shouldAutoConvert ? (
-                      // 🎯 COMPONENTE CONVERSIÓN ÓPTIMA
-                      <div className="bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-blue-400/30 rounded-lg p-6">
-                        <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
-                              <Check size={20} className="text-white" />
-                            </div>
-                            <div>
-                              <h3 className="text-lg font-semibold text-white">Conversión Óptima</h3>
-                              <p className="text-blue-200 text-sm">La conversión directa es la mejor opción</p>
-                            </div>
-                          </div>
-                          <Badge variant="success" className="text-xs">
-                            Recomendado
-                          </Badge>
-                        </div>
-                        <div className="text-sm text-blue-100 mb-4">
-                          {conversionAnalysis.direct.description}
-                        </div>
-                        <div className="flex items-center justify-between text-sm text-blue-200">
-                          <span>Costo: {conversionAnalysis.direct.cost} créditos</span>
-                          <span>Tiempo: {conversionAnalysis.direct.time_estimate}</span>
-                        </div>
-                      </div>
-                    ) : (
-                      // 🔄 OPCIONES COMPLETAS
-                      <>
-                        <label className="block text-lg font-medium text-white mb-4">
-                          Opciones de conversión disponibles:
-                        </label>
-                        <ConversionOptionsComparison
-                          analysis={conversionAnalysis}
-                          onOptionSelect={setSelectedConversionOption}
-                          selectedOption={selectedConversionOption}
-                          onPreview={(option) => {
-                            console.log('Preview:', option);
-                          }}
-                        />
-                      </>
-                    )}
+                    <label className="block text-lg font-medium text-white mb-4">
+                      Opciones de conversión disponibles:
+                    </label>
+                    <ConversionOptionsComparison
+                      analysis={conversionAnalysis}
+                      onOptionSelect={setSelectedConversionOption}
+                      selectedOption={selectedConversionOption}
+                      onPreview={(option) => {
+                        console.log('Preview:', option);
+                      }}
+                    />
                   </div>
                 )}
 
