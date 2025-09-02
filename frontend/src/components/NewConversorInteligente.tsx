@@ -472,8 +472,6 @@ export const NewConversorInteligente: React.FC = () => {
     setTargetFormat(format);
     setConversionAnalysis(null);
     setSelectedConversionOption(null);
-    setShouldAutoConvert(false);
-    setCurrentStep(2); // Resetear al paso 2
 
     if (selectedFile) {
       const sourceFormat = selectedFile.name.split('.').pop()?.toLowerCase() || '';
@@ -639,8 +637,8 @@ export const NewConversorInteligente: React.FC = () => {
 
       {/* Layout rediseñado: 3 columnas con proporciones optimizadas */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Frame 1: Subir Archivo + Análisis IA (3 columnas) */}
-        <div className="lg:col-span-3">
+        {/* Frame 1: Subir Archivo + Análisis IA (4 columnas) */}
+        <div className="lg:col-span-4">
           <ConversionStep
             number={1}
             title="Subir Archivo & Análisis IA"
@@ -791,8 +789,8 @@ export const NewConversorInteligente: React.FC = () => {
           </ConversionStep>
         </div>
 
-        {/* Frame 2: Configurar (6 columnas - expandido) */}
-        <div className="lg:col-span-6">
+        {/* Frame 2: Configurar (5 columnas - ajustado) */}
+        <div className="lg:col-span-5">
           <ConversionStep
             number={2}
             title="Configurar Conversión"
