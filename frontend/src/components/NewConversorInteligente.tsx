@@ -409,77 +409,40 @@ export const NewConversorInteligente: React.FC = () => {
 
   // Función para analizar opciones de conversión
   const analyzeConversionOptions = useCallback(async (sourceFormat: string, targetFormat: string) => {
-    console.log('🔍 DEBUG analyzeConversionOptions llamada con:', {
-      sourceFormat: `"${sourceFormat}"`,
-      targetFormat: `"${targetFormat}"`,
-      sourceFormatType: typeof sourceFormat,
-      targetFormatType: typeof targetFormat,
-      sourceFormatLength: sourceFormat?.length,
-      targetFormatLength: targetFormat?.length
-    });
-
-    // Validaciones más robustas
-    const cleanSourceFormat = sourceFormat?.trim();
-    const cleanTargetFormat = targetFormat?.trim();
-
-    if (!cleanSourceFormat || !cleanTargetFormat) {
-      console.log('❌ DEBUG: Parámetros inválidos, saliendo:', {
-        sourceFormat: `"${sourceFormat}"`,
-        targetFormat: `"${targetFormat}"`,
-        cleanSourceFormat: `"${cleanSourceFormat}"`,
-        cleanTargetFormat: `"${cleanTargetFormat}"`
-      });
-      return;
-    }
-
-    if (cleanSourceFormat.length === 0 || cleanTargetFormat.length === 0) {
-      console.log('❌ DEBUG: Formatos vacíos después de limpiar');
-      return;
-    }
+    if (!sourceFormat || !targetFormat) return;
 
     setIsAnalyzing(true);
 
     try {
-      const requestData = {
-        source_format: cleanSourceFormat,
-        target_format: cleanTargetFormat
-      };
-
-      console.log('🚀 DEBUG: Enviando petición analyze-conversion:', {
-        url: 'http://localhost:8000/api/conversion/analyze-conversion',
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: requestData,
-        bodyString: JSON.stringify(requestData)
+      console.log('🔍 DEBUG: Enviando petición analyze-conversion', {
+        sourceFormat: sourceFormat.trim(),
+        targetFormat: targetFormat.trim(),
+        origin: window.location.origin
       });
 
       const response = await fetch('http://localhost:8000/api/conversion/analyze-conversion', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Origin': window.location.origin,
         },
-        body: JSON.stringify(requestData)
+        body: JSON.stringify({
+          source_format: sourceFormat.trim(),
+          target_format: targetFormat.trim()
+        })
       });
 
-      console.log('📡 DEBUG: Respuesta recibida:', {
-        status: response.status,
-        statusText: response.statusText,
-        ok: response.ok,
-        headers: Object.fromEntries(response.headers.entries())
-      });
+      console.log('🔍 DEBUG: Response status:', response.status);
+      console.log('🔍 DEBUG: Response headers:', Object.fromEntries(response.headers.entries()));
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error('❌ DEBUG: Error HTTP:', {
-          status: response.status,
-          statusText: response.statusText,
-          errorText: errorText
-        });
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        console.error('❌ DEBUG: Error response:', errorText);
+        throw new Error(`HTTP ${response.status}: ${errorText}`);
       }
 
       const result = await response.json();
-      console.log('✅ DEBUG: Resultado JSON:', result);
+      console.log('🔍 DEBUG: Response data:', result);
 
       if (result.success) {
         // Asegurar que siempre tengamos al menos una opción directa
@@ -512,13 +475,12 @@ export const NewConversorInteligente: React.FC = () => {
         const recommendedType = analysis.recommendation?.type || 'direct';
         setSelectedConversionOption(recommendedType);
       } else {
-        console.error('❌ DEBUG: result.success = false:', result);
         setError(result.error || 'Error analizando opciones de conversión');
       }
     } catch (err) {
-      console.error('❌ DEBUG: Excepción en analyzeConversionOptions:', err);
+      console.error('❌ DEBUG: Exception en analyzeConversionOptions:', err);
       const errorMessage = err instanceof Error ? err.message : 'Error de conexión al analizar opciones';
-      setError(errorMessage);
+      setError(`Error al analizar conversión: ${errorMessage}`);
     } finally {
       setIsAnalyzing(false);
     }
