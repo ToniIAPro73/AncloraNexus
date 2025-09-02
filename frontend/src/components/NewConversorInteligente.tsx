@@ -186,7 +186,6 @@ export const NewConversorInteligente: React.FC = () => {
   const [availableFormats, setAvailableFormats] = useState<string[]>([]);
   const [conversionAnalysis, setConversionAnalysis] = useState<any>(null);
   const [selectedConversionOption, setSelectedConversionOption] = useState<'direct' | 'optimized' | null>(null);
-  const [shouldAutoConvert, setShouldAutoConvert] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark' | 'auto'>('dark');
@@ -458,20 +457,6 @@ export const NewConversorInteligente: React.FC = () => {
         // Auto-seleccionar opción recomendada (con fallback a 'direct')
         const recommendedType = analysis.recommendation?.type || 'direct';
         setSelectedConversionOption(recommendedType);
-
-        // 🎯 LÓGICA DE CONVERSIÓN AUTOMÁTICA
-        // Activar conversión automática si:
-        // 1. La recomendación es directa Y
-        // 2. (No hay opción optimizada O la diferencia de calidad es < 10%)
-        const shouldActivateAutoConvert =
-          recommendedType === 'direct' &&
-          (!analysis.optimized ||
-           (analysis.optimized.quality - analysis.direct.quality) < 10);
-
-        if (shouldActivateAutoConvert) {
-          setShouldAutoConvert(true);
-          setCurrentStep(3); // Saltar al paso 3 automáticamente
-        }
       } else {
         setError(result.error || 'Error analizando opciones de conversión');
       }
@@ -487,8 +472,6 @@ export const NewConversorInteligente: React.FC = () => {
     setTargetFormat(format);
     setConversionAnalysis(null);
     setSelectedConversionOption(null);
-    setShouldAutoConvert(false);
-    setCurrentStep(2); // Resetear al paso 2
 
     if (selectedFile) {
       const sourceFormat = selectedFile.name.split('.').pop()?.toLowerCase() || '';
@@ -654,8 +637,8 @@ export const NewConversorInteligente: React.FC = () => {
 
       {/* Layout rediseñado: 3 columnas con proporciones optimizadas */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Frame 1: Subir Archivo + Análisis IA (3 columnas) */}
-        <div className="lg:col-span-3">
+        {/* Frame 1: Subir Archivo + Análisis IA (4 columnas) */}
+        <div className="lg:col-span-4">
           <ConversionStep
             number={1}
             title="Subir Archivo & Análisis IA"
@@ -806,8 +789,8 @@ export const NewConversorInteligente: React.FC = () => {
           </ConversionStep>
         </div>
 
-        {/* Frame 2: Configurar (6 columnas - expandido) */}
-        <div className="lg:col-span-6">
+        {/* Frame 2: Configurar (5 columnas - ajustado) */}
+        <div className="lg:col-span-5">
           <ConversionStep
             number={2}
             title="Configurar Conversión"
