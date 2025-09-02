@@ -637,8 +637,8 @@ export const NewConversorInteligente: React.FC = () => {
 
       {/* Layout rediseñado: 3 columnas con proporciones optimizadas */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Frame 1: Subir Archivo + Análisis IA (4 columnas) */}
-        <div className="lg:col-span-4">
+        {/* Frame 1: Subir Archivo + Análisis IA (3 columnas) */}
+        <div className="lg:col-span-3">
           <ConversionStep
             number={1}
             title="Subir Archivo & Análisis IA"
@@ -789,8 +789,8 @@ export const NewConversorInteligente: React.FC = () => {
           </ConversionStep>
         </div>
 
-        {/* Frame 2: Configurar (5 columnas - ajustado) */}
-        <div className="lg:col-span-5">
+        {/* Frame 2: Configurar (6 columnas - expandido) */}
+        <div className="lg:col-span-6">
           <ConversionStep
             number={2}
             title="Configurar Conversión"
@@ -836,17 +836,47 @@ export const NewConversorInteligente: React.FC = () => {
 
                 {conversionAnalysis && !isAnalyzing && targetFormat && (
                   <div className="space-y-4">
-                    <label className="block text-lg font-medium text-white mb-4">
-                      Opciones de conversión disponibles:
-                    </label>
-                    <ConversionOptionsComparison
-                      analysis={conversionAnalysis}
-                      onOptionSelect={setSelectedConversionOption}
-                      selectedOption={selectedConversionOption}
-                      onPreview={(option) => {
-                        console.log('Preview:', option);
-                      }}
-                    />
+                    {shouldAutoConvert ? (
+                      // 🎯 COMPONENTE CONVERSIÓN ÓPTIMA
+                      <div className="bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-blue-400/30 rounded-lg p-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                              <Check size={20} className="text-white" />
+                            </div>
+                            <div>
+                              <h3 className="text-lg font-semibold text-white">Conversión Óptima</h3>
+                              <p className="text-blue-200 text-sm">La conversión directa es la mejor opción</p>
+                            </div>
+                          </div>
+                          <Badge variant="success" className="text-xs">
+                            Recomendado
+                          </Badge>
+                        </div>
+                        <div className="text-sm text-blue-100 mb-4">
+                          {conversionAnalysis.direct.description}
+                        </div>
+                        <div className="flex items-center justify-between text-sm text-blue-200">
+                          <span>Costo: {conversionAnalysis.direct.cost} créditos</span>
+                          <span>Tiempo: {conversionAnalysis.direct.time_estimate}</span>
+                        </div>
+                      </div>
+                    ) : (
+                      // 🔄 OPCIONES COMPLETAS
+                      <>
+                        <label className="block text-lg font-medium text-white mb-4">
+                          Opciones de conversión disponibles:
+                        </label>
+                        <ConversionOptionsComparison
+                          analysis={conversionAnalysis}
+                          onOptionSelect={setSelectedConversionOption}
+                          selectedOption={selectedConversionOption}
+                          onPreview={(option) => {
+                            console.log('Preview:', option);
+                          }}
+                        />
+                      </>
+                    )}
                   </div>
                 )}
 
