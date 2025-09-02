@@ -128,17 +128,19 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
         {!isCollapsed && (
           <div className="flex items-center">
             <img
-              src="/images/logos/Anclora Nexus svg.svg"
+              src="/images/logos/Anclora Nexus fondo transparente.jpeg"
               alt="Anclora Nexus"
-              className="h-12 w-auto"
+              className="h-12 w-auto object-contain bg-transparent"
+              style={{ mixBlendMode: 'multiply' }}
             />
           </div>
         )}
         {isCollapsed && (
           <img
-            src="/images/logos/Anclora Nexus svg.svg"
+            src="/images/logos/Anclora Nexus fondo transparente.jpeg"
             alt="Anclora Nexus"
-            className="h-10 w-auto mx-auto"
+            className="h-10 w-auto mx-auto object-contain bg-transparent"
+            style={{ mixBlendMode: 'multiply' }}
           />
         )}
         <button

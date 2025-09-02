@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
       react(),
       VitePWA({
         registerType: 'autoUpdate',
-        includeAssets: ['images/logos/logo-anclora-nexus.png', 'images/logos/logo-anclora.png'],
+        includeAssets: ['images/logos/Anclora Nexus fondo transparente.jpeg', 'images/logos/Anclora fondo transparente.jpeg'],
         manifest: {
           name: 'Anclora Nexus',
           short_name: 'Anclora',
@@ -19,8 +19,8 @@ export default defineConfig(({ mode }) => {
           background_color: '#ffffff',
           theme_color: '#059669',
           icons: [
-            { src: 'images/logos/logo-anclora-nexus.png', sizes: '192x192', type: 'image/png' },
-            { src: 'images/logos/logo-anclora.png', sizes: '512x512', type: 'image/png' }
+            { src: 'images/logos/Anclora Nexus fondo transparente.jpeg', sizes: '192x192', type: 'image/jpeg' },
+            { src: 'images/logos/Anclora fondo transparente.jpeg', sizes: '512x512', type: 'image/jpeg' }
           ]
         }
       })

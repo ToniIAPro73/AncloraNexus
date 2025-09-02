@@ -39,9 +39,10 @@ export const Footer: React.FC = () => {
                 <div className="py-12 grid grid-cols-2 md:grid-cols-5 gap-8">
                     <div className="col-span-2 md:col-span-1">
                         <img
-                            src="/images/logos/Anclora svg.svg"
+                            src="/images/logos/Anclora fondo transparente.jpeg"
                             alt="Anclora"
-                            className="w-12 h-12 mb-4"
+                            className="w-12 h-12 mb-4 object-contain bg-transparent"
+                            style={{ mixBlendMode: 'multiply' }}
                         />
                         <button className="w-full sm:w-auto flex items-center justify-between px-4 py-2 bg-slate-700 rounded-md text-left">
                             <span>Español</span>
