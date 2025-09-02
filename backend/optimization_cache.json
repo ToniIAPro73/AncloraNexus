@@ -1,0 +1,162 @@
+{
+  "57cff5fda4a7537d40ee194dd53abc1c": {
+    "file_hash": "57cff5fda4a7537d40ee194dd53abc1c",
+    "file_size": 38441,
+    "analysis_result": {
+      "complexity_score": 200,
+      "complexity_level": "MUY_COMPLEJA",
+      "features_detected": {
+        "custom_fonts": true,
+        "gradients": true,
+        "complex_css": true,
+        "javascript": true,
+        "svg_content": true,
+        "advanced_layout": true,
+        "animations": true,
+        "external_resources": true,
+        "print_styles": true
+      },
+      "recommended_method": "playwright",
+      "method_priority": [
+        "playwright",
+        "wkhtmltopdf",
+        "weasyprint",
+        "fpdf"
+      ],
+      "reasoning": "HTML muy complejo con CSS moderno, gradientes y elementos avanzados. Solo Playwright garantiza fidelidad completa.",
+      "estimated_time": "5-10s",
+      "quality_expectation": "MÁXIMA"
+    },
+    "timestamp": "2025-09-02T02:30:27.330177",
+    "access_count": 1,
+    "last_accessed": "2025-09-02T02:30:27.330188"
+  },
+  "bafbd1a754738c692ce37144ae6437bd": {
+    "file_hash": "bafbd1a754738c692ce37144ae6437bd",
+    "file_size": 38441,
+    "analysis_result": {
+      "complexity_score": 200,
+      "complexity_level": "MUY_COMPLEJA",
+      "features_detected": {
+        "custom_fonts": true,
+        "gradients": true,
+        "complex_css": true,
+        "javascript": true,
+        "svg_content": true,
+        "advanced_layout": true,
+        "animations": true,
+        "external_resources": true,
+        "print_styles": true
+      },
+      "recommended_method": "playwright",
+      "method_priority": [
+        "playwright",
+        "wkhtmltopdf",
+        "weasyprint",
+        "fpdf"
+      ],
+      "reasoning": "HTML muy complejo con CSS moderno, gradientes y elementos avanzados. Solo Playwright garantiza fidelidad completa.",
+      "estimated_time": "5-10s",
+      "quality_expectation": "MÁXIMA"
+    },
+    "timestamp": "2025-09-02T02:32:13.451608",
+    "access_count": 1,
+    "last_accessed": "2025-09-02T02:32:13.451629"
+  },
+  "e55825acb75221f7d68d3e07ecfdd3c5": {
+    "file_hash": "e55825acb75221f7d68d3e07ecfdd3c5",
+    "file_size": 38441,
+    "analysis_result": {
+      "complexity_score": 200,
+      "complexity_level": "MUY_COMPLEJA",
+      "features_detected": {
+        "custom_fonts": true,
+        "gradients": true,
+        "complex_css": true,
+        "javascript": true,
+        "svg_content": true,
+        "advanced_layout": true,
+        "animations": true,
+        "external_resources": true,
+        "print_styles": true
+      },
+      "recommended_method": "playwright",
+      "method_priority": [
+        "playwright",
+        "wkhtmltopdf",
+        "weasyprint",
+        "fpdf"
+      ],
+      "reasoning": "HTML muy complejo con CSS moderno, gradientes y elementos avanzados. Solo Playwright garantiza fidelidad completa.",
+      "estimated_time": "5-10s",
+      "quality_expectation": "MÁXIMA"
+    },
+    "timestamp": "2025-09-02T02:35:12.964396",
+    "access_count": 1,
+    "last_accessed": "2025-09-02T02:35:12.964408"
+  },
+  "c6f123fdd28d8a1638b07c05e47cbb1c": {
+    "file_hash": "c6f123fdd28d8a1638b07c05e47cbb1c",
+    "file_size": 38441,
+    "analysis_result": {
+      "complexity_score": 200,
+      "complexity_level": "MUY_COMPLEJA",
+      "features_detected": {
+        "custom_fonts": true,
+        "gradients": true,
+        "complex_css": true,
+        "javascript": true,
+        "svg_content": true,
+        "advanced_layout": true,
+        "animations": true,
+        "external_resources": true,
+        "print_styles": true
+      },
+      "recommended_method": "playwright",
+      "method_priority": [
+        "playwright",
+        "wkhtmltopdf",
+        "weasyprint",
+        "fpdf"
+      ],
+      "reasoning": "HTML muy complejo con CSS moderno, gradientes y elementos avanzados. Solo Playwright garantiza fidelidad completa.",
+      "estimated_time": "5-10s",
+      "quality_expectation": "MÁXIMA"
+    },
+    "timestamp": "2025-09-02T02:47:26.852733",
+    "access_count": 1,
+    "last_accessed": "2025-09-02T02:47:26.852743"
+  },
+  "175bd439010ca2266975f4402c77c1d5": {
+    "file_hash": "175bd439010ca2266975f4402c77c1d5",
+    "file_size": 38441,
+    "analysis_result": {
+      "complexity_score": 200,
+      "complexity_level": "MUY_COMPLEJA",
+      "features_detected": {
+        "custom_fonts": true,
+        "gradients": true,
+        "complex_css": true,
+        "javascript": true,
+        "svg_content": true,
+        "advanced_layout": true,
+        "animations": true,
+        "external_resources": true,
+        "print_styles": true
+      },
+      "recommended_method": "playwright",
+      "method_priority": [
+        "playwright",
+        "wkhtmltopdf",
+        "weasyprint",
+        "fpdf"
+      ],
+      "reasoning": "HTML muy complejo con CSS moderno, gradientes y elementos avanzados. Solo Playwright garantiza fidelidad completa.",
+      "estimated_time": "5-10s",
+      "quality_expectation": "MÁXIMA"
+    },
+    "timestamp": "2025-09-02T02:49:53.004110",
+    "access_count": 1,
+    "last_accessed": "2025-09-02T02:49:53.004120"
+  }
+}

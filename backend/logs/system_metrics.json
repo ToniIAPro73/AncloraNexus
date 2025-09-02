@@ -1,0 +1,6 @@
+{"timestamp": "2025-09-02T02:30:37.813225", "cpu_usage": 12.4, "memory_usage": 69.8, "disk_usage": 16.8, "active_conversions": 0, "queue_size": 0, "response_time_avg": 10.505560398101807}
+{"timestamp": "2025-09-02T02:35:38.826472", "cpu_usage": 7.1, "memory_usage": 71.7, "disk_usage": 16.8, "active_conversions": 0, "queue_size": 0, "response_time_avg": 7.921301921208699}
+{"timestamp": "2025-09-02T02:40:39.829688", "cpu_usage": 6.6, "memory_usage": 67.3, "disk_usage": 16.8, "active_conversions": 0, "queue_size": 0, "response_time_avg": 7.921301921208699}
+{"timestamp": "2025-09-02T02:45:40.831010", "cpu_usage": 5.4, "memory_usage": 67.9, "disk_usage": 16.8, "active_conversions": 0, "queue_size": 0, "response_time_avg": 7.921301921208699}
+{"timestamp": "2025-09-02T02:50:41.835382", "cpu_usage": 6.6, "memory_usage": 71.7, "disk_usage": 16.8, "active_conversions": 0, "queue_size": 0, "response_time_avg": 8.124885988235473}
+{"timestamp": "2025-09-02T02:55:42.837561", "cpu_usage": 7.8, "memory_usage": 68.3, "disk_usage": 16.8, "active_conversions": 0, "queue_size": 0, "response_time_avg": 8.124885988235473}

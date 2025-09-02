@@ -372,11 +372,7 @@ export const NewConversorInteligente: React.FC = () => {
       if (result.success) {
         setConversionResult(result);
         setCurrentStep(5); // Mostrar descarga en el mismo frame
-
-        // Auto-reset después de 30 segundos para mejorar UX
-        setTimeout(() => {
-          handleReset();
-        }, 30000);
+        // Removido el auto-reset automático para mejor control del usuario
       } else {
         setError(result.error || 'Error en la conversión');
         setCurrentStep(3); // Volver a configuración
@@ -900,8 +896,8 @@ export const NewConversorInteligente: React.FC = () => {
             number={3}
             title="Convertir & Descargar"
             icon="🔄"
-            isActive={currentStep === 4 || currentStep === 5}
-            isCompleted={currentStep > 5}
+            isActive={currentStep === 4}
+            isCompleted={currentStep >= 5}
           >
             {currentStep === 4 ? (
               isConverting ? (
@@ -975,29 +971,29 @@ export const NewConversorInteligente: React.FC = () => {
                   <p className="text-sm text-green-400 mb-4">Tu archivo está listo para descargar</p>
                 </div>
 
-                {/* Información del archivo convertido */}
-                <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center">
-                      <Download size={16} className="text-green-500" />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-white font-medium">{conversionResult.output_filename}</p>
-                      <p className="text-xs text-green-300/70">Archivo convertido exitosamente</p>
-                    </div>
-                  </div>
-                </div>
 
-                {/* Botón de descarga prominente */}
+
+                {/* Botón de descarga prominente con información integrada */}
                 <button
                   onClick={() => handleDownload(
                     `http://localhost:8000/api/conversion/guest-download/${conversionResult.download_id}`,
                     conversionResult.output_filename
                   )}
-                  className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white py-3 px-6 rounded-lg transition-all duration-300 font-medium flex items-center justify-center gap-3 shadow-lg shadow-green-500/20"
+                  className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white py-4 px-6 rounded-lg transition-all duration-300 font-medium shadow-lg shadow-green-500/20"
                 >
-                  <Download size={20} />
-                  📥 Descargar {conversionResult.output_filename}
+                  <div className="flex items-center justify-between w-full">
+                    <div className="flex items-center gap-3">
+                      <Download size={20} />
+                      <div className="text-left">
+                        <div className="font-semibold">📥 Descargar</div>
+                        <div className="text-sm text-green-100 opacity-90">{conversionResult.output_filename}</div>
+                      </div>
+                    </div>
+                    <div className="text-right text-sm text-green-100 opacity-75">
+                      <div>Archivo listo</div>
+                      <div className="text-xs">Disponible 24h</div>
+                    </div>
+                  </div>
                 </button>
 
                 {/* Botón para convertir otro archivo */}
@@ -1013,11 +1009,7 @@ export const NewConversorInteligente: React.FC = () => {
                   Convertir otro archivo
                 </button>
 
-                <p className={`text-xs text-center ${
-                  isDark ? 'text-slate-400' : 'text-gray-600'
-                }`}>
-                  ⏰ El archivo estará disponible durante 24 horas
-                </p>
+
               </div>
             ) : (
               <div className="text-center py-8">

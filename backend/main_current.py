@@ -45,14 +45,11 @@ if not app.config.get("SECRET_KEY") or not app.config.get("JWT_SECRET_KEY"):
     raise RuntimeError("SECRET_KEY and JWT_SECRET_KEY must be set in configuration")
 
 # ConfiguraciÃ³n de CORS
-# Usar la configuración centralizada de CORS
-CORS_ORIGINS = app.config.get("ALLOWED_ORIGINS", [
-    "http://localhost:3001",
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "http://localhost:5174",
-    "http://localhost:5175"
-])
+# Define CORS settings for better maintainability
+CORS_ORIGINS = os.environ.get(
+    "CORS_ORIGINS",
+    "http://localhost:3001,http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://localhost:5175"
+).split(",")
 CORS_METHODS = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 CORS_HEADERS = ["Content-Type", "Authorization", "Accept", "X-Requested-With"]
 
@@ -65,7 +62,7 @@ CORS(
 )
 
 # Inicializar SocketIO
-socketio.init_app(app, cors_allowed_origins=CORS_ORIGINS)
+socketio.init_app(app, cors_allowed_origins=app.config["ALLOWED_ORIGINS"])
 
 # ConfiguraciÃ³n de JWT
 jwt = JWTManager(app)
