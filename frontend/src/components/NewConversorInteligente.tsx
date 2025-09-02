@@ -414,35 +414,18 @@ export const NewConversorInteligente: React.FC = () => {
     setIsAnalyzing(true);
 
     try {
-      console.log('🔍 DEBUG: Enviando petición analyze-conversion', {
-        sourceFormat: sourceFormat.trim(),
-        targetFormat: targetFormat.trim(),
-        origin: window.location.origin
-      });
-
       const response = await fetch('http://localhost:8000/api/conversion/analyze-conversion', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Origin': window.location.origin,
         },
         body: JSON.stringify({
-          source_format: sourceFormat.trim(),
-          target_format: targetFormat.trim()
+          source_format: sourceFormat,
+          target_format: targetFormat
         })
       });
 
-      console.log('🔍 DEBUG: Response status:', response.status);
-      console.log('🔍 DEBUG: Response headers:', Object.fromEntries(response.headers.entries()));
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('❌ DEBUG: Error response:', errorText);
-        throw new Error(`HTTP ${response.status}: ${errorText}`);
-      }
-
       const result = await response.json();
-      console.log('🔍 DEBUG: Response data:', result);
 
       if (result.success) {
         // Asegurar que siempre tengamos al menos una opción directa
@@ -478,9 +461,7 @@ export const NewConversorInteligente: React.FC = () => {
         setError(result.error || 'Error analizando opciones de conversión');
       }
     } catch (err) {
-      console.error('❌ DEBUG: Exception en analyzeConversionOptions:', err);
-      const errorMessage = err instanceof Error ? err.message : 'Error de conexión al analizar opciones';
-      setError(`Error al analizar conversión: ${errorMessage}`);
+      setError('Error de conexión al analizar opciones');
     } finally {
       setIsAnalyzing(false);
     }
@@ -491,6 +472,8 @@ export const NewConversorInteligente: React.FC = () => {
     setTargetFormat(format);
     setConversionAnalysis(null);
     setSelectedConversionOption(null);
+    setShouldAutoConvert(false);
+    setCurrentStep(2); // Resetear al paso 2
 
     if (selectedFile) {
       const sourceFormat = selectedFile.name.split('.').pop()?.toLowerCase() || '';
