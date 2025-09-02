@@ -4,6 +4,10 @@ import { AuthProvider, ProtectedRoute, UserProfile } from '../auth/AuthContext';
 import { CreditProvider } from './CreditSystem';
 import { MainLayout } from './Layout/MainLayout';
 import { NewConversorInteligente } from './NewConversorInteligente';
+import { TestConversor } from './TestConversor';
+import { SimpleConversor } from './SimpleConversor';
+import { DebugConversor } from './DebugConversor';
+import { SafeConversor } from './SafeConversor';
 import { ConversionHistory } from './ConversionHistory';
 import { CreditPurchase } from './CreditPurchase';
 import { ThemeProvider } from '../theme/ThemeProvider';
@@ -41,7 +45,7 @@ const AuthenticatedApp: React.FC<NewAppProps> = ({ onBackToLanding: _onBackToLan
   const renderContent = () => {
     switch (activeTab) {
       case 'converter':
-        return <NewConversorInteligente />;
+        return <SafeConversor />;
       
       case 'components':
         const ComponentsDemo = React.lazy(() => import('../pages/ComponentsDemo'));

@@ -5,7 +5,7 @@ import { FileUploader } from './FileUploader';
 import { FormatSelector } from './ui/FormatSelector';
 import { ConversionOptionsComparison } from './ui/ConversionOptionsComparison';
 import {
-  FileUp, FileBarChart, Settings, Download, ArrowRight, Check, Loader, X, Sun, Moon, Monitor, RefreshCw
+  FileUp, FileBarChart, Settings, Download, ArrowRight, Check, Loader, X, Sun, Moon, Monitor, RefreshCw, Info
 } from 'lucide-react';
 
 interface ConversionStepProps {
@@ -263,7 +263,7 @@ export const NewConversorInteligente: React.FC = () => {
   const getProgressStep = useCallback(() => {
     if (currentStep === 1) return 0; // No hay progreso hasta subir archivo
     if (currentStep === 2) return 0; // Análisis en progreso, pero no completado
-    if (currentStep === 3) return 1; // Archivo subido y analizado
+    if (currentStep === 3 || currentStep === 3.1) return 1; // Archivo subido y analizado
     if (currentStep === 4) return 2; // Configuración completada, convirtiendo
     if (currentStep === 5) return 3; // Todo completado
     return 0;
@@ -467,10 +467,12 @@ export const NewConversorInteligente: React.FC = () => {
            (analysis.optimized.quality - analysis.direct.quality) < 10);
 
         if (shouldActivateAutoConvert) {
-          // Iniciar conversión automática inmediatamente
+          // Mostrar mensaje de conversión óptima y proceder automáticamente
+          setCurrentStep(3); // Usar estado normal
+          // Conversión automática después de mostrar las opciones
           setTimeout(() => {
             handleConvert();
-          }, 1000); // Pequeño delay para mostrar el estado
+          }, 3000); // Delay más largo para que el usuario vea el mensaje
         } else {
           // Mostrar opciones de comparación
           setCurrentStep(3);
@@ -813,9 +815,54 @@ export const NewConversorInteligente: React.FC = () => {
             number={2}
             title="Configurar Conversión"
             icon="⚙️"
-            isActive={currentStep === 3}
-            isCompleted={currentStep > 3}
+            isActive={currentStep === 3 || currentStep === 3.1}
+            isCompleted={currentStep > 3.1}
           >
+{/* Comentado temporalmente para debug
+            currentStep === 3.1 ? (
+              // 🎯 ESTADO ESPECIAL: Conversión Óptima Automática
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-lg font-medium text-white mb-4">
+                    Formato de salida seleccionado
+                  </label>
+                  <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center">
+                        <Check size={16} className="text-green-500" />
+                      </div>
+                      <div>
+                        <p className="text-green-400 font-medium text-lg">
+                          {targetFormat?.toUpperCase()} - {getFormatDescription(targetFormat)}
+                        </p>
+                        <p className="text-xs text-green-300/70">Formato óptimo seleccionado automáticamente</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Info size={24} className="text-blue-400" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-xl font-bold text-blue-300 mb-2">
+                        Conversión Óptima
+                      </h4>
+                      <p className="text-blue-200 text-base leading-relaxed mb-3">
+                        La conversión directa es la opción óptima para esta combinación de formatos. 
+                        No hay secuencias alternativas que mejoren significativamente el resultado.
+                      </p>
+                      <div className="flex items-center gap-2 text-sm text-blue-300">
+                        <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                        <span>Iniciando conversión automáticamente...</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : */}
             {currentStep >= 3 ? (
               <div className="space-y-6">
                 {/* Selector de formato con más espacio */}
@@ -852,25 +899,61 @@ export const NewConversorInteligente: React.FC = () => {
                   </div>
                 )}
 
-                {conversionAnalysis && !isAnalyzing && targetFormat && (
+{conversionAnalysis && !isAnalyzing && targetFormat && (
                   <div className="space-y-4">
-                    <label className="block text-lg font-medium text-white mb-4">
-                      Opciones de conversión disponibles:
-                    </label>
-                    <ConversionOptionsComparison
-                      analysis={conversionAnalysis}
-                      onOptionSelect={(option) => {
-                        setSelectedConversionOption(option);
-                        // 🎯 CONVERSIÓN AUTOMÁTICA AL SELECCIONAR OPCIÓN
-                        setTimeout(() => {
-                          handleConvert();
-                        }, 500); // Pequeño delay para mostrar la selección
-                      }}
-                      selectedOption={selectedConversionOption}
-                      onPreview={(option) => {
-                        console.log('Preview:', option);
-                      }}
-                    />
+                    {/* Verificar si es conversión óptima */}
+                    {(() => {
+                      const isOptimalConversion = 
+                        conversionAnalysis.recommendation?.type === 'direct' && 
+                        (!conversionAnalysis.analysis.optimized || 
+                         (conversionAnalysis.analysis.optimized.quality - conversionAnalysis.analysis.direct.quality) < 10);
+                      
+                      if (isOptimalConversion) {
+                        return (
+                          <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-6">
+                            <div className="flex items-start gap-4">
+                              <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                <Info size={24} className="text-blue-400" />
+                              </div>
+                              <div className="flex-1">
+                                <h4 className="text-xl font-bold text-blue-300 mb-2">
+                                  🎯 Conversión Óptima Detectada
+                                </h4>
+                                <p className="text-blue-200 text-base leading-relaxed mb-3">
+                                  La conversión directa es la opción óptima para esta combinación de formatos. 
+                                  Iniciando conversión automáticamente...
+                                </p>
+                                <div className="flex items-center gap-2 text-sm text-blue-300">
+                                  <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                                  <span>Procesando en 3 segundos...</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      } else {
+                        return (
+                          <>
+                            <label className="block text-lg font-medium text-white mb-4">
+                              Opciones de conversión disponibles:
+                            </label>
+                            <ConversionOptionsComparison
+                              analysis={conversionAnalysis}
+                              onOptionSelect={(option) => {
+                                setSelectedConversionOption(option);
+                                setTimeout(() => {
+                                  handleConvert();
+                                }, 500);
+                              }}
+                              selectedOption={selectedConversionOption}
+                              onPreview={(option) => {
+                                console.log('Preview:', option);
+                              }}
+                            />
+                          </>
+                        );
+                      }
+                    })()}
                   </div>
                 )}
 
