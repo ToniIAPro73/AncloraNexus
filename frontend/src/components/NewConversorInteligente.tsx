@@ -457,24 +457,6 @@ export const NewConversorInteligente: React.FC = () => {
         // Auto-seleccionar opción recomendada (con fallback a 'direct')
         const recommendedType = analysis.recommendation?.type || 'direct';
         setSelectedConversionOption(recommendedType);
-
-        // 🎯 LÓGICA DE CONVERSIÓN AUTOMÁTICA
-        // CASO 1: Conversión directa óptima → Conversión automática inmediata
-        // CASO 2: Opciones múltiples → Mostrar comparación
-        const shouldActivateAutoConvert =
-          recommendedType === 'direct' &&
-          (!analysis.optimized ||
-           (analysis.optimized.quality - analysis.direct.quality) < 10);
-
-        if (shouldActivateAutoConvert) {
-          // Iniciar conversión automática inmediatamente
-          setTimeout(() => {
-            handleConvert();
-          }, 1000); // Pequeño delay para mostrar el estado
-        } else {
-          // Mostrar opciones de comparación
-          setCurrentStep(3);
-        }
       } else {
         setError(result.error || 'Error analizando opciones de conversión');
       }
@@ -655,8 +637,8 @@ export const NewConversorInteligente: React.FC = () => {
 
       {/* Layout rediseñado: 3 columnas con proporciones optimizadas */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Frame 1: Subir Archivo + Análisis IA (4 columnas) */}
-        <div className="lg:col-span-4">
+        {/* Frame 1: Subir Archivo + Análisis IA (3 columnas) */}
+        <div className="lg:col-span-3">
           <ConversionStep
             number={1}
             title="Subir Archivo & Análisis IA"
@@ -807,8 +789,8 @@ export const NewConversorInteligente: React.FC = () => {
           </ConversionStep>
         </div>
 
-        {/* Frame 2: Configurar (5 columnas) */}
-        <div className="lg:col-span-5">
+        {/* Frame 2: Configurar (6 columnas - expandido) */}
+        <div className="lg:col-span-6">
           <ConversionStep
             number={2}
             title="Configurar Conversión"
@@ -859,7 +841,13 @@ export const NewConversorInteligente: React.FC = () => {
                     </label>
                     <ConversionOptionsComparison
                       analysis={conversionAnalysis}
-                      onOptionSelect={setSelectedConversionOption}
+                      onOptionSelect={(option) => {
+                        setSelectedConversionOption(option);
+                        // 🎯 CONVERSIÓN AUTOMÁTICA AL SELECCIONAR OPCIÓN
+                        setTimeout(() => {
+                          handleConvert();
+                        }, 500); // Pequeño delay para mostrar la selección
+                      }}
                       selectedOption={selectedConversionOption}
                       onPreview={(option) => {
                         console.log('Preview:', option);
@@ -868,28 +856,7 @@ export const NewConversorInteligente: React.FC = () => {
                   </div>
                 )}
 
-                {targetFormat && selectedConversionOption && currentStep === 3 && (
-                  <div className={`p-4 rounded-lg border ${
-                    isDark
-                      ? 'bg-slate-800/40 border-slate-700'
-                      : 'bg-gray-100/50 border-gray-300'
-                  }`}>
-                    <div className={`flex justify-between items-center text-sm mb-4 ${
-                      isDark ? 'text-gray-300' : 'text-gray-700'
-                    }`}>
-                      <span>Costo estimado:</span>
-                      <span className="text-primary font-bold text-lg">
-                        {conversionAnalysis?.[selectedConversionOption]?.cost || 0} créditos
-                      </span>
-                    </div>
-                    <button
-                      onClick={handleConvert}
-                      className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary-dark hover:to-secondary-dark text-white py-3 px-6 rounded-lg transition-all duration-300 text-button font-medium shadow-lg shadow-primary/20"
-                    >
-                      🚀 Iniciar Conversión {selectedConversionOption === 'optimized' ? 'Optimizada' : 'Directa'}
-                    </button>
-                  </div>
-                )}
+
               </div>
             ) : (
               <div className="text-center py-8">
