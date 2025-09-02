@@ -1,0 +1,43 @@
+{
+  "generated_at": "2025-09-02",
+  "version": "1.0",
+  "categories": {
+    "valid": {
+      "small": [
+        "test_small.txt",
+        "test_simple.json",
+        "test_simple.html",
+        "test_document.md",
+        "test_small.png"
+      ],
+      "medium": [
+        "test_medium.txt",
+        "test_complex.json",
+        "test_medium.png"
+      ],
+      "large": [
+        "test_large.txt"
+      ]
+    },
+    "corrupted": [
+      "fake_pdf.pdf",
+      "truncated.jpg",
+      "empty.docx",
+      "random_data.png"
+    ],
+    "edge_cases": [
+      "zero_bytes.txt",
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.txt",
+      "special_chars_ραινσϊ.txt",
+      "only_spaces.txt"
+    ],
+    "formats": {
+      "images": [
+        "test.jpg",
+        "test.png",
+        "test.gif"
+      ]
+    }
+  },
+  "total_files": 20
+}

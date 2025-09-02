@@ -1,0 +1,123 @@
+{
+  "timestamp": "2025-09-02T08:57:57.471736",
+  "backend": {
+    "unit": {
+      "tests": 0,
+      "passed": 0,
+      "failed": 1,
+      "time": 3.119464874267578,
+      "details": "'NoneType' object has no attribute 'split'",
+      "error": "Error ejecutando tests: 'NoneType' object has no attribute 'split'"
+    },
+    "integration": {
+      "tests": 0,
+      "passed": 0,
+      "failed": 1,
+      "time": 2.261854887008667,
+      "details": "'NoneType' object has no attribute 'split'",
+      "error": "Error ejecutando tests: 'NoneType' object has no attribute 'split'"
+    },
+    "conversion": {
+      "tests": 0,
+      "passed": 0,
+      "failed": 1,
+      "time": 2.2247564792633057,
+      "details": "'NoneType' object has no attribute 'split'",
+      "error": "Error ejecutando tests: 'NoneType' object has no attribute 'split'"
+    },
+    "total_time": 7.606076240539551,
+    "total_tests": 0,
+    "total_passed": 0,
+    "total_failed": 3,
+    "success_rate": 0
+  },
+  "frontend": {
+    "unit": {
+      "tests": 0,
+      "passed": 0,
+      "failed": 1,
+      "time": 20.800658702850342,
+      "details": "'charmap' codec can't decode byte 0x81 in position 259163: character maps to <undefined>"
+    },
+    "components": {
+      "tests": 0,
+      "passed": 0,
+      "failed": 1,
+      "time": 21.78950595855713,
+      "details": "'charmap' codec can't decode byte 0x81 in position 256153: character maps to <undefined>"
+    },
+    "accessibility": {
+      "tests": 0,
+      "passed": 0,
+      "failed": 0,
+      "time": 2.304945945739746,
+      "details": {
+        "numTotalTestSuites": 0,
+        "numPassedTestSuites": 0,
+        "numFailedTestSuites": 0,
+        "numPendingTestSuites": 0,
+        "numTotalTests": 0,
+        "numPassedTests": 0,
+        "numFailedTests": 0,
+        "numPendingTests": 0,
+        "numTodoTests": 0,
+        "snapshot": {
+          "added": 0,
+          "failure": false,
+          "filesAdded": 0,
+          "filesRemoved": 0,
+          "filesRemovedList": [],
+          "filesUnmatched": 0,
+          "filesUpdated": 0,
+          "matched": 0,
+          "total": 0,
+          "unchecked": 0,
+          "uncheckedKeysByFile": [],
+          "unmatched": 0,
+          "updated": 0,
+          "didUpdate": false
+        },
+        "startTime": 1756796329571,
+        "success": false,
+        "testResults": []
+      },
+      "stdout": "\n> anclora-nexus-frontend@1.2.0 test\n> vitest run vitest.a11y.config.ts --reporter=json --outputFile=C:\\Users\\Usuario\\Workspace\\01_Proyectos\\Anclora_Nexus\\test_reports/frontend_a11y.json\n\nJSON report written to C:/Users/Usuario/Workspace/01_Proyectos/Anclora_Nexus/test_reports/frontend_a11y.json\n",
+      "stderr": ""
+    },
+    "total_time": 44.89511060714722,
+    "total_tests": 0,
+    "total_passed": 0,
+    "total_failed": 2,
+    "success_rate": 0
+  },
+  "integration": {
+    "e2e": {
+      "tests": 0,
+      "passed": 0,
+      "failed": 0,
+      "time": 0,
+      "details": "E2E tests no implementados a\u00fan"
+    },
+    "file_tests": {
+      "tests": 0,
+      "passed": 0,
+      "failed": 1,
+      "time": 3.000981330871582,
+      "details": "'NoneType' object has no attribute 'split'",
+      "error": "Error ejecutando tests: 'NoneType' object has no attribute 'split'"
+    },
+    "total_time": 3.000981330871582,
+    "total_tests": 0,
+    "total_passed": 0,
+    "total_failed": 1,
+    "success_rate": 0
+  },
+  "summary": {
+    "total_tests": 0,
+    "total_passed": 0,
+    "total_failed": 6,
+    "total_time": 55.50216817855835,
+    "success_rate": 0,
+    "status": "FAIL"
+  }
+}

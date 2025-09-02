@@ -11,15 +11,15 @@ describe('FAQ Component', () => {
     expect(conversionsTab).toHaveClass('border-green-500');
 
     // Check that the first question is open by checking for its answer
-    expect(screen.getByText(/En, estamos orgullosos de ofrecer una plataforma versÃ¡til/i)).toBeInTheDocument();
+    expect(screen.getByText(/estamos orgullosos de ofrecer una plataforma/i)).toBeInTheDocument();
     
     // Check that the second question is closed
-    expect(screen.queryByText(/SÃ­, el lÃ­mite de tamaÃ±o depende de tu plan de suscripciÃ³n/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/el límite de tamaño depende de tu plan/i)).not.toBeInTheDocument();
   });
 
   it('opens and closes questions on click', () => {
     render(<FAQ />);
-    const secondQuestionButton = screen.getByRole('button', { name: /Â¿Hay un lÃ­mite de tamaÃ±o mÃ¡ximo para los archivos que se pueden convertir?/i });
+    const secondQuestionButton = screen.getByRole('button', { name: /Hay un límite de tamaño máximo/i });
 
     // Answer should not be visible initially
     expect(screen.queryByText(/SÃ­, el lÃ­mite de tamaÃ±o depende de tu plan de suscripciÃ³n/i)).not.toBeInTheDocument();

@@ -29,7 +29,7 @@ describe('Login forgot password flow', () => {
     window.alert = vi.fn();
     render(<Login />);
     fireEvent.change(screen.getByLabelText('Email'), { target: { value: 'user@example.com' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Â¿Olvidaste tu contraseÃ±a?' }));
+    fireEvent.click(screen.getByRole('button', { name: '¿Olvidaste tu contraseña?' }));
     await waitFor(() => {
       expect(apiService.requestPasswordReset).toHaveBeenCalledWith('user@example.com');
     });
@@ -37,9 +37,9 @@ describe('Login forgot password flow', () => {
 
   it('shows error when email is missing', async () => {
     render(<Login />);
-    fireEvent.click(screen.getByRole('button', { name: 'Â¿Olvidaste tu contraseÃ±a?' }));
+    fireEvent.click(screen.getByRole('button', { name: '¿Olvidaste tu contraseña?' }));
     expect(apiService.requestPasswordReset).not.toHaveBeenCalled();
-    expect(screen.getByText('Por favor ingresa tu correo electrÃ³nico')).toBeInTheDocument();
+    expect(screen.getByText('Por favor ingresa tu correo electrónico')).toBeInTheDocument();
   });
 });
 
