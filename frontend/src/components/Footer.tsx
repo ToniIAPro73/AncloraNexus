@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconConverterLogo, IconEnvelope, IconChatBubble, IconVisa, IconMastercard, IconChevronDown } from './Icons';
+import { IconEnvelope, IconChatBubble, IconVisa, IconMastercard, IconChevronDown } from './Icons';
 
 const FooterLink: React.FC<{ href: string; children: React.ReactNode }> = ({ href, children }) => (
     <li>
@@ -38,7 +38,11 @@ export const Footer: React.FC = () => {
 
                 <div className="py-12 grid grid-cols-2 md:grid-cols-5 gap-8">
                     <div className="col-span-2 md:col-span-1">
-                        <IconConverterLogo className="w-12 h-12 text-green-400 mb-4" />
+                        <img
+                            src="/images/logos/Anclora svg.svg"
+                            alt="Anclora"
+                            className="w-12 h-12 mb-4"
+                        />
                         <button className="w-full sm:w-auto flex items-center justify-between px-4 py-2 bg-slate-700 rounded-md text-left">
                             <span>Español</span>
                             <IconChevronDown className="w-5 h-5" />

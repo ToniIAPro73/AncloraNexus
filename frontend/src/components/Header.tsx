@@ -22,7 +22,7 @@ import { Avatar } from './ui';
 import { Badge } from './ui';
 import { useAuth } from '../hooks/useAuth';
 import { useNotifications } from './NotificationSystem';
-import ancoraLogo from '../assets/anclora-logo.svg';
+import ancloraNexusLogo from '/images/logos/Anclora Nexus svg.svg';
 
 interface HeaderProps {
   onMenuToggle?: () => void;
@@ -78,10 +78,10 @@ export function Header({ onMenuToggle, userPlan = 'free' }: HeaderProps) {
 
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <img 
-            src={ancoraLogo} 
-            alt="Anclora Nexus" 
-            className="h-8 w-auto"
+          <img
+            src={ancloraNexusLogo}
+            alt="Anclora Nexus"
+            className="h-10 w-auto"
           />
           <span className="text-xl font-semibold hidden md:block text-primary">
             Anclora Nexus

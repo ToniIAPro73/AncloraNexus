@@ -128,7 +128,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
         {!isCollapsed && (
           <div className="flex items-center">
             <img
-              src="/images/logos/anclora-nexus-logo.svg"
+              src="/images/logos/Anclora Nexus svg.svg"
               alt="Anclora Nexus"
               className="h-12 w-auto"
             />
@@ -136,7 +136,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
         )}
         {isCollapsed && (
           <img
-            src="/images/logos/anclora-nexus-logo.svg"
+            src="/images/logos/Anclora Nexus svg.svg"
             alt="Anclora Nexus"
             className="h-10 w-auto mx-auto"
           />
