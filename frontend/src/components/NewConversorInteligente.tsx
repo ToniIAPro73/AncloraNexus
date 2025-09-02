@@ -186,7 +186,6 @@ export const NewConversorInteligente: React.FC = () => {
   const [availableFormats, setAvailableFormats] = useState<string[]>([]);
   const [conversionAnalysis, setConversionAnalysis] = useState<any>(null);
   const [selectedConversionOption, setSelectedConversionOption] = useState<'direct' | 'optimized' | null>(null);
-  const [shouldAutoConvert, setShouldAutoConvert] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark' | 'auto'>('dark');
@@ -460,9 +459,8 @@ export const NewConversorInteligente: React.FC = () => {
         setSelectedConversionOption(recommendedType);
 
         // 🎯 LÓGICA DE CONVERSIÓN AUTOMÁTICA
-        // Activar conversión automática si:
-        // 1. La recomendación es directa Y
-        // 2. (No hay opción optimizada O la diferencia de calidad es < 10%)
+        // CASO 1: Conversión directa óptima → Conversión automática inmediata
+        // CASO 2: Opciones múltiples → Mostrar comparación
         const shouldActivateAutoConvert =
           recommendedType === 'direct' &&
           (!analysis.optimized ||
@@ -470,7 +468,13 @@ export const NewConversorInteligente: React.FC = () => {
 
         if (shouldActivateAutoConvert) {
           setShouldAutoConvert(true);
-          setCurrentStep(3); // Saltar al paso 3 automáticamente
+          // Iniciar conversión automática inmediatamente
+          setTimeout(() => {
+            handleConvert();
+          }, 1000); // Pequeño delay para mostrar el estado
+        } else {
+          // Mostrar opciones de comparación
+          setCurrentStep(3);
         }
       } else {
         setError(result.error || 'Error analizando opciones de conversión');
@@ -487,8 +491,6 @@ export const NewConversorInteligente: React.FC = () => {
     setTargetFormat(format);
     setConversionAnalysis(null);
     setSelectedConversionOption(null);
-    setShouldAutoConvert(false);
-    setCurrentStep(2); // Resetear al paso 2
 
     if (selectedFile) {
       const sourceFormat = selectedFile.name.split('.').pop()?.toLowerCase() || '';
@@ -851,14 +853,20 @@ export const NewConversorInteligente: React.FC = () => {
                   </div>
                 )}
 
-                {conversionAnalysis && !isAnalyzing && targetFormat && !shouldAutoConvert && (
+                {conversionAnalysis && !isAnalyzing && targetFormat && (
                   <div className="space-y-4">
                     <label className="block text-lg font-medium text-white mb-4">
                       Opciones de conversión disponibles:
                     </label>
                     <ConversionOptionsComparison
                       analysis={conversionAnalysis}
-                      onOptionSelect={setSelectedConversionOption}
+                      onOptionSelect={(option) => {
+                        setSelectedConversionOption(option);
+                        // 🎯 CONVERSIÓN AUTOMÁTICA AL SELECCIONAR OPCIÓN
+                        setTimeout(() => {
+                          handleConvert();
+                        }, 500); // Pequeño delay para mostrar la selección
+                      }}
                       selectedOption={selectedConversionOption}
                       onPreview={(option) => {
                         console.log('Preview:', option);
@@ -867,98 +875,7 @@ export const NewConversorInteligente: React.FC = () => {
                   </div>
                 )}
 
-                {/* 🎯 CONVERSIÓN AUTOMÁTICA: Mostrar solo cuando shouldAutoConvert es true */}
-                {shouldAutoConvert && conversionAnalysis && targetFormat && (
-                  <div className="space-y-4">
-                    <div className={`p-4 rounded-lg border ${
-                      isDark
-                        ? 'bg-green-900/20 border-green-700'
-                        : 'bg-green-100/50 border-green-300'
-                    }`}>
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                          <Check className="w-4 h-4 text-white" />
-                        </div>
-                        <div>
-                          <h3 className={`font-semibold ${isDark ? 'text-green-400' : 'text-green-700'}`}>
-                            Conversión Automática Activada
-                          </h3>
-                          <p className={`text-sm ${isDark ? 'text-green-300' : 'text-green-600'}`}>
-                            Configuración óptima detectada automáticamente
-                          </p>
-                        </div>
-                      </div>
 
-                      <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div>
-                          <span className={`font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                            Proceso:
-                          </span>
-                          <div className="flex items-center gap-2 mt-1">
-                            <span className={`px-2 py-1 rounded text-xs font-medium ${
-                              isDark ? 'bg-blue-900/50 text-blue-300' : 'bg-blue-100 text-blue-700'
-                            }`}>
-                              {selectedFile?.name.split('.').pop()?.toUpperCase()}
-                            </span>
-                            <ArrowRight className="w-3 h-3" />
-                            <span className={`px-2 py-1 rounded text-xs font-medium ${
-                              isDark ? 'bg-green-900/50 text-green-300' : 'bg-green-100 text-green-700'
-                            }`}>
-                              {targetFormat.toUpperCase()}
-                            </span>
-                          </div>
-                        </div>
-
-                        <div>
-                          <span className={`font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                            Calidad esperada:
-                          </span>
-                          <div className="flex items-center gap-2 mt-1">
-                            <div className="flex-1 bg-gray-200 rounded-full h-2">
-                              <div
-                                className="bg-green-500 h-2 rounded-full"
-                                style={{ width: `${conversionAnalysis.direct?.quality || 90}%` }}
-                              ></div>
-                            </div>
-                            <span className={`text-xs font-medium ${isDark ? 'text-green-400' : 'text-green-600'}`}>
-                              {conversionAnalysis.direct?.quality || 90}%
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="mt-4 flex items-center gap-2 text-xs">
-                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                        <span className={isDark ? 'text-green-300' : 'text-green-600'}>
-                          ⚡ Conversión rápida • 🎯 Menor costo en créditos • 📈 Menor costo en tiempo
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {targetFormat && selectedConversionOption && currentStep === 3 && (
-                  <div className={`p-4 rounded-lg border ${
-                    isDark
-                      ? 'bg-slate-800/40 border-slate-700'
-                      : 'bg-gray-100/50 border-gray-300'
-                  }`}>
-                    <div className={`flex justify-between items-center text-sm mb-4 ${
-                      isDark ? 'text-gray-300' : 'text-gray-700'
-                    }`}>
-                      <span>Costo estimado:</span>
-                      <span className="text-primary font-bold text-lg">
-                        {conversionAnalysis?.[selectedConversionOption]?.cost || 0} créditos
-                      </span>
-                    </div>
-                    <button
-                      onClick={handleConvert}
-                      className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary-dark hover:to-secondary-dark text-white py-3 px-6 rounded-lg transition-all duration-300 text-button font-medium shadow-lg shadow-primary/20"
-                    >
-                      🚀 Iniciar Conversión {selectedConversionOption === 'optimized' ? 'Optimizada' : 'Directa'}
-                    </button>
-                  </div>
-                )}
               </div>
             ) : (
               <div className="text-center py-8">
