@@ -474,7 +474,12 @@ export const NewConversorInteligente: React.FC = () => {
     setSelectedConversionOption(null);
 
     if (selectedFile) {
-      const sourceFormat = selectedFile.name.split('.').pop()?.toLowerCase() || '';
+      let sourceFormat = selectedFile.name.split('.').pop()?.toLowerCase() || '';
+
+      // Normalizar formatos comunes
+      if (sourceFormat === 'jpeg') sourceFormat = 'jpg';
+      if (sourceFormat === 'tiff') sourceFormat = 'tif';
+
       await analyzeConversionOptions(sourceFormat, format);
     }
   }, [selectedFile, analyzeConversionOptions]);
@@ -809,7 +814,12 @@ export const NewConversorInteligente: React.FC = () => {
                     availableFormats={availableFormats}
                     selectedFormat={targetFormat}
                     onFormatSelect={handleFormatSelection}
-                    sourceFormat={selectedFile?.name.split('.').pop()?.toLowerCase() || ''}
+                    sourceFormat={(() => {
+                      let format = selectedFile?.name.split('.').pop()?.toLowerCase() || '';
+                      if (format === 'jpeg') format = 'jpg';
+                      if (format === 'tiff') format = 'tif';
+                      return format;
+                    })()}
                   />
                 </div>
 

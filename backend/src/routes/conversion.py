@@ -111,9 +111,16 @@ def get_formats_alias():
 def analyze_conversion():
     """Analiza opciones de conversión directa vs optimizada"""
     try:
-        data = request.get_json()
-        source_format = data.get('source_format', '').lower()
-        target_format = data.get('target_format', '').lower()
+        # Manejo robusto del JSON
+        if not request.is_json:
+            return jsonify({'error': 'Content-Type debe ser application/json'}), 400
+
+        data = request.get_json(force=True)
+        if not data:
+            return jsonify({'error': 'No se pudo parsear el JSON'}), 400
+
+        source_format = data.get('source_format', '').lower().strip()
+        target_format = data.get('target_format', '').lower().strip()
 
         if not source_format or not target_format:
             return jsonify({'error': 'Se requieren source_format y target_format'}), 400
@@ -130,35 +137,52 @@ def analyze_conversion():
 
         # Análisis de opciones si el optimizador está disponible
         if OPTIMIZER_AVAILABLE:
-            analysis = conversion_optimizer.analyze_conversion_options(source_format, target_format, base_cost)
-            compatibility = conversion_optimizer.get_format_compatibility_score(source_format, target_format)
+            try:
+                analysis = conversion_optimizer.analyze_conversion_options(source_format, target_format, base_cost)
+                compatibility = conversion_optimizer.get_format_compatibility_score(source_format, target_format)
 
-            return jsonify({
-                'success': True,
-                'source_format': source_format,
-                'target_format': target_format,
-                'analysis': analysis,
-                'compatibility': compatibility,
-                'has_optimized_sequence': analysis.get('optimized') is not None
-            })
-        else:
-            # Análisis básico sin optimizador
-            return jsonify({
-                'success': True,
-                'source_format': source_format,
-                'target_format': target_format,
-                'analysis': {
-                    'direct': {
-                        'cost': base_cost,
-                        'quality': 75,
-                        'description': f'Conversión directa {source_format.upper()} → {target_format.upper()}',
-                        'recommended': True
-                    }
-                },
-                'has_optimized_sequence': False
-            })
+                return jsonify({
+                    'success': True,
+                    'source_format': source_format,
+                    'target_format': target_format,
+                    'analysis': analysis,
+                    'compatibility': compatibility,
+                    'has_optimized_sequence': analysis.get('optimized') is not None
+                })
+            except Exception as opt_error:
+                print(f"Error en optimizador: {opt_error}")
+                # Fallback a análisis básico
+                pass
+
+        # Análisis básico sin optimizador (o fallback)
+        analysis = {
+            'direct': {
+                'steps': [source_format, target_format],
+                'cost': base_cost,
+                'quality': 85,
+                'description': f'Conversión directa {source_format.upper()} → {target_format.upper()}',
+                'advantages': ['Conversión rápida', 'Proceso simple'],
+                'time_estimate': '30-60 segundos',
+                'recommended': True
+            },
+            'recommendation': {
+                'type': 'direct',
+                'reason': 'Conversión directa disponible',
+                'confidence': 'high'
+            }
+        }
+
+        return jsonify({
+            'success': True,
+            'source_format': source_format,
+            'target_format': target_format,
+            'analysis': analysis,
+            'compatibility': 0.9,  # Score por defecto
+            'has_optimized_sequence': False
+        })
 
     except Exception as e:
+        print(f"Error en analyze_conversion: {e}")
         return jsonify({'error': f'Error analizando conversión: {str(e)}'}), 500
 
 @conversion_bp.route('/guest-convert', methods=['POST'])
