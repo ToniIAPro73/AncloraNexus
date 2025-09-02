@@ -874,28 +874,7 @@ export const NewConversorInteligente: React.FC = () => {
                   </div>
                 )}
 
-                {targetFormat && selectedConversionOption && currentStep === 3 && (
-                  <div className={`p-4 rounded-lg border ${
-                    isDark
-                      ? 'bg-slate-800/40 border-slate-700'
-                      : 'bg-gray-100/50 border-gray-300'
-                  }`}>
-                    <div className={`flex justify-between items-center text-sm mb-4 ${
-                      isDark ? 'text-gray-300' : 'text-gray-700'
-                    }`}>
-                      <span>Costo estimado:</span>
-                      <span className="text-primary font-bold text-lg">
-                        {conversionAnalysis?.[selectedConversionOption]?.cost || 0} créditos
-                      </span>
-                    </div>
-                    <button
-                      onClick={handleConvert}
-                      className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary-dark hover:to-secondary-dark text-white py-3 px-6 rounded-lg transition-all duration-300 text-button font-medium shadow-lg shadow-primary/20"
-                    >
-                      🚀 Iniciar Conversión {selectedConversionOption === 'optimized' ? 'Optimizada' : 'Directa'}
-                    </button>
-                  </div>
-                )}
+
               </div>
             ) : (
               <div className="text-center py-8">
