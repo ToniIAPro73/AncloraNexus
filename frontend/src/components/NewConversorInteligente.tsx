@@ -409,23 +409,77 @@ export const NewConversorInteligente: React.FC = () => {
 
   // Función para analizar opciones de conversión
   const analyzeConversionOptions = useCallback(async (sourceFormat: string, targetFormat: string) => {
-    if (!sourceFormat || !targetFormat) return;
+    console.log('🔍 DEBUG analyzeConversionOptions llamada con:', {
+      sourceFormat: `"${sourceFormat}"`,
+      targetFormat: `"${targetFormat}"`,
+      sourceFormatType: typeof sourceFormat,
+      targetFormatType: typeof targetFormat,
+      sourceFormatLength: sourceFormat?.length,
+      targetFormatLength: targetFormat?.length
+    });
+
+    // Validaciones más robustas
+    const cleanSourceFormat = sourceFormat?.trim();
+    const cleanTargetFormat = targetFormat?.trim();
+
+    if (!cleanSourceFormat || !cleanTargetFormat) {
+      console.log('❌ DEBUG: Parámetros inválidos, saliendo:', {
+        sourceFormat: `"${sourceFormat}"`,
+        targetFormat: `"${targetFormat}"`,
+        cleanSourceFormat: `"${cleanSourceFormat}"`,
+        cleanTargetFormat: `"${cleanTargetFormat}"`
+      });
+      return;
+    }
+
+    if (cleanSourceFormat.length === 0 || cleanTargetFormat.length === 0) {
+      console.log('❌ DEBUG: Formatos vacíos después de limpiar');
+      return;
+    }
 
     setIsAnalyzing(true);
 
     try {
+      const requestData = {
+        source_format: cleanSourceFormat,
+        target_format: cleanTargetFormat
+      };
+
+      console.log('🚀 DEBUG: Enviando petición analyze-conversion:', {
+        url: 'http://localhost:8000/api/conversion/analyze-conversion',
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: requestData,
+        bodyString: JSON.stringify(requestData)
+      });
+
       const response = await fetch('http://localhost:8000/api/conversion/analyze-conversion', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          source_format: sourceFormat,
-          target_format: targetFormat
-        })
+        body: JSON.stringify(requestData)
       });
 
+      console.log('📡 DEBUG: Respuesta recibida:', {
+        status: response.status,
+        statusText: response.statusText,
+        ok: response.ok,
+        headers: Object.fromEntries(response.headers.entries())
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('❌ DEBUG: Error HTTP:', {
+          status: response.status,
+          statusText: response.statusText,
+          errorText: errorText
+        });
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+
       const result = await response.json();
+      console.log('✅ DEBUG: Resultado JSON:', result);
 
       if (result.success) {
         // Asegurar que siempre tengamos al menos una opción directa
@@ -458,10 +512,13 @@ export const NewConversorInteligente: React.FC = () => {
         const recommendedType = analysis.recommendation?.type || 'direct';
         setSelectedConversionOption(recommendedType);
       } else {
+        console.error('❌ DEBUG: result.success = false:', result);
         setError(result.error || 'Error analizando opciones de conversión');
       }
     } catch (err) {
-      setError('Error de conexión al analizar opciones');
+      console.error('❌ DEBUG: Excepción en analyzeConversionOptions:', err);
+      const errorMessage = err instanceof Error ? err.message : 'Error de conexión al analizar opciones';
+      setError(errorMessage);
     } finally {
       setIsAnalyzing(false);
     }
@@ -474,12 +531,7 @@ export const NewConversorInteligente: React.FC = () => {
     setSelectedConversionOption(null);
 
     if (selectedFile) {
-      let sourceFormat = selectedFile.name.split('.').pop()?.toLowerCase() || '';
-
-      // Normalizar formatos comunes
-      if (sourceFormat === 'jpeg') sourceFormat = 'jpg';
-      if (sourceFormat === 'tiff') sourceFormat = 'tif';
-
+      const sourceFormat = selectedFile.name.split('.').pop()?.toLowerCase() || '';
       await analyzeConversionOptions(sourceFormat, format);
     }
   }, [selectedFile, analyzeConversionOptions]);
@@ -814,12 +866,7 @@ export const NewConversorInteligente: React.FC = () => {
                     availableFormats={availableFormats}
                     selectedFormat={targetFormat}
                     onFormatSelect={handleFormatSelection}
-                    sourceFormat={(() => {
-                      let format = selectedFile?.name.split('.').pop()?.toLowerCase() || '';
-                      if (format === 'jpeg') format = 'jpg';
-                      if (format === 'tiff') format = 'tif';
-                      return format;
-                    })()}
+                    sourceFormat={selectedFile?.name.split('.').pop()?.toLowerCase() || ''}
                   />
                 </div>
 

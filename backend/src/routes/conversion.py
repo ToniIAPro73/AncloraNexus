@@ -107,20 +107,47 @@ def get_formats_alias():
     """Alias para /supported-formats"""
     return get_supported_formats()
 
-@conversion_bp.route('/analyze-conversion', methods=['POST'])
+@conversion_bp.route('/analyze-conversion', methods=['POST', 'OPTIONS'])
 def analyze_conversion():
     """Analiza opciones de conversión directa vs optimizada"""
+
+    # Manejar peticiones OPTIONS (preflight CORS)
+    if request.method == 'OPTIONS':
+        response = jsonify({'status': 'ok'})
+        # Permitir múltiples puertos del frontend
+        origin = request.headers.get('Origin', '')
+        if origin in ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175']:
+            response.headers.add('Access-Control-Allow-Origin', origin)
+        else:
+            response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        response.headers.add('Access-Control-Allow-Methods', 'POST, OPTIONS')
+        return response
+
     try:
+        # DEBUG: Log de la petición recibida
+        print(f"🔍 DEBUG analyze-conversion: Petición recibida")
+        print(f"🔍 DEBUG: request.method: {request.method}")
+        print(f"🔍 DEBUG: request.content_type: {request.content_type}")
+        print(f"🔍 DEBUG: request.is_json: {request.is_json}")
+        print(f"🔍 DEBUG: request.headers: {dict(request.headers)}")
+
         # Manejo robusto del JSON
         if not request.is_json:
+            print(f"❌ DEBUG: Content-Type no es JSON: {request.content_type}")
             return jsonify({'error': 'Content-Type debe ser application/json'}), 400
 
         data = request.get_json(force=True)
+        print(f"🔍 DEBUG: data recibida: {data}")
+
         if not data:
+            print(f"❌ DEBUG: No se pudo parsear el JSON")
             return jsonify({'error': 'No se pudo parsear el JSON'}), 400
 
         source_format = data.get('source_format', '').lower().strip()
         target_format = data.get('target_format', '').lower().strip()
+
+        print(f"🔍 DEBUG: source_format: '{source_format}', target_format: '{target_format}'")
 
         if not source_format or not target_format:
             return jsonify({'error': 'Se requieren source_format y target_format'}), 400
@@ -185,18 +212,44 @@ def analyze_conversion():
         print(f"Error en analyze_conversion: {e}")
         return jsonify({'error': f'Error analizando conversión: {str(e)}'}), 500
 
-@conversion_bp.route('/guest-convert', methods=['POST'])
+@conversion_bp.route('/guest-convert', methods=['POST', 'OPTIONS'])
 def guest_convert_file():
     """Convierte un archivo sin autenticación (para usuarios invitados)"""
+
+    # Manejar peticiones OPTIONS (preflight CORS)
+    if request.method == 'OPTIONS':
+        response = jsonify({'status': 'ok'})
+        # Permitir múltiples puertos del frontend
+        origin = request.headers.get('Origin', '')
+        if origin in ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175']:
+            response.headers.add('Access-Control-Allow-Origin', origin)
+        else:
+            response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+        response.headers.add('Access-Control-Allow-Methods', 'POST, OPTIONS')
+        return response
+
     try:
+        # DEBUG: Log de la petición recibida
+        print(f"🔍 DEBUG: Petición recibida en /guest-convert")
+        print(f"🔍 DEBUG: request.files keys: {list(request.files.keys())}")
+        print(f"🔍 DEBUG: request.form keys: {list(request.form.keys())}")
+        print(f"🔍 DEBUG: request.method: {request.method}")
+        print(f"🔍 DEBUG: request.content_type: {request.content_type}")
+
         # Verificar archivo
         if 'file' not in request.files:
+            print(f"❌ DEBUG: No se encontró 'file' en request.files")
             return jsonify({'error': 'No se proporcionó ningún archivo'}), 400
 
         file = request.files['file']
         target_format = request.form.get('target_format')
         conversion_type = request.form.get('conversion_type', 'direct')  # 'direct' o 'optimized'
         conversion_sequence = request.form.get('conversion_sequence')  # JSON string con secuencia
+
+        print(f"🔍 DEBUG: file.filename: {file.filename}")
+        print(f"🔍 DEBUG: target_format: {target_format}")
+        print(f"🔍 DEBUG: conversion_type: {conversion_type}")
 
         if not file.filename or not target_format:
             return jsonify({'error': 'Archivo y formato destino son requeridos'}), 400
