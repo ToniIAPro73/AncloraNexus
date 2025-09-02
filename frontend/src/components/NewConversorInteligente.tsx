@@ -502,12 +502,8 @@ export const NewConversorInteligente: React.FC = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-
-    // Reset automático después de la descarga
-    setTimeout(() => {
-      handleReset();
-    }, 2000);
-  }, [handleReset]);
+    // Eliminado el reset automático - el usuario decide cuándo hacer una nueva conversión
+  }, []);
 
   // Import more icons if necessary from lucide-react package
   const popularConversions = [
@@ -973,27 +969,16 @@ export const NewConversorInteligente: React.FC = () => {
 
 
 
-                {/* Botón de descarga prominente con información integrada */}
+                {/* Botón de descarga simplificado */}
                 <button
                   onClick={() => handleDownload(
                     `http://localhost:8000/api/conversion/guest-download/${conversionResult.download_id}`,
                     conversionResult.output_filename
                   )}
-                  className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white py-4 px-6 rounded-lg transition-all duration-300 font-medium shadow-lg shadow-green-500/20"
+                  className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white py-3 px-6 rounded-lg transition-all duration-300 font-medium flex items-center justify-center gap-3 shadow-lg shadow-green-500/20"
                 >
-                  <div className="flex items-center justify-between w-full">
-                    <div className="flex items-center gap-3">
-                      <Download size={20} />
-                      <div className="text-left">
-                        <div className="font-semibold">📥 Descargar</div>
-                        <div className="text-sm text-green-100 opacity-90">{conversionResult.output_filename}</div>
-                      </div>
-                    </div>
-                    <div className="text-right text-sm text-green-100 opacity-75">
-                      <div>Archivo listo</div>
-                      <div className="text-xs">Disponible 24h</div>
-                    </div>
-                  </div>
+                  <Download size={20} />
+                  Descargar archivo
                 </button>
 
                 {/* Botón para convertir otro archivo */}
