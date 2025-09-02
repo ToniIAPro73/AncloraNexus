@@ -10,6 +10,8 @@ export const SafeConversor: React.FC = () => {
   const [targetFormat, setTargetFormat] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [conversionAnalysis, setConversionAnalysis] = useState<any>(null);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [isDownloaded, setIsDownloaded] = useState(false);
 
   const handleFileSelect = useCallback((file: File) => {
     setSelectedFile(file);
@@ -19,30 +21,8 @@ export const SafeConversor: React.FC = () => {
     setIsAnalyzing(true);
     setTimeout(() => {
       setIsAnalyzing(false);
-      
-      // Simular que detectamos que la conversión directa es óptima
-      // En un caso real, esto vendría del análisis IA
-      const isOptimalDirect = true; // JPG → PNG es conversión directa óptima
-      
-      if (isOptimalDirect) {
-        // Saltar directamente al paso 4 (conversión) sin intervención del usuario
-        setTargetFormat('png'); // Formato óptimo detectado automáticamente
-        setConversionAnalysis({
-          recommendation: { type: 'direct' },
-          analysis: {
-            direct: { quality: 95 },
-            optimized: { quality: 98 }
-          }
-        });
-        setCurrentStep(4); // Ir directamente a conversión
-        
-        // Iniciar conversión automáticamente después de mostrar el mensaje
-        setTimeout(() => {
-          setCurrentStep(5); // Completar conversión
-        }, 3000);
-      } else {
-        setCurrentStep(3); // Ir a configuración manual
-      }
+      // Después del análisis, seguir en paso 2 para mostrar opciones de formato
+      setCurrentStep(2);
     }, 2000);
   }, []);
 
@@ -60,7 +40,100 @@ export const SafeConversor: React.FC = () => {
         }
       });
       setIsAnalyzing(false);
+      setShowConfirmation(true);
     }, 1500);
+  }, []);
+
+  const handleConfirmConversion = useCallback(() => {
+    setShowConfirmation(false);
+    setCurrentStep(3); // Activar paso 3
+    
+    // Simular conversión (3 segundos)
+    setTimeout(() => {
+      // Conversión completada - mostrar botón de descarga
+    }, 3000);
+  }, []);
+
+  const handleChangeSelection = useCallback(() => {
+    setShowConfirmation(false);
+    setTargetFormat('');
+    setConversionAnalysis(null);
+  }, []);
+
+  const handleDownload = useCallback(async () => {
+    if (!selectedFile || !targetFormat) return;
+    
+    try {
+      // Crear FormData para enviar al backend
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+      formData.append('target_format', targetFormat);
+      
+      console.log('🚀 Enviando archivo al backend para conversión real...');
+      
+      // Llamar al endpoint real del backend (sin autenticación para invitados)
+      const response = await fetch('http://localhost:8000/api/conversion/guest-convert', {
+        method: 'POST',
+        body: formData
+        // No headers necesarios para guest-convert
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Error en la conversión');
+      }
+      
+      // El backend devuelve un JSON con la URL de descarga
+      const result = await response.json();
+      
+      if (!result.success || !result.download_url) {
+        throw new Error(result.error || 'Error en la conversión');
+      }
+      
+      console.log('✅ Conversión exitosa, descargando archivo...');
+      
+      // Descargar el archivo convertido usando la URL proporcionada
+      const downloadResponse = await fetch(`http://localhost:8000${result.download_url}`);
+      
+      if (!downloadResponse.ok) {
+        throw new Error('Error al descargar el archivo convertido');
+      }
+      
+      // Obtener el archivo convertido como blob
+      const blob = await downloadResponse.blob();
+      
+      // Crear nombre del archivo convertido
+      const originalName = selectedFile.name.split('.')[0];
+      const newFileName = `${originalName}_convertido.${targetFormat}`;
+      
+      // Crear enlace de descarga
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = newFileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      
+      // Marcar como descargado
+      setIsDownloaded(true);
+      
+      console.log('✅ Conversión real completada y archivo descargado');
+      
+    } catch (error) {
+      console.error('❌ Error en conversión real:', error);
+      alert(`Error al convertir archivo: ${error.message}`);
+    }
+  }, [selectedFile, targetFormat]);
+
+  const handleNewConversion = useCallback(() => {
+    setCurrentStep(1);
+    setSelectedFile(null);
+    setTargetFormat('');
+    setConversionAnalysis(null);
+    setShowConfirmation(false);
+    setIsDownloaded(false);
   }, []);
 
   const isDark = true; // Forzar tema oscuro para simplicidad
@@ -83,9 +156,13 @@ export const SafeConversor: React.FC = () => {
         <div className="lg:col-span-3">
           <Card variant="dark">
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <FileUp className="mr-2" size={20} />
-                Subir Archivo & Optimizador IA
+              <CardTitle className="flex items-center justify-center text-center">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-3 text-base font-bold leading-none font-mono ${
+                  currentStep >= 2 && !isAnalyzing ? 'bg-green-500 text-white' : 'bg-slate-600 text-slate-300'
+                }`}>
+                  1
+                </div>
+                <span>Subir Archivo & IA</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -118,7 +195,7 @@ export const SafeConversor: React.FC = () => {
                   </div>
                   <p className="text-green-400 font-medium">{selectedFile?.name}</p>
                   <p className="text-xs text-green-300/70">
-                    {currentStep >= 4 ? '✅ Optimización IA completada' : 'Archivo cargado'}
+                    {currentStep >= 2 && !isAnalyzing ? '✅ Archivo subido y optimizado por la IA' : 'Archivo cargado'}
                   </p>
                 </div>
               )}
@@ -130,9 +207,14 @@ export const SafeConversor: React.FC = () => {
         <div className="lg:col-span-6">
           <Card variant="dark">
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <Settings className="mr-2" size={20} />
-                Configurar
+              <CardTitle className="flex items-center justify-between text-center relative">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-base font-bold leading-none font-mono ${
+                  currentStep >= 3 ? 'bg-green-500 text-white' : 'bg-slate-600 text-slate-300'
+                }`}>
+                  2
+                </div>
+                <span className="absolute left-1/2 transform -translate-x-1/2">Seleccionar Formato & IA</span>
+                <div className="w-10"></div> {/* Spacer para balance */}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -145,13 +227,13 @@ export const SafeConversor: React.FC = () => {
                     </div>
                   )}
                   
-                  {currentStep >= 3 && (
+                  {currentStep >= 2 && !isAnalyzing && (
                     <>
                       <div>
                         <label className="block text-white mb-2">Formato de salida:</label>
                         <FormatSelector
                           availableFormats={['png', 'jpg', 'pdf', 'docx', 'txt']}
-                          selectedFormat={targetFormat}
+                          selectedFormat={targetFormat || ''}
                           onFormatSelect={handleFormatSelection}
                           sourceFormat={selectedFile?.name.split('.').pop()?.toLowerCase() || ''}
                         />
@@ -166,24 +248,34 @@ export const SafeConversor: React.FC = () => {
                         </div>
                       )}
 
-                      {/* Mensaje de conversión óptima - solo en paso 4 */}
-                      {currentStep === 4 && conversionAnalysis && targetFormat && (
+                      {/* Confirmación de conversión */}
+                      {conversionAnalysis && targetFormat && (
                         <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-6">
                           <div className="flex items-start gap-4">
                             <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center">
                               <Info size={24} className="text-blue-400" />
                             </div>
-                            <div>
+                            <div className="flex-1">
                               <h4 className="text-xl font-bold text-blue-300 mb-2">
-                                🎯 Conversión Óptima Detectada
+                                🎯 Conversión Seleccionada
                               </h4>
-                              <p className="text-blue-200 mb-3">
-                                La IA ha detectado que la conversión directa <strong>JPG → PNG</strong> es la opción óptima. 
-                                Iniciando conversión automáticamente...
+                              <p className="text-blue-200 mb-4">
+                                Has seleccionado convertir <strong>{selectedFile?.name}</strong> a formato <strong>{targetFormat.toUpperCase()}</strong>.
+                                La IA recomienda conversión directa para obtener la mejor calidad.
                               </p>
-                              <div className="flex items-center gap-2 text-sm text-blue-300">
-                                <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-                                <span>Convirtiendo en 3 segundos...</span>
+                              <div className="flex gap-3">
+                                <button 
+                                  onClick={handleConfirmConversion}
+                                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
+                                >
+                                  ✅ Confirmar Conversión
+                                </button>
+                                <button 
+                                  onClick={handleChangeSelection}
+                                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
+                                >
+                                  🔄 Cambiar Selección
+                                </button>
                               </div>
                             </div>
                           </div>
@@ -208,39 +300,61 @@ export const SafeConversor: React.FC = () => {
         <div className="lg:col-span-3">
           <Card variant="dark">
             <CardHeader>
-              <CardTitle className="flex items-center">
-                <Download className="mr-2" size={20} />
-                Convertir & Descargar
+              <CardTitle className="flex items-center justify-center text-center">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-3 text-base font-bold leading-none font-mono ${
+                  currentStep === 3 ? 'bg-green-500 text-white' : 'bg-slate-600 text-slate-300'
+                }`}>
+                  3
+                </div>
+                <span>Convertir & Descargar</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
-              {currentStep >= 4 ? (
+              {currentStep === 3 ? (
                 <div className="space-y-4">
-                  {/* Estado de conversión */}
-                  {currentStep === 4 && (
-                    <div className="text-center py-4">
-                      <div className="w-16 h-16 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-400"></div>
-                      </div>
-                      <p className="text-purple-400 font-medium mb-2">Convirtiendo...</p>
-                      <div className="w-full bg-slate-700 rounded-full h-2 mb-2">
-                        <div className="bg-purple-600 h-2 rounded-full animate-pulse" style={{width: '75%'}}></div>
-                      </div>
-                      <p className="text-xs text-purple-300/70">JPG → PNG</p>
-                    </div>
-                  )}
-                  
-                  {/* Estado completado */}
-                  {currentStep === 5 && (
+                  {!isDownloaded ? (
+                    // Estado: Listo para descargar
                     <div className="text-center py-4">
                       <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
                         <Download size={32} className="text-green-400" />
                       </div>
                       <p className="text-green-400 font-medium mb-2">¡Conversión Completada!</p>
-                      <p className="text-xs text-green-300/70 mb-4">Archivo listo para descargar</p>
-                      <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm w-full">
-                        Descargar PNG
+                      <p className="text-xs text-green-300/70 mb-4">
+                        {selectedFile?.name} → {targetFormat?.toUpperCase()}
+                      </p>
+                      <button 
+                        onClick={handleDownload}
+                        className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm w-full"
+                      >
+                        📥 Descargar {targetFormat?.toUpperCase()}
                       </button>
+                    </div>
+                  ) : (
+                    // Estado: Ya descargado
+                    <div className="text-center py-4">
+                      <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <p className="text-green-400 font-medium mb-2">¡Archivo Descargado!</p>
+                      <p className="text-xs text-green-300/70 mb-4">
+                        {selectedFile?.name} convertido a {targetFormat?.toUpperCase()}
+                      </p>
+                      <div className="space-y-2">
+                        <button 
+                          onClick={handleDownload}
+                          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm w-full"
+                        >
+                          📥 Descargar de nuevo
+                        </button>
+                        <button 
+                          onClick={handleNewConversion}
+                          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm w-full"
+                        >
+                          🔄 Nueva Conversión
+                        </button>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -257,14 +371,14 @@ export const SafeConversor: React.FC = () => {
 
       {/* Debug Info */}
       <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4">
-        <h3 className="text-green-400 font-semibold mb-2">✅ Conversor con Conversión Automática</h3>
+        <h3 className="text-green-400 font-semibold mb-2">✅ Conversor Seguro - 3 Pasos</h3>
         <p className="text-green-300 text-sm">
-          Paso: {currentStep} | Archivo: {selectedFile?.name || 'Ninguno'} | Formato: {targetFormat || 'Auto-detectado'} | 
-          {currentStep === 4 && ' 🎯 Conversión Óptima Automática'}
-          {currentStep === 5 && ' ✅ Completado'}
+          Paso: {currentStep} | Archivo: {selectedFile?.name || 'Ninguno'} | Formato: {targetFormat || 'No seleccionado'} | 
+          {currentStep === 3 && !isDownloaded && ' ✅ Listo para descargar'}
+          {currentStep === 3 && isDownloaded && ' 📥 Descargado - Créditos descontados'}
         </p>
         <p className="text-green-200 text-xs mt-1">
-          Flujo: Subir & Optimizador IA → Configurar → {currentStep >= 4 ? '🎯 Conversión Automática' : 'Convertir & Descargar'}
+          Flujo: Subir & Optimizador IA → Seleccionar Formato & IA → Convertir & Descargar
         </p>
       </div>
     </div>
