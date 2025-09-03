@@ -14,6 +14,8 @@ export const SafeConversor: React.FC = () => {
   const [isDownloaded, setIsDownloaded] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark' | 'auto'>('dark');
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
+  const [availableFormats, setAvailableFormats] = useState<string[]>([]);
+
 
   // Determine if current theme is dark
   const isDark = theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
@@ -40,7 +42,7 @@ export const SafeConversor: React.FC = () => {
     if (newTheme === 'auto') {
       effectiveTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
-    
+
     if (effectiveTheme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
@@ -58,7 +60,37 @@ export const SafeConversor: React.FC = () => {
   const handleFileSelect = useCallback((file: File) => {
     setSelectedFile(file);
     setCurrentStep(2);
-    
+
+    // Calcular formatos disponibles para este archivo y excluir el mismo formato de origen
+    try {
+      const ext = file.name.split('.').pop()?.toLowerCase() || '';
+      const baseMap: Record<string, string[]> = {
+        // Documentos (mínimos para el demo Seguro)
+        txt: ['pdf', 'docx', 'html', 'md', 'rtf'],
+        pdf: ['docx', 'txt', 'html', 'jpg', 'png'],
+        doc: ['pdf', 'docx', 'txt', 'html', 'md'],
+        docx: ['pdf', 'txt', 'html', 'md', 'rtf'],
+        rtf: ['pdf', 'docx', 'txt', 'html'],
+        odt: ['pdf', 'docx', 'txt', 'html'],
+        md: ['pdf', 'docx', 'html', 'txt'],
+        html: ['pdf', 'docx', 'txt', 'md'],
+        // Imágenes
+        jpg: ['png', 'gif', 'webp', 'pdf', 'bmp'],
+        jpeg: ['png', 'gif', 'webp', 'pdf', 'bmp'],
+        png: ['jpg', 'gif', 'webp', 'pdf', 'bmp'],
+        gif: ['jpg', 'png', 'webp', 'pdf'],
+        webp: ['jpg', 'png', 'gif', 'pdf'],
+        tiff: ['jpg', 'png', 'pdf'],
+        bmp: ['jpg', 'png', 'pdf'],
+      };
+      const list = (baseMap[ext] || ['pdf', 'jpg', 'png']).filter(f => f !== ext);
+      setAvailableFormats(list);
+      // Autoseleccionar la primera opción segura
+      setTargetFormat(list[0] || '');
+    } catch {
+      setAvailableFormats(['pdf', 'jpg']);
+    }
+
     // Simular análisis IA del archivo
     setIsAnalyzing(true);
     setTimeout(() => {
@@ -69,9 +101,16 @@ export const SafeConversor: React.FC = () => {
   }, []);
 
   const handleFormatSelection = useCallback(async (format: string) => {
+    // Validación: nunca permitir seleccionar el mismo formato que el de origen
+    const src = selectedFile?.name.split('.').pop()?.toLowerCase() || '';
+    if (format === src) {
+      alert(`El formato de salida no puede ser igual al de entrada (${src.toUpperCase()}).`);
+      return;
+    }
+
     setTargetFormat(format);
     setIsAnalyzing(true);
-    
+
     // Simular análisis de conversión
     setTimeout(() => {
       setConversionAnalysis({
@@ -84,12 +123,12 @@ export const SafeConversor: React.FC = () => {
       setIsAnalyzing(false);
       setShowConfirmation(true);
     }, 1500);
-  }, []);
+  }, [selectedFile]);
 
   const handleConfirmConversion = useCallback(() => {
     setShowConfirmation(false);
     setCurrentStep(3); // Activar paso 3
-    
+
     // Simular conversión (3 segundos)
     setTimeout(() => {
       // Conversión completada - mostrar botón de descarga
@@ -97,57 +136,67 @@ export const SafeConversor: React.FC = () => {
   }, []);
 
   const handleChangeSelection = useCallback(() => {
+    // Cambiar selección: volver a Fase 2 (Configurar), limpiar paso 3/descarga
     setShowConfirmation(false);
+    setIsDownloaded(false);
+    setCurrentStep(2);
     setTargetFormat('');
     setConversionAnalysis(null);
   }, []);
 
   const handleDownload = useCallback(async () => {
     if (!selectedFile || !targetFormat) return;
-    
+
+    // Validación dura antes de enviar: no permitir origen == destino
+    const src = selectedFile.name.split('.').pop()?.toLowerCase() || '';
+    if (src === targetFormat.toLowerCase()) {
+      alert(`Conversión ${src.toUpperCase()} → ${targetFormat.toUpperCase()} no permitida: el formato de salida debe ser distinto al de entrada.`);
+      return;
+    }
+
     try {
       // Crear FormData para enviar al backend
       const formData = new FormData();
       formData.append('file', selectedFile);
       formData.append('target_format', targetFormat);
-      
+
       console.log('🚀 Enviando archivo al backend para conversión real...');
-      
+
       // Llamar al endpoint real del backend (sin autenticación para invitados)
       const response = await fetch('http://localhost:8000/api/conversion/guest-convert', {
         method: 'POST',
         body: formData
         // No headers necesarios para guest-convert
       });
-      
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Error en la conversión');
       }
-      
+
       // El backend devuelve un JSON con la URL de descarga
       const result = await response.json();
-      
+
       if (!result.success || !result.download_url) {
         throw new Error(result.error || 'Error en la conversión');
       }
-      
+
       console.log('✅ Conversión exitosa, descargando archivo...');
-      
+
       // Descargar el archivo convertido usando la URL proporcionada
       const downloadResponse = await fetch(`http://localhost:8000${result.download_url}`);
-      
+
       if (!downloadResponse.ok) {
         throw new Error('Error al descargar el archivo convertido');
       }
-      
+
       // Obtener el archivo convertido como blob
       const blob = await downloadResponse.blob();
-      
+
       // Crear nombre del archivo convertido
       const originalName = selectedFile.name.split('.')[0];
       const newFileName = `${originalName}_convertido.${targetFormat}`;
-      
+
       // Crear enlace de descarga
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
@@ -157,12 +206,12 @@ export const SafeConversor: React.FC = () => {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
-      
+
       // Marcar como descargado
       setIsDownloaded(true);
-      
+
       console.log('✅ Conversión real completada y archivo descargado');
-      
+
     } catch (error) {
       console.error('❌ Error en conversión real:', error);
       alert(`Error al convertir archivo: ${error.message}`);
@@ -271,13 +320,13 @@ export const SafeConversor: React.FC = () => {
                       <p className="text-blue-600 dark:text-blue-400">Analizando archivo...</p>
                     </div>
                   )}
-                  
+
                   {currentStep >= 2 && !isAnalyzing && (
                     <>
                       <div>
                         <label className="block text-gray-900 dark:text-white mb-2">Formato de salida:</label>
                         <FormatSelector
-                          availableFormats={['png', 'jpg', 'pdf', 'docx', 'txt']}
+                          availableFormats={availableFormats}
                           selectedFormat={targetFormat || ''}
                           onFormatSelect={handleFormatSelection}
                           sourceFormat={selectedFile?.name.split('.').pop()?.toLowerCase() || ''}
@@ -309,13 +358,13 @@ export const SafeConversor: React.FC = () => {
                                 La IA recomienda conversión directa para obtener la mejor calidad.
                               </p>
                               <div className="flex gap-3">
-                                <button 
+                                <button
                                   onClick={handleConfirmConversion}
                                   className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                                 >
                                   ✅ Confirmar Conversión
                                 </button>
-                                <button 
+                                <button
                                   onClick={handleChangeSelection}
                                   className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                                 >
@@ -367,7 +416,7 @@ export const SafeConversor: React.FC = () => {
                       <p className="text-xs text-green-500 dark:text-green-300/70 mb-4">
                         {selectedFile?.name} → {targetFormat?.toUpperCase()}
                       </p>
-                      <button 
+                      <button
                         onClick={handleDownload}
                         className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm w-full"
                       >
@@ -387,13 +436,13 @@ export const SafeConversor: React.FC = () => {
                         {selectedFile?.name} convertido a {targetFormat?.toUpperCase()}
                       </p>
                       <div className="space-y-2">
-                        <button 
+                        <button
                           onClick={handleDownload}
                           className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm w-full"
                         >
                           📥 Descargar de nuevo
                         </button>
-                        <button 
+                        <button
                           onClick={handleNewConversion}
                           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm w-full"
                         >
@@ -418,7 +467,7 @@ export const SafeConversor: React.FC = () => {
         <div className="bg-green-500/10 dark:bg-green-500/10 border border-green-500/30 dark:border-green-500/30 rounded-lg p-4">
           <h3 className="text-green-600 dark:text-green-400 font-semibold mb-2">✅ Conversor Seguro - 3 Pasos</h3>
           <p className="text-green-700 dark:text-green-300 text-sm">
-            Paso: {currentStep} | Archivo: {selectedFile?.name || 'Ninguno'} | Formato: {targetFormat || 'No seleccionado'} | 
+            Paso: {currentStep} | Archivo: {selectedFile?.name || 'Ninguno'} | Formato: {targetFormat || 'No seleccionado'} |
             {currentStep === 3 && !isDownloaded && ' ✅ Listo para descargar'}
             {currentStep === 3 && isDownloaded && ' 📥 Descargado - Créditos descontados'}
           </p>
