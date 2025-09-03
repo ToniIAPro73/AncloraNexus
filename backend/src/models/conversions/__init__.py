@@ -12,6 +12,7 @@ try:
     from . import jpg_to_pdf
     from . import png_to_gif
     from . import png_to_pdf
+    from . import png_to_docx  # ✅ NUEVO: PNG→DOCX
     from . import png_to_webp
     from . import gif_to_jpg
     from . import gif_to_png

@@ -8,28 +8,57 @@ from pypdf import PdfReader
 import markdown
 import re
 from html import unescape
+import logging
+
+# Importar motor Pandoc para conversión de alta calidad
+try:
+    from .pandoc_engine import pandoc_engine, PANDOC_AVAILABLE
+except ImportError:
+    PANDOC_AVAILABLE = False
+    logging.warning("Pandoc engine no disponible para MD→DOCX")
 
 CONVERSION = ('md', 'docx')
 
 def convert(input_path, output_path):
-    """Convierte Markdown a DOCX con formato rico"""
+    """Convierte Markdown a DOCX usando Pandoc (preserva Unicode) con fallback manual"""
+
+    # Método 1: Pandoc (RECOMENDADO - preserva formato y Unicode perfectamente)
+    if PANDOC_AVAILABLE:
+        try:
+            success, message = pandoc_engine.convert_with_pandoc(
+                input_path, output_path, 'md', 'docx',
+                extra_args=[
+                    '--wrap=auto',
+                    '--columns=80'
+                ]
+            )
+            if success:
+                return True, f"Conversión MD→DOCX exitosa con Pandoc (formato preservado) - {message}"
+        except Exception as e:
+            logging.warning(f"Pandoc falló para MD→DOCX: {e}, usando fallback manual")
+
+    # Método 2: Fallback manual (procesamiento línea por línea)
+    return convert_with_manual_processing(input_path, output_path)
+
+def convert_with_manual_processing(input_path, output_path):
+    """Fallback usando procesamiento manual de Markdown"""
     try:
         # Leer contenido markdown
         with open(input_path, 'r', encoding='utf-8') as f:
             md_content = f.read()
-        
+
         # Crear documento Word
         doc = Document()
-        
+
         # Procesar contenido Markdown línea por línea
         process_markdown_to_docx(md_content, doc)
-        
+
         # Guardar documento
         doc.save(output_path)
-        
-        return True, "Conversión MD→DOCX exitosa"
+
+        return True, "Conversión MD→DOCX exitosa con procesamiento manual (Unicode preservado)"
     except Exception as e:
-        return False, f"Error en conversión MD→DOCX: {str(e)}"
+        return False, f"Error en conversión MD→DOCX manual: {str(e)}"
 
 def process_markdown_to_docx(md_content, doc):
     """Procesa contenido Markdown y lo convierte a formato DOCX"""

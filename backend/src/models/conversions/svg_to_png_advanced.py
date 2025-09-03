@@ -215,3 +215,22 @@ def extract_svg_info(svg_content):
         logging.warning(f"Error extrayendo info SVG: {e}")
     
     return info
+
+# Función para reemplazar el SVG→PNG básico existente
+def replace_basic_svg_converter():
+    """Reemplaza el convertidor SVG→PNG básico con esta versión avanzada"""
+    try:
+        # Importar el módulo básico
+        from . import svg_to_png
+        
+        # Reemplazar la función convert
+        svg_to_png.convert = convert
+        
+        logging.info("Convertidor SVG→PNG básico reemplazado con versión avanzada")
+        return True
+    except Exception as e:
+        logging.warning(f"No se pudo reemplazar convertidor básico: {e}")
+        return False
+
+# Auto-reemplazar al importar
+replace_basic_svg_converter()

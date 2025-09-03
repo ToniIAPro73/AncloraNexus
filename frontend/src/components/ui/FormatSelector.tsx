@@ -73,6 +73,11 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
       .map(format => formatDefinitions[format])
       .filter(Boolean);
 
+    // ✅ NUEVO: Filtrar formato de origen (no mostrar conversión a sí mismo)
+    if (sourceFormat) {
+      formats = formats.filter(format => format.id.toLowerCase() !== sourceFormat.toLowerCase());
+    }
+
     // Filtrar por categoría
     if (selectedCategory !== 'All') {
       formats = formats.filter(format => format.category === selectedCategory);
@@ -80,7 +85,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
 
     // Filtrar por búsqueda
     if (searchTerm) {
-      formats = formats.filter(format => 
+      formats = formats.filter(format =>
         format.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         format.description.toLowerCase().includes(searchTerm.toLowerCase())
       );
@@ -92,7 +97,7 @@ export const FormatSelector: React.FC<FormatSelectorProps> = ({
       if (!a.popular && b.popular) return 1;
       return a.name.localeCompare(b.name);
     });
-  }, [availableFormats, selectedCategory, searchTerm]);
+  }, [availableFormats, selectedCategory, searchTerm, sourceFormat]);
 
   // Calcular conteos por categoría
   const categoriesWithCounts = useMemo(() => {

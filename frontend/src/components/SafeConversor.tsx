@@ -4,6 +4,43 @@ import { FileUploader } from './FileUploader';
 import { FormatSelector } from './ui/FormatSelector';
 import { FileUp, Settings, Download, Info, Sun, Moon, Monitor } from 'lucide-react';
 
+// ✅ NUEVO: Función para obtener formatos disponibles según el archivo de entrada
+const getAvailableFormats = (sourceFormat: string): string[] => {
+  const formatMap: Record<string, string[]> = {
+    // Imágenes
+    'png': ['jpg', 'pdf', 'docx', 'gif', 'webp', 'bmp'],
+    'jpg': ['png', 'pdf', 'docx', 'gif', 'webp', 'bmp'],
+    'jpeg': ['png', 'pdf', 'docx', 'gif', 'webp', 'bmp'],
+    'gif': ['png', 'jpg', 'pdf', 'mp4'],
+    'webp': ['png', 'jpg', 'pdf', 'gif'],
+    'bmp': ['png', 'jpg', 'pdf', 'gif'],
+    'tiff': ['png', 'jpg', 'pdf'],
+    'svg': ['png', 'jpg', 'pdf'],
+
+    // Documentos
+    'pdf': ['docx', 'txt', 'html', 'jpg', 'png'],
+    'docx': ['pdf', 'txt', 'html', 'md'],
+    'doc': ['pdf', 'docx', 'txt', 'html'],
+    'txt': ['pdf', 'docx', 'html', 'md'],
+    'md': ['pdf', 'docx', 'html', 'txt'],
+    'html': ['pdf', 'docx', 'txt', 'md'],
+    'rtf': ['pdf', 'docx', 'txt', 'html'],
+    'odt': ['pdf', 'docx', 'txt', 'html'],
+
+    // Datos
+    'csv': ['xlsx', 'pdf', 'html', 'json', 'txt', 'svg'],
+    'xlsx': ['csv', 'pdf', 'html', 'txt'],
+    'xls': ['csv', 'xlsx', 'pdf', 'html'],
+    'json': ['csv', 'xlsx', 'txt', 'html'],
+
+    // Libros electrónicos
+    'epub': ['pdf', 'html', 'txt', 'md'],
+    'mobi': ['pdf', 'epub', 'txt'],
+  };
+
+  return formatMap[sourceFormat.toLowerCase()] || ['pdf', 'txt', 'html', 'docx'];
+};
+
 export const SafeConversor: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -100,6 +137,8 @@ export const SafeConversor: React.FC = () => {
     setShowConfirmation(false);
     setTargetFormat('');
     setConversionAnalysis(null);
+    setCurrentStep(2); // Volver al paso 2 para seleccionar nuevo formato
+    setIsDownloaded(false); // Reset download state
   }, []);
 
   const handleDownload = useCallback(async () => {
@@ -277,7 +316,7 @@ export const SafeConversor: React.FC = () => {
                       <div>
                         <label className="block text-gray-900 dark:text-white mb-2">Formato de salida:</label>
                         <FormatSelector
-                          availableFormats={['png', 'jpg', 'pdf', 'docx', 'txt']}
+                          availableFormats={getAvailableFormats(selectedFile?.name.split('.').pop()?.toLowerCase() || '')}
                           selectedFormat={targetFormat || ''}
                           onFormatSelect={handleFormatSelection}
                           sourceFormat={selectedFile?.name.split('.').pop()?.toLowerCase() || ''}
