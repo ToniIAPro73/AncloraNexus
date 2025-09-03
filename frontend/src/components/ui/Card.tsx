@@ -1,6 +1,6 @@
 import React, { forwardRef, memo } from 'react';
 
-/**si
+/**
  * Props for the Card component
  */
 interface CardProps {
@@ -19,16 +19,14 @@ interface CardProps {
  */
 export const Card = memo(forwardRef<HTMLDivElement, CardProps>(
   ({ children, className = '', variant = 'default', borderGlow = false }, ref) => {
-    // Use Tailwind's dark: prefix for better theme support
-    const baseClasses = 'rounded-xl border shadow transition-colors duration-300';
-
+    // Build className safely
+    const baseClasses = 'rounded-xl border bg-slate-800/50 shadow';
     const variantClasses = {
-      default: 'bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700',
-      elevated: 'bg-white dark:bg-slate-800 border-gray-300 dark:border-slate-600 shadow-lg',
-      outlined: 'bg-transparent border-gray-400 dark:border-slate-500',
-      dark: 'bg-gray-100 dark:bg-slate-900 border-gray-300 dark:border-slate-800',
+      default: 'border-slate-700',
+      elevated: 'border-slate-600 shadow-lg',
+      outlined: 'border-slate-500 bg-transparent',
+      dark: 'border-slate-800 bg-slate-900/50',
     };
-
     const glowClass = borderGlow ? 'border-glow' : '';
     const combinedClassName = `${baseClasses} ${variantClasses[variant]} ${glowClass} ${className}`.trim();
 
@@ -64,7 +62,7 @@ export const CardHeader = memo(forwardRef<HTMLDivElement, CardHeaderProps>(
   ({ children, className = '' }, ref) => (
     <div
       ref={ref}
-      className={`p-4 border-b border-gray-200 dark:border-slate-700 ${className}`.trim()}
+      className={`p-4 border-b border-slate-700 ${className}`.trim()}
       role="banner"
     >
       {children || null}
@@ -97,7 +95,7 @@ export const CardTitle = memo(forwardRef<HTMLElement, CardTitleProps>(
       HeadingTag,
       {
         ref,
-        className: `text-lg font-medium text-gray-900 dark:text-white ${className}`.trim(),
+        className: `text-lg font-medium text-white ${className}`.trim(),
       },
       children || ''
     );

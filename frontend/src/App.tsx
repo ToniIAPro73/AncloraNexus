@@ -5,7 +5,6 @@ import { ToastProvider } from './components/ui';
 import { useAuth } from './hooks/useAuth';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { UIPlayground } from './pages/UIPlayground';
-import { AIConversionDemo } from './pages/AIConversionDemo';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -41,7 +40,6 @@ function App() {
                   }
                 />
                 <Route path="/ui" element={<UIPlayground />} />
-                <Route path="/ai-demo" element={<AIConversionDemo />} />
               </Routes>
             </div>
           </main>
@@ -113,4 +111,3 @@ function App() {
 }
 
 export default App;
-
