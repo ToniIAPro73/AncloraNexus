@@ -1,8 +1,5 @@
-import os, shutil, tempfile, uuid
-from fpdf import FPDF
-from PIL import Image, ImageDraw
+import os
 from docx import Document
-from pypdf import PdfReader
 
 CONVERSION = ('txt', 'docx')
 
