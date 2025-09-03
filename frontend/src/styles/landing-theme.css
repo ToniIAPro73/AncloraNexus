@@ -1,7 +1,10 @@
-/* Variables CSS para temas */
+/* Variables CSS para temas - Alineadas con brand guidelines */
 :root {
-  --color-primary: #3B82F6;
-  --color-secondary: #1E40AF;
+  /* Usar las variables de marca definidas en index.css */
+  --color-primary: var(--brand-600, #0B6477);
+  --color-secondary: var(--brand-500, #14919B);
+  --color-accent: var(--brand-400, #0AD1C8);
+  --color-success: var(--brand-300, #45DFB1);
 }
 
 /* Tema oscuro: se aplica cuando tiene clase dark */

@@ -27,9 +27,9 @@ def convert(input_path, output_path):
         
         # Configurar fuente con soporte Unicode
         try:
-            pdf.set_font("Arial", size=12)
-        except:
             pdf.set_font("Helvetica", size=12)
+        except:
+            pdf.set_font("Times", size=12)
         
         # Extraer texto de todos los párrafos
         for paragraph in doc.paragraphs:
@@ -41,10 +41,10 @@ def convert(input_path, output_path):
                 try:
                     # Determinar si es título basado en el estilo
                     if paragraph.style.name.startswith('Heading'):
-                        pdf.set_font("Arial", 'B', 14)
+                        pdf.set_font("Helvetica", 'B', 14)
                         pdf.multi_cell(0, 10, text_clean)
                         pdf.ln(5)
-                        pdf.set_font("Arial", size=12)
+                        pdf.set_font("Helvetica", size=12)
                     else:
                         pdf.multi_cell(0, 10, text_clean)
                         pdf.ln(2)

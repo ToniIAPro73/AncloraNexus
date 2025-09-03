@@ -27,13 +27,13 @@ export const Features: React.FC<FeaturesProps> = ({ onStartConverting }) => {
         <div className="grid grid-cols-1 gap-8 @[30rem]:grid-cols-2 @[48rem]:grid-cols-3">
             <FeatureCard 
                 icon={<IconSparkles className="w-10 h-10 text-orange-500" />}
-                title={<>Es <span className="text-orange-500">fÃ¡cil</span></>}
-                description="Funciona en lÃ­nea, no hay software para descargar. Suba su archivo, elija un formato y convierta."
+                title={<>Es <span className="text-orange-500">fácil</span></>}
+                description="Funciona en línea, no hay software para descargar. Suba su archivo, elija un formato y convierta."
             />
             <FeatureCard 
                 icon={<IconShieldCheck className="w-10 h-10 text-blue-500" />}
                 title={<>Es <span className="text-blue-500">seguro</span></>}
-                description="Tus archivos estÃ¡n encriptados y almacenados en nuestros servidores por una hora, luego se eliminan para siempre."
+                description="Tus archivos están encriptados y almacenados en nuestros servidores por una hora, luego se eliminan para siempre."
             />
             <FeatureCard 
                 icon={<IconInfinity className="w-10 h-10 text-yellow-500" />}
