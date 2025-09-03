@@ -49,6 +49,16 @@ try:
     AI_ENGINE_AVAILABLE = True
 except ImportError:
     AI_ENGINE_AVAILABLE = False
+
+# Importar servicios de secuencias inteligentes
+try:
+    from src.services.intelligent_routing import intelligent_router
+    from src.services.sequence_processor import sequence_processor
+    from src.services.intelligent_cache import intelligent_cache
+    from src.services.ai_file_analyzer import ai_file_analyzer
+    INTELLIGENT_SEQUENCES_AVAILABLE = True
+except ImportError:
+    INTELLIGENT_SEQUENCES_AVAILABLE = False
     ai_conversion_engine = None
 from src.services.intelligent_conversion_sequences import intelligent_sequences
 from src.services.ai_quality_assessment import ai_quality_assessor
@@ -1473,3 +1483,456 @@ def pandoc_status():
         return jsonify({'error': f'Error verificando Pandoc: {str(e)}'}), 500
 
 
+# ============================================================================
+# ENDPOINTS DE SECUENCIAS INTELIGENTES - FASE 2
+# ============================================================================
+
+@conversion_bp.route('/intelligent-route', methods=['POST'])
+def find_intelligent_route():
+    """Encontrar la mejor ruta de conversión entre dos formatos"""
+    try:
+        if not INTELLIGENT_SEQUENCES_AVAILABLE:
+            return jsonify({
+                'error': 'Secuencias inteligentes no disponibles',
+                'message': 'El sistema de rutas inteligentes no está configurado'
+            }), 503
+
+        data = request.get_json()
+        if not data:
+            return jsonify({'error': 'Datos JSON requeridos'}), 400
+
+        source_format = data.get('source_format', '').lower().strip()
+        target_format = data.get('target_format', '').lower().strip()
+        prefer_quality = data.get('prefer_quality', True)
+        max_steps = data.get('max_steps', 4)
+
+        if not source_format or not target_format:
+            return jsonify({'error': 'source_format y target_format son requeridos'}), 400
+
+        # Encontrar la mejor ruta
+        route = intelligent_router.find_best_route(
+            source_format, target_format, max_steps, prefer_quality
+        )
+
+        if not route:
+            return jsonify({
+                'found': False,
+                'message': f'No se encontró ruta de conversión de {source_format.upper()} a {target_format.upper()}'
+            })
+
+        return jsonify({
+            'found': True,
+            'route': {
+                'source_format': route.source_format,
+                'target_format': route.target_format,
+                'steps': [{'from': step[0], 'to': step[1]} for step in route.steps],
+                'estimated_time': route.estimated_time,
+                'quality_score': route.quality_score,
+                'complexity': route.complexity,
+                'description': route.description
+            }
+        })
+
+    except Exception as e:
+        return jsonify({'error': f'Error encontrando ruta: {str(e)}'}), 500
+
+@conversion_bp.route('/possible-targets/<source_format>', methods=['GET'])
+def get_possible_targets(source_format):
+    """Obtener todos los formatos de destino posibles desde un formato origen"""
+    try:
+        if not INTELLIGENT_SEQUENCES_AVAILABLE:
+            return jsonify({
+                'error': 'Secuencias inteligentes no disponibles'
+            }), 503
+
+        max_steps = request.args.get('max_steps', 3, type=int)
+
+        targets = intelligent_router.get_all_possible_targets(source_format, max_steps)
+
+        return jsonify({
+            'source_format': source_format,
+            'possible_targets': targets,
+            'total_targets': len(targets)
+        })
+
+    except Exception as e:
+        return jsonify({'error': f'Error obteniendo targets: {str(e)}'}), 500
+
+@conversion_bp.route('/sequence/create', methods=['POST'])
+@jwt_required()
+def create_conversion_sequence():
+    """Crear una nueva secuencia de conversión inteligente"""
+    try:
+        if not INTELLIGENT_SEQUENCES_AVAILABLE:
+            return jsonify({
+                'error': 'Secuencias inteligentes no disponibles'
+            }), 503
+
+        # Verificar si hay archivo subido
+        if 'file' not in request.files:
+            return jsonify({'error': 'No se proporcionó archivo'}), 400
+
+        file = request.files['file']
+        if file.filename == '':
+            return jsonify({'error': 'No se seleccionó archivo'}), 400
+
+        # Obtener parámetros
+        target_format = request.form.get('target_format', '').lower().strip()
+        prefer_quality = request.form.get('prefer_quality', 'true').lower() == 'true'
+        max_steps = int(request.form.get('max_steps', 4))
+
+        if not target_format:
+            return jsonify({'error': 'target_format es requerido'}), 400
+
+        # Determinar formato de origen
+        source_format = get_file_extension(file.filename).lower()
+
+        # Guardar archivo temporal
+        temp_dir = tempfile.mkdtemp(prefix="anclora_sequence_")
+        input_filename = secure_filename(file.filename)
+        input_path = os.path.join(temp_dir, input_filename)
+        file.save(input_path)
+
+        # Crear archivo de salida
+        output_filename = f"{Path(input_filename).stem}.{target_format}"
+        output_path = os.path.join(temp_dir, output_filename)
+
+        # Crear secuencia
+        sequence = sequence_processor.create_sequence(
+            source_format, target_format, input_path, output_path,
+            prefer_quality, max_steps
+        )
+
+        if not sequence:
+            return jsonify({
+                'error': 'No se pudo crear la secuencia',
+                'message': f'No existe ruta de conversión de {source_format.upper()} a {target_format.upper()}'
+            }), 400
+
+        return jsonify({
+            'success': True,
+            'sequence_id': sequence.sequence_id,
+            'route': {
+                'description': sequence.route.description,
+                'steps': len(sequence.steps),
+                'estimated_time': sequence.route.estimated_time,
+                'quality_score': sequence.route.quality_score
+            },
+            'message': 'Secuencia creada exitosamente. Use /sequence/execute para iniciar la conversión.'
+        })
+
+    except Exception as e:
+        return jsonify({'error': f'Error creando secuencia: {str(e)}'}), 500
+
+@conversion_bp.route('/sequence/execute/<sequence_id>', methods=['POST'])
+@jwt_required()
+def execute_conversion_sequence(sequence_id):
+    """Ejecutar una secuencia de conversión"""
+    try:
+        if not INTELLIGENT_SEQUENCES_AVAILABLE:
+            return jsonify({
+                'error': 'Secuencias inteligentes no disponibles'
+            }), 503
+
+        # Ejecutar secuencia
+        success = sequence_processor.execute_sequence(sequence_id)
+
+        if success:
+            return jsonify({
+                'success': True,
+                'sequence_id': sequence_id,
+                'message': 'Secuencia ejecutada exitosamente'
+            })
+        else:
+            return jsonify({
+                'success': False,
+                'sequence_id': sequence_id,
+                'message': 'Error ejecutando la secuencia'
+            }), 500
+
+    except Exception as e:
+        return jsonify({'error': f'Error ejecutando secuencia: {str(e)}'}), 500
+
+@conversion_bp.route('/sequence/status/<sequence_id>', methods=['GET'])
+@jwt_required()
+def get_sequence_status(sequence_id):
+    """Obtener el estado de una secuencia"""
+    try:
+        if not INTELLIGENT_SEQUENCES_AVAILABLE:
+            return jsonify({
+                'error': 'Secuencias inteligentes no disponibles'
+            }), 503
+
+        status = sequence_processor.get_sequence_status(sequence_id)
+
+        if not status:
+            return jsonify({'error': 'Secuencia no encontrada'}), 404
+
+        return jsonify(status)
+
+    except Exception as e:
+        return jsonify({'error': f'Error obteniendo estado: {str(e)}'}), 500
+
+@conversion_bp.route('/sequence/cancel/<sequence_id>', methods=['POST'])
+@jwt_required()
+def cancel_sequence(sequence_id):
+    """Cancelar una secuencia en ejecución"""
+    try:
+        if not INTELLIGENT_SEQUENCES_AVAILABLE:
+            return jsonify({
+                'error': 'Secuencias inteligentes no disponibles'
+            }), 503
+
+        success = sequence_processor.cancel_sequence(sequence_id)
+
+        if success:
+            return jsonify({
+                'success': True,
+                'message': 'Secuencia cancelada exitosamente'
+            })
+        else:
+            return jsonify({
+                'success': False,
+                'message': 'No se pudo cancelar la secuencia'
+            }), 400
+
+    except Exception as e:
+        return jsonify({'error': f'Error cancelando secuencia: {str(e)}'}), 500
+
+@conversion_bp.route('/sequence/popular', methods=['GET'])
+def get_popular_sequences():
+    """Obtener las secuencias más populares"""
+    try:
+        if not INTELLIGENT_SEQUENCES_AVAILABLE:
+            return jsonify({
+                'error': 'Secuencias inteligentes no disponibles'
+            }), 503
+
+        limit = request.args.get('limit', 10, type=int)
+        popular = sequence_processor.get_popular_sequences(limit)
+
+        return jsonify({
+            'popular_sequences': popular,
+            'total': len(popular)
+        })
+
+    except Exception as e:
+        return jsonify({'error': f'Error obteniendo secuencias populares: {str(e)}'}), 500
+
+@conversion_bp.route('/analyze-file', methods=['POST'])
+@jwt_required()
+def analyze_file_with_ai():
+    """Analizar archivo con IA y obtener recomendaciones inteligentes"""
+    try:
+        if not INTELLIGENT_SEQUENCES_AVAILABLE:
+            return jsonify({
+                'error': 'Análisis IA no disponible'
+            }), 503
+
+        # Verificar si hay archivo subido
+        if 'file' not in request.files:
+            return jsonify({'error': 'No se proporcionó archivo'}), 400
+
+        file = request.files['file']
+        if file.filename == '':
+            return jsonify({'error': 'No se seleccionó archivo'}), 400
+
+        # Obtener formato de destino opcional
+        target_format = request.form.get('target_format', '').lower().strip()
+
+        # Guardar archivo temporal
+        temp_dir = tempfile.mkdtemp(prefix="anclora_analysis_")
+        input_filename = secure_filename(file.filename)
+        input_path = os.path.join(temp_dir, input_filename)
+        file.save(input_path)
+
+        try:
+            # Analizar archivo con IA
+            analysis = ai_file_analyzer.analyze_file(input_path, target_format)
+
+            # Convertir análisis a formato JSON serializable
+            analysis_dict = {
+                'file_type': analysis.file_type,
+                'file_size': analysis.file_size,
+                'content_type': analysis.content_type,
+                'complexity_score': analysis.complexity_score,
+                'quality_indicators': analysis.quality_indicators,
+                'recommended_formats': analysis.recommended_formats,
+                'ai_insights': analysis.ai_insights,
+                'metadata': analysis.metadata
+            }
+
+            return jsonify({
+                'success': True,
+                'analysis': analysis_dict,
+                'message': 'Análisis completado exitosamente'
+            })
+
+        finally:
+            # Limpiar archivo temporal
+            if os.path.exists(input_path):
+                os.remove(input_path)
+            os.rmdir(temp_dir)
+
+    except Exception as e:
+        return jsonify({'error': f'Error analizando archivo: {str(e)}'}), 500
+
+@conversion_bp.route('/cache/stats', methods=['GET'])
+@jwt_required()
+def get_cache_stats():
+    """Obtener estadísticas del cache inteligente"""
+    try:
+        if not INTELLIGENT_SEQUENCES_AVAILABLE:
+            return jsonify({
+                'error': 'Cache inteligente no disponible'
+            }), 503
+
+        stats = intelligent_cache.get_cache_stats()
+
+        return jsonify({
+            'success': True,
+            'cache_stats': stats
+        })
+
+    except Exception as e:
+        return jsonify({'error': f'Error obteniendo estadísticas de cache: {str(e)}'}), 500
+
+@conversion_bp.route('/cache/clear', methods=['POST'])
+@jwt_required()
+def clear_cache():
+    """Limpiar cache inteligente"""
+    try:
+        if not INTELLIGENT_SEQUENCES_AVAILABLE:
+            return jsonify({
+                'error': 'Cache inteligente no disponible'
+            }), 503
+
+        # Obtener parámetros opcionales
+        data = request.get_json() or {}
+        older_than_days = data.get('older_than_days')
+
+        # Limpiar cache
+        cleared_entries = intelligent_cache.clear_cache(older_than_days)
+
+        return jsonify({
+            'success': True,
+            'cleared_entries': cleared_entries,
+            'message': f'Cache limpiado: {cleared_entries} entradas eliminadas'
+        })
+
+    except Exception as e:
+        return jsonify({'error': f'Error limpiando cache: {str(e)}'}), 500
+
+@conversion_bp.route('/smart-convert', methods=['POST'])
+@jwt_required()
+def smart_convert():
+    """Conversión inteligente que usa análisis IA + cache + secuencias automáticas"""
+    try:
+        if not INTELLIGENT_SEQUENCES_AVAILABLE:
+            return jsonify({
+                'error': 'Conversión inteligente no disponible'
+            }), 503
+
+        # Verificar si hay archivo subido
+        if 'file' not in request.files:
+            return jsonify({'error': 'No se proporcionó archivo'}), 400
+
+        file = request.files['file']
+        if file.filename == '':
+            return jsonify({'error': 'No se seleccionó archivo'}), 400
+
+        # Obtener parámetros
+        target_format = request.form.get('target_format', '').lower().strip()
+        use_ai_analysis = request.form.get('use_ai_analysis', 'true').lower() == 'true'
+        prefer_quality = request.form.get('prefer_quality', 'true').lower() == 'true'
+
+        if not target_format:
+            return jsonify({'error': 'target_format es requerido'}), 400
+
+        # Determinar formato de origen
+        source_format = get_file_extension(file.filename).lower()
+
+        # Guardar archivo temporal
+        temp_dir = tempfile.mkdtemp(prefix="anclora_smart_")
+        input_filename = secure_filename(file.filename)
+        input_path = os.path.join(temp_dir, input_filename)
+        file.save(input_path)
+
+        try:
+            # 1. Verificar cache primero
+            cached_result = intelligent_cache.get_cached_conversion(
+                input_path, source_format, target_format
+            )
+
+            if cached_result and os.path.exists(cached_result):
+                return send_file(
+                    cached_result,
+                    as_attachment=True,
+                    download_name=f"{Path(input_filename).stem}.{target_format}",
+                    mimetype=mimetypes.guess_type(cached_result)[0]
+                )
+
+            # 2. Análisis IA opcional
+            analysis_result = None
+            if use_ai_analysis:
+                try:
+                    analysis = ai_file_analyzer.analyze_file(input_path, target_format)
+                    analysis_result = {
+                        'complexity_score': analysis.complexity_score,
+                        'recommended_formats': analysis.recommended_formats,
+                        'quality_indicators': analysis.quality_indicators
+                    }
+                except Exception as e:
+                    logging.warning(f"Error en análisis IA: {e}")
+
+            # 3. Crear y ejecutar secuencia
+            output_filename = f"{Path(input_filename).stem}.{target_format}"
+            output_path = os.path.join(temp_dir, output_filename)
+
+            sequence = sequence_processor.create_sequence(
+                source_format, target_format, input_path, output_path,
+                prefer_quality, max_steps=4
+            )
+
+            if not sequence:
+                return jsonify({
+                    'error': 'No se pudo crear la secuencia de conversión',
+                    'analysis': analysis_result
+                }), 400
+
+            # Ejecutar secuencia
+            success = sequence_processor.execute_sequence(sequence.sequence_id)
+
+            if success and os.path.exists(output_path):
+                # 4. Cachear resultado
+                intelligent_cache.cache_conversion(
+                    input_path, output_path, source_format, target_format,
+                    conversion_time=sequence.total_time or 0,
+                    quality_score=sequence.route.quality_score
+                )
+
+                # 5. Retornar archivo convertido
+                return send_file(
+                    output_path,
+                    as_attachment=True,
+                    download_name=output_filename,
+                    mimetype=mimetypes.guess_type(output_path)[0]
+                )
+            else:
+                return jsonify({
+                    'error': 'Error en la conversión inteligente',
+                    'sequence_id': sequence.sequence_id,
+                    'analysis': analysis_result
+                }), 500
+
+        finally:
+            # Limpiar archivos temporales (excepto el resultado que se está enviando)
+            try:
+                if os.path.exists(input_path):
+                    os.remove(input_path)
+                # No eliminar output_path aquí porque se está enviando
+            except:
+                pass
+
+    except Exception as e:
+        return jsonify({'error': f'Error en conversión inteligente: {str(e)}'}), 500
