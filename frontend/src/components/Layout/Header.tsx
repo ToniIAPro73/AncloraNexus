@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../auth/AuthContext';
-import { ChevronDown, Menu, Bell, Search, CreditCard, LogOut, Settings, Sun, Moon, Monitor } from 'lucide-react';
+import { ChevronDown, Menu, Bell, CreditCard, LogOut, Settings, Sun, Moon, Monitor } from 'lucide-react';
 // No longer using AccessibleIcon in this component
 
 interface HeaderProps {
@@ -88,19 +88,7 @@ export const Header: React.FC<HeaderProps> = ({
           )}
         </div>
 
-        {/* Barra de búsqueda (visible solo en desktop) */}
-        <div className="hidden md:flex max-w-md flex-1 mx-8">
-          <div className="relative w-full">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Search size={18} className="text-slate-400" />
-            </div>
-            <input
-              type="text"
-              placeholder="Buscar formatos, conversiones, documentos..."
-              className="bg-slate-900/70 border border-slate-700/50 text-slate-200 text-sm rounded-full w-full pl-10 pr-4 py-2 focus:outline-none focus:border-primary transition-colors"
-            />
-          </div>
-        </div>
+
 
         {/* Área de usuario, notificaciones y créditos */}
         <div className="flex items-center space-x-3 md:space-x-4">
