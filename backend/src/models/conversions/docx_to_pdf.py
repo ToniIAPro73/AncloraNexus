@@ -93,6 +93,7 @@ def clean_unicode_for_pdf(text):
         
         # Signos especiales
         '¿': '?', '¡': '!',
+        # Comillas tipográficas a ASCII
         '"': '"', '"': '"', ''': "'", ''': "'",
         '–': '-', '—': '-',
         
