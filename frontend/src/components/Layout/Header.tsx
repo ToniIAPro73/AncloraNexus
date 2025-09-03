@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../auth/AuthContext';
-import { ChevronDown, Menu, Bell, Search, CreditCard, LogOut, Settings } from 'lucide-react';
+import { ChevronDown, Menu, Bell, Search, CreditCard, LogOut, Settings, Sun, Moon, Monitor } from 'lucide-react';
 // No longer using AccessibleIcon in this component
 
 interface HeaderProps {
@@ -19,9 +19,48 @@ export const Header: React.FC<HeaderProps> = ({
   const { user, logout } = useAuth();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark' | 'auto'>('dark');
+  const [themeMenuOpen, setThemeMenuOpen] = useState(false);
 
   const toggleUserMenu = () => setUserMenuOpen(!userMenuOpen);
   const toggleNotifications = () => setNotificationsOpen(!notificationsOpen);
+
+  const applyTheme = (newTheme: 'light' | 'dark' | 'auto') => {
+    let effectiveTheme = newTheme;
+    if (newTheme === 'auto') {
+      effectiveTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    
+    if (effectiveTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
+
+  const handleThemeChange = (newTheme: 'light' | 'dark' | 'auto') => {
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    applyTheme(newTheme);
+    setThemeMenuOpen(false);
+  };
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | 'auto' || 'dark';
+    setTheme(savedTheme);
+    applyTheme(savedTheme);
+
+    // Close theme menu when clicking outside
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (!target.closest('.theme-selector') && !target.closest('.theme-menu')) {
+        setThemeMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <header
@@ -30,24 +69,23 @@ export const Header: React.FC<HeaderProps> = ({
       className="fixed top-0 left-0 right-0 h-16 bg-slate-800/80 backdrop-blur-md shadow-md z-20 border-b border-slate-700/50"
     >
       <div className="flex items-center justify-between h-full px-4">
-        {/* Botón menú móvil y título de la sección */}
+        {/* Botón menú y título de la sección */}
         <div className="flex items-center gap-4">
-          {isMobile && (
-            <button
-              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              className="p-1.5 rounded-lg bg-slate-700/50 text-white hover:bg-slate-600/50 transition-colors"
-              aria-label={sidebarCollapsed ? "Expandir menú" : "Contraer menú"}
-            >
-              <Menu size={20} />
-            </button>
-          )}
+          <button
+            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+            className="p-2 rounded-lg bg-slate-700/50 text-white hover:bg-slate-600/50 transition-colors"
+            aria-label={sidebarCollapsed ? "Expandir menú" : "Contraer menú"}
+          >
+            <Menu size={20} />
+          </button>
           
-          <div className="flex flex-col justify-center">
-            <h1 className="text-lg md:text-xl font-bold text-white leading-snug">
-              {pageTitle}
-            </h1>
-            <div className="h-1 w-12 bg-gradient-to-r from-primary to-secondary rounded-full"></div>
-          </div>
+          {pageTitle && (
+            <div className="flex flex-col justify-center">
+              <h1 className="text-lg md:text-xl font-bold text-white leading-snug">
+                {pageTitle}
+              </h1>
+            </div>
+          )}
         </div>
 
         {/* Barra de búsqueda (visible solo en desktop) */}
@@ -69,7 +107,46 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Contador de créditos */}
           <div className="flex items-center gap-2 bg-gradient-to-r from-slate-700/80 to-slate-800/80 border border-slate-700/50 px-3 py-1 rounded-full text-white shadow-md">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium">{user?.credits || 50} créditos</span>
+            <span className="text-sm font-medium">{user?.credits || 100} créditos</span>
+          </div>
+
+          {/* Selector de tema */}
+          <div className="relative theme-selector">
+            <button
+              onClick={() => setThemeMenuOpen(!themeMenuOpen)}
+              className="p-2 rounded-full bg-slate-800 border border-slate-700/50 hover:bg-slate-700 transition-colors"
+              aria-label="Cambiar tema"
+            >
+              {theme === 'light' && <Sun size={18} className="text-slate-300" />}
+              {theme === 'dark' && <Moon size={18} className="text-slate-300" />}
+              {theme === 'auto' && <Monitor size={18} className="text-slate-300" />}
+            </button>
+            
+            {themeMenuOpen && (
+              <div className="absolute right-0 mt-2 w-40 bg-slate-800 rounded-lg shadow-lg border border-slate-700/50 z-50 theme-menu">
+                <button
+                  onClick={() => handleThemeChange('light')}
+                  className="w-full px-4 py-2 text-left flex items-center space-x-2 hover:bg-slate-700/50 text-slate-200 rounded-t-lg"
+                >
+                  <Sun className="w-4 h-4" />
+                  <span>Claro</span>
+                </button>
+                <button
+                  onClick={() => handleThemeChange('dark')}
+                  className="w-full px-4 py-2 text-left flex items-center space-x-2 hover:bg-slate-700/50 text-slate-200"
+                >
+                  <Moon className="w-4 h-4" />
+                  <span>Oscuro</span>
+                </button>
+                <button
+                  onClick={() => handleThemeChange('auto')}
+                  className="w-full px-4 py-2 text-left flex items-center space-x-2 hover:bg-slate-700/50 text-slate-200 rounded-b-lg"
+                >
+                  <Monitor className="w-4 h-4" />
+                  <span>Sistema</span>
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Notificaciones */}

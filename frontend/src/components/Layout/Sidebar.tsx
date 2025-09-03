@@ -120,44 +120,29 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
   ];
 
   return (
-    <div className={`fixed top-0 left-0 h-full bg-gradient-to-b from-slate-800 to-slate-900 border-r border-slate-700/50 backdrop-blur-sm z-40 transition-all duration-300 ease-in-out ${
-      isCollapsed ? 'w-16' : 'w-72'
+    <div className={`fixed top-0 left-0 h-full bg-slate-800 border-r border-slate-700/50 z-40 transition-all duration-300 ease-in-out ${
+      isCollapsed ? 'w-0 -translate-x-full opacity-0 pointer-events-none' : 'w-72 translate-x-0 opacity-100'
     }`}>
-      {/* Logo y título */}
-      <div className="flex items-center justify-between p-4 border-b border-slate-700/50">
-        {!isCollapsed && (
-          <div className="flex items-center">
-            <img
-              src="/images/logos/Anclora Nexus fondo transparente.jpeg"
-              alt="Anclora Nexus"
-              className="h-12 w-auto object-contain bg-transparent"
-              style={{ mixBlendMode: 'multiply' }}
-            />
+      {!isCollapsed && (
+        <>
+          {/* Logo y título */}
+          <div className="flex items-center justify-between p-4 border-b border-slate-700/50">
+            <div className="flex items-center">
+              <img
+                src="/images/logos/Anclora Nexus fondo transparente.png"
+                alt="Anclora Nexus"
+                className="h-12 w-12 object-contain"
+              />
+            </div>
+            <button
+              onClick={() => setIsCollapsed(!isCollapsed)}
+              className="p-1.5 rounded-lg bg-slate-700/50 hover:bg-slate-600/50 text-white transition-colors"
+            >
+              <AccessibleIcon label="Contraer menú">
+                <ChevronLeft size={18} />
+              </AccessibleIcon>
+            </button>
           </div>
-        )}
-        {isCollapsed && (
-          <img
-            src="/images/logos/Anclora Nexus fondo transparente.jpeg"
-            alt="Anclora Nexus"
-            className="h-10 w-auto mx-auto object-contain bg-transparent"
-            style={{ mixBlendMode: 'multiply' }}
-          />
-        )}
-        <button
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          className="p-1.5 rounded-lg bg-slate-700/50 hover:bg-slate-600/50 text-white transition-colors"
-        >
-          {isCollapsed ? (
-            <AccessibleIcon label="Expandir menú">
-              <ChevronRight size={18} />
-            </AccessibleIcon>
-          ) : (
-            <AccessibleIcon label="Contraer menú">
-              <ChevronLeft size={18} />
-            </AccessibleIcon>
-          )}
-        </button>
-      </div>
       
       <nav className="p-4">
         <ul className="space-y-2">
@@ -254,6 +239,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
             </div>
           </div>
         </div>
+      )}
+        </>
       )}
     </div>
   );

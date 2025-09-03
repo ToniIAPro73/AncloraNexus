@@ -22,7 +22,7 @@ import { Avatar } from './ui';
 import { Badge } from './ui';
 import { useAuth } from '../hooks/useAuth';
 import { useNotifications } from './NotificationSystem';
-import ancloraNexusLogo from '/images/logos/Anclora Nexus fondo transparente.jpeg';
+import ancloraNexusLogo from '/images/logos/Anclora Nexus fondo transparente.png';
 
 interface HeaderProps {
   onMenuToggle?: () => void;

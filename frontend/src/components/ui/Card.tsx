@@ -19,19 +19,14 @@ interface CardProps {
  */
 export const Card = memo(forwardRef<HTMLDivElement, CardProps>(
   ({ children, className = '', variant = 'default', borderGlow = false }, ref) => {
-    const isDark = document.documentElement.classList.contains('dark');
-
-    // Build className safely
-    const baseClasses = `rounded-xl border shadow transition-colors duration-300 ${
-      isDark ? 'bg-slate-800/50' : 'bg-white/90'
-    }`;
+    // Use Tailwind's dark: prefix for better theme support
+    const baseClasses = 'rounded-xl border shadow transition-colors duration-300';
 
     const variantClasses = {
-      default: isDark ? 'border-slate-700' : 'border-gray-200',
-      elevated: isDark ? 'border-slate-600 shadow-lg' : 'border-gray-300 shadow-lg',
-      outlined: isDark ? 'border-slate-500 bg-transparent' : 'border-gray-400 bg-transparent',
-      dark: isDark ? 'border-slate-800 bg-slate-900/50' : 'border-gray-300 bg-gray-100/50',
-      light: isDark ? 'border-slate-600 bg-slate-700/30' : 'border-gray-200 bg-white',
+      default: 'bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700',
+      elevated: 'bg-white dark:bg-slate-800 border-gray-300 dark:border-slate-600 shadow-lg',
+      outlined: 'bg-transparent border-gray-400 dark:border-slate-500',
+      dark: 'bg-gray-100 dark:bg-slate-900 border-gray-300 dark:border-slate-800',
     };
 
     const glowClass = borderGlow ? 'border-glow' : '';
@@ -69,7 +64,7 @@ export const CardHeader = memo(forwardRef<HTMLDivElement, CardHeaderProps>(
   ({ children, className = '' }, ref) => (
     <div
       ref={ref}
-      className={`p-4 border-b border-slate-700 ${className}`.trim()}
+      className={`p-4 border-b border-gray-200 dark:border-slate-700 ${className}`.trim()}
       role="banner"
     >
       {children || null}
@@ -102,7 +97,7 @@ export const CardTitle = memo(forwardRef<HTMLElement, CardTitleProps>(
       HeadingTag,
       {
         ref,
-        className: `text-lg font-medium text-white ${className}`.trim(),
+        className: `text-lg font-medium text-gray-900 dark:text-white ${className}`.trim(),
       },
       children || ''
     );

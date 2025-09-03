@@ -247,8 +247,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo - Extremo izquierdo */}
-            <div className="flex items-center flex-shrink-0">
-              <img src="/images/logos/Anclora Nexus fondo transparente.jpeg" alt="Anclora Nexus" className="h-10 w-auto object-contain bg-transparent" style={{ mixBlendMode: 'multiply' }} />
+            <div className="flex items-center space-x-3 flex-shrink-0">
+              <img src="/images/logos/Anclora Nexus fondo transparente.png" alt="Anclora Nexus" className="h-10 w-10 object-contain" />
+              <div className="flex flex-col leading-tight">
+                <span className="text-lg font-bold text-gray-900 dark:text-white">ANCLORA</span>
+                <span className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">Nexus</span>
+              </div>
             </div>
 
             {/* Navigation - Centro */}
@@ -688,7 +692,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="md:col-span-2">
               <div className="flex items-center mb-4">
-                <img src="/images/logos/Anclora fondo transparente.jpeg" alt="Anclora" className="h-12 w-auto object-contain bg-transparent" style={{ mixBlendMode: 'multiply' }} />
+                <img src="/images/logos/Anclora fondo transparente.png" alt="Anclora" className="h-12 w-12 object-contain" />
               </div>
               <p className="text-gray-300 mb-4 max-w-md">
                 Anclora Nexus es parte del ecosistema Anclora, dedicado a crear herramientas que potencien tu productividad y creatividad.
