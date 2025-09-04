@@ -19,13 +19,13 @@ interface CardProps {
  */
 export const Card = memo(forwardRef<HTMLDivElement, CardProps>(
   ({ children, className = '', variant = 'default', borderGlow = false }, ref) => {
-    // Build className safely
-    const baseClasses = 'rounded-xl border bg-slate-800/50 shadow';
+    // Build className safely con estilos mejorados
+    const baseClasses = 'rounded-xl border bg-slate-800/90 backdrop-blur-md shadow-xl';
     const variantClasses = {
-      default: 'border-slate-700',
-      elevated: 'border-slate-600 shadow-lg',
-      outlined: 'border-slate-500 bg-transparent',
-      dark: 'border-slate-800 bg-slate-900/50',
+      default: 'border-slate-700/50',
+      elevated: 'border-slate-600/50 shadow-2xl',
+      outlined: 'border-slate-500/50 bg-slate-800/70 backdrop-blur-sm',
+      dark: 'border-slate-800/50 bg-slate-900/90 backdrop-blur-md',
     };
     const glowClass = borderGlow ? 'border-glow' : '';
     const combinedClassName = `${baseClasses} ${variantClasses[variant]} ${glowClass} ${className}`.trim();
@@ -62,7 +62,7 @@ export const CardHeader = memo(forwardRef<HTMLDivElement, CardHeaderProps>(
   ({ children, className = '' }, ref) => (
     <div
       ref={ref}
-      className={`p-4 border-b border-slate-700 ${className}`.trim()}
+      className={`p-4 border-b border-slate-700/50 ${className}`.trim()}
       role="banner"
     >
       {children || null}

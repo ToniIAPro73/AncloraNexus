@@ -1,14 +1,96 @@
-import React, { useState } from "react";
-import { FileText, Upload, Download, ArrowRight } from "lucide-react";
+// ⚠️ ARCHIVO LEGACY - OldConversorInteligente.tsx
+// Este es el conversor antiguo, mantenido para referencia
+// El componente activo es NewConversorInteligente.tsx
 
-const ConversorInteligente = () => {
+import React, { useState, useCallback } from "react";
+import { FileText, Upload, Download, ArrowRight, Brain, Zap } from "lucide-react";
+import AIContentAnalysis from "./AIContentAnalysis";
+
+interface AnalysisData {
+  file_type: string;
+  content_type: string;
+  complexity_score: number;
+  quality_score: number;
+  size_mb: number;
+  content_stats: {
+    page_count: number;
+    word_count: number;
+    image_count: number;
+    table_count: number;
+    has_forms: boolean;
+    has_hyperlinks: boolean;
+    has_embedded_media: boolean;
+    text_to_image_ratio: number;
+  };
+  recommendations: {
+    formats: Array<{
+      format: string;
+      reason: string;
+      priority: 'high' | 'medium' | 'low';
+    }>;
+    optimizations: string[];
+    quality_issues: string[];
+  };
+  metadata: Record<string, any>;
+}
+
+const OldConversorInteligente = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [targetFormat, setTargetFormat] = useState("");
+  const [analysisData, setAnalysisData] = useState<AnalysisData | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [showAnalysis, setShowAnalysis] = useState(false);
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setSelectedFile(file);
+      setAnalysisData(null);
+      setShowAnalysis(false);
+      // Auto-analizar archivo cuando se selecciona
+      analyzeFile(file);
+    }
+  };
+
+  const analyzeFile = useCallback(async (file: File) => {
+    if (!file) return;
+
+    setIsAnalyzing(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch('/api/ai-analysis/analyze-file', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        setAnalysisData(result.analysis);
+        setShowAnalysis(true);
+
+        // Auto-seleccionar el formato más recomendado
+        if (result.analysis.recommendations.formats.length > 0) {
+          const topRecommendation = result.analysis.recommendations.formats[0];
+          setTargetFormat(topRecommendation.format);
+        }
+      } else {
+        console.error('Error analyzing file:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error analyzing file:', error);
+    } finally {
+      setIsAnalyzing(false);
+    }
+  }, []);
+
+  const handleAnalyze = () => {
+    if (selectedFile) {
+      analyzeFile(selectedFile);
     }
   };
 
@@ -20,11 +102,14 @@ const ConversorInteligente = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto p-6 space-y-6">
       <div className="bg-gradient-to-br from-white via-gray-50 to-emerald-50/30 rounded-xl shadow-lg border border-gray-100 p-8">
-        <h2 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent mb-8 text-center">
-          Conversor Inteligente
+        <h2 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent mb-2 text-center">
+          Conversor Inteligente con IA
         </h2>
+        <p className="text-center text-gray-600 mb-8">
+          Análisis automático de contenido y recomendaciones personalizadas
+        </p>
         
         <div className="grid md:grid-cols-2 gap-8">
           {/* Sección de archivo origen */}
@@ -123,4 +208,4 @@ const ConversorInteligente = () => {
   );
 };
 
-export default ConversorInteligente;
+export default OldConversorInteligente;

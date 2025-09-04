@@ -53,7 +53,18 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   }, [activeTab]);
 
   return (
-    <div className="min-h-screen bg-slate-900 relative">{/* Fondo simple y uniforme */}
+    <div
+      className="min-h-screen relative"
+      style={{
+        backgroundImage: 'url(/images/backgrounds/bd4.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed'
+      }}
+    >
+      {/* Overlay más opaco para mejor contraste */}
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-md" />
 
       {/* Sidebar */}
       <Sidebar

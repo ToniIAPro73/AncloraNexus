@@ -454,7 +454,7 @@ export const SafeConversor: React.FC = () => {
       </div>
 
         {/* Debug Info */}
-        <div className="bg-green-500/10 dark:bg-green-500/10 border border-green-500/30 dark:border-green-500/30 rounded-lg p-4">
+        <div className="bg-green-500/30 dark:bg-green-500/30 border border-green-500/30 dark:border-green-500/30 rounded-lg p-4">
           <h3 className="text-green-600 dark:text-green-400 font-semibold mb-2">✅ Conversor Seguro - 3 Pasos</h3>
           <p className="text-green-700 dark:text-green-300 text-sm">
             Paso: {currentStep} | Archivo: {selectedFile?.name || 'Ninguno'} | Formato: {targetFormat || 'No seleccionado'} | 

@@ -19,6 +19,7 @@ from src.routes.auth import auth_bp
 from src.routes.conversion import conversion_bp
 from src.routes.credits import credits_bp
 from src.routes.user import user_bp
+from src.routes.ai_analysis import ai_analysis_bp
 from src.ws import socketio
 
 # Cargar variables de entorno tanto desde la raÃ­z del proyecto como desde backend/
@@ -84,6 +85,7 @@ app.register_blueprint(user_bp, url_prefix="/api")
 app.register_blueprint(auth_bp, url_prefix="/api/auth")
 app.register_blueprint(conversion_bp, url_prefix="/api/conversion")
 app.register_blueprint(credits_bp, url_prefix="/api/credits")
+app.register_blueprint(ai_analysis_bp, url_prefix="/api/ai-analysis")
 
 # Crear tablas de base de datos
 with app.app_context():
