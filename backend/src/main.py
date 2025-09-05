@@ -39,7 +39,7 @@ log_level = os.environ.get("LOG_LEVEL", "INFO").upper()
 logging.basicConfig(level=getattr(logging, log_level, logging.INFO))
 logging.getLogger("werkzeug").setLevel(logging.WARNING)
 metrics = PrometheusMetrics(app)
-metrics.info("app_info", "Anclora Nexus API", version="2.0.0")
+metrics.info("app_info", app.config.get("APP_NAME", "Anclora Nexus API"), version=app.config.get("APP_VERSION", "2.0.0"))
 
 # Validar configuraciÃ³n crÃ­tica
 if not app.config.get("SECRET_KEY") or not app.config.get("JWT_SECRET_KEY"):
@@ -48,14 +48,11 @@ if not app.config.get("SECRET_KEY") or not app.config.get("JWT_SECRET_KEY"):
 # ConfiguraciÃ³n de CORS
 # Usar la configuración centralizada de CORS
 CORS_ORIGINS = app.config.get("ALLOWED_ORIGINS", [
-    "http://localhost:3001",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
-    "http://localhost:5174",
-    "http://localhost:5175"
 ])
-CORS_METHODS = ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
-CORS_HEADERS = ["Content-Type", "Authorization", "Accept", "X-Requested-With"]
+CORS_METHODS = app.config.get("CORS_METHODS", ["GET", "POST", "PUT", "DELETE", "OPTIONS"])
+CORS_HEADERS = app.config.get("CORS_HEADERS", ["Content-Type", "Authorization", "Accept", "X-Requested-With"])
 
 CORS(
     app,
@@ -121,48 +118,38 @@ def missing_token_callback(error):
 @app.route("/api/health", methods=["GET"])
 def health_check():
     """Endpoint de verificaciÃ³n de salud del API"""
-    return (
-        jsonify(
-            {
-                "status": "healthy",
-                "service": "Anclora Nexus API",
-                "version": "1.0.0",
-                "message": "API funcionando correctamente",
-            }
-        ),
-        200,
-    )
+    return jsonify({
+        "status": "healthy",
+        "service": app.config.get("APP_NAME", "Anclora Nexus API"),
+        "version": app.config.get("APP_VERSION", "2.0.0"),
+        "message": "API funcionando correctamente",
+    }), 200
 
 
 # Ruta de Información del API
 @app.route("/api/info", methods=["GET"])
 def api_info():
     """Información general del API"""
-    return (
-        jsonify(
-            {
-                "name": "Anclora Nexus API",
-                "version": "1.0.0",
-                "description": "API para Conversión inteligente de archivos",
-                "endpoints": {
-                    "auth": "/api/auth",
-                    "conversions": "/api/conversion",
-                    "credits": "/api/credits",
-                    "users": "/api/users",  # CRUD de usuarios
-                    "health": "/api/health",
-                    "info": "/api/info"
-                },
-                "features": [
-                    "Autenticación JWT",
-                    "Sistema de créditos",
-                    "Conversión de archivos",
-                    "Gestión de usuarios",
-                    "Historial de conversiones",
-                ],
-            }
-        ),
-        200,
-    )
+    return jsonify({
+        "name": app.config.get("APP_NAME", "Anclora Nexus API"),
+        "version": app.config.get("APP_VERSION", "2.0.0"),
+        "description": "API para Conversión inteligente de archivos",
+        "endpoints": {
+            "auth": "/api/auth",
+            "conversions": "/api/conversion",
+            "credits": "/api/credits",
+            "users": "/api/users",  # CRUD de usuarios
+            "health": "/api/health",
+            "info": "/api/info",
+        },
+        "features": [
+            "Autenticación JWT",
+            "Sistema de créditos",
+            "Conversión de archivos",
+            "Gestión de usuarios",
+            "Historial de conversiones",
+        ],
+    }), 200
 
 
 # Servir archivos estÃ¡ticos del frontend
