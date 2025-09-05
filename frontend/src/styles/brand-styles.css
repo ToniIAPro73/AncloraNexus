@@ -127,6 +127,9 @@ html[data-theme="dark"] {
 html[data-theme="light"] .app-overlay { background: rgba(255, 255, 255, 0.60); }
 html[data-theme="dark"] .app-overlay { background: rgba(0, 0, 0, 0.70); }
 
+/* Hide legacy theme selector dropdown; keep only quick toggle */
+.theme-selector { display: none !important; }
+
 /* Media query para móviles */
 @media (max-width: 768px) {
   :root {
