@@ -99,6 +99,34 @@ html[data-theme="dark"] {
   --card-border: #313848;
 }
 
+/* App-level helpers to apply theme variables */
+.app-header {
+  background: var(--header-bg);
+  color: var(--header-text);
+  border-bottom: 1px solid var(--header-border);
+}
+
+.app-sidebar {
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  border-right: 1px solid var(--sidebar-border);
+}
+
+.app-main {
+  background: var(--main-bg);
+  color: var(--main-text);
+}
+
+.app-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+}
+
+/* Overlay adapts with theme */
+.app-overlay { background: rgba(0, 0, 0, 0.70); }
+html[data-theme="light"] .app-overlay { background: rgba(255, 255, 255, 0.60); }
+html[data-theme="dark"] .app-overlay { background: rgba(0, 0, 0, 0.70); }
+
 /* Media query para móviles */
 @media (max-width: 768px) {
   :root {
