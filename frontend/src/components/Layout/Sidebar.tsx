@@ -120,13 +120,13 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
   ];
 
   return (
-    <div className={`fixed top-0 left-0 h-full app-sidebar backdrop-blur-md shadow-xl z-40 transition-all duration-300 ease-in-out flex flex-col min-h-0 overflow-hidden ${
+    <div className={`fixed top-0 left-0 h-screen app-sidebar backdrop-blur-md shadow-xl z-40 transition-all duration-300 ease-in-out flex flex-col min-h-0 overflow-hidden ${
       isCollapsed ? 'w-0 -translate-x-full opacity-0 pointer-events-none' : 'w-[var(--sidebar-width)] translate-x-0 opacity-100'
     }`}>
       {!isCollapsed && (
         <>
           {/* Logo y título */}
-          <div className="flex items-center justify-between p-4 border-b border-slate-700/50">
+          <div className="flex-shrink-0 flex items-center justify-between p-4 border-b border-slate-700/50">
             <div className="flex items-center">
               <img
                 src="/images/logos/Anclora Nexus fondo transparente.png"
@@ -144,7 +144,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
             </button>
           </div>
       
-      <nav className="p-4 flex-1 min-h-0 overflow-y-auto">
+      <nav className="p-4 flex-1 min-h-0 overflow-y-auto overscroll-contain pr-1">
         <ul className="space-y-1.5">
           {menuItems.map((item, index) => (
             <li key={item.path}>
@@ -216,7 +216,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
       
       {/* Actividad del usuario - solo visible cuando no está colapsado */}
       {!isCollapsed && (
-        <div className="mt-auto p-4 border-t border-slate-700/50 bg-gradient-to-t from-slate-900 to-slate-900/0">
+        <div className="flex-shrink-0 mt-auto p-4 border-t border-slate-700/50 bg-gradient-to-t from-slate-900 to-slate-900/0">
           <div className="space-y-3">
             <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Actividad Hoy</p>
             
