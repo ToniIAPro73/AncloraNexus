@@ -90,6 +90,7 @@ temp_ci_fix.txt
 
 # Build artifacts
 frontend/dist/
+frontend/dist/**
 
 # Cache directories
 .idx/
