@@ -335,7 +335,7 @@ def get_credit_packages():
             'price': 39.99,
             'price_per_credit': 0.08,
             'popular': False,
-            'description': 'Para equipos pequeÃ±os'
+            'description': 'Para equipos pequeños'
         },
         {
             'credits': 1000,
@@ -350,6 +350,7 @@ def get_credit_packages():
         'packages': packages,
         'currency': 'EUR'
     }), 200
+
 
 
 
