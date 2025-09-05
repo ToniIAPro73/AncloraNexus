@@ -63,8 +63,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
         backgroundAttachment: 'fixed'
       }}
     >
-      {/* Overlay más opaco para mejor contraste */}
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-md" />
+      {/* Overlay ajustado al tema para mejor contraste */}
+      <div className="absolute inset-0 app-overlay backdrop-blur-md" />
 
       {/* Sidebar */}
       <Sidebar
@@ -85,7 +85,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
       {/* Capa negra en mÃ³vil al abrir menÃº */}
       {isMobile && !sidebarCollapsed && (
         <div
-          className="fixed inset-0 bg-black/70 z-30 backdrop-blur-sm"
+          className="fixed inset-0 app-overlay z-30 backdrop-blur-sm"
           onClick={() => setSidebarCollapsed(true)}
         />
       )}
@@ -121,4 +121,5 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
     </div>
   );
 };
+
 

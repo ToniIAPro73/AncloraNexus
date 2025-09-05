@@ -72,7 +72,7 @@ export const Header: React.FC<HeaderProps> = ({
     <header
       role="banner"
       aria-label="Header principal"
-      className="fixed top-0 left-0 right-0 h-16 bg-slate-800/90 backdrop-blur-md shadow-xl z-20 border-b border-slate-700/50"
+      className="fixed top-0 left-0 right-0 h-16 app-header backdrop-blur-md shadow-xl z-20 border-b"
     >
       <div className="flex items-center justify-between h-full px-4">
         {/* Botón menú y título de la sección */}
