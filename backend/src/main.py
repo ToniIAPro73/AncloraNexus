@@ -109,12 +109,12 @@ def expired_token_callback(jwt_header, jwt_payload):
 
 @jwt.invalid_token_loader
 def invalid_token_callback(error):
-    return jsonify({"error": "Token invÃ¡lido"}), 401
+    return jsonify({"error": "Token inválido"}), 401
 
 
 @jwt.unauthorized_loader
 def missing_token_callback(error):
-    return jsonify({"error": "Token de autorizaciÃ³n requerido"}), 401
+    return jsonify({"error": "Token de autorización requerido"}), 401
 
 
 # Ruta de salud del API
@@ -134,16 +134,16 @@ def health_check():
     )
 
 
-# Ruta de informaciÃ³n del API
+# Ruta de Información del API
 @app.route("/api/info", methods=["GET"])
 def api_info():
-    """InformaciÃ³n general del API"""
+    """Información general del API"""
     return (
         jsonify(
             {
                 "name": "Anclora Nexus API",
                 "version": "1.0.0",
-                "description": "API para conversiÃ³n inteligente de archivos",
+                "description": "API para Conversión inteligente de archivos",
                 "endpoints": {
                     "auth": "/api/auth",
                     "conversions": "/api/conversion",
@@ -151,10 +151,10 @@ def api_info():
                     "users": "/api/users",
                 },
                 "features": [
-                    "AutenticaciÃ³n JWT",
-                    "Sistema de crÃ©ditos",
-                    "ConversiÃ³n de archivos",
-                    "GestiÃ³n de usuarios",
+                    "Autenticación JWT",
+                    "Sistema de créditos",
+                    "Conversión de archivos",
+                    "Gestión de usuarios",
                     "Historial de conversiones",
                 ],
             }
@@ -204,15 +204,16 @@ def internal_error(error):
 
 @app.errorhandler(400)
 def bad_request(error):
-    return jsonify({"error": "Solicitud invÃ¡lida"}), 400
+    return jsonify({"error": "Solicitud inválida"}), 400
 
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
     print("Iniciando Anclora Nexus API...")
     print(f"API disponible en: http://localhost:{port}/api")
-    print(f"InformaciÃ³n del API: http://localhost:{port}/api/info")
+    print(f"Información del API: http://localhost:{port}/api/info")
     print(f"VerificaciÃ³n de salud: http://localhost:{port}/api/health")
     print("=" * 50)
     app.run(host="0.0.0.0", port=port, debug=True)
+
 

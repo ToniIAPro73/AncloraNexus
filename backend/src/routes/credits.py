@@ -110,7 +110,7 @@ def purchase_credits():
             user_id=user.id,
             amount=amount,
             transaction_type='purchase',
-            description=f'Compra de {amount} crÃ©ditos por â‚¬{credit_packages[amount]}'
+            description=f'Compra de {amount} créditos por €{credit_packages[amount]}'
         )
         
         db.session.add(transaction)
@@ -223,7 +223,7 @@ def upgrade_plan():
                 user_id=user.id,
                 amount=credits_to_add,
                 transaction_type='bonus',
-                description=f'Upgrade de plan {old_plan} â†’ {new_plan}'
+                description=f'Upgrade de plan {old_plan} → {new_plan}'
             )
             db.session.add(transaction)
         
@@ -350,5 +350,6 @@ def get_credit_packages():
         'packages': packages,
         'currency': 'EUR'
     }), 200
+
 
 
