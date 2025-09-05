@@ -56,7 +56,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
     <div
       className="min-h-screen relative"
       style={{
-        backgroundImage: 'url(/images/backgrounds/bg4.png)',
+        backgroundImage: 'url(/images/backgrounds/bg15.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
