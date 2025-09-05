@@ -97,21 +97,7 @@ export const Header: React.FC<HeaderProps> = ({
               <Sun size={18} className="text-slate-300" />
             )}
           </button>
-
-          {/* Selector de tema (incluye opción de sistema) */}
-          <div className="relative theme-selector">
-            <button
-              onClick={() => setThemeMenuOpen(!themeMenuOpen)}
-              className="p-2 rounded-full bg-slate-800 border border-slate-700/50 hover:bg-slate-700 transition-colors"
-              aria-label="Cambiar tema"
-            >
-              {theme === 'light' && <Sun size={18} className="text-slate-300" />}
-              {theme === 'dark' && <Moon size={18} className="text-slate-300" />}
-              {theme === 'auto' && <Monitor size={18} className="text-slate-300" />}
-            </button>
-            
-            {/* Tema desplegable eliminado */}
-          </div>
+          {/* Selector de tema eliminado */}
 
           {/* Notificaciones */}
           <div className="relative">
