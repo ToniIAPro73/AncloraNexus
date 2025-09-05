@@ -121,7 +121,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
 
   return (
     <div className={`fixed top-0 left-0 h-full bg-slate-800/95 backdrop-blur-md border-r border-slate-700/50 shadow-xl z-40 transition-all duration-300 ease-in-out ${
-      isCollapsed ? 'w-0 -translate-x-full opacity-0 pointer-events-none' : 'w-72 translate-x-0 opacity-100'
+      isCollapsed ? 'w-0 -translate-x-full opacity-0 pointer-events-none' : 'w-[var(--sidebar-width)] translate-x-0 opacity-100'
     }`}>
       {!isCollapsed && (
         <>

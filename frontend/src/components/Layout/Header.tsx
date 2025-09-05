@@ -26,16 +26,22 @@ export const Header: React.FC<HeaderProps> = ({
   const toggleNotifications = () => setNotificationsOpen(!notificationsOpen);
 
   const applyTheme = (newTheme: 'light' | 'dark' | 'auto') => {
-    let effectiveTheme = newTheme;
+    let effectiveTheme: 'light' | 'dark' = 'light';
     if (newTheme === 'auto') {
       effectiveTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    
-    if (effectiveTheme === 'dark') {
-      document.documentElement.classList.add('dark');
     } else {
-      document.documentElement.classList.remove('dark');
+      effectiveTheme = newTheme;
     }
+    document.documentElement.setAttribute('data-theme', effectiveTheme);
+  };
+
+  const toggleLightDark = () => {
+    // Determinar el tema efectivo actual a partir del atributo
+    const current = (document.documentElement.getAttribute('data-theme') as 'light' | 'dark') || 'light';
+    const next: 'light' | 'dark' = current === 'light' ? 'dark' : 'light';
+    setTheme(next);
+    localStorage.setItem('theme', next);
+    applyTheme(next);
   };
 
   const handleThemeChange = (newTheme: 'light' | 'dark' | 'auto') => {
@@ -46,7 +52,7 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | 'auto' || 'dark';
+    const savedTheme = (localStorage.getItem('theme') as 'light' | 'dark' | 'auto') || 'light';
     setTheme(savedTheme);
     applyTheme(savedTheme);
 
@@ -98,7 +104,21 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="text-sm font-medium">{user?.credits || 100} créditos</span>
           </div>
 
-          {/* Selector de tema */}
+          {/* Toggle rápido de tema */}
+          <button
+            onClick={toggleLightDark}
+            className="p-2 rounded-full bg-slate-800 border border-slate-700/50 hover:bg-slate-700 transition-colors"
+            aria-label="Alternar tema claro/oscuro"
+            title="Alternar tema claro/oscuro"
+          >
+            {((document?.documentElement?.getAttribute('data-theme') || 'light') === 'dark') ? (
+              <Moon size={18} className="text-slate-300" />
+            ) : (
+              <Sun size={18} className="text-slate-300" />
+            )}
+          </button>
+
+          {/* Selector de tema (incluye opción de sistema) */}
           <div className="relative theme-selector">
             <button
               onClick={() => setThemeMenuOpen(!themeMenuOpen)}

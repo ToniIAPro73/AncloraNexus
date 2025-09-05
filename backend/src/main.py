@@ -72,10 +72,7 @@ socketio.init_app(app, cors_allowed_origins=CORS_ORIGINS)
 jwt = JWTManager(app)
 
 # ConfiguraciÃ³n de base de datos
-app.config["SQLALCHEMY_DATABASE_URI"] = (
-    f"sqlite:///{os.path.join(os.path.dirname(__file__), 'models/database', 'app.db')}"
-)
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+# Configuración de base de datos gestionada por src.config.Config
 
 # Inicializar base de datos
 db.init_app(app)
