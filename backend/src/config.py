@@ -39,8 +39,18 @@ ALLOWED_EXTENSIONS = {
 }
 
 # === FLASK CONFIGURATION ===
+def _parse_origins(origins: str) -> list:
+    """Parse comma-separated origins, strip spaces and ignore '*' for safety."""
+    parts = [o.strip() for o in (origins or '').split(',')]
+    return [o for o in parts if o and o != '*']
+
+
 class Config:
     """Base configuration class"""
+    
+    # App
+    APP_NAME = 'Anclora Nexus API'
+    APP_VERSION = os.environ.get('APP_VERSION', '2.0.0')
     
     # Security
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'dev-secret-key'
@@ -52,7 +62,11 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     # CORS
-    ALLOWED_ORIGINS = os.environ.get('ALLOWED_ORIGINS', 'http://localhost:5173').split(',')
+    ALLOWED_ORIGINS = _parse_origins(
+        os.environ.get('ALLOWED_ORIGINS', 'http://localhost:5173,http://127.0.0.1:5173')
+    )
+    CORS_METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+    CORS_HEADERS = ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With']
     
     # File uploads
     MAX_CONTENT_LENGTH = 50 * 1024 * 1024  # 50MB max file size

@@ -80,7 +80,7 @@ def purchase_credits():
         data = request.get_json()
         
         if not data.get('amount') or not isinstance(data['amount'], int) or data['amount'] <= 0:
-            return jsonify({'error': 'Cantidad de crÃ©ditos invÃ¡lida'}), 400
+            return jsonify({'error': 'Cantidad de créditos inválida'}), 400
         
         amount = data['amount']
         
@@ -95,7 +95,7 @@ def purchase_credits():
         
         if amount not in credit_packages:
             return jsonify({
-                'error': 'Paquete de crÃ©ditos no disponible',
+                'error': 'Paquete de créditos no disponible',
                 'available_packages': credit_packages
             }), 400
         
@@ -110,14 +110,14 @@ def purchase_credits():
             user_id=user.id,
             amount=amount,
             transaction_type='purchase',
-            description=f'Compra de {amount} crÃ©ditos por â‚¬{credit_packages[amount]}'
+            description=f'Compra de {amount} créditos por €{credit_packages[amount]}'
         )
         
         db.session.add(transaction)
         db.session.commit()
         
         return jsonify({
-            'message': f'Compra exitosa de {amount} crÃ©ditos',
+            'message': f'Compra exitosa de {amount} créditos',
             'credits_added': amount,
             'new_balance': user.credits,
             'transaction': transaction.to_dict()
@@ -151,7 +151,7 @@ def gift_credits():
         
         amount = data['amount']
         if not isinstance(amount, int) or amount <= 0:
-            return jsonify({'error': 'Cantidad invÃ¡lida'}), 400
+            return jsonify({'error': 'Cantidad inválida'}), 400
         
         # AÃ±adir crÃ©ditos al destinatario
         recipient.add_credits(amount)
@@ -168,7 +168,7 @@ def gift_credits():
         db.session.commit()
         
         return jsonify({
-            'message': f'Regalo de {amount} crÃ©ditos enviado exitosamente',
+            'message': f'Regalo de {amount} créditos enviado exitosamente',
             'recipient': recipient.email,
             'credits_gifted': amount,
             'recipient_new_balance': recipient.credits
@@ -195,7 +195,7 @@ def upgrade_plan():
         valid_plans = ['FREE', 'BASIC', 'PRO', 'ENTERPRISE']
         if new_plan not in valid_plans:
             return jsonify({
-                'error': 'Plan invÃ¡lido',
+                'error': 'Plan inválido',
                 'valid_plans': valid_plans
             }), 400
         
@@ -223,7 +223,7 @@ def upgrade_plan():
                 user_id=user.id,
                 amount=credits_to_add,
                 transaction_type='bonus',
-                description=f'Upgrade de plan {old_plan} â†’ {new_plan}'
+                description=f'Upgrade de plan {old_plan} → {new_plan}'
             )
             db.session.add(transaction)
         
@@ -335,7 +335,7 @@ def get_credit_packages():
             'price': 39.99,
             'price_per_credit': 0.08,
             'popular': False,
-            'description': 'Para equipos pequeÃ±os'
+            'description': 'Para equipos pequeños'
         },
         {
             'credits': 1000,
@@ -350,5 +350,8 @@ def get_credit_packages():
         'packages': packages,
         'currency': 'EUR'
     }), 200
+
+
+
 
 

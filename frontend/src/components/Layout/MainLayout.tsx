@@ -98,7 +98,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
         aria-label="Contenido principal"
         className={`
           pt-20 min-h-screen relative z-10 transition-all duration-300 ease-in-out
-          ${sidebarCollapsed ? 'ml-0' : 'ml-0 md:ml-72'}
+          ${sidebarCollapsed ? 'ml-0' : 'ml-0 md:ml-[var(--sidebar-width)]'}
           px-4 md:px-6 pb-16
         `}
       >
