@@ -148,7 +148,9 @@ def api_info():
                     "auth": "/api/auth",
                     "conversions": "/api/conversion",
                     "credits": "/api/credits",
-                    "users": "/api/users",
+                    "users": "/api/users",  # CRUD de usuarios
+                    "health": "/api/health",
+                    "info": "/api/info"
                 },
                 "features": [
                     "Autenticación JWT",
