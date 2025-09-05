@@ -19,20 +19,15 @@ export const Header: React.FC<HeaderProps> = ({
   const { user, logout } = useAuth();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
-  const [theme, setTheme] = useState<'light' | 'dark' | 'auto'>('dark');
-  const [themeMenuOpen, setThemeMenuOpen] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => (
+    window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  ));
 
   const toggleUserMenu = () => setUserMenuOpen(!userMenuOpen);
   const toggleNotifications = () => setNotificationsOpen(!notificationsOpen);
 
-  const applyTheme = (newTheme: 'light' | 'dark' | 'auto') => {
-    let effectiveTheme: 'light' | 'dark' = 'light';
-    if (newTheme === 'auto') {
-      effectiveTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    } else {
-      effectiveTheme = newTheme;
-    }
-    document.documentElement.setAttribute('data-theme', effectiveTheme);
+  const applyTheme = (newTheme: 'light' | 'dark') => {
+    document.documentElement.setAttribute('data-theme', newTheme);
   };
 
   const toggleLightDark = () => {
@@ -44,28 +39,13 @@ export const Header: React.FC<HeaderProps> = ({
     applyTheme(next);
   };
 
-  const handleThemeChange = (newTheme: 'light' | 'dark' | 'auto') => {
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-    applyTheme(newTheme);
-    setThemeMenuOpen(false);
-  };
+  // Eliminado menú de selección de tema; se mantiene sólo el toggle rápido
 
   useEffect(() => {
-    const savedTheme = (localStorage.getItem('theme') as 'light' | 'dark' | 'auto') || 'light';
-    setTheme(savedTheme);
-    applyTheme(savedTheme);
-
-    // Close theme menu when clicking outside
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Element;
-      if (!target.closest('.theme-selector') && !target.closest('.theme-menu')) {
-        setThemeMenuOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    const saved = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    const initial = saved ?? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    setTheme(initial);
+    applyTheme(initial);
   }, []);
 
   return (
@@ -130,31 +110,7 @@ export const Header: React.FC<HeaderProps> = ({
               {theme === 'auto' && <Monitor size={18} className="text-slate-300" />}
             </button>
             
-            {themeMenuOpen && (
-              <div className="absolute right-0 mt-2 w-40 bg-slate-800 rounded-lg shadow-lg border border-slate-700/50 z-50 theme-menu">
-                <button
-                  onClick={() => handleThemeChange('light')}
-                  className="w-full px-4 py-2 text-left flex items-center space-x-2 hover:bg-slate-700/50 text-slate-200 rounded-t-lg"
-                >
-                  <Sun className="w-4 h-4" />
-                  <span>Claro</span>
-                </button>
-                <button
-                  onClick={() => handleThemeChange('dark')}
-                  className="w-full px-4 py-2 text-left flex items-center space-x-2 hover:bg-slate-700/50 text-slate-200"
-                >
-                  <Moon className="w-4 h-4" />
-                  <span>Oscuro</span>
-                </button>
-                <button
-                  onClick={() => handleThemeChange('auto')}
-                  className="w-full px-4 py-2 text-left flex items-center space-x-2 hover:bg-slate-700/50 text-slate-200 rounded-b-lg"
-                >
-                  <Monitor className="w-4 h-4" />
-                  <span>Sistema</span>
-                </button>
-              </div>
-            )}
+            {/* Tema desplegable eliminado */}
           </div>
 
           {/* Notificaciones */}
