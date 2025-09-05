@@ -120,7 +120,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
   ];
 
   return (
-    <div className={`fixed top-0 left-0 h-full app-sidebar backdrop-blur-md shadow-xl z-40 transition-all duration-300 ease-in-out flex flex-col ${
+    <div className={`fixed top-0 left-0 h-full app-sidebar backdrop-blur-md shadow-xl z-40 transition-all duration-300 ease-in-out flex flex-col min-h-0 overflow-hidden ${
       isCollapsed ? 'w-0 -translate-x-full opacity-0 pointer-events-none' : 'w-[var(--sidebar-width)] translate-x-0 opacity-100'
     }`}>
       {!isCollapsed && (
@@ -144,8 +144,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
             </button>
           </div>
       
-      <nav className="p-4 flex-1 overflow-y-auto">
-        <ul className="space-y-2">
+      <nav className="p-4 flex-1 min-h-0 overflow-y-auto">
+        <ul className="space-y-1.5">
           {menuItems.map((item, index) => (
             <li key={item.path}>
               <button
@@ -153,7 +153,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
                 onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => handleKeyDown(e, index)}
                 onClick={() => setActiveTab(item.label)}
                 className={`
-                  flex items-center w-full px-3 py-2.5 rounded-lg group transition-all duration-300
+                  flex items-center w-full px-3 py-2 rounded-lg group transition-all duration-300
                   ${activeTab === item.label 
                     ? 'bg-gradient-to-r from-primary/90 to-secondary/90 text-white shadow-lg shadow-primary/20' 
                     : 'hover:bg-slate-700/50 text-slate-300 hover:text-white'}
@@ -168,7 +168,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
                     }
                     p-1.5 rounded-md transition-colors
                   `}>
-                    <item.icon size={16} />
+                    <item.icon size={15} />
                   </div>
                   
                   {!isCollapsed && (
