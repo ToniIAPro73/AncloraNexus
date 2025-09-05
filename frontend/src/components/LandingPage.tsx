@@ -313,7 +313,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
       <section id="inicio" className="relative pt-16 min-h-screen flex items-center justify-center overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/images/backgrounds/bg15.png)' }}
+          style={{ backgroundImage: 'url(/images/backgrounds/bg4.png)' }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/60 to-teal-900/60 dark:from-emerald-900/80 dark:to-teal-900/80" />
         
