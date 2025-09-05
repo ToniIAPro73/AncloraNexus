@@ -3,9 +3,14 @@
 
 /* frontend/src/styles/variables.css */
 
+/* Tipografía base fluida para toda la app */
+html {
+  font-size: clamp(14px, 1.05vw, 16px);
+}
+
 :root {
   /* Layout */
-  --sidebar-width: 260px;
+  --sidebar-width: clamp(220px, 18vw, 280px);
   /* Colores primarios */
   --color-primary: #006EE6;
   --color-secondary: #00B8D9;
@@ -110,6 +115,8 @@ html[data-theme="dark"] {
   background: var(--sidebar-bg);
   color: var(--sidebar-text);
   border-right: 1px solid var(--sidebar-border);
+  /* Tamaño de fuente del sidebar ligeramente fluido */
+  font-size: clamp(0.95rem, 0.95vw, 1.05rem);
 }
 
 .app-main {
