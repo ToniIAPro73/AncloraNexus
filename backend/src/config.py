@@ -30,6 +30,8 @@ else:
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 BACKUP_FOLDER = BACKEND_ROOT / 'backups'
+DATA_DIR = BACKEND_ROOT / '.data'
+os.makedirs(DATA_DIR, exist_ok=True)
 
 # === ALLOWED FILE EXTENSIONS ===
 ALLOWED_EXTENSIONS = {
@@ -58,7 +60,9 @@ class Config:
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(days=7)
     
     # Database
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///anclora.db'
+    _db_path = (DATA_DIR / 'anclora.db').resolve()
+    _db_uri_default = f"sqlite:///{str(_db_path).replace('\\\\','/').replace('\\','/')}"
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or _db_uri_default
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     # CORS
