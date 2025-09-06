@@ -5,7 +5,7 @@ import AppPage from '../pages/app';
 type AppView = 'landing' | 'app';
 
 const MainApp: React.FC = () => {
-  const [currentView, setCurrentView] = useState<AppView>('landing');
+  const [currentView, setCurrentView] = useState<AppView>('app');
 
   const handleEnterApp = () => {
     setCurrentView('app');

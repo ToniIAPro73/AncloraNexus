@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Header } from './components/Header';
 import { AdvancedFeaturesWithNotifications } from './components/AdvancedFeaturesWithNotifications';
-import { NewConversorInteligente } from './components/NewConversorInteligente';
+import { SafeConversor } from './components/SafeConversor';
 import { ToastProvider } from './components/ui';
 import { useAuth } from './hooks/useAuth';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -36,7 +36,7 @@ function App() {
                       <p className="mb-8 text-muted-foreground">
                         Bienvenido a la plataforma de conversión de archivos más avanzada. Utiliza nuestras herramientas para convertir tus archivos con precisión y eficiencia.
                       </p>
-                      <NewConversorInteligente />
+                      <SafeConversor />
                     </>
                   }
                 />
