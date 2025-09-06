@@ -45,7 +45,7 @@ beautifulsoup4==4.13.5
 # === AI CONTENT ANALYSIS ===
 # Bibliotecas para análisis inteligente de contenido
 python-magic==0.4.27
-python-magic-bin==0.4.14  # Para Windows
+# python-magic-bin solo para Windows local, no necesario en CI/CD
 pandas==2.2.3
 openpyxl==3.1.5  # Para archivos Excel
 # XML parsing ya incluido en Python estándar
