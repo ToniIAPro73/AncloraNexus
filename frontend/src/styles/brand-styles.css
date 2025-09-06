@@ -11,6 +11,13 @@ html {
 :root {
   /* Layout */
   --sidebar-width: clamp(220px, 18vw, 280px);
+
+  /* Brand palette */
+  --brand-blue: #23436B;
+  --brand-cyan: #2EAFC4;
+  --brand-amber: #FFC979;
+  --gradient-brand: linear-gradient(120deg, var(--brand-blue), var(--brand-cyan));
+  --gradient-brand-warm: linear-gradient(90deg, var(--brand-cyan), var(--brand-amber));
   /* Colores primarios */
   --color-primary: #006EE6;
   --color-secondary: #00B8D9;
@@ -136,6 +143,51 @@ html[data-theme="dark"] .app-overlay { background: rgba(0, 0, 0, 0.70); }
 
 /* Hide legacy theme selector dropdown; keep only quick toggle */
 .theme-selector { display: none !important; }
+
+/* Brand helpers */
+.brand-gradient-text {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.btn-brand {
+  background-image: var(--gradient-brand);
+  color: #fff;
+}
+.btn-brand:hover {
+  background-image: var(--gradient-brand-warm);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(46, 175, 196, 0.25);
+}
+
+/* Button accessibility and motion */
+.btn:focus-visible {
+  outline: 2px solid var(--brand-cyan);
+  outline-offset: 2px;
+}
+.btn:active {
+  transform: translateY(0);
+  filter: brightness(0.98);
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none !important; transform: none !important; }
+}
+
+.bg-primary { background-color: var(--color-primary) !important; }
+.bg-secondary { background-color: var(--color-secondary) !important; }
+
+.card-brand {
+  border: 1px solid rgba(35, 67, 107, 0.3);
+}
+.card-brand:hover {
+  border-color: rgba(46, 175, 196, 0.35);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+.card-brand:focus-within {
+  box-shadow: 0 0 0 2px rgba(46, 175, 196, 0.35);
+}
 
 /* Media query para móviles */
 @media (max-width: 768px) {

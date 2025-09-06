@@ -8,6 +8,7 @@ export * from './Dropdown';
 export * from './FileUpload';
 export * from './Modal';
 export * from './Progress';
+export * from './CircularProgress';
 export * from './Tabs';
 export * from './Toast';
 export * from './Tooltip';
