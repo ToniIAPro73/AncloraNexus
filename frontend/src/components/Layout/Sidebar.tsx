@@ -120,13 +120,13 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
   ];
 
   return (
-    <div className={`fixed top-0 left-0 h-full bg-slate-800 border-r border-slate-700/50 z-40 transition-all duration-300 ease-in-out ${
-      isCollapsed ? 'w-0 -translate-x-full opacity-0 pointer-events-none' : 'w-72 translate-x-0 opacity-100'
+    <div className={`fixed top-0 left-0 h-screen app-sidebar backdrop-blur-md shadow-xl z-40 transition-all duration-300 ease-in-out flex flex-col min-h-0 overflow-hidden ${
+      isCollapsed ? 'w-0 -translate-x-full opacity-0 pointer-events-none' : 'w-[var(--sidebar-width)] translate-x-0 opacity-100'
     }`}>
       {!isCollapsed && (
         <>
           {/* Logo y título */}
-          <div className="flex items-center justify-between p-4 border-b border-slate-700/50">
+          <div className="flex-shrink-0 flex items-center justify-between p-4 border-b border-slate-700/50">
             <div className="flex items-center">
               <img
                 src="/images/logos/Anclora Nexus fondo transparente.png"
@@ -144,8 +144,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
             </button>
           </div>
       
-      <nav className="p-4">
-        <ul className="space-y-2">
+      <nav className="p-4 flex-1 min-h-0 overflow-y-auto overscroll-contain pr-1">
+        <ul className="space-y-1.5">
           {menuItems.map((item, index) => (
             <li key={item.path}>
               <button
@@ -153,7 +153,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
                 onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => handleKeyDown(e, index)}
                 onClick={() => setActiveTab(item.label)}
                 className={`
-                  flex items-center w-full px-3 py-2.5 rounded-lg group transition-all duration-300
+                  flex items-center w-full px-3 py-2 rounded-lg group transition-all duration-300
                   ${activeTab === item.label 
                     ? 'bg-gradient-to-r from-primary/90 to-secondary/90 text-white shadow-lg shadow-primary/20' 
                     : 'hover:bg-slate-700/50 text-slate-300 hover:text-white'}
@@ -168,7 +168,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
                     }
                     p-1.5 rounded-md transition-colors
                   `}>
-                    <item.icon size={16} />
+                    <item.icon size={15} />
                   </div>
                   
                   {!isCollapsed && (
@@ -216,7 +216,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isCollapsed,
       
       {/* Actividad del usuario - solo visible cuando no está colapsado */}
       {!isCollapsed && (
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-700/50 bg-gradient-to-t from-slate-900 to-slate-900/0">
+        <div className="flex-shrink-0 mt-auto p-4 border-t border-slate-700/50 bg-gradient-to-t from-slate-900 to-slate-900/0">
           <div className="space-y-3">
             <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Actividad Hoy</p>
             

@@ -42,9 +42,13 @@ playwright==1.49.0
 pdfkit==1.0.0
 beautifulsoup4==4.13.5
 
-# === AI FEATURES (Optional) ===
-# Descomenta para habilitar funciones de IA
-# google-generativeai==0.8.3
+# === AI CONTENT ANALYSIS ===
+# Bibliotecas para análisis inteligente de contenido
+python-magic==0.4.27
+# python-magic-bin solo para Windows local, no necesario en CI/CD
+pandas==2.2.3
+openpyxl==3.1.5  # Para archivos Excel
+# XML parsing ya incluido en Python estándar
 
 # === ENVIRONMENT & CONFIG ===
 python-dotenv==1.0.1

@@ -3,7 +3,21 @@
 
 /* frontend/src/styles/variables.css */
 
+/* Tipografía base fluida para toda la app */
+html {
+  font-size: clamp(14px, 1.05vw, 16px);
+}
+
 :root {
+  /* Layout */
+  --sidebar-width: clamp(220px, 18vw, 280px);
+
+  /* Brand palette */
+  --brand-blue: #23436B;
+  --brand-cyan: #2EAFC4;
+  --brand-amber: #FFC979;
+  --gradient-brand: linear-gradient(120deg, var(--brand-blue), var(--brand-cyan));
+  --gradient-brand-warm: linear-gradient(90deg, var(--brand-cyan), var(--brand-amber));
   /* Colores primarios */
   --color-primary: #006EE6;
   --color-secondary: #00B8D9;
@@ -63,6 +77,116 @@
   /* Fuente principal */
   --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   --font-heading: 'SF Pro Display', -apple-system, sans-serif;
+}
+
+/* Tema claro (valores de layout y superficie) */
+html[data-theme="light"] {
+  --sidebar-bg: #F6F7F9;
+  --sidebar-text: #162032;
+  --sidebar-active: #E3F2FD;
+  --sidebar-accent: #2EAFC4;
+  --sidebar-border: #DCE8F0;
+  --header-bg: #FFFFFF;
+  --header-text: #162032;
+  --header-border: #DCE8F0;
+  --main-bg: #FFFFFF;
+  --main-text: #162032;
+  --card-bg: #FFFFFF;
+  --card-border: #E1E8ED;
+}
+
+/* Tema oscuro */
+html[data-theme="dark"] {
+  --sidebar-bg: #202837;
+  --sidebar-text: #EDF0F7;
+  --sidebar-active: #2EAFC433; /* 8-digit hex with alpha */
+  --sidebar-accent: #2EAFC4;
+  --sidebar-border: #313848;
+  --header-bg: #202837;
+  --header-text: #F6F7F9;
+  --header-border: #313848;
+  --main-bg: #162032;
+  --main-text: #F6F7F9;
+  --card-bg: #263043;
+  --card-border: #313848;
+}
+
+/* App-level helpers to apply theme variables */
+.app-header {
+  background: var(--header-bg);
+  color: var(--header-text);
+  border-bottom: 1px solid var(--header-border);
+}
+
+.app-sidebar {
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  border-right: 1px solid var(--sidebar-border);
+  /* Tamaño de fuente del sidebar ligeramente fluido */
+  font-size: clamp(0.95rem, 0.95vw, 1.05rem);
+}
+
+.app-main {
+  background: var(--main-bg);
+  color: var(--main-text);
+}
+
+.app-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+}
+
+/* Overlay adapts with theme */
+.app-overlay { background: rgba(0, 0, 0, 0.70); }
+html[data-theme="light"] .app-overlay { background: rgba(255, 255, 255, 0.60); }
+html[data-theme="dark"] .app-overlay { background: rgba(0, 0, 0, 0.70); }
+
+/* Hide legacy theme selector dropdown; keep only quick toggle */
+.theme-selector { display: none !important; }
+
+/* Brand helpers */
+.brand-gradient-text {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.btn-brand {
+  background-image: var(--gradient-brand);
+  color: #fff;
+}
+.btn-brand:hover {
+  background-image: var(--gradient-brand-warm);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(46, 175, 196, 0.25);
+}
+
+/* Button accessibility and motion */
+.btn:focus-visible {
+  outline: 2px solid var(--brand-cyan);
+  outline-offset: 2px;
+}
+.btn:active {
+  transform: translateY(0);
+  filter: brightness(0.98);
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none !important; transform: none !important; }
+}
+
+.bg-primary { background-color: var(--color-primary) !important; }
+.bg-secondary { background-color: var(--color-secondary) !important; }
+
+.card-brand {
+  border: 1px solid rgba(35, 67, 107, 0.3);
+}
+.card-brand:hover {
+  border-color: rgba(46, 175, 196, 0.35);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+.card-brand:focus-within {
+  box-shadow: 0 0 0 2px rgba(46, 175, 196, 0.35);
 }
 
 /* Media query para móviles */
