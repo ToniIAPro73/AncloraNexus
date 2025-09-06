@@ -119,7 +119,7 @@ const AuthenticatedApp: React.FC<NewAppProps> = ({ onBackToLanding: _onBackToLan
         return <UserProfile />;
       
       default:
-        return <NewConversorInteligente />;
+        return <SafeConversor />;
     }
   };
 
