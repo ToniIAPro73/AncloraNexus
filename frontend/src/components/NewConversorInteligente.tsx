@@ -1,6 +1,6 @@
 // frontend/src/components/NewConversorInteligente.tsx
 import React, { useState, useCallback } from 'react';
-import { Card, CardHeader, CardTitle, CardContent, Badge, FileUpload, StepProgress, Progress } from './ui';
+import { Card, CardHeader, CardTitle, CardContent, Badge, FileUpload, Progress } from './ui';
 import {
   FileUp, FileBarChart, Settings, Download, ArrowRight, Check, Loader, Brain, Zap, Eye
 } from 'lucide-react';
@@ -294,17 +294,7 @@ export const NewConversorInteligente: React.FC = () => {
         </div>
       </div>
 
-      {/* Indicador de progreso */}
-      <div className="flex justify-center mb-8">
-        <div className="w-full max-w-xl">
-          <StepProgress
-            steps={4}
-            currentStep={currentStep}
-            labels={['Subir', 'Análisis IA', 'Configurar', 'Descargar']}
-            className="animate-in fade-in duration-500"
-          />
-        </div>
-      </div>
+
 
       {/* Tarjetas de proceso */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
