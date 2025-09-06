@@ -2,7 +2,8 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from './ui';
 import { FileUploader } from './FileUploader';
 import { FormatSelector } from './ui/FormatSelector';
-import { FileUp, Settings, Download, Info, Sun, Moon, Monitor } from 'lucide-react';
+import { FileUp, Settings, Download, Info } from 'lucide-react';
+import { CircularProgress } from './ui/CircularProgress';
 
 // ✅ NUEVO: Función para obtener formatos disponibles según el archivo de entrada
 const getAvailableFormats = (sourceFormat: string): string[] => {
@@ -220,7 +221,7 @@ export const SafeConversor: React.FC = () => {
   return (
     <div className="min-h-screen text-gray-900 dark:text-white transition-colors duration-300">
       {/* Main content */}
-      <div className="max-w-7xl mx-auto space-y-8 p-8 pt-8">
+      <div className="max-w-7xl mx-auto space-y-4 p-4 pt-4">
         {/* Title Section */}
         <div className="text-center space-y-4">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
@@ -235,7 +236,7 @@ export const SafeConversor: React.FC = () => {
         </div>
 
       {/* Steps */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 lg:gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 items-start">
         {/* Step 1: Upload & AI Optimizer */}
         <div className="lg:col-span-3">
           <Card>
@@ -469,3 +470,6 @@ export const SafeConversor: React.FC = () => {
     </div>
   );
 };
+
+
+
