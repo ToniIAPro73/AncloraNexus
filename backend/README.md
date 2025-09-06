@@ -10,29 +10,11 @@
 - `prometheus-flask-exporter` para mÃ©tricas
 
 ## InstalaciÃ³n
-
-### Para producción/CI/CD:
 ```bash
 cd backend
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
-
-### Para desarrollo local:
-```bash
-cd backend
-python -m pip install --upgrade pip
-pip install -r requirements-dev.txt
-```
-
-### Para testing:
-```bash
-cd backend
-python -m pip install --upgrade pip
-pip install -r requirements-test.txt
-```
-
-> **Nota:** `python-magic-bin` se instala automáticamente solo en Windows para desarrollo local. En Linux/macOS y CI/CD, se usa detección de tipos MIME nativa.
 
 ## Uso
 ```bash

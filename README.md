@@ -230,6 +230,3 @@ Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
 **¿Listo para reinventar tu contenido?** 🚀
 
 [def]: ../../issues
-
-## Documento de Mejora
-- Informe: [MEJORA_ANCLORA_NEXUS.md](./docs/MEJORA_ANCLORA_NEXUS.md)

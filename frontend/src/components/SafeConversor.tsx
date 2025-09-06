@@ -1,9 +1,8 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { Card, CardHeader, CardTitle, CardContent, Progress } from './ui';
+import React, { useState, useCallback, useEffect } from 'react';
+import { Card, CardHeader, CardTitle, CardContent } from './ui';
 import { FileUploader } from './FileUploader';
 import { FormatSelector } from './ui/FormatSelector';
-import { FileUp, Settings, Download, Info } from 'lucide-react';
-import { CircularProgress } from './ui/CircularProgress';
+import { FileUp, Settings, Download, Info, Sun, Moon, Monitor } from 'lucide-react';
 
 // ✅ NUEVO: Función para obtener formatos disponibles según el archivo de entrada
 const getAvailableFormats = (sourceFormat: string): string[] => {
@@ -50,11 +49,8 @@ export const SafeConversor: React.FC = () => {
   const [conversionAnalysis, setConversionAnalysis] = useState<any>(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [isDownloaded, setIsDownloaded] = useState(false);
-  // Progreso general del flujo (0-100) para el indicador circular
-  const [progress, setProgress] = useState(0);
   const [theme, setTheme] = useState<'light' | 'dark' | 'auto'>('dark');
   const [themeMenuOpen, setThemeMenuOpen] = useState(false);
-  const progressTimerRef = useRef<number | null>(null);
 
   // Determine if current theme is dark
   const isDark = theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
@@ -81,9 +77,7 @@ export const SafeConversor: React.FC = () => {
     if (newTheme === 'auto') {
       effectiveTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
-    // Alinear variables CSS basadas en data-theme con la clase dark
-    document.documentElement.setAttribute('data-theme', effectiveTheme);
-
+    
     if (effectiveTheme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
@@ -101,7 +95,6 @@ export const SafeConversor: React.FC = () => {
   const handleFileSelect = useCallback((file: File) => {
     setSelectedFile(file);
     setCurrentStep(2);
-    setProgress(25);
     
     // Simular análisis IA del archivo
     setIsAnalyzing(true);
@@ -127,32 +120,12 @@ export const SafeConversor: React.FC = () => {
       });
       setIsAnalyzing(false);
       setShowConfirmation(true);
-      setProgress(50);
     }, 1500);
   }, []);
 
   const handleConfirmConversion = useCallback(() => {
     setShowConfirmation(false);
     setCurrentStep(3); // Activar paso 3
-    // Simular avance suave del 50% al 100% en ~3s
-    const duration = 3000;
-    const start = Date.now();
-    if (progressTimerRef.current) {
-      window.clearInterval(progressTimerRef.current);
-    }
-    // Asegura mínimo 50% al iniciar la conversión
-    setProgress((prev) => (prev < 50 ? 50 : prev));
-    progressTimerRef.current = window.setInterval(() => {
-      const elapsed = Date.now() - start;
-      const pct = Math.min(100, Math.round(50 + (elapsed / duration) * 50));
-      setProgress(pct);
-      if (pct >= 100) {
-        if (progressTimerRef.current) {
-          window.clearInterval(progressTimerRef.current);
-          progressTimerRef.current = null;
-        }
-      }
-    }, 100);
     
     // Simular conversión (3 segundos)
     setTimeout(() => {
@@ -242,26 +215,16 @@ export const SafeConversor: React.FC = () => {
     setConversionAnalysis(null);
     setShowConfirmation(false);
     setIsDownloaded(false);
-    setProgress(0);
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      if (progressTimerRef.current) {
-        window.clearInterval(progressTimerRef.current);
-        progressTimerRef.current = null;
-      }
-    };
   }, []);
 
   return (
     <div className="min-h-screen text-gray-900 dark:text-white transition-colors duration-300">
       {/* Main content */}
-      <div className="max-w-7xl mx-auto space-y-3 p-3 pt-3">
+      <div className="max-w-7xl mx-auto space-y-8 p-8 pt-8">
         {/* Title Section */}
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-4">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
-            ANCLORA <span className="brand-gradient-text">NEXUS</span>
+            ANCLORA <span className="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-green-400">NEXUS</span>
           </h1>
           <p className="text-gray-600 dark:text-slate-300 text-lg">
             La inteligencia que conecta tus documentos
@@ -271,28 +234,12 @@ export const SafeConversor: React.FC = () => {
           </p>
         </div>
 
-      {/* Progreso visible: barra compacta en móviles, circular sticky en desktop */}
-      {currentStep >= 2 && (
-        <div className="block lg:hidden px-2">
-          <Progress value={progress} className="h-1 bg-slate-700/70" />
-        </div>
-      )}
-
-      {/* Conversor grid y progreso */}
-      <div className="relative">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-3 items-start">
-          {/* Progreso circular */}
-          {currentStep >= 2 && (
-            <div className="hidden lg:flex lg:col-span-12 justify-end">
-              <div className="sticky top-2 right-2 z-10">
-                <CircularProgress value={progress} size={56} strokeWidth={8} label="Progreso" />
-              </div>
-            </div>
-          )}
+      {/* Steps */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 lg:gap-6">
         {/* Step 1: Upload & AI Optimizer */}
         <div className="lg:col-span-3">
-          <Card className="card-brand">
-            <CardHeader className="p-3">
+          <Card>
+            <CardHeader>
               <CardTitle className="flex items-center justify-center text-center text-gray-900 dark:text-white">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-3 text-base font-bold leading-none font-mono ${
                   currentStep >= 2 && !isAnalyzing ? 'bg-green-500 text-white' : 'bg-gray-400 dark:bg-slate-600 text-gray-700 dark:text-slate-300'
@@ -302,7 +249,7 @@ export const SafeConversor: React.FC = () => {
                 <span>Subir Archivo & IA</span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-3">
+            <CardContent>
               {currentStep === 1 ? (
                 <FileUploader
                   onFileSelect={handleFileSelect}
@@ -342,8 +289,8 @@ export const SafeConversor: React.FC = () => {
 
         {/* Step 2: Configure */}
         <div className="lg:col-span-6">
-          <Card className="card-brand">
-            <CardHeader className="p-3">
+          <Card>
+            <CardHeader>
               <CardTitle className="flex items-center justify-between text-center relative text-gray-900 dark:text-white">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center text-base font-bold leading-none font-mono ${
                   currentStep >= 3 ? 'bg-green-500 text-white' : 'bg-gray-400 dark:bg-slate-600 text-gray-700 dark:text-slate-300'
@@ -354,7 +301,7 @@ export const SafeConversor: React.FC = () => {
                 <div className="w-10"></div> {/* Spacer para balance */}
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-3">
+            <CardContent>
               {currentStep >= 2 ? (
                 <div className="space-y-4">
                   {currentStep === 2 && isAnalyzing && (
@@ -403,13 +350,13 @@ export const SafeConversor: React.FC = () => {
                               <div className="flex gap-3">
                                 <button 
                                   onClick={handleConfirmConversion}
-                                  className="btn btn-brand text-sm"
+                                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                                 >
                                   ✅ Confirmar Conversión
                                 </button>
                                 <button 
                                   onClick={handleChangeSelection}
-                                  className="btn btn-secondary text-sm"
+                                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium"
                                 >
                                   🔄 Cambiar Selección
                                 </button>
@@ -435,8 +382,8 @@ export const SafeConversor: React.FC = () => {
 
         {/* Step 3: Convert & Download */}
         <div className="lg:col-span-3">
-          <Card className="card-brand">
-            <CardHeader className="p-3">
+          <Card>
+            <CardHeader>
               <CardTitle className="flex items-center justify-center text-center text-gray-900 dark:text-white">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-3 text-base font-bold leading-none font-mono ${
                   currentStep === 3 ? 'bg-green-500 text-white' : 'bg-gray-400 dark:bg-slate-600 text-gray-700 dark:text-slate-300'
@@ -446,7 +393,7 @@ export const SafeConversor: React.FC = () => {
                 <span>Convertir & Descargar</span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-3">
+            <CardContent>
               {currentStep === 3 ? (
                 <div className="space-y-4">
                   {!isDownloaded ? (
@@ -461,7 +408,7 @@ export const SafeConversor: React.FC = () => {
                       </p>
                       <button 
                         onClick={handleDownload}
-                        className="btn btn-success w-full"
+                        className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm w-full"
                       >
                         📥 Descargar {targetFormat?.toUpperCase()}
                       </button>
@@ -481,13 +428,13 @@ export const SafeConversor: React.FC = () => {
                       <div className="space-y-2">
                         <button 
                           onClick={handleDownload}
-                          className="btn btn-success w-full"
+                          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm w-full"
                         >
                           📥 Descargar de nuevo
                         </button>
                         <button 
                           onClick={handleNewConversion}
-                          className="btn btn-secondary w-full"
+                          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm w-full"
                         >
                           🔄 Nueva Conversión
                         </button>
@@ -504,11 +451,10 @@ export const SafeConversor: React.FC = () => {
             </CardContent>
           </Card>
         </div>
-        </div>
       </div>
 
         {/* Debug Info */}
-        <div className="bg-green-500/30 dark:bg-green-500/30 border border-green-500/30 dark:border-green-500/30 rounded-lg p-4">
+        <div className="bg-green-500/10 dark:bg-green-500/10 border border-green-500/30 dark:border-green-500/30 rounded-lg p-4">
           <h3 className="text-green-600 dark:text-green-400 font-semibold mb-2">✅ Conversor Seguro - 3 Pasos</h3>
           <p className="text-green-700 dark:text-green-300 text-sm">
             Paso: {currentStep} | Archivo: {selectedFile?.name || 'Ninguno'} | Formato: {targetFormat || 'No seleccionado'} | 
@@ -523,6 +469,3 @@ export const SafeConversor: React.FC = () => {
     </div>
   );
 };
-
-
-

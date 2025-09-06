@@ -267,7 +267,43 @@ const LandingPage: React.FC<LandingPageProps> = ({ onEnterApp }) => {
 
             {/* Actions - Extremo derecho */}
             <div className="flex items-center space-x-3 flex-shrink-0">
-            {/* Theme Selector removed. Theme is controlled globally from Header toggle. */}
+              {/* Theme Selector */}
+              <div className="relative theme-selector">
+                <button
+                  onClick={() => setThemeMenuOpen(!themeMenuOpen)}
+                  className="p-2 text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+                >
+                  {theme === 'light' && <Sun className="w-5 h-5" />}
+                  {theme === 'dark' && <Moon className="w-5 h-5" />}
+                  {theme === 'auto' && <Monitor className="w-5 h-5" />}
+                </button>
+                
+                {themeMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 theme-menu">
+                    <button
+                      onClick={() => handleThemeChange('light')}
+                      className="w-full px-4 py-2 text-left flex items-center space-x-2 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100"
+                    >
+                      <Sun className="w-4 h-4" />
+                      <span>Claro</span>
+                    </button>
+                    <button
+                      onClick={() => handleThemeChange('dark')}
+                      className="w-full px-4 py-2 text-left flex items-center space-x-2 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100"
+                    >
+                      <Moon className="w-4 h-4" />
+                      <span>Oscuro</span>
+                    </button>
+                    <button
+                      onClick={() => handleThemeChange('auto')}
+                      className="w-full px-4 py-2 text-left flex items-center space-x-2 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100"
+                    >
+                      <Monitor className="w-4 h-4" />
+                      <span>Automático</span>
+                    </button>
+                  </div>
+                )}
+              </div>
 
               {/* App Button */}
               <button

@@ -4,8 +4,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './auth/AuthContext';
 import MainApp from './components/MainApp';
 import './index.css';
-/* Import brand-specific styles */
-import './styles/brand-styles.css';
 
 const container = document.getElementById('root');
 if (!container) throw new Error('Root container not found');

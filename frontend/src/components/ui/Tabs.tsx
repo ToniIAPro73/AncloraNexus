@@ -53,8 +53,3 @@ export const TabsComposition: React.FC<TabsCompositionProps> & { Tab: React.FC<T
 TabsComposition.Tab = ({ children }: TabProps) => <>{children}</>;
 TabsComposition.Tab.displayName = 'Tab';
 
-// Componente TabsContent para compatibilidad
-export const TabsContent: React.FC<{ children: React.ReactNode; value: string; className?: string }> = ({ children, className = '' }) => (
-  <div className={className}>{children}</div>
-);
-

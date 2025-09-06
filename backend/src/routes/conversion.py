@@ -32,7 +32,7 @@ try:
     from src.services.conversion_optimizer import conversion_optimizer
     OPTIMIZER_AVAILABLE = True
 except ImportError:
-    OPTIMIZER_AVAILABLE = False
+    OPTIMIZER_AVAILABLE = False, validate_and_classify
 from src.models.conversion_history import ConversionHistory
 from src.models.conversion_log import ConversionLog
 import os

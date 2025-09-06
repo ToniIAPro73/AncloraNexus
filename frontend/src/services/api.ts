@@ -19,11 +19,9 @@ export interface RegisterData {
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
 const WS_BASE_URL = import.meta.env.VITE_WS_BASE_URL || 'http://localhost:8000';
 
-if (import.meta.env.DEV) {
-  console.log('API_BASE_URL:', API_BASE_URL);
-  console.log('WS_BASE_URL:', WS_BASE_URL);
-  console.log('VITE_API_BASE_URL env:', import.meta.env.VITE_API_BASE_URL);
-}
+console.log('API_BASE_URL:', API_BASE_URL);
+console.log('WS_BASE_URL:', WS_BASE_URL);
+console.log('VITE_API_BASE_URL env:', import.meta.env.VITE_API_BASE_URL);
 
 // --- Funciones de Ayuda para el Token ---
 const setAuthToken = (token: string) => {
@@ -233,7 +231,7 @@ export const apiService = {
 
   purchaseCredits: async (amount: number): Promise<any> => {
     const token = getAuthToken();
-    const response = await fetch(`${API_BASE_URL}/credits/purchase`, {
+    const response = await fetch(`${API_BASE_URL}/billing/purchase`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -247,7 +245,7 @@ export const apiService = {
 
   upgradePlan: async (planId: string): Promise<any> => {
     const token = getAuthToken();
-    const response = await fetch(`${API_BASE_URL}/credits/upgrade-plan`, {
+    const response = await fetch(`${API_BASE_URL}/billing/upgrade`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,

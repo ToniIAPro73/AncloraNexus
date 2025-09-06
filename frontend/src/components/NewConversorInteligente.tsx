@@ -1,10 +1,9 @@
 // frontend/src/components/NewConversorInteligente.tsx
 import React, { useState, useCallback } from 'react';
 import { Card, CardHeader, CardTitle, CardContent, Badge, FileUpload, StepProgress, Progress } from './ui';
-import {
-  FileUp, FileBarChart, Settings, Download, ArrowRight, Check, Loader, Brain, Zap, Eye
+import { 
+  FileUp, FileBarChart, Settings, Download, ArrowRight, Check, Loader
 } from 'lucide-react';
-import AIContentAnalysis from './AIContentAnalysis';
 
 interface ConversionStepProps {
   number: number;
@@ -27,13 +26,9 @@ const ConversionStep: React.FC<ConversionStepProps> = ({
   const glowEffect = isActive || isCompleted;
 
   return (
-    <Card
+    <Card 
       variant={stepVariant}
-      className={`
-        transition-all duration-300 backdrop-blur-md shadow-xl
-        bg-slate-800/90 border border-slate-700/50
-        ${isActive ? 'transform scale-102 shadow-2xl' : ''}
-      `}
+      className={`transition-all duration-300 ${isActive ? 'transform scale-102' : ''}`}
       borderGlow={glowEffect}
     >
       <CardHeader className="flex items-center justify-between">
@@ -111,12 +106,9 @@ const PopularConversion: React.FC<PopularConversionProps> = ({
   onClick,
   popular = false
 }) => (
-  <Card
-    variant="dark"
-    className="bg-slate-800/90 backdrop-blur-md border border-slate-700/50 shadow-xl hover:shadow-2xl transition-all duration-300"
-  >
-    <div
-      className="cursor-pointer hover:bg-slate-700/40 group transition-all duration-300"
+  <Card variant="dark">
+    <div 
+      className="cursor-pointer hover:bg-slate-800/60 group"
       onClick={onClick}
     >
     <CardContent className="p-4 flex flex-col items-center">
@@ -154,94 +146,22 @@ const PopularConversion: React.FC<PopularConversionProps> = ({
   </Card>
 );
 
-interface AnalysisData {
-  file_type: string;
-  content_type: string;
-  complexity_score: number;
-  quality_score: number;
-  size_mb: number;
-  content_stats: {
-    page_count: number;
-    word_count: number;
-    image_count: number;
-    table_count: number;
-    has_forms: boolean;
-    has_hyperlinks: boolean;
-    has_embedded_media: boolean;
-    text_to_image_ratio: number;
-  };
-  recommendations: {
-    formats: Array<{
-      format: string;
-      reason: string;
-      priority: 'high' | 'medium' | 'low';
-    }>;
-    optimizations: string[];
-    quality_issues: string[];
-  };
-  metadata: Record<string, any>;
-}
-
 export const NewConversorInteligente: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [targetFormat, setTargetFormat] = useState<string>('');
   const [isConverting, setIsConverting] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
-  const [analysisData, setAnalysisData] = useState<AnalysisData | null>(null);
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [showAnalysis, setShowAnalysis] = useState(false);
-  // Función para analizar archivo con IA
-  const analyzeFile = useCallback(async (file: File) => {
-    if (!file) return;
-
-    setIsAnalyzing(true);
-    try {
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const response = await fetch('/api/ai-analysis/analyze-file', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        setAnalysisData(result.analysis);
-        setShowAnalysis(true);
-
-        // Auto-seleccionar el formato más recomendado
-        if (result.analysis.recommendations.formats.length > 0) {
-          const topRecommendation = result.analysis.recommendations.formats[0];
-          setTargetFormat(topRecommendation.format);
-        }
-
-        setCurrentStep(3);
-      } else {
-        console.error('Error analyzing file:', response.statusText);
-        setCurrentStep(3); // Continuar sin análisis
-      }
-    } catch (error) {
-      console.error('Error analyzing file:', error);
-      setCurrentStep(3); // Continuar sin análisis
-    } finally {
-      setIsAnalyzing(false);
-    }
-  }, []);
-
   // Simplified file handling using our FileUpload component
   const handleFileSelect = useCallback((file: File) => {
     if (!file) return;
     setSelectedFile(file);
-    setAnalysisData(null);
-    setShowAnalysis(false);
     setCurrentStep(2);
-
-    // Iniciar análisis IA automáticamente
-    analyzeFile(file);
-  }, [analyzeFile]);
+    
+    // Simular análisis
+    setTimeout(() => {
+      setCurrentStep(3);
+    }, 2000);
+  }, []);
 
   const handleConvert = useCallback(() => {
     if (!selectedFile || !targetFormat) return;
@@ -264,10 +184,10 @@ export const NewConversorInteligente: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto space-y-8 relative z-10">
+    <div className="max-w-7xl mx-auto space-y-8">
       {/* Header principal */}
       <div className="text-center animate-in fade-in slide-in-from-top duration-700 space-y-4 mb-8">
-        <div className="inline-flex items-center justify-center p-1.5 rounded-full bg-slate-800/90 backdrop-blur-md border border-slate-700/50 shadow-xl mb-4">
+        <div className="inline-flex items-center justify-center p-1.5 rounded-full bg-gradient-to-r from-primary/30 via-secondary/30 to-primary/30 mb-4">
           <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center shadow-xl shadow-primary/20">
             <Settings size={28} className="text-white animate-pulse" />
           </div>
@@ -297,10 +217,10 @@ export const NewConversorInteligente: React.FC = () => {
       {/* Indicador de progreso */}
       <div className="flex justify-center mb-8">
         <div className="w-full max-w-xl">
-          <StepProgress
-            steps={4}
-            currentStep={currentStep}
-            labels={['Subir', 'Análisis IA', 'Configurar', 'Descargar']}
+          <StepProgress 
+            steps={4} 
+            currentStep={currentStep} 
+            labels={['Subir', 'Configurar', 'Procesar', 'Descargar']}
             className="animate-in fade-in duration-500"
           />
         </div>
@@ -351,53 +271,30 @@ export const NewConversorInteligente: React.FC = () => {
         <ConversionStep
           number={2}
           title="Análisis IA"
-          icon={<Brain size={20} className="text-blue-400" />}
+          icon="🤖"
           isActive={currentStep === 2}
           isCompleted={currentStep > 2}
         >
           {currentStep === 2 ? (
             <div className="text-center py-4">
-              <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
-              <p className="text-gray-300 text-sm flex items-center justify-center gap-2">
-                <Brain size={16} className="text-blue-400" />
-                Analizando con IA...
-              </p>
-              <p className="text-xs text-gray-500 mt-1">Detectando contenido y generando recomendaciones</p>
+              <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+              <p className="text-gray-300 text-sm">Analizando archivo...</p>
+              <p className="text-xs text-gray-500 mt-1">Esto puede tomar unos segundos</p>
             </div>
           ) : currentStep > 2 ? (
-            <div className="text-sm space-y-2">
-              <p className="text-gray-400 mb-2 flex items-center gap-2">
-                <Check size={16} className="text-green-400" />
-                Análisis IA completado
-              </p>
-              {analysisData && (
-                <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-3 space-y-2">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-blue-400">Tipo:</span>
-                    <span className="text-white">{analysisData.content_type.replace('_', ' ')}</span>
-                  </div>
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-blue-400">Complejidad:</span>
-                    <span className="text-white">{analysisData.complexity_score.toFixed(0)}/100</span>
-                  </div>
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-blue-400">Calidad:</span>
-                    <span className="text-white">{analysisData.quality_score.toFixed(0)}/100</span>
-                  </div>
-                  {analysisData.recommendations.formats.length > 0 && (
-                    <div className="text-xs">
-                      <span className="text-blue-400">Recomendado:</span>
-                      <span className="text-green-400 ml-1 font-medium">
-                        {analysisData.recommendations.formats[0].format.toUpperCase()}
-                      </span>
-                    </div>
-                  )}
+            <div className="text-sm">
+              <p className="text-gray-400 mb-2">Análisis completado</p>
+              <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-3">
+                <div className="flex items-center text-green-400 text-xs">
+                  <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Archivo analizado correctamente
                 </div>
-              )}
+              </div>
             </div>
           ) : (
             <div className="text-sm text-gray-500 text-center py-4">
-              <Eye size={20} className="mx-auto mb-2 text-gray-600" />
               Esperando archivo...
             </div>
           )}
@@ -413,42 +310,6 @@ export const NewConversorInteligente: React.FC = () => {
         >
           {currentStep >= 3 ? (
             <div className="space-y-4">
-              {/* Recomendaciones IA */}
-              {analysisData && analysisData.recommendations.formats.length > 0 && (
-                <div className="mb-4">
-                  <label className="flex items-center gap-2 text-sm text-blue-400 mb-2">
-                    <Zap size={14} />
-                    Recomendaciones IA
-                  </label>
-                  <div className="space-y-2">
-                    {analysisData.recommendations.formats.slice(0, 3).map((rec, index) => (
-                      <div
-                        key={index}
-                        className={`p-2 rounded-lg border cursor-pointer transition-all ${
-                          targetFormat === rec.format
-                            ? 'border-blue-500 bg-blue-500/10'
-                            : 'border-slate-600 bg-slate-700/30 hover:border-slate-500'
-                        }`}
-                        onClick={() => setTargetFormat(rec.format)}
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="text-white font-medium text-sm">
-                            {rec.format.toUpperCase()}
-                          </span>
-                          <Badge
-                            variant={rec.priority === 'high' ? 'default' : 'secondary'}
-                            className="text-xs"
-                          >
-                            {rec.priority}
-                          </Badge>
-                        </div>
-                        <p className="text-xs text-gray-400 mt-1">{rec.reason}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
               <div>
                 <label className="block text-sm text-gray-400 mb-2">Formato de salida</label>
                 <select
@@ -462,10 +323,6 @@ export const NewConversorInteligente: React.FC = () => {
                   <option value="png">PNG</option>
                   <option value="pdf">PDF</option>
                   <option value="gif">GIF</option>
-                  <option value="webp">WEBP</option>
-                  <option value="html">HTML</option>
-                  <option value="txt">TXT</option>
-                  <option value="md">Markdown</option>
                 </select>
               </div>
               
@@ -530,34 +387,6 @@ export const NewConversorInteligente: React.FC = () => {
           )}
         </ConversionStep>
       </div>
-
-      {/* Análisis IA Completo */}
-      {showAnalysis && analysisData && (
-        <div className="mt-12">
-          <div className="flex justify-between items-center mb-6">
-            <div>
-              <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-                <Brain className="text-blue-400" size={28} />
-                Análisis IA Completo
-              </h2>
-              <p className="text-slate-400 text-sm">Insights detallados sobre tu archivo</p>
-            </div>
-            <button
-              onClick={() => setShowAnalysis(!showAnalysis)}
-              className="text-slate-400 hover:text-white transition-colors"
-            >
-              {showAnalysis ? 'Ocultar' : 'Mostrar'} Análisis
-            </button>
-          </div>
-
-          <AIContentAnalysis
-            analysisData={analysisData}
-            isLoading={isAnalyzing}
-            onAnalyze={() => selectedFile && analyzeFile(selectedFile)}
-            fileName={selectedFile?.name}
-          />
-        </div>
-      )}
 
       {/* Conversiones populares */}
       <div className="mt-16">

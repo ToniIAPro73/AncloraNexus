@@ -53,18 +53,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   }, [activeTab]);
 
   return (
-    <div
-      className="min-h-screen relative"
-      style={{
-        backgroundImage: 'url(/images/backgrounds/bg15.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'fixed'
-      }}
-    >
-      {/* Overlay ajustado al tema para mejor contraste */}
-      <div className="absolute inset-0 app-overlay backdrop-blur-md" />
+    <div className="min-h-screen bg-slate-900 relative">{/* Fondo simple y uniforme */}
 
       {/* Sidebar */}
       <Sidebar
@@ -85,7 +74,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
       {/* Capa negra en mÃ³vil al abrir menÃº */}
       {isMobile && !sidebarCollapsed && (
         <div
-          className="fixed inset-0 app-overlay z-30 backdrop-blur-sm"
+          className="fixed inset-0 bg-black/70 z-30 backdrop-blur-sm"
           onClick={() => setSidebarCollapsed(true)}
         />
       )}
@@ -97,8 +86,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
         role="main"
         aria-label="Contenido principal"
         className={`
-          app-main pt-20 min-h-screen relative z-10 transition-all duration-300 ease-in-out
-          ${sidebarCollapsed ? 'ml-0' : 'ml-0 md:ml-[var(--sidebar-width)]'}
+          pt-20 min-h-screen relative z-10 transition-all duration-300 ease-in-out
+          ${sidebarCollapsed ? 'ml-0' : 'ml-0 md:ml-72'}
           px-4 md:px-6 pb-16
         `}
       >
@@ -121,5 +110,4 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
     </div>
   );
 };
-
 

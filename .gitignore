@@ -90,7 +90,6 @@ temp_ci_fix.txt
 
 # Build artifacts
 frontend/dist/
-frontend/dist/**
 
 # Cache directories
 .idx/
@@ -99,8 +98,6 @@ frontend/dist/**
 
 # Database files
 backend/src/models/database/*.db
-backend/.data/*.db
-anclora.db
 
 # Screenshots and images (temporary)
 *.png

@@ -19,40 +19,54 @@ export const Header: React.FC<HeaderProps> = ({
   const { user, logout } = useAuth();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => (
-    window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-  ));
+  const [theme, setTheme] = useState<'light' | 'dark' | 'auto'>('dark');
+  const [themeMenuOpen, setThemeMenuOpen] = useState(false);
 
   const toggleUserMenu = () => setUserMenuOpen(!userMenuOpen);
   const toggleNotifications = () => setNotificationsOpen(!notificationsOpen);
 
-  const applyTheme = (newTheme: 'light' | 'dark') => {
-    document.documentElement.setAttribute('data-theme', newTheme);
+  const applyTheme = (newTheme: 'light' | 'dark' | 'auto') => {
+    let effectiveTheme = newTheme;
+    if (newTheme === 'auto') {
+      effectiveTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    
+    if (effectiveTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
   };
 
-  const toggleLightDark = () => {
-    // Determinar el tema efectivo actual a partir del atributo
-    const current = (document.documentElement.getAttribute('data-theme') as 'light' | 'dark') || 'light';
-    const next: 'light' | 'dark' = current === 'light' ? 'dark' : 'light';
-    setTheme(next);
-    localStorage.setItem('theme', next);
-    applyTheme(next);
+  const handleThemeChange = (newTheme: 'light' | 'dark' | 'auto') => {
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    applyTheme(newTheme);
+    setThemeMenuOpen(false);
   };
-
-  // Eliminado menú de selección de tema; se mantiene sólo el toggle rápido
 
   useEffect(() => {
-    const saved = localStorage.getItem('theme') as 'light' | 'dark' | null;
-    const initial = saved ?? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    setTheme(initial);
-    applyTheme(initial);
+    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | 'auto' || 'dark';
+    setTheme(savedTheme);
+    applyTheme(savedTheme);
+
+    // Close theme menu when clicking outside
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (!target.closest('.theme-selector') && !target.closest('.theme-menu')) {
+        setThemeMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   return (
     <header
       role="banner"
       aria-label="Header principal"
-      className="fixed top-0 left-0 right-0 h-16 app-header backdrop-blur-md shadow-xl z-20 border-b"
+      className="fixed top-0 left-0 right-0 h-16 bg-slate-800/80 backdrop-blur-md shadow-md z-20 border-b border-slate-700/50"
     >
       <div className="flex items-center justify-between h-full px-4">
         {/* Botón menú y título de la sección */}
@@ -84,20 +98,44 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="text-sm font-medium">{user?.credits || 100} créditos</span>
           </div>
 
-          {/* Toggle rápido de tema */}
-          <button
-            onClick={toggleLightDark}
-            className="p-2 rounded-full bg-slate-800 border border-slate-700/50 hover:bg-slate-700 transition-colors"
-            aria-label="Alternar tema claro/oscuro"
-            title="Alternar tema claro/oscuro"
-          >
-            {((document?.documentElement?.getAttribute('data-theme') || 'light') === 'dark') ? (
-              <Moon size={18} className="text-slate-300" />
-            ) : (
-              <Sun size={18} className="text-slate-300" />
+          {/* Selector de tema */}
+          <div className="relative theme-selector">
+            <button
+              onClick={() => setThemeMenuOpen(!themeMenuOpen)}
+              className="p-2 rounded-full bg-slate-800 border border-slate-700/50 hover:bg-slate-700 transition-colors"
+              aria-label="Cambiar tema"
+            >
+              {theme === 'light' && <Sun size={18} className="text-slate-300" />}
+              {theme === 'dark' && <Moon size={18} className="text-slate-300" />}
+              {theme === 'auto' && <Monitor size={18} className="text-slate-300" />}
+            </button>
+            
+            {themeMenuOpen && (
+              <div className="absolute right-0 mt-2 w-40 bg-slate-800 rounded-lg shadow-lg border border-slate-700/50 z-50 theme-menu">
+                <button
+                  onClick={() => handleThemeChange('light')}
+                  className="w-full px-4 py-2 text-left flex items-center space-x-2 hover:bg-slate-700/50 text-slate-200 rounded-t-lg"
+                >
+                  <Sun className="w-4 h-4" />
+                  <span>Claro</span>
+                </button>
+                <button
+                  onClick={() => handleThemeChange('dark')}
+                  className="w-full px-4 py-2 text-left flex items-center space-x-2 hover:bg-slate-700/50 text-slate-200"
+                >
+                  <Moon className="w-4 h-4" />
+                  <span>Oscuro</span>
+                </button>
+                <button
+                  onClick={() => handleThemeChange('auto')}
+                  className="w-full px-4 py-2 text-left flex items-center space-x-2 hover:bg-slate-700/50 text-slate-200 rounded-b-lg"
+                >
+                  <Monitor className="w-4 h-4" />
+                  <span>Sistema</span>
+                </button>
+              </div>
             )}
-          </button>
-          {/* Selector de tema eliminado */}
+          </div>
 
           {/* Notificaciones */}
           <div className="relative">
